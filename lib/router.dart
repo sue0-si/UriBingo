@@ -2,9 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/view/page/main_page.dart';
 import 'package:leute/view/page/my_food_detail.dart';
 import 'package:leute/view/page/login_page.dart';
-import 'package:leute/view/page/main_page.dart';
 import 'package:leute/view/page/signup_page.dart';
-
 import 'refrige_detail/screen/refrige_detail_screen.dart';
 
 final router = GoRouter(initialLocation: '/', routes: [
@@ -12,11 +10,7 @@ final router = GoRouter(initialLocation: '/', routes: [
 
   GoRoute(
     path: '/myfooddetail',
-    builder: (context, state) => MyFoodDetail(
-      registerDate: DateTime.now().toLocal().toString(),
-      remainPeriod: 02,
-      itemImage: 'assets/images/asset.png',
-    ),
+    builder: (context, state) => const MyFoodDetail(),
   ),
   GoRoute(
     path: '/login',
