@@ -9,14 +9,6 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: TextButton(
-        onPressed: () {
-          context.push(Uri(path: '/login').toString());
-        },
-        child: Text('로그인화면으로'),
-      )),
-    );
+    return Scaffold();
   }
 }
