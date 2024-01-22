@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:leute/view/page/food_image_zoom.dart';
 import 'package:leute/view/page/main_page.dart';
 import 'package:leute/view/page/my_food_detail.dart';
 import 'package:leute/view/page/login_page.dart';
@@ -8,11 +7,7 @@ import 'package:leute/view/page/signup_page.dart';
 
 final router = GoRouter(initialLocation: '/', routes: [
   GoRoute(path: '/', builder: (context, state) => MainPage()),
-  GoRoute(
-    path: '/foodimagezoom',
-    builder: (context, state) =>
-        const FoodImageZoom(itemImage: 'assets/images/asset.png'),
-  ),
+
   GoRoute(
     path: '/myfooddetail',
     builder: (context, state) => MyFoodDetail(
@@ -29,4 +24,5 @@ final router = GoRouter(initialLocation: '/', routes: [
     path: '/signup',
     builder: (context, state) => const SignupPage(),
   ),
+
 ]);
