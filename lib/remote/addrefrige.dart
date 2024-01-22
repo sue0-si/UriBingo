@@ -8,7 +8,8 @@ class addRefrige extends StatefulWidget {
 }
 
 class _addRefrigeState extends State<addRefrige> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey =
+      GlobalKey<FormState>(); //textFormfield 사용하려면 설정해야함
 
   final _addNameController = TextEditingController();
 
@@ -22,7 +23,7 @@ class _addRefrigeState extends State<addRefrige> {
   String _selectedStoragePeriod = ''; //선택된보관기간
   String _selectedExtensionPeriod = ''; //선택된연장가능기간
 
-  String? _name;
+  String? _name; //validate 값 저장되는 변수
 
   @override
   void initState() {
@@ -34,6 +35,12 @@ class _addRefrigeState extends State<addRefrige> {
     });
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _addNameController.dispose();
+    super.dispose();
   }
 
   @override
@@ -270,8 +277,14 @@ class _addRefrigeState extends State<addRefrige> {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
                           //print('냉장고 이름: $_name');
+
+                          //_selectedColdstoragefmf 정수로 변환
+                          int coldStorageValue =
+                              int.parse(_selectedColdstorage);
+
+                          //함수 호출 시 정수 값을 전달
+                          inputAddRefrige(coldStorageValue);
                         }
-                        inputAddRefrige();
                       },
                       child: const Text(
                         '추가하기',
@@ -291,9 +304,10 @@ class _addRefrigeState extends State<addRefrige> {
     );
   }
 
-  Future<void> inputAddRefrige() async {
+  Future<void> inputAddRefrige(int coldStorageValue) async {
     setState(() {
       final name = _addNameController.text;
+      //
     });
   }
 }
