@@ -43,6 +43,7 @@ class _MainPageState extends State<MainPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           const Text(
                             '냉장고 이름',
@@ -50,7 +51,9 @@ class _MainPageState extends State<MainPage> {
                               fontSize: 25,
                             ),
                           ),
-                          Expanded(
+                          Container(
+                            width: 150,
+                            height: 40,
                             child: TextField(
                               decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
@@ -75,6 +78,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                       // 이 부분을 수정하여 두 번째 냉장고 이름을 표시하세요.
                       const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
                             '냉장고 칸수',
@@ -82,21 +86,22 @@ class _MainPageState extends State<MainPage> {
                               fontSize: 25,
                             ),
                           ),
-                          // DropdownButton(
-                          //     value: _selectedCompartments,
-                          //     items: _numberOfCompartments
-                          //         .map((e) => DropdownMenuItem(
-                          //               value: e,
-                          //               child: Text(e),
-                          //             )).toList(),
-                          //     onChanged: (value) {
-                          //       setState(() {
-                          //         _selectedCompartments = value!;
-                          //       });
-                          //     }),
+                          DropdownButton(
+                              value: _selectedCompartments,
+                              items: _numberOfCompartments
+                                  .map((e) => DropdownMenuItem(
+                                        value: e,
+                                        child: Text(e),
+                                      )).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedCompartments = value!;
+                                });
+                              }),
                         ],
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
                             '냉동고 칸수',
@@ -107,6 +112,7 @@ class _MainPageState extends State<MainPage> {
                         ],
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
                             '보관기간',
@@ -117,6 +123,7 @@ class _MainPageState extends State<MainPage> {
                         ],
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
                             '연장가능기간',
