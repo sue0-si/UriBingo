@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:leute/screen/refrige_comp_screen.dart';
 
 import 'freezer_comp_screen.dart';
+import 'refrige_comp_screen.dart';
 
 class RefrigeDetail extends StatefulWidget {
   final int refrigeNum;
