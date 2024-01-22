@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../refrige_detail/data/mock_repository/refrige_repository.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -11,35 +8,17 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<Widget> sliverList = [];
+  List<Widget> fridges = [];
 
-  @override
-  void initState() {
-    final refrigeItems = RegisterdRefrigeRepository()
-        .getRefrigeDetail();
-
-    for (int i = 1; i <= refrigeItems.length; i++) {
-
-      sliverList
-          .add(makeFridge(refrigeItems[i-1].refrigeId));
-    }
-
-    super.initState();
-  }
-
-  Widget makeFridge(int refrigeNum) {
+  Widget makeFridge(int index) {
     return Container(
       width: 100,
-      height: 200,
+      height: 150,
       decoration: BoxDecoration(
-        border: Border.all(),
-      ),
-      child: GestureDetector(
-        onTap: () => context.go('/details', extra: refrigeNum),
-        child: Center(
-          child: Text(
-            '$refrigeNum번 냉장고',
-          ),
+          border: Border.all(), borderRadius: BorderRadius.circular(10)),
+      child: Center(
+        child: Text(
+          '${index+1}번 냉장고',
         ),
       ),
     );
@@ -49,23 +28,35 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('공용 냉장고')),
+        title: Center(
+          child: Text('공용 냉장고'),
+        ),
       ),
-      body: Row(
-        children: [
-          ...sliverList,
-          IconButton(
-            onPressed: () {
-              setState(() {
-                sliverList.add(makeFridge(sliverList.length+1));
-              });
-            },
-            icon: Icon(
-              Icons.add,
-              size: 50,
-            ),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisSpacing: 30,
+              crossAxisSpacing: 30,
+              childAspectRatio: 4 / 6),
+          itemCount: fridges.length + 1,
+          itemBuilder: (context, index) {
+            if (index == fridges.length) {
+              // Last item is the add button
+              return IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  fridges.add(makeFridge(index));
+                  setState(() {});
+                },
+              );
+            } else {
+              // Display the fridge container
+              return fridges[index];
+            }
+          },
+        ),
       ),
     );
   }
