@@ -41,95 +41,154 @@ class _MainPageState extends State<MainPage> {
                   alignment: Alignment.centerLeft,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                      
                         children: [
-                          const Text(
-                            '냉장고 이름',
-                            style: TextStyle(
-                              fontSize: 25,
+                          Expanded(
+                            child: const Text(
+                              '냉장고 이름',
+                              style: TextStyle(
+                                fontSize: 25,
+                              ),
                             ),
                           ),
-                          Container(
-                            width: 150,
-                            height: 40,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: const BorderSide(
-                                    width: 3,
-                                    color: Colors.green,
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              width: 150,
+                              height: 40,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(
+                                      width: 3,
+                                      color: Colors.green,
+                                    ),
                                   ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: const BorderSide(
-                                    width: 3,
-                                    color: Colors.green,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(
+                                      width: 3,
+                                      color: Colors.green,
+                                    ),
                                   ),
+                                  hintText: '이름을 입력하세요',
                                 ),
-                                hintText: '이름을 입력하세요',
                               ),
                             ),
                           ),
                         ],
                       ),
                       // 이 부분을 수정하여 두 번째 냉장고 이름을 표시하세요.
-                      const Row(
+                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
-                            '냉장고 칸수',
-                            style: TextStyle(
-                              fontSize: 25,
+                          Expanded(
+                            child: Text(
+                              '냉장고 칸수',
+                              style: TextStyle(
+                                fontSize: 25,
+                              ),
                             ),
                           ),
-                          DropdownButton(
-                              value: _selectedCompartments,
-                              items: _numberOfCompartments
-                                  .map((e) => DropdownMenuItem(
-                                        value: e,
-                                        child: Text(e),
-                                      )).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedCompartments = value!;
-                                });
-                              }),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            '냉동고 칸수',
-                            style: TextStyle(
-                              fontSize: 25,
-                            ),
+                          Expanded(
+                            child: DropdownButton(
+                                value: _selectedCompartments,
+                                items: _numberOfCompartments
+                                    .map((e) => DropdownMenuItem(
+                                          value: e,
+                                          child: Text(e.toString()),//int를 String으로 변환
+                                        )).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedCompartments = value!;
+                                  });
+                                }),
                           ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
-                            '보관기간',
-                            style: TextStyle(
-                              fontSize: 25,
+                          Expanded(
+                            child: Text(
+                              '냉동고 칸수',
+                              style: TextStyle(
+                                fontSize: 25,
+                              ),
                             ),
+                          ),
+                          Expanded(
+                            child: DropdownButton(
+                                value: _selectedCompartments,
+                                items: _numberOfCompartments
+                                    .map((e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(e.toString()),//int를 String으로 변환
+                                )).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedCompartments = value!;
+                                  });
+                                }),
                           ),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
-                            '연장가능기간',
-                            style: TextStyle(
-                              fontSize: 25,
+                          Expanded(
+                            child: Text(
+                              '보관기간',
+                              style: TextStyle(
+                                fontSize: 25,
+                              ),
                             ),
+                          ),
+                          Expanded(
+                            child: DropdownButton(
+                                value: _selectedCompartments,
+                                items: _numberOfCompartments
+                                    .map((e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(e.toString()),//int를 String으로 변환
+                                )).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedCompartments = value!;
+                                  });
+                                }),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              '연장가능기간',
+                              style: TextStyle(
+                                fontSize: 25,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: DropdownButton(
+                                value: _selectedCompartments,
+                                items: _numberOfCompartments
+                                    .map((e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(e.toString()),//int를 String으로 변환
+                                )).toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedCompartments = value!;
+                                  });
+                                }),
                           ),
                         ],
                       ),
