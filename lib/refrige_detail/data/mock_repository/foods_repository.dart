@@ -20,14 +20,14 @@ class RegisterdFoodsRepository {
       positionId: 1,
       foodId: 1,
       foodImage:
-      'https://wallpaperswide.com/download/mango_fruits-wallpaper-1920x1080.jpg',
+          'https://wallpaperswide.com/download/mango_fruits-wallpaper-1920x1080.jpg',
       userId: 1,
       userName: 'sungdae',
       registerDate: '2023-12-22 17:45',
       remainPeriod: 2,
     ),
     FoodDetail(
-      refrigeId: 1,
+      refrigeId: 2,
       freezed: false,
       positionId: 1,
       foodId: 2,
@@ -39,7 +39,7 @@ class RegisterdFoodsRepository {
       remainPeriod: 3,
     ),
     FoodDetail(
-      refrigeId: 1,
+      refrigeId: 2,
       freezed: true,
       positionId: 1,
       foodId: 3,
@@ -51,6 +51,18 @@ class RegisterdFoodsRepository {
       remainPeriod: 0,
     ),
     FoodDetail(
+      refrigeId: 2,
+      freezed: false,
+      positionId: 2,
+      foodId: 4,
+      foodImage:
+          'https://wallpaperswide.com/download/mango_fruits-wallpaper-1920x1080.jpg',
+      userId: 2,
+      userName: 'sangin',
+      registerDate: '2023-12-22 17:45',
+      remainPeriod: 2,
+    ),
+    FoodDetail(
       refrigeId: 1,
       freezed: false,
       positionId: 2,
@@ -68,19 +80,7 @@ class RegisterdFoodsRepository {
       positionId: 2,
       foodId: 4,
       foodImage:
-      'https://wallpaperswide.com/download/mango_fruits-wallpaper-1920x1080.jpg',
-      userId: 2,
-      userName: 'sangin',
-      registerDate: '2023-12-22 17:45',
-      remainPeriod: 2,
-    ),
-    FoodDetail(
-      refrigeId: 1,
-      freezed: false,
-      positionId: 2,
-      foodId: 4,
-      foodImage:
-      'https://wallpaperswide.com/download/mango_fruits-wallpaper-1920x1080.jpg',
+          'https://wallpaperswide.com/download/mango_fruits-wallpaper-1920x1080.jpg',
       userId: 2,
       userName: 'sangin',
       registerDate: '2023-12-22 17:45',
@@ -152,7 +152,7 @@ class RegisterdFoodsRepository {
       positionId: 4,
       foodId: 9,
       foodImage:
-      'https://wallpaperswide.com/download/mango_fruits-wallpaper-1920x1080.jpg',
+          'https://wallpaperswide.com/download/mango_fruits-wallpaper-1920x1080.jpg',
       userId: 5,
       userName: 'soohyun',
       registerDate: '2023-12-26 17:45',
@@ -162,6 +162,11 @@ class RegisterdFoodsRepository {
 
   List<FoodDetail> getFoodDetail(int num) {
     return foods.where((e) => e.refrigeId == num).toList();
+  }
+
+  List<FoodDetail> getMyFoodDetail(int userId) {
+    // final repository = RegisterdFoodsRepository();
+    return foods.where((e) => e.userId == userId).toList();
   }
 
   List<FoodDetail> filterFoods(List<FoodDetail> foodsToFilter,
