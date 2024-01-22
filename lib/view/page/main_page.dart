@@ -8,6 +8,59 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+        appBar: AppBar(
+          actions: [],
+        ),
+        body: Center(
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  Container(
+                    child: Text(
+                      '냉장고 이름',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      '냉장고 칸수',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      '냉동고 칸수',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      '보관기간',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      '연장가능기간',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ));
   }
 }
