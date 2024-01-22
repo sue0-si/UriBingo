@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:leute/styles/app_text_colors.dart';
 
 class LoginTextfield extends StatefulWidget {
+  final TextEditingController controller;
   final String hintText;
-  const LoginTextfield({super.key, required this.hintText});
+  const LoginTextfield(
+      {super.key, required this.hintText, required this.controller});
 
   @override
   State<LoginTextfield> createState() => _LoginTextfieldState();
 }
 
 class _LoginTextfieldState extends State<LoginTextfield> {
-  var controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
+      controller: widget.controller,
       onChanged: (text) {},
       keyboardType: TextInputType.text,
       maxLines: 1,

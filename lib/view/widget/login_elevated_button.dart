@@ -4,13 +4,15 @@ import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 
 class LoginElevatedButton extends StatelessWidget {
+  final Function() onPressed;
   final String childText;
-  const LoginElevatedButton({super.key, required this.childText});
+  const LoginElevatedButton(
+      {super.key, required this.childText, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       style: ButtonStyle(
           // 버튼크기조절
           minimumSize: MaterialStateProperty.all(Size(double.infinity, 52.h)),

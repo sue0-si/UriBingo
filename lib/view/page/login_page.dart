@@ -5,12 +5,30 @@ import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/login_elevated_button.dart';
 import 'package:leute/view/widget/login_textfield.dart';
+import 'package:leute/view_model/login_page_view_model.dart';
+import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var viewmodel = context.watch<LoginPageViewModel>();
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.all(8.0),
@@ -23,12 +41,19 @@ class LoginPage extends StatelessWidget {
             style: AppTextStyle.header28(color: AppColors.mainText),
           ),
           SizedBox(height: 8.h),
-          LoginTextfield(hintText: '이메일'),
+          LoginTextfield(
+            hintText: '이메일',
+            controller: emailController,
+          ),
           SizedBox(height: 8.h),
-          LoginTextfield(hintText: '비밀번호'),
+          LoginTextfield(
+            hintText: '비밀번호',
+            controller: passwordController,
+          ),
           SizedBox(height: 8.h),
           LoginElevatedButton(
             childText: '로그인하기',
+            onPressed: viewmodel.handleLoginButton,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -39,7 +64,7 @@ class LoginPage extends StatelessWidget {
                   onPressed: () {
                     context.push(Uri(path: '/signup').toString());
                   },
-                  child: Text('회원가입')),
+                  child: const Text('회원가입')),
             ],
           )
         ],
