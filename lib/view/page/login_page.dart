@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
+import 'package:leute/view/widget/login_elevated_button.dart';
 import 'package:leute/view/widget/login_textfield.dart';
 
 class LoginPage extends StatelessWidget {
@@ -17,42 +19,27 @@ class LoginPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Login',
+            '로그인',
             style: AppTextStyle.header28(color: AppColors.mainText),
           ),
-          SizedBox(
-            height: 8.h,
-          ),
-          LoginTextfield(hintText: 'Email'),
-          SizedBox(
-            height: 8.h,
-          ),
-          LoginTextfield(hintText: 'Password'),
-          SizedBox(
-            height: 8.h,
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            style: ButtonStyle(
-                // 버튼크기조절
-                minimumSize:
-                    MaterialStateProperty.all(Size(double.infinity, 52.h)),
-                //테두리 모양 조절
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10))),
-                backgroundColor:
-                    MaterialStateProperty.all(AppColors.mainButton)),
-            child: Text(
-              'Login',
-              style: AppTextStyle.body20B(color: AppColors.icon),
-            ),
+          SizedBox(height: 8.h),
+          LoginTextfield(hintText: '이메일'),
+          SizedBox(height: 8.h),
+          LoginTextfield(hintText: '비밀번호'),
+          SizedBox(height: 8.h),
+          LoginElevatedButton(
+            childText: '로그인하기',
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(onPressed: () {}, child: Text('아이디 찾기')),
               TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
-              TextButton(onPressed: () {}, child: Text('회원가입'))
+              TextButton(
+                  onPressed: () {
+                    context.push(Uri(path: '/signup').toString());
+                  },
+                  child: Text('회원가입')),
             ],
           )
         ],
