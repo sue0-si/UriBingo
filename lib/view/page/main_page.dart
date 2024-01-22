@@ -8,6 +8,6 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(body: Text('안녕하세요'),);
   }
 }
