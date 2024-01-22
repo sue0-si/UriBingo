@@ -1,0 +1,3 @@
+class ModelToAddRefrige {
+  String
+}

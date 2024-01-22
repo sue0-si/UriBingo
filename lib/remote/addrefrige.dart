@@ -8,6 +8,10 @@ class addRefrige extends StatefulWidget {
 }
 
 class _addRefrigeState extends State<addRefrige> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final _addNameController = TextEditingController();
+
   final _coldStorageOfCompartments = ['1칸', '2칸', '3칸', '4칸', '5칸']; //냉장고칸수
   final _frozenStorageOfCompartments = ['1칸', '2칸', '3칸', '4칸', '5칸']; //냉동고칸수
   final _storagePeriod = ['1일', '2일', '3일', '4일', '5일']; //보관기간
@@ -17,6 +21,8 @@ class _addRefrigeState extends State<addRefrige> {
   String _selectedFrozenStorage = ''; //선택된냉동칸수
   String _selectedStoragePeriod = ''; //선택된보관기간
   String _selectedExtensionPeriod = ''; //선택된연장가능기간
+
+  String? _name;
 
   @override
   void initState() {
@@ -65,32 +71,46 @@ class _addRefrigeState extends State<addRefrige> {
                             ),
                             Expanded(
                               flex: 1,
-                              child: TextField(
-                                //obscureText: true, 입력값을 안보여주고싶을때
-                                style: TextStyle(fontSize: 15),
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  contentPadding: const EdgeInsets.only(
-                                    left: 15,
-                                    top: 10,
-                                    bottom: 10,
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Colors.green,
+                              child: Form(
+                                key: _formKey,
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return ' 냉장고 이름을 입력하세요';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    //유효성 검사 후, 폼이 제출될 때 저장되는 콜백
+                                    _name = value;
+                                  },
+                                  controller: _addNameController,
+                                  //obscureText: true, 입력값을 안보여주고싶을때
+                                  style: TextStyle(fontSize: 15),
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    contentPadding: const EdgeInsets.only(
+                                      left: 15,
+                                      top: 10,
+                                      bottom: 10,
                                     ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Colors.green,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                        width: 1,
+                                        color: Colors.green,
+                                      ),
                                     ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: const BorderSide(
+                                        width: 1,
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                    //hintText: '이름을 입력하세요',
+                                    labelText: '이름을 입력하세요',
                                   ),
-                                  //hintText: '이름을 입력하세요',
-                                  labelText: '이름을 입력하세요',
                                 ),
                               ),
                             ),
@@ -129,6 +149,7 @@ class _addRefrigeState extends State<addRefrige> {
                                     onChanged: (value) {
                                       setState(() {
                                         _selectedColdstorage = value!;
+                                        print(_selectedColdstorage);
                                       });
                                     }),
                               ),
@@ -245,7 +266,13 @@ class _addRefrigeState extends State<addRefrige> {
                 Column(
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          //print('냉장고 이름: $_name');
+                        }
+                        inputAddRefrige();
+                      },
                       child: const Text(
                         '추가하기',
                         style: TextStyle(
@@ -262,5 +289,11 @@ class _addRefrigeState extends State<addRefrige> {
         ),
       ),
     );
+  }
+
+  Future<void> inputAddRefrige() async {
+    setState(() {
+      final name = _addNameController.text;
+    });
   }
 }
