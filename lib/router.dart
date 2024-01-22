@@ -4,16 +4,12 @@ import 'package:leute/view/page/my_food_detail.dart';
 import 'package:leute/view/page/login_page.dart';
 import 'package:leute/view/page/signup_page.dart';
 
-final router = GoRouter(initialLocation: '/', routes: [
-  GoRoute(path: '/', builder: (context, state) => MainPage()),
+final router = GoRouter(initialLocation: '/myfooddetail', routes: [
+  GoRoute(path: '/', builder: (context, state) => const MainPage()),
 
   GoRoute(
     path: '/myfooddetail',
-    builder: (context, state) => MyFoodDetail(
-      registerDate: DateTime.now().toLocal().toString(),
-      remainPeriod: 02,
-      itemImage: 'assets/images/asset.png',
-    ),
+    builder: (context, state) => const MyFoodDetail(),
   ),
   GoRoute(
     path: '/login',
