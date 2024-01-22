@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:leute/styles/app_text_colors.dart';
-import 'package:leute/styles/app_text_style.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class addRefrige extends StatefulWidget {
+  const addRefrige({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<addRefrige> createState() => _addRefrigeState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _addRefrigeState extends State<addRefrige> {
   final _numberOfCompartments = ['1칸', '2칸', '3칸', '4칸', '5칸'];
   String _selectedCompartments = '';
 
@@ -104,10 +101,10 @@ class _MainPageState extends State<MainPage> {
                                     value: _selectedCompartments,
                                     items: _numberOfCompartments
                                         .map((e) => DropdownMenuItem(
-                                      value: e,
-                                      child: Text(e
-                                          .toString()), //int를 String으로 변환
-                                    ))
+                                              value: e,
+                                              child: Text(e
+                                                  .toString()), //int를 String으로 변환
+                                            ))
                                         .toList(),
                                     isExpanded: true,
                                     onChanged: (value) {
@@ -139,9 +136,9 @@ class _MainPageState extends State<MainPage> {
                                     value: _selectedCompartments,
                                     items: _numberOfCompartments
                                         .map((e) => DropdownMenuItem(
-                                      value: e,
-                                      child: Text(e), //int를 String으로 변환
-                                    ))
+                                              value: e,
+                                              child: Text(e), //int를 String으로 변환
+                                            ))
                                         .toList(),
                                     isExpanded: true,
                                     onChanged: (value) {
@@ -173,9 +170,9 @@ class _MainPageState extends State<MainPage> {
                                     value: _selectedCompartments,
                                     items: _numberOfCompartments
                                         .map((e) => DropdownMenuItem(
-                                      value: e,
-                                      child: Text(e), //int를 String으로 변환
-                                    ))
+                                              value: e,
+                                              child: Text(e), //int를 String으로 변환
+                                            ))
                                         .toList(),
                                     isExpanded: true,
                                     onChanged: (value) {
@@ -208,9 +205,9 @@ class _MainPageState extends State<MainPage> {
                                     value: _selectedCompartments,
                                     items: _numberOfCompartments
                                         .map((e) => DropdownMenuItem(
-                                      value: e,
-                                      child: Text(e), //int를 String으로 변환
-                                    ))
+                                              value: e,
+                                              child: Text(e), //int를 String으로 변환
+                                            ))
                                         .toList(),
                                     isExpanded: true,
                                     onChanged: (value) {
