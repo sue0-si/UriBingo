@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import 'food_image_zoom.dart';
 
-
 class MyFoodDetail extends StatefulWidget {
   final String registerDate;
   final int remainPeriod;
@@ -37,11 +36,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
               width: 300,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: widget.itemImage.isNotEmpty
-                    ? AssetImage(widget.itemImage)
-                  : const AssetImage('assets/images/default_image.jpeg'),
-                  fit: BoxFit.cover
-                ),
+                    image: AssetImage(widget.itemImage), fit: BoxFit.cover),
               ),
             ),
           ),

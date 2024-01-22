@@ -12,13 +12,16 @@ class FoodImageZoom extends StatelessWidget {
         appBar: AppBar(
           leading:  IconButton(icon: const Icon(Icons.arrow_back),
             onPressed: () {
-context.go('/');
+context.go('/myfooddetail');
             },
           ),
         ),
-        body: Hero(
-          tag: 'image',
-          child: Image.asset(itemImage),
+        body: Center(
+          child: Hero(
+            tag: 'image',
+            child: Image.asset(itemImage, fit: BoxFit.fill),
+
+          ),
         ));
   }
 }

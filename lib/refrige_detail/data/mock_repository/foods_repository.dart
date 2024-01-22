@@ -146,6 +146,18 @@ class RegisterdFoodsRepository {
       registerDate: '2023-12-26 17:45',
       remainPeriod: 6,
     ),
+    FoodDetail(
+      refrigeId: 1,
+      freezed: false,
+      positionId: 4,
+      foodId: 9,
+      foodImage:
+      'https://wallpaperswide.com/download/mango_fruits-wallpaper-1920x1080.jpg',
+      userId: 5,
+      userName: 'soohyun',
+      registerDate: '2023-12-26 17:45',
+      remainPeriod: 6,
+    ),
   ];
 
   List<FoodDetail> getFoodDetail(int num) {

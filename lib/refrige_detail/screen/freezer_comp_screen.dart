@@ -24,16 +24,15 @@ class _FreezerCompScreenState extends State<FreezerCompScreen> {
     super.initState();
     final foodInfos =
         RegisterdFoodsRepository().getFoodDetail(widget.refrigeNum);
-    var refrigeItem =
-        RegisterdRefrigeRepository().getRefrigeDetail()[widget.refrigeNum-1];
+    var refrigeItem = RegisterdRefrigeRepository()
+        .getRefrigeDetail()[(widget.refrigeNum) - 1];
 
-    for (int i = 0; i < refrigeItem.freezerCompCount; i++) {
+    for (int i = 1; i <= refrigeItem.freezerCompCount; i++) {
       final samePositionFoodList =
-          RegisterdFoodsRepository().filterFoods(foodInfos, true, i + 1);
+          RegisterdFoodsRepository().filterFoods(foodInfos, true, i);
       sliverList
           .add(FoodThumbNailList(samePositionFoodList: samePositionFoodList));
     }
-
   }
 
   @override
