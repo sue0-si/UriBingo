@@ -8,14 +8,25 @@ class addRefrige extends StatefulWidget {
 }
 
 class _addRefrigeState extends State<addRefrige> {
-  final _numberOfCompartments = ['1칸', '2칸', '3칸', '4칸', '5칸'];
-  String _selectedCompartments = '';
+  final _coldStorageOfCompartments = ['1칸', '2칸', '3칸', '4칸', '5칸']; //냉장고칸수
+  final _frozenStorageOfCompartments = ['1칸', '2칸', '3칸', '4칸', '5칸']; //냉동고칸수
+  final _storagePeriod = ['1일', '2일', '3일', '4일', '5일']; //보관기간
+  final _extensionPeriod = ['1일', '2일', '3일', '4일', '5일']; //연장가능기간
+
+  String _selectedColdstorage = ''; //선택된냉장칸수
+  String _selectedFrozenStorage = ''; //선택된냉동칸수
+  String _selectedStoragePeriod = ''; //선택된보관기간
+  String _selectedExtensionPeriod = ''; //선택된연장가능기간
 
   @override
   void initState() {
     setState(() {
-      _selectedCompartments = _numberOfCompartments[0];
+      _selectedColdstorage = _coldStorageOfCompartments[0];
+      _selectedFrozenStorage = _frozenStorageOfCompartments[0];
+      _selectedStoragePeriod = _storagePeriod[0];
+      _selectedExtensionPeriod = _extensionPeriod[0];
     });
+
     super.initState();
   }
 
@@ -55,8 +66,15 @@ class _addRefrigeState extends State<addRefrige> {
                             Expanded(
                               flex: 1,
                               child: TextField(
+                                //obscureText: true, 입력값을 안보여주고싶을때
                                 style: TextStyle(fontSize: 15),
                                 decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: const EdgeInsets.only(
+                                    left: 15,
+                                    top: 10,
+                                    bottom: 10,
+                                  ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: const BorderSide(
@@ -71,12 +89,13 @@ class _addRefrigeState extends State<addRefrige> {
                                       color: Colors.green,
                                     ),
                                   ),
-                                  hintText: '이름을 입력하세요',
+                                  //hintText: '이름을 입력하세요',
+                                  labelText: '이름을 입력하세요',
                                 ),
                               ),
                             ),
                             SizedBox(
-                              width: 10,
+                              width: 25,
                             ),
                           ],
                         ),
@@ -98,8 +117,8 @@ class _addRefrigeState extends State<addRefrige> {
                               child: Container(
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
-                                    value: _selectedCompartments,
-                                    items: _numberOfCompartments
+                                    value: _selectedColdstorage,
+                                    items: _coldStorageOfCompartments
                                         .map((e) => DropdownMenuItem(
                                               value: e,
                                               child: Text(e
@@ -109,7 +128,7 @@ class _addRefrigeState extends State<addRefrige> {
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        _selectedCompartments = value!;
+                                        _selectedColdstorage = value!;
                                       });
                                     }),
                               ),
@@ -133,17 +152,17 @@ class _addRefrigeState extends State<addRefrige> {
                               child: Container(
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
-                                    value: _selectedCompartments,
-                                    items: _numberOfCompartments
+                                    value: _selectedFrozenStorage,
+                                    items: _frozenStorageOfCompartments
                                         .map((e) => DropdownMenuItem(
                                               value: e,
-                                              child: Text(e), //int를 String으로 변환
+                                              child: Text(e),
                                             ))
                                         .toList(),
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        _selectedCompartments = value!;
+                                        _selectedFrozenStorage = value!;
                                       });
                                     }),
                               ),
@@ -167,17 +186,17 @@ class _addRefrigeState extends State<addRefrige> {
                               child: Container(
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
-                                    value: _selectedCompartments,
-                                    items: _numberOfCompartments
+                                    value: _selectedStoragePeriod,
+                                    items: _storagePeriod
                                         .map((e) => DropdownMenuItem(
                                               value: e,
-                                              child: Text(e), //int를 String으로 변환
+                                              child: Text(e),
                                             ))
                                         .toList(),
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        _selectedCompartments = value!;
+                                        _selectedStoragePeriod = value!;
                                       });
                                     }),
                               ),
@@ -202,17 +221,17 @@ class _addRefrigeState extends State<addRefrige> {
                                 child: DropdownButton(
                                     elevation: 10,
                                     dropdownColor: Colors.green,
-                                    value: _selectedCompartments,
-                                    items: _numberOfCompartments
+                                    value: _selectedExtensionPeriod,
+                                    items: _extensionPeriod
                                         .map((e) => DropdownMenuItem(
                                               value: e,
-                                              child: Text(e), //int를 String으로 변환
+                                              child: Text(e),
                                             ))
                                         .toList(),
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        _selectedCompartments = value!;
+                                        _selectedExtensionPeriod = value!;
                                       });
                                     }),
                               ),

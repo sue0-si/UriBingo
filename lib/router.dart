@@ -5,7 +5,9 @@ import 'package:leute/view/page/login_page.dart';
 import 'package:leute/view/page/main_page.dart';
 import 'package:leute/view/page/signup_page.dart';
 
-final router = GoRouter(initialLocation: '/', routes: [
+import 'remote/addrefrige.dart';
+
+final router = GoRouter(initialLocation: '/addRefrige', routes: [
   GoRoute(path: '/', builder: (context, state) => MainPage()),
 
   GoRoute(
@@ -23,6 +25,10 @@ final router = GoRouter(initialLocation: '/', routes: [
   GoRoute(
     path: '/signup',
     builder: (context, state) => const SignupPage(),
+  ),
+  GoRoute(
+    path: '/addrefrige',
+    builder: (context, state) => const addRefrige(),
   ),
 
 ]);
