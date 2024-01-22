@@ -11,16 +11,12 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final ImagePicker picker = ImagePicker();
   XFile? photo;
+  final List<bool> _selected = [false, false];
+  int selectedIndex = 0;
 
   Future<void> pickImage() async {
     photo = await picker.pickImage(source: ImageSource.camera);
     setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    pickImage();
   }
 
   @override
@@ -37,8 +33,10 @@ class _RegisterPageState extends State<RegisterPage> {
               },
               child: photo == null
                   ? Container(
-                      height: MediaQuery.of(context).size.height / 2,
+                      height: MediaQuery.of(context).size.height / 3,
+                      width: double.infinity,
                       color: Colors.grey,
+                      child: const Icon(Icons.image_rounded, size: 100),
                     )
                   : FutureBuilder(
                       future: photo?.readAsBytes(),
@@ -60,10 +58,47 @@ class _RegisterPageState extends State<RegisterPage> {
                       },
                     ),
             ),
-            ElevatedButton(onPressed: () {}, child: Text('취소')),
-            ElevatedButton(onPressed: () {}, child: Text('등록하기')),
-            ElevatedButton(onPressed: () {}, child: Text('공용')),
-            ElevatedButton(onPressed: () {}, child: Text('미확인')),
+            Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton(onPressed: () {}, child: const Text('취소')),
+                      ElevatedButton(
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('등록되었습니다.'),
+                                duration: Duration(seconds: 3),
+                              ),
+                            );
+                          },
+                          child: const Text('등록하기')),
+                    ],
+                  ),
+                  const SizedBox(height: 32,),
+                  // 관리자만 보이는 버튼
+                  ToggleButtons(
+                      children: [
+                        const Text('공용'),
+                        const Text('미확인'),
+                      ],
+                      isSelected: _selected,
+                      color: Colors.black,
+                      selectedColor: Colors.deepPurple,
+                      onPressed: (int index) {
+                        setState(() {
+                          for (int i = 0; i < _selected.length; i++) {
+                            _selected[i] = i == index;
+                          }
+                        });
+                      }),
+                ],
+              ),
+            ),
           ],
         ),
       )),
