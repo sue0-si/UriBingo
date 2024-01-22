@@ -9,65 +9,75 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          actions: [],
+      appBar: AppBar(
+        actions: [],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Column(
+              children: [
+                Container(
+                  child: Text(
+                    '냉장고 이름',
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    '냉장고 칸수',
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    '냉동고 칸수',
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    '보관기간',
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    '연장가능기간',
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    '추가하기',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-        body: Center(
-          child: Column(
-            children: [
-              Column(
-                children: [
-                  Container(
-                    child: Text(
-                      '냉장고 이름',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Text(
-                      '냉장고 칸수',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Text(
-                      '냉동고 칸수',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Text(
-                      '보관기간',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Text(
-                      '연장가능기간',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        '추가하기',
-                        style:
-                            TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                      ))
-                ],
-              )
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }
