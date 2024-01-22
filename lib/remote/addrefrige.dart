@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leute/refrige_detail/data/refrige_model/refrige_model.dart';
 
 class addRefrige extends StatefulWidget {
   const addRefrige({super.key});
@@ -8,6 +9,16 @@ class addRefrige extends StatefulWidget {
 }
 
 class _addRefrigeState extends State<addRefrige> {
+
+  RefrigeDetail newRefrige = RefrigeDetail(
+    refrigeId: 0, // 적절한 값으로 수정
+    refrigeName: '', // 적절한 값으로 수정
+    refrigeCompCount: 0, // 적절한 값으로 수정
+    freezerCompCount: 0, // 적절한 값으로 수정
+    period: 0, // 적절한 값으로 수정
+    extentionPeriod: 0, // 적절한 값으로 수정
+  );
+
   final GlobalKey<FormState> _formKey =
       GlobalKey<FormState>(); //textFormfield 사용하려면 설정해야함
 
@@ -27,14 +38,12 @@ class _addRefrigeState extends State<addRefrige> {
 
   @override
   void initState() {
-    setState(() {
-      _selectedColdstorage = _coldStorageOfCompartments[0];
-      _selectedFrozenStorage = _frozenStorageOfCompartments[0];
-      _selectedStoragePeriod = _storagePeriod[0];
-      _selectedExtensionPeriod = _extensionPeriod[0];
-    });
-
     super.initState();
+
+    _selectedColdstorage = _coldStorageOfCompartments[0];
+    _selectedFrozenStorage = _frozenStorageOfCompartments[0];
+    _selectedStoragePeriod = _storagePeriod[0];
+    _selectedExtensionPeriod = _extensionPeriod[0];
   }
 
   @override
@@ -315,17 +324,25 @@ class _addRefrigeState extends State<addRefrige> {
     );
   }
 
-  Future<void> inputAddRefrige(
+  void inputAddRefrige(
     int coldStorageValue,
     int forzenStorageValue,
     int storagePeriodValue,
     int extentionPeriodValue,
+  ) {
 
-  ) async {
-    setState(() {
-      final name = _addNameController.text;
-      //
-    });
+    //RefrigeDetail? newRefrige;
+
+
+    /*
+    newRefrige!.refrigeName = _addNameController.text;
+    newRefrige!.refrigeCompCount = coldStorageValue;
+    newRefrige!.freezerCompCount = forzenStorageValue;
+    newRefrige!.period = storagePeriodValue;
+    newRefrige!.extentionPeriod = extentionPeriodValue;
+    */
+
+
     print(coldStorageValue);
     print(forzenStorageValue);
     print(storagePeriodValue);
