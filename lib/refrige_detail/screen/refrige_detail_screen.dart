@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'freezer_comp_screen.dart';
 import 'refrige_comp_screen.dart';
 
-class RefrigeDetail extends StatefulWidget {
+class RefrigeDetailScreen extends StatefulWidget {
   final int refrigeNum;
 
-  const RefrigeDetail({Key? key, required this.refrigeNum}) : super(key: key);
+  const RefrigeDetailScreen({Key? key, required this.refrigeNum}) : super(key: key);
 
   @override
-  State<RefrigeDetail> createState() => _RefrigeDetailState();
+  State<RefrigeDetailScreen> createState() => _RefrigeDetailScreenState();
 }
 
 
-class _RefrigeDetailState extends State<RefrigeDetail> {
+class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
   final PageController _pageController = PageController(initialPage: 1);
 
 

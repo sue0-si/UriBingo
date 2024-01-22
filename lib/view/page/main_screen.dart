@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../refrige_detail/data/mock_repository/refrige_repository.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -10,15 +13,29 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   List<Widget> fridges = [];
 
+  @override
+  void initState() {
+    final refrigeItems = RegisterdRefrigeRepository().getRefrigeDetail();
+
+    for (int i = 1; i <= refrigeItems.length; i++) {
+      fridges.add(makeFridge(refrigeItems[i - 1].refrigeId));
+    }
+
+    super.initState();
+  }
+
   Widget makeFridge(int index) {
-    return Container(
-      width: 100,
-      height: 150,
-      decoration: BoxDecoration(
-          border: Border.all(), borderRadius: BorderRadius.circular(10)),
-      child: Center(
-        child: Text(
-          '${index+1}번 냉장고',
+    return GestureDetector(
+      onTap: () => context.go('/details', extra: index),
+      child: Container(
+        width: 100,
+        height: 150,
+        decoration: BoxDecoration(
+            border: Border.all(), borderRadius: BorderRadius.circular(10)),
+        child: Center(
+          child: Text(
+            '${index}번 냉장고',
+          ),
         ),
       ),
     );
@@ -47,7 +64,7 @@ class _MainScreenState extends State<MainScreen> {
               return IconButton(
                 icon: Icon(Icons.add),
                 onPressed: () {
-                  fridges.add(makeFridge(index));
+                  fridges.add(makeFridge(index+1));
                   setState(() {});
                 },
               );

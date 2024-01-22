@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../data/mock_repository/foods_repository.dart';
 import '../data/mock_repository/refrige_repository.dart';
@@ -39,6 +40,10 @@ class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => context.go('/'),
+        ),
         title: Text('냉장실'),
       ),
       body: CustomScrollView(
