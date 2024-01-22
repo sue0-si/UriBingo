@@ -6,6 +6,7 @@ import 'package:leute/view/page/signup_page.dart';
 
 final router = GoRouter(initialLocation: '/', routes: [
   GoRoute(path: '/', builder: (context, state) => MainPage()),
+
   GoRoute(
     path: '/myfooddetail',
     builder: (context, state) => MyFoodDetail(
@@ -22,4 +23,5 @@ final router = GoRouter(initialLocation: '/', routes: [
     path: '/signup',
     builder: (context, state) => const SignupPage(),
   ),
+
 ]);
