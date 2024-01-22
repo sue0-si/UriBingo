@@ -4,11 +4,13 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 
+
 import 'main_screen.dart';
 import 'my_fridge.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
+
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -25,6 +27,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: _pages[currentPageIndex],
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
