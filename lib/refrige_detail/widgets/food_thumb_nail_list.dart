@@ -11,8 +11,21 @@ class FoodThumbNailList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: SizedBox(
-        height: 150,
+      child: Container(
+        margin: EdgeInsets.only(top: 20, bottom: 20),
+        decoration: BoxDecoration(
+          color: Colors.greenAccent,
+          borderRadius: BorderRadius.circular(12.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        height: 130,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

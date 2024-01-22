@@ -24,12 +24,12 @@ class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
     super.initState();
     final foodInfos =
         RegisterdFoodsRepository().getFoodDetail(widget.refrigeNum);
-    var refrigeItem =
-        RegisterdRefrigeRepository().getRefrigeDetail()[widget.refrigeNum];
+    var refrigeItem = RegisterdRefrigeRepository()
+        .getRefrigeDetail()[(widget.refrigeNum) - 1];
 
-    for (int i = 0; i < refrigeItem.refrigeCompCount; i++) {
+    for (int i = 1; i <= refrigeItem.refrigeCompCount; i++) {
       final samePositionFoodList =
-          RegisterdFoodsRepository().filterFoods(foodInfos, false, i + 1);
+          RegisterdFoodsRepository().filterFoods(foodInfos, false, i);
       sliverList
           .add(FoodThumbNailList(samePositionFoodList: samePositionFoodList));
     }
