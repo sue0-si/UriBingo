@@ -280,10 +280,21 @@ class _addRefrigeState extends State<addRefrige> {
 
                           //_selectedColdstoragefmf 정수로 변환
                           int coldStorageValue =
-                              int.parse(_selectedColdstorage);
+                              int.parse(_selectedColdstorage[0]);
+                          int forzenStorageValue =
+                              int.parse(_selectedFrozenStorage[0]);
+                          int storagePeriodValue =
+                              int.parse(_selectedColdstorage[0]);
+                          int extentionPeriodValue =
+                              int.parse(_selectedExtensionPeriod[0]);
 
                           //함수 호출 시 정수 값을 전달
-                          inputAddRefrige(coldStorageValue);
+                          inputAddRefrige(
+                            coldStorageValue,
+                            forzenStorageValue,
+                            storagePeriodValue,
+                            extentionPeriodValue,
+                          );
                         }
                       },
                       child: const Text(
@@ -304,10 +315,20 @@ class _addRefrigeState extends State<addRefrige> {
     );
   }
 
-  Future<void> inputAddRefrige(int coldStorageValue) async {
+  Future<void> inputAddRefrige(
+    int coldStorageValue,
+    int forzenStorageValue,
+    int storagePeriodValue,
+    int extentionPeriodValue,
+
+  ) async {
     setState(() {
       final name = _addNameController.text;
       //
     });
+    print(coldStorageValue);
+    print(forzenStorageValue);
+    print(storagePeriodValue);
+    print(extentionPeriodValue);
   }
 }
