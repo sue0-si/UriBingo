@@ -56,7 +56,14 @@ class MainPage extends StatelessWidget {
                         fontSize: 25,
                       ),
                     ),
-                  )
+                  ),
+                  ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        '추가하기',
+                        style:
+                            TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                      ))
                 ],
               )
             ],
