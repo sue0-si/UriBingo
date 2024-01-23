@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:leute/refrige_detail/data/models/refrige_model.dart';
 
-import '../data/foods_model/foods_model.dart';
+import '../data/models/foods_model.dart';
 import 'food_thumb_nail.dart';
 
 class FoodThumbNailList extends StatelessWidget {
-  const FoodThumbNailList({super.key, required this.samePositionFoodList});
+  const FoodThumbNailList(
+      {super.key,
+      required this.samePositionFoodList,
+      required this.selectedRefrige,
+      required this.selectedPosition});
 
+  final RefrigeDetail selectedRefrige;
+  final int selectedPosition;
   final List<FoodDetail> samePositionFoodList;
 
   @override
@@ -43,8 +51,13 @@ class FoodThumbNailList extends StatelessWidget {
                   }),
             ),
             Expanded(
-                child:
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.add)))
+                child: IconButton(
+                    onPressed: () => context.push('/addMyFood', extra: [
+                          selectedRefrige,
+                          selectedPosition,
+                          samePositionFoodList
+                        ]),
+                    icon: const Icon(Icons.add)))
           ],
         ),
       ),

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../refrige_detail/data/models/foods_model.dart';
+
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  const RegisterPage({super.key, required this.forFoodData});
+  final List forFoodData;
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  late final FoodDetail newFoodDetail;
   final ImagePicker picker = ImagePicker();
   XFile? photo;
   final List<bool> _selected = [false, false];
@@ -66,9 +71,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ElevatedButton(onPressed: () {}, child: const Text('취소')),
+                      ElevatedButton(onPressed: () => context.pop('/details'), child: const Text('취소')),
                       ElevatedButton(
                           onPressed: () {
+
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('등록되었습니다.'),
