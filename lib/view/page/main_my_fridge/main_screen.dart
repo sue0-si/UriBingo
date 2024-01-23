@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../refrige_detail/data/mock_repository/refrige_repository.dart';
+import 'package:leute/refrige_detail/data/mock_repository/refrige_repository.dart';
+import 'package:leute/styles/app_text_style.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -31,8 +31,16 @@ class _MainScreenState extends State<MainScreen> {
         width: 100,
         height: 150,
         decoration: BoxDecoration(
-          border: Border.all(),
+          color: Colors.white,
+          border: Border.all(color: Colors.black12),
           borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              offset: Offset(0, 3),
+              blurRadius: 2.0,
+            ),
+          ],
         ),
         child: Center(
           child: Text(
@@ -45,36 +53,42 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text('공용 냉장고'),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.black12,
+          title: Center(
+            child: Text(
+              '냉장고',
+              style: AppTextStyle.header20(),
+            ),
+          ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              mainAxisSpacing: 30,
-              crossAxisSpacing: 30,
-              childAspectRatio: 4 / 6),
-          itemCount: fridges.length + 1,
-          itemBuilder: (context, index) {
-            if (index == fridges.length) {
-              // Last item is the add button
-              return IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () {
-                  fridges.add(makeFridge(index + 1));
-                  setState(() {});
-                },
-              );
-            } else {
-              // Display the fridge container
-              return fridges[index];
-            }
-          },
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 30,
+                crossAxisSpacing: 30,
+                childAspectRatio: 4 / 6),
+            itemCount: fridges.length + 1,
+            itemBuilder: (context, index) {
+              if (index == fridges.length) {
+                // Last item is the add button
+                return IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    fridges.add(makeFridge(index + 1));
+                    setState(() {});
+                  },
+                );
+              } else {
+                // Display the fridge container
+                return fridges[index];
+              }
+            },
+          ),
         ),
       ),
     );

@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
           NavigationDestination(
               selectedIcon: Icon(Icons.home),
               icon: Icon(Icons.home_outlined),
-              label: '공용 냉장고'),
+              label: '냉장고'),
           NavigationDestination(
               selectedIcon: Icon(Icons.kitchen),
               icon: Icon(Icons.kitchen_outlined),
