@@ -30,7 +30,7 @@ class _FreezerCompScreenState extends State<FreezerCompScreen> {
 
   void initData() async {
     await freezerViewModel
-        .getSameRefrigeFoods(widget.selectedRefrige.refrigeId);
+        .getSameRefrigeFoods(widget.selectedRefrige.refrigeName);
     setState(() {
       freezerViewModel.foodItems;
     });

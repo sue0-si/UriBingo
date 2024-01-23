@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:leute/data/mock_repository/foods_repository.dart';
 import 'package:leute/data/mock_repository/refrige_repository.dart';
 import 'package:leute/data/models/foods_model.dart';
@@ -26,9 +27,10 @@ class _MyFridgeState extends State<MyFridge> {
 
   void initData() async {
     final allFoods = await foodRepository.getFirebaseFoodsData();
-    myFoodDetails = foodRepository.getMyFoodDetail(allFoods, 'sangin');
-    refrigeDetails = refrigeRepository.getRefrigeDetail();
-    refrigeDetails.sort((a, b) => a.refrigeId.compareTo(b.refrigeId));
+    setState(() {
+      myFoodDetails = foodRepository.getMyFoodDetail(allFoods, 'sangin');
+      refrigeDetails = refrigeRepository.getRefrigeDetail();
+    });
   }
 
   @override
@@ -62,15 +64,24 @@ class _MyFridgeState extends State<MyFridge> {
                             childAspectRatio: 1 / 1,
                           ),
                           itemCount: myFoodDetails
-                              .where(
-                                  (e) => e.refrigeName == refrigeDetail.refrigeName)
+                              .where((e) =>
+                                  e.refrigeName == refrigeDetail.refrigeName)
                               .length,
                           itemBuilder: (context, index) {
-                            return Image.network(myFoodDetails
-                                .where((e) =>
-                                    e.refrigeName == refrigeDetail.refrigeName)
-                                .toList()[index]
-                                .foodImage);
+                            return GestureDetector(
+                              onTap: () {
+                                context.push('/myfooddetail', extra: [
+                                  myFoodDetails[index],
+                                  refrigeDetail
+                                ]);
+                              },
+                              child: Image.network(myFoodDetails
+                                  .where((e) =>
+                                      e.refrigeName ==
+                                      refrigeDetail.refrigeName)
+                                  .toList()[index]
+                                  .foodImage),
+                            );
                           },
                         ),
                       ),

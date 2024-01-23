@@ -30,7 +30,7 @@ class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
 
   void initData() async {
     await refrigeViewModel
-        .getSameRefrigeFoods(widget.selectedRefrige.refrigeId);
+        .getSameRefrigeFoods(widget.selectedRefrige.refrigeName);
     setState(() {
       refrigeViewModel.foodItems;
     });

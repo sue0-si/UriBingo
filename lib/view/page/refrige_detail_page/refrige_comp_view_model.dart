@@ -10,13 +10,9 @@ class RefrigeCompViewModel extends ChangeNotifier {
 
   List<FoodDetail> get foodItems => _foodItems;
 
-  Future<List<FoodDetail>> getSameRefrigeFoods(String refrigeId) async {
+  Future<List<FoodDetail>> getSameRefrigeFoods(String refrigeName) async {
     final allFoods = await _repository.getFirebaseFoodsData();
-    List<FoodDetail> getFoodDetail(String targetRefrigeName) {
-      return allFoods.where((e) => e.refrigeName == targetRefrigeName).toList();
-    }
-
-    _foodItems = getFoodDetail(refrigeId);
+    _foodItems = allFoods.where((e) => e.refrigeName == refrigeName).toList();
     return _foodItems;
   }
 

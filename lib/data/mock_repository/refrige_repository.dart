@@ -5,7 +5,7 @@ class RegisterdRefrigeRepository {
   final List<RefrigeDetail> refriges = [
     RefrigeDetail(
       refrigeId: '1',
-      refrigeName: '1번 냉장고',
+      refrigeName: '1번냉장고',
       refrigeCompCount: 4,
       freezerCompCount: 2,
       period: 10,
@@ -13,7 +13,7 @@ class RegisterdRefrigeRepository {
     ),
     RefrigeDetail(
       refrigeId: '2',
-      refrigeName: '2번 냉장고',
+      refrigeName: '2번냉장고',
       refrigeCompCount: 3,
       freezerCompCount: 1,
       period: 10,
