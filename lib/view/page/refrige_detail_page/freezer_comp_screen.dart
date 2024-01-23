@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/view/page/refrige_detail_page/freezer_comp_view_model.dart';
 
 import '../../../data/mock_repository/foods_repository.dart';
-import '../../../data/mock_repository/refrige_repository.dart';
 import '../../../data/models/refrige_model.dart';
 import '../../widget/refrige_detail_page_widget/food_thumb_nail_list.dart';
-import 'package:provider/provider.dart';
 
 class FreezerCompScreen extends StatefulWidget {
   final RefrigeDetail selectedRefrige;
@@ -26,22 +23,9 @@ class _FreezerCompScreenState extends State<FreezerCompScreen> {
 
   @override
   void initState() {
-    super.initState();
     initData();
-    final foodInfos = freezerViewModel.foodItems;
 
-    var refrigeItem = RegisterdRefrigeRepository()
-        .getRefrigeDetail()[(widget.selectedRefrige.refrigeId) - 1];
-
-    for (int i = 1; i <= refrigeItem.freezerCompCount; i++) {
-      final samePositionFoodList =
-          RegisterdFoodsRepository().filterFoods(foodInfos, true, i);
-      sliverList.add(FoodThumbNailList(
-        samePositionFoodList: samePositionFoodList[2],
-        selectedRefrige: widget.selectedRefrige,
-        selectedPosition: i,
-      ));
-    }
+    super.initState();
   }
 
   void initData() async {
@@ -50,6 +34,16 @@ class _FreezerCompScreenState extends State<FreezerCompScreen> {
     setState(() {
       freezerViewModel.foodItems;
     });
+
+    for (int i = 1; i <= widget.selectedRefrige.freezerCompCount; i++) {
+      final samePositionFoodList = RegisterdFoodsRepository()
+          .filterFoods(freezerViewModel.foodItems, true, i);
+      sliverList.add(FoodThumbNailList(
+        samePositionFoodList: samePositionFoodList[2],
+        selectedRefrige: widget.selectedRefrige,
+        selectedPosition: i,
+      ));
+    }
   }
 
   @override

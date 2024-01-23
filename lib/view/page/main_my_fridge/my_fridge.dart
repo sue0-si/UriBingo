@@ -20,10 +20,15 @@ class _MyFridgeState extends State<MyFridge> {
 
   @override
   void initState() {
-    myFoodDetails = foodRepository.getMyFoodDetail(1);
+    initData();
+    super.initState();
+  }
+
+  void initData() async {
+    final allFoods = await foodRepository.getFirebaseFoodsData();
+    myFoodDetails = foodRepository.getMyFoodDetail(allFoods, 'sangin');
     refrigeDetails = refrigeRepository.getRefrigeDetail();
     refrigeDetails.sort((a, b) => a.refrigeId.compareTo(b.refrigeId));
-    super.initState();
   }
 
   @override
@@ -58,12 +63,12 @@ class _MyFridgeState extends State<MyFridge> {
                           ),
                           itemCount: myFoodDetails
                               .where(
-                                  (e) => e.refrigeId == refrigeDetail.refrigeId)
+                                  (e) => e.refrigeName == refrigeDetail.refrigeName)
                               .length,
                           itemBuilder: (context, index) {
                             return Image.network(myFoodDetails
                                 .where((e) =>
-                                    e.refrigeId == refrigeDetail.refrigeId)
+                                    e.refrigeName == refrigeDetail.refrigeName)
                                 .toList()[index]
                                 .foodImage);
                           },

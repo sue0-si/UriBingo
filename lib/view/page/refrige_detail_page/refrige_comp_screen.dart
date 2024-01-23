@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/view/page/refrige_detail_page/refrige_comp_view_model.dart';
 
 import '../../../data/mock_repository/foods_repository.dart';
-import '../../../data/mock_repository/refrige_repository.dart';
 import '../../widget/refrige_detail_page_widget/food_thumb_nail_list.dart';
 
 class RefrigeCompScreen extends StatefulWidget {
@@ -19,25 +19,30 @@ class RefrigeCompScreen extends StatefulWidget {
 }
 
 class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
+  final refrigeViewModel = RefrigeCompViewModel();
   List<Widget> sliverList = [];
 
   @override
   void initState() {
+    initData();
     super.initState();
-    final foodInfos = RegisterdFoodsRepository()
-        .getFoodDetail(widget.selectedRefrige.refrigeId);
-    var refrigeItem = RegisterdRefrigeRepository()
-        .getRefrigeDetail()[(widget.selectedRefrige.refrigeId) - 1];
+  }
 
-    for (int i = 1; i <= refrigeItem.refrigeCompCount; i++) {
-      final samePositionFoodList =
-          RegisterdFoodsRepository().filterFoods(foodInfos, false, i);
-      sliverList.add(
-        FoodThumbNailList(
-            selectedRefrige: widget.selectedRefrige,
-            samePositionFoodList: samePositionFoodList[2],
-            selectedPosition: i),
-      );
+  void initData() async {
+    await refrigeViewModel
+        .getSameRefrigeFoods(widget.selectedRefrige.refrigeId);
+    setState(() {
+      refrigeViewModel.foodItems;
+    });
+    for (int i = 1; i <= widget.selectedRefrige.refrigeCompCount; i++) {
+      final samePositionFoodList = RegisterdFoodsRepository()
+          .filterFoods(refrigeViewModel.foodItems, false, i);
+      print(refrigeViewModel.foodItems.length);
+      sliverList.add(FoodThumbNailList(
+        samePositionFoodList: samePositionFoodList[2],
+        selectedRefrige: widget.selectedRefrige,
+        selectedPosition: i,
+      ));
     }
   }
 

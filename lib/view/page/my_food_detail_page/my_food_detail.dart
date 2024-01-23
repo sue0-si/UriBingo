@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:leute/data/models/foods_model.dart';
+import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 import 'package:leute/data/mock_repository/foods_repository.dart';
 import 'package:leute/data/mock_repository/refrige_repository.dart';
@@ -7,7 +9,9 @@ import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 
 class MyFoodDetail extends StatefulWidget {
-  const MyFoodDetail({super.key});
+  const MyFoodDetail({super.key, required this.myFoodItem, required this.ourRefrigeItem});
+  final FoodDetail myFoodItem;
+  final RefrigeDetail ourRefrigeItem;
 
   @override
   State<MyFoodDetail> createState() => _MyFoodDetailState();
@@ -19,21 +23,31 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
   final refrigeRepository = RegisterdRefrigeRepository();
   bool isEnabled = true;
   int extendedPeriod = 0;
+  List<FoodDetail> foods = [];
 
   bool checkRemainPeriod() {
-    return foodRepository.foods[3].remainPeriod < 2;
+    return widget.myFoodItem.remainPeriod < 2;
   }
 
   void extendPeriod() {
-    extendedPeriod = foodRepository.foods[0].remainPeriod +
-        refrigeRepository.refriges[0].extentionPeriod;
+    extendedPeriod = widget.myFoodItem.remainPeriod +
+        widget.ourRefrigeItem.extentionPeriod;
     setState(() {});
   }
 
   @override
   void initState() {
     checkRemainPeriod();
+    initData();
+
     super.initState();
+  }
+
+  void initData() async{
+    final foods = RegisterdFoodsRepository().getFirebaseFoodsData();
+    setState(() {
+      foods;
+    });
   }
 
   Widget build(BuildContext context) {
@@ -51,7 +65,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
               context,
               MaterialPageRoute(
                 builder: (context) => FullScreenImage(
-                  itemImage: foodRepository.foods[0].foodImage,
+                  itemImage: widget.myFoodItem.foodImage,
                 ),
               ),
             );
@@ -67,7 +81,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                   borderRadius: BorderRadius.circular(15.0),
                 ),
                 clipBehavior: Clip.hardEdge,
-                child: Image.network(foodRepository.foods[0].foodImage,
+                child: Image.network(widget.myFoodItem.foodImage,
                     fit: BoxFit.cover),
               ),
             ),
@@ -80,7 +94,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
             children: [
               Row(
                 children: [
-                  Text('등록일: ${foodRepository.foods[3].registerDate}',
+                  Text('등록일: ${widget.myFoodItem.registerDate}',
                       style: AppTextStyle.body14R()),
                 ],
               ),
@@ -89,7 +103,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                   Text('남은기간: ', style: AppTextStyle.body14R()),
                   isEnabled
                       ? Text(
-                          '${foodRepository.foods[0].remainPeriod}일',
+                          '${widget.myFoodItem.remainPeriod}일',
                           style: AppTextStyle.body14R(
                               color: checkRemainPeriod()
                                   ? AppColors.caution
