@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../fridge_data.dart';
+
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
@@ -69,6 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ElevatedButton(onPressed: () {}, child: const Text('취소')),
                       ElevatedButton(
                           onPressed: () {
+                            FridgeState().addInfo();
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('등록되었습니다.'),
