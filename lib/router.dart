@@ -1,15 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/refrige_detail/data/models/refrige_model.dart';
+import 'package:leute/data/models/refrige_model.dart';
 
-import 'package:leute/view/page/main_page.dart';
-import 'package:leute/view/page/main_screen.dart';
-import 'package:leute/view/page/my_food_detail.dart';
-import 'package:leute/view/page/login_page.dart';
-import 'package:leute/view/page/signup_page.dart';
-import 'refrige_detail/screen/refrige_detail_screen.dart';
-import 'remote/add_refrige.dart';
+import 'package:leute/view/page/main_my_fridge/main_page.dart';
+import 'package:leute/view/page/main_screen_delete.dart';
+import 'package:leute/view/page/my_food_detail_page/my_food_detail.dart';
+import 'package:leute/view/page/login_pages/login_page.dart';
+import 'package:leute/view/page/login_pages/signup_page.dart';
+import 'view/page/refrige_detail_page/refrige_detail_screen.dart';
+import 'view/page/refrige_pages/add_refrige.dart';
+import 'package:leute/view_model/login_page_view_model.dart';
+import 'package:leute/view_model/signup_page_view_model.dart';
+import 'package:provider/provider.dart';
 
-final router = GoRouter(initialLocation: '/myfooddetail', routes: [
+final router = GoRouter(initialLocation: '/login', routes: [
   GoRoute(path: '/', builder: (context, state) => MainPage()),
 
   GoRoute(
@@ -17,13 +21,21 @@ final router = GoRouter(initialLocation: '/myfooddetail', routes: [
     builder: (context, state) => const MyFoodDetail(),
   ),
   GoRoute(
-    path: '/login',
-    builder: (context, state) => const LoginPage(),
-  ),
+      path: '/login',
+      builder: (context, state) {
+        return ChangeNotifierProvider(
+          create: (_) => LoginPageViewModel(),
+          child: LoginPage(),
+        );
+      }),
   GoRoute(
-    path: '/signup',
-    builder: (context, state) => const SignupPage(),
-  ),
+      path: '/signup',
+      builder: (context, state) {
+        return ChangeNotifierProvider(
+          create: (_) => SignupPageViewModel(),
+          child: SignupPage(),
+        );
+      }),
   GoRoute(
     path: '/details',
     builder: (context, state) => RefrigeDetailScreen(

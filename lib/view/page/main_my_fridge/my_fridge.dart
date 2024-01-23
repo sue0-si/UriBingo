@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:leute/refrige_detail/data/mock_repository/foods_repository.dart';
-import 'package:leute/refrige_detail/data/mock_repository/refrige_repository.dart';
-import 'package:leute/refrige_detail/data/models/foods_model.dart';
-import 'package:leute/refrige_detail/data/models/refrige_model.dart';
+import 'package:leute/data/mock_repository/foods_repository.dart';
+import 'package:leute/data/mock_repository/refrige_repository.dart';
+import 'package:leute/data/models/foods_model.dart';
+import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/styles/app_text_style.dart';
 
 class MyFridge extends StatefulWidget {

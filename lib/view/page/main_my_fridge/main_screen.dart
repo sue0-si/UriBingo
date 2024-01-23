@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/refrige_detail/data/mock_repository/refrige_repository.dart';
+import 'package:leute/data/mock_repository/refrige_repository.dart';
 import 'package:leute/styles/app_text_style.dart';
 
 class MainScreen extends StatefulWidget {
