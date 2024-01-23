@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:leute/refrige_detail/data/models/refrige_model.dart';
 
 import 'package:leute/view/page/main_page.dart';
 import 'package:leute/view/page/main_screen.dart';
@@ -26,7 +27,7 @@ final router = GoRouter(initialLocation: '/myfooddetail', routes: [
   GoRoute(
     path: '/details',
     builder: (context, state) => RefrigeDetailScreen(
-      refrigeNum: state.extra as int,
+      selectedRefrige: state.extra as RefrigeDetail,
     ),
   ),
 

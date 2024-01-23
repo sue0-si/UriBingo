@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/refrige_detail/data/refrige_model/refrige_model.dart';
+import 'package:leute/refrige_detail/data/models/refrige_model.dart';
 
 class addRefrige extends StatefulWidget {
   const addRefrige({super.key});
