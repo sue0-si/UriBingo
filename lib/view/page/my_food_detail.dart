@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:leute/custom_dialog/first_custom_dialog.dart';
 import 'package:leute/refrige_detail/data/mock_repository/foods_repository.dart';
+import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 
 class MyFoodDetail extends StatefulWidget {
@@ -13,12 +14,19 @@ class MyFoodDetail extends StatefulWidget {
 }
 
 class _MyFoodDetailState extends State<MyFoodDetail> {
-
   @override
   final presentDate = DateFormat("yyy년 MM월 dd일").format(DateTime.now());
   final repository = RegisterdFoodsRepository();
 
+  bool dateCheck() {
+    return repository.foods[3].remainPeriod < 2;
+  }
 
+  @override
+  void initState() {
+    dateCheck();
+    super.initState();
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,34 +59,50 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                   borderRadius: BorderRadius.circular(15.0),
                 ),
                 clipBehavior: Clip.hardEdge,
-                child: Image.network(repository.foods[0].foodImage, fit: BoxFit.cover),
+                child: Image.network(repository.foods[0].foodImage,
+                    fit: BoxFit.cover),
               ),
             ),
           ),
         ),
         const SizedBox(height: 32),
         Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 30.w),
+          padding: EdgeInsets.symmetric(horizontal: 30.w),
           child: Column(
             children: [
               Row(
                 children: [
-                  Text('등록일: ${repository.foods[0].registerDate}',
+                  Text('등록일: ${repository.foods[3].registerDate}',
                       style: AppTextStyle.body14R()),
                 ],
               ),
               Row(
                 children: [
-                  Text('남은기간: ${repository.foods[0].remainPeriod}일',
-                      style: AppTextStyle.body14R()),
+                  Text('남은기간: ', style: AppTextStyle.body14R()),
+                  Text(
+                    '${repository.foods[3].remainPeriod}일',
+                    style: AppTextStyle.body14R(
+                        color: dateCheck()
+                            ? AppColors.caution
+                            : AppColors.mainText),
+                  ),
                   const Spacer(),
-                  ElevatedButton(onPressed: () {
-                    showDialog(context: context, builder: (context) {
-                      return FirstCustomDialog();
-                    });
-                  }, child: const Text('연장하기'))
+                  ElevatedButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const FirstCustomDialog();
+                            });
+                      },
+                      child: const Text('연장하기'))
                 ],
               ),
+              const SizedBox(height: 32),
+              dateCheck()
+                  ? Text('곧 폐기됩니다.',
+                      style: AppTextStyle.body14R(color: AppColors.caution))
+                  : Text(''),
             ],
           ),
         ),

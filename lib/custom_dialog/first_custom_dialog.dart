@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FirstCustomDialog extends StatelessWidget {
-  const FirstCustomDialog({super.key});
+  final Function()? onTap;
+  const FirstCustomDialog({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,6 @@ class FirstCustomDialog extends StatelessWidget {
         Container(
           child: ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pop(); //창 닫기
             },
             child: const Text("네"),
           ),
