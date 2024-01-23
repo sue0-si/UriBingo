@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:leute/refrige_detail/data/refrige_model/refrige_model.dart';
 
 class addRefrige extends StatefulWidget {
@@ -9,13 +10,17 @@ class addRefrige extends StatefulWidget {
 }
 
 class _addRefrigeState extends State<addRefrige> {
-
   RefrigeDetail newRefrige = RefrigeDetail(
-    refrigeId: 0, // 적절한 값으로 수정
-    refrigeName: '', // 적절한 값으로 수정
-    refrigeCompCount: 0, // 적절한 값으로 수정
-    freezerCompCount: 0, // 적절한 값으로 수정
-    period: 0, // 적절한 값으로 수정
+    refrigeId: 0,
+    // 적절한 값으로 수정
+    refrigeName: '',
+    // 적절한 값으로 수정
+    refrigeCompCount: 0,
+    // 적절한 값으로 수정
+    freezerCompCount: 0,
+    // 적절한 값으로 수정
+    period: 0,
+    // 적절한 값으로 수정
     extentionPeriod: 0, // 적절한 값으로 수정
   );
 
@@ -285,7 +290,7 @@ class _addRefrigeState extends State<addRefrige> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          //print('냉장고 이름: $_name');
+                          print('냉장고 이름: $_name');
 
                           //_selectedColdstoragefmf 정수로 변환
                           int coldStorageValue =
@@ -305,6 +310,10 @@ class _addRefrigeState extends State<addRefrige> {
                             extentionPeriodValue,
                           );
                         }
+                        context.pushNamed(
+                          "mainScreen",
+                          extra: newRefrige,
+                        );
                       },
                       child: const Text(
                         '추가하기',
@@ -330,18 +339,13 @@ class _addRefrigeState extends State<addRefrige> {
     int storagePeriodValue,
     int extentionPeriodValue,
   ) {
-
     //RefrigeDetail? newRefrige;
 
-
-    /*
-    newRefrige!.refrigeName = _addNameController.text;
-    newRefrige!.refrigeCompCount = coldStorageValue;
-    newRefrige!.freezerCompCount = forzenStorageValue;
-    newRefrige!.period = storagePeriodValue;
-    newRefrige!.extentionPeriod = extentionPeriodValue;
-    */
-
+    newRefrige.refrigeName = _addNameController.text;
+    newRefrige.refrigeCompCount = coldStorageValue;
+    newRefrige.freezerCompCount = forzenStorageValue;
+    newRefrige.period = storagePeriodValue;
+    newRefrige.extentionPeriod = extentionPeriodValue;
 
     print(coldStorageValue);
     print(forzenStorageValue);
