@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../refrige_detail/data/mock_repository/refrige_repository.dart';
+import '../../../refrige_detail/data/mock_repository/refrige_repository.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -31,7 +31,9 @@ class _MainScreenState extends State<MainScreen> {
         width: 100,
         height: 150,
         decoration: BoxDecoration(
-            border: Border.all(), borderRadius: BorderRadius.circular(10)),
+          border: Border.all(),
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Center(
           child: Text(
             '${index}번 냉장고',
@@ -64,7 +66,7 @@ class _MainScreenState extends State<MainScreen> {
               return IconButton(
                 icon: Icon(Icons.add),
                 onPressed: () {
-                  fridges.add(makeFridge(index+1));
+                  fridges.add(makeFridge(index + 1));
                   setState(() {});
                 },
               );

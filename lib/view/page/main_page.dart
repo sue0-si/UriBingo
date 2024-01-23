@@ -5,8 +5,8 @@ import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 
 
-import 'main_screen.dart';
-import 'my_fridge.dart';
+import 'main_my_fridge/main_screen.dart';
+import 'main_my_fridge/my_fridge.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
