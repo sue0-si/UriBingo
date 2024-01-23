@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../refrige_detail/screen/refrige_detail.dart';
+
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+
+  // MainScreen({super.key, required this.newRefrige});
+  // 냉장고 추가페이지에서 메인페이지로 데이터 보내려는 생성자
+  // final RefrigeDetail newRefrige;
 
   @override
   State<MainScreen> createState() => _MainScreenState();
