@@ -52,9 +52,11 @@ class _LoginPageState extends State<LoginPage> {
           ),
           SizedBox(height: 8.h),
           LoginElevatedButton(
-            childText: '로그인하기',
-            onPressed: viewmodel.handleLoginButton,
-          ),
+              childText: '로그인하기',
+              onPressed: () {
+                viewmodel.handleLoginButton(
+                    emailController.text, passwordController.text);
+              }),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

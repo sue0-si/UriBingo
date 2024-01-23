@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/login_elevated_button.dart';
 import 'package:leute/view/widget/login_textfield.dart';
-import 'package:leute/view_model/login_page_view_model.dart';
 import 'package:leute/view_model/signup_page_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -18,17 +17,17 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-  var password2Controller = TextEditingController();
+  var confirmPasswordController = TextEditingController();
   var nameController = TextEditingController();
-  var compantNumberController = TextEditingController();
+  var employeeNumberController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    password2Controller.dispose();
+    confirmPasswordController.dispose();
     nameController.dispose();
-    compantNumberController.dispose();
+    employeeNumberController.dispose();
     super.dispose();
   }
 
@@ -57,7 +56,7 @@ class _SignupPageState extends State<SignupPage> {
             Text('비밀번호 확인', style: AppTextStyle.body16B()),
             LoginTextfield(
               hintText: '****',
-              controller: password2Controller,
+              controller: confirmPasswordController,
             ),
             SizedBox(height: 8.h),
             Text('이름', style: AppTextStyle.body16B()),
@@ -69,13 +68,19 @@ class _SignupPageState extends State<SignupPage> {
             Text('사원번호', style: AppTextStyle.body16B()),
             LoginTextfield(
               hintText: '12-3456',
-              controller: compantNumberController,
+              controller: employeeNumberController,
             ),
             SizedBox(height: 8.h),
             LoginElevatedButton(
-              childText: '가입하기',
-              onPressed: viewModel.handleSignUp,
-            ),
+                childText: '가입하기',
+                onPressed: () {
+                  viewModel.handleSignUp(
+                      email: emailController.text,
+                      password: passwordController.text,
+                      confirmPassword: confirmPasswordController.text,
+                      name: nameController.text,
+                      employeeNumber: employeeNumberController.text);
+                }),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               const Text('이미 계정이 있습니까?'),
               TextButton(
@@ -83,7 +88,7 @@ class _SignupPageState extends State<SignupPage> {
                     context.push(Uri(path: '/login').toString());
                   },
                   child: const Text('로그인하기'))
-            ])
+            ]),
           ],
         ),
       ),
