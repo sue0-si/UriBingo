@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leute/refrige_detail/data/models/refrige_model.dart';
 
 import '../data/mock_repository/foods_repository.dart';
 import '../data/mock_repository/refrige_repository.dart';
 import '../widgets/food_thumb_nail_list.dart';
 
 class RefrigeCompScreen extends StatefulWidget {
-  final int refrigeNum;
+  final RefrigeDetail selectedRefrige;
 
   const RefrigeCompScreen({
     Key? key,
-    required this.refrigeNum,
+    required this.selectedRefrige,
   }) : super(key: key);
 
   @override
@@ -23,16 +24,20 @@ class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
   @override
   void initState() {
     super.initState();
-    final foodInfos =
-        RegisterdFoodsRepository().getFoodDetail(widget.refrigeNum);
+    final foodInfos = RegisterdFoodsRepository()
+        .getFoodDetail(widget.selectedRefrige.refrigeId);
     var refrigeItem = RegisterdRefrigeRepository()
-        .getRefrigeDetail()[(widget.refrigeNum) - 1];
+        .getRefrigeDetail()[(widget.selectedRefrige.refrigeId) - 1];
 
     for (int i = 1; i <= refrigeItem.refrigeCompCount; i++) {
       final samePositionFoodList =
           RegisterdFoodsRepository().filterFoods(foodInfos, false, i);
-      sliverList
-          .add(FoodThumbNailList(samePositionFoodList: samePositionFoodList));
+      sliverList.add(
+        FoodThumbNailList(
+            selectedRefrige: widget.selectedRefrige,
+            samePositionFoodList: samePositionFoodList[2],
+            selectedPosition: i),
+      );
     }
   }
 

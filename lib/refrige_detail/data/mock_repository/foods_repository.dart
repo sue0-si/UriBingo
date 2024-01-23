@@ -1,4 +1,6 @@
-import '../foods_model/foods_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../models/foods_model.dart';
 
 class RegisterdFoodsRepository {
   final List<FoodDetail> foods = [
@@ -27,7 +29,7 @@ class RegisterdFoodsRepository {
       remainPeriod: 2,
     ),
     FoodDetail(
-      refrigeId: 2,
+      refrigeId: 1,
       freezed: false,
       positionId: 1,
       foodId: 2,
@@ -39,7 +41,7 @@ class RegisterdFoodsRepository {
       remainPeriod: 3,
     ),
     FoodDetail(
-      refrigeId: 2,
+      refrigeId: 1,
       freezed: true,
       positionId: 1,
       foodId: 3,
@@ -51,7 +53,7 @@ class RegisterdFoodsRepository {
       remainPeriod: 0,
     ),
     FoodDetail(
-      refrigeId: 2,
+      refrigeId: 1,
       freezed: false,
       positionId: 2,
       foodId: 4,
@@ -164,17 +166,40 @@ class RegisterdFoodsRepository {
     return foods.where((e) => e.refrigeId == num).toList();
   }
 
+  List<dynamic> filterFoods(List<FoodDetail> foodsToFilter, bool targetFreezed,
+      int targetPositionId) {
+    return [
+      targetFreezed,
+      targetPositionId,
+      foodsToFilter
+          .where((food) =>
+              food.freezed == targetFreezed &&
+              food.positionId == targetPositionId)
+          .toList()
+    ];
+  }
+
+
+
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<List<FoodDetail>> getFirebaseFoodsData() async {
+    // Firebase Firestore에서 데이터 읽어오기
+    QuerySnapshot querySnapshot =
+        await _firestore.collection('foodDetails').get();
+
+    // 데이터 파싱
+    List<FoodDetail> data = [];
+    querySnapshot.docs.forEach((DocumentSnapshot document) {
+      data.add((document.data() != null) as FoodDetail);
+    });
+
+    return data;
+  }
+
   List<FoodDetail> getMyFoodDetail(int userId) {
     // final repository = RegisterdFoodsRepository();
     return foods.where((e) => e.userId == userId).toList();
-  }
-
-  List<FoodDetail> filterFoods(List<FoodDetail> foodsToFilter,
-      bool targetFreezed, int targetPositionId) {
-    return foodsToFilter
-        .where((food) =>
-            food.freezed == targetFreezed &&
-            food.positionId == targetPositionId)
-        .toList();
   }
 }

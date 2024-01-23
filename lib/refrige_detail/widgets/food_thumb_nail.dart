@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/foods_model/foods_model.dart';
+import '../data/models/foods_model.dart';
 
 class FoodThumbNail extends StatelessWidget {
   const FoodThumbNail({super.key, required this.foodItem});

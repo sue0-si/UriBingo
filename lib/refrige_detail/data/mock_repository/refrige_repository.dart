@@ -1,5 +1,5 @@
 
-import '../refrige_model/refrige_model.dart';
+import '../models/refrige_model.dart';
 
 class RegisterdRefrigeRepository {
   final List<RefrigeDetail> refriges = [
