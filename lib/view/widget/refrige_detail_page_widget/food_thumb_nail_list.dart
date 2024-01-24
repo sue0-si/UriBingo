@@ -10,11 +10,13 @@ class FoodThumbNailList extends StatelessWidget {
       {super.key,
       required this.samePositionFoodList,
       required this.selectedRefrige,
-      required this.selectedPosition});
+      required this.selectedPosition,
+        required this.isFreezed});
 
   final RefrigeDetail selectedRefrige;
   final int selectedPosition;
   final List<FoodDetail> samePositionFoodList;
+  final bool isFreezed;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,8 @@ class FoodThumbNailList extends StatelessWidget {
                     onPressed: () => context.push('/addMyFood', extra: [
                           selectedRefrige,
                           selectedPosition,
-                          samePositionFoodList
+                          samePositionFoodList,
+                          isFreezed
                         ]),
                     icon: const Icon(Icons.add)))
           ],
