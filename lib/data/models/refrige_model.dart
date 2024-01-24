@@ -1,5 +1,4 @@
 class RefrigeDetail {
-  String refrigeId;
   String refrigeName;
   int refrigeCompCount;
   int freezerCompCount;
@@ -8,7 +7,6 @@ class RefrigeDetail {
 
 //<editor-fold desc="Data Methods">
   RefrigeDetail({
-    required this.refrigeId,
     required this.refrigeName,
     required this.refrigeCompCount,
     required this.freezerCompCount,
@@ -21,7 +19,6 @@ class RefrigeDetail {
       identical(this, other) ||
       (other is RefrigeDetail &&
           runtimeType == other.runtimeType &&
-          refrigeId == other.refrigeId &&
           refrigeName == other.refrigeName &&
           refrigeCompCount == other.refrigeCompCount &&
           freezerCompCount == other.freezerCompCount &&
@@ -30,7 +27,6 @@ class RefrigeDetail {
 
   @override
   int get hashCode =>
-      refrigeId.hashCode ^
       refrigeName.hashCode ^
       refrigeCompCount.hashCode ^
       freezerCompCount.hashCode ^
@@ -39,11 +35,10 @@ class RefrigeDetail {
 
   @override
   String toString() {
-    return 'RefrigeDetail{ refrigeId: $refrigeId, refrigeName: $refrigeName, refrigeCompCount: $refrigeCompCount, freezerCompCount: $freezerCompCount, period: $period, extentionPeriod: $extentionPeriod,}';
+    return 'RefrigeDetail{ refrigeName: $refrigeName, refrigeCompCount: $refrigeCompCount, freezerCompCount: $freezerCompCount, period: $period, extentionPeriod: $extentionPeriod,}';
   }
 
   RefrigeDetail copyWith({
-    String? refrigeId,
     String? refrigeName,
     int? refrigeCompCount,
     int? freezerCompCount,
@@ -51,7 +46,6 @@ class RefrigeDetail {
     int? extentionPeriod,
   }) {
     return RefrigeDetail(
-      refrigeId: refrigeId ?? this.refrigeId,
       refrigeName: refrigeName ?? this.refrigeName,
       refrigeCompCount: refrigeCompCount ?? this.refrigeCompCount,
       freezerCompCount: freezerCompCount ?? this.freezerCompCount,
@@ -62,7 +56,6 @@ class RefrigeDetail {
 
   Map<String, dynamic> toJson() {
     return {
-      'refrigeId': refrigeId,
       'refrigeName': refrigeName,
       'refrigeCompCount': refrigeCompCount,
       'freezerCompCount': freezerCompCount,
@@ -73,7 +66,6 @@ class RefrigeDetail {
 
   factory RefrigeDetail.fromJson(Map<String, dynamic> map) {
     return RefrigeDetail(
-      refrigeId: map['refrigeId'] as String,
       refrigeName: map['refrigeName'] as String,
       refrigeCompCount: map['refrigeCompCount'] as int,
       freezerCompCount: map['freezerCompCount'] as int,
