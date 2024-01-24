@@ -75,12 +75,15 @@ class _MyFridgeState extends State<MyFridge> {
                                   refrigeDetail
                                 ]);
                               },
-                              child: Image.network(myFoodDetails
-                                  .where((e) =>
-                                      e.refrigeName ==
-                                      refrigeDetail.refrigeName)
-                                  .toList()[index]
-                                  .foodImage),
+                              child: Image.network(
+                                myFoodDetails
+                                    .where((e) =>
+                                        e.refrigeName ==
+                                        refrigeDetail.refrigeName)
+                                    .toList()[index]
+                                    .foodImage,
+                                fit: BoxFit.cover,
+                              ),
                             );
                           },
                         ),
