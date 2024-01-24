@@ -12,6 +12,8 @@ import 'package:leute/view_model/login_page_view_model.dart';
 import 'package:leute/view_model/signup_page_view_model.dart';
 import 'package:provider/provider.dart';
 
+import 'view_model/add_page_view_model.dart';
+
 final router = GoRouter(initialLocation: '/login', routes: [
   GoRoute(path: '/', builder: (context, state) => MainPage()),
   GoRoute(
@@ -49,7 +51,12 @@ final router = GoRouter(initialLocation: '/login', routes: [
   ),
   GoRoute(
     path: '/addRefrige',
-    builder: (context, state) => const addRefrige(),
+    builder: (context, state) {
+      return ChangeNotifierProvider(
+        create: (_) => AddPageViewModel(),
+        child: const AddRefrige(),
+      );
+    },
   ),
 
   GoRoute(
@@ -63,6 +70,4 @@ final router = GoRouter(initialLocation: '/login', routes: [
   //   path: '/mainScreen',
   //   builder: (context, state) => MainScreen(newRefrige: state.extra as RefrigeDetail),
   // ), main스크린으로 냉장고 생성 데이터 값을 넘기려고 해본 코드
-
 ]);
-

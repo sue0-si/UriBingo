@@ -36,7 +36,7 @@ class AddPageViewModel extends ChangeNotifier {
   String get selectedFrozenStorage => _selectedFrozenStorage;
 
   set selectedFrozenStorage(String value) {
-    _selectedColdstorage = value.toString();
+    _selectedFrozenStorage = value.toString();
   }
 
   String _selectedStoragePeriod = '1일'; //선택된보관기간
@@ -44,7 +44,7 @@ class AddPageViewModel extends ChangeNotifier {
   String get selectedStoragePeriod => _selectedStoragePeriod;
 
   set selectedStoragePeriod(String value) {
-    _selectedColdstorage = value.toString();
+    _selectedStoragePeriod = value.toString();
   }
 
   String _selectedExtensionPeriod = '1일'; //선택된연장가능기간
@@ -52,7 +52,7 @@ class AddPageViewModel extends ChangeNotifier {
   String get selectedExtensionPeriod => _selectedExtensionPeriod;
 
   set selectedExtensionPeriod(String value) {
-    _selectedColdstorage = value.toString();
+    _selectedExtensionPeriod = value.toString();
   }
 
 //getter 설정

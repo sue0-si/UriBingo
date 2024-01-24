@@ -217,7 +217,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                                     value:
                                         addPageViewModel.selectedStoragePeriod,
                                     items: addPageViewModel
-                                        .frozenStorageOfCompartmentsList
+                                        .storagePeriodList
                                         .map((e) => DropdownMenuItem(
                                               value: e,
                                               child: Text(e),
@@ -253,9 +253,9 @@ class _AddRefrigeState extends State<AddRefrige> {
                                     elevation: 10,
                                     dropdownColor: Colors.green,
                                     value:
-                                        addPageViewModel.selectedFrozenStorage,
+                                        addPageViewModel.selectedExtensionPeriod,
                                     items: addPageViewModel
-                                        .frozenStorageOfCompartmentsList
+                                        .extensionPeriodList
                                         .map((e) => DropdownMenuItem(
                                               value: e,
                                               child: Text(e),
