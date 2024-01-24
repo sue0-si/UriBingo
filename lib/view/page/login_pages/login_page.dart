@@ -5,6 +5,7 @@ import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/login_widget/login_elevated_button.dart';
 import 'package:leute/view/widget/login_widget/login_textfield.dart';
+import 'package:leute/view/widget/login_widget/password_textfield.dart';
 import 'package:leute/view_model/login_page_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
             controller: emailController,
           ),
           SizedBox(height: 8.h),
-          LoginTextfield(
+          PasswordTextfield(
             hintText: '비밀번호',
             controller: passwordController,
           ),
