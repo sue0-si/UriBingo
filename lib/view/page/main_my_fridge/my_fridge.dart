@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:leute/refrige_detail/data/foods_model/foods_model.dart';
-import 'package:leute/refrige_detail/data/mock_repository/foods_repository.dart';
-import 'package:leute/refrige_detail/data/mock_repository/refrige_repository.dart';
-import 'package:leute/refrige_detail/data/refrige_model/refrige_model.dart';
+import 'package:leute/data/mock_repository/foods_repository.dart';
+import 'package:leute/data/mock_repository/refrige_repository.dart';
+import 'package:leute/data/models/foods_model.dart';
+import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/styles/app_text_style.dart';
 
 class MyFridge extends StatefulWidget {
@@ -30,9 +30,10 @@ class _MyFridgeState extends State<MyFridge> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(backgroundColor: Colors.black12,
+        appBar: AppBar(
+          backgroundColor: Colors.black12,
           title: Center(
-            child: Text('나의 냉장고',style: AppTextStyle.header20()),
+            child: Text('나의 냉장고', style: AppTextStyle.header20()),
           ),
         ),
         body: Padding(
@@ -48,7 +49,8 @@ class _MyFridgeState extends State<MyFridge> {
                         child: GridView.builder(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             mainAxisSpacing: 10,
                             crossAxisSpacing: 10,
@@ -60,8 +62,8 @@ class _MyFridgeState extends State<MyFridge> {
                               .length,
                           itemBuilder: (context, index) {
                             return Image.network(myFoodDetails
-                                .where(
-                                    (e) => e.refrigeId == refrigeDetail.refrigeId)
+                                .where((e) =>
+                                    e.refrigeId == refrigeDetail.refrigeId)
                                 .toList()[index]
                                 .foodImage);
                           },
