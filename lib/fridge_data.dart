@@ -18,6 +18,7 @@ class FridgeState extends ChangeNotifier {
       'remainPeriod': 7,
       'userId': '3',  // FirebaseAuth.instance.currentUser!.uid,
       'userName': '아이유'  // FirebaseAuth.instance.currentUser!.displayName,
+
     });
   }
 }
