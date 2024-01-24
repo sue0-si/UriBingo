@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/view/page/my_food_detail_page/my_food_detail_view_model.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 import 'package:leute/data/mock_repository/foods_repository.dart';
-import 'package:leute/data/mock_repository/refrige_repository.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
+import 'package:leute/view/widget/my_food_detail_page_widget/my_food_detail_page_widget.dart';
 
 class MyFoodDetail extends StatefulWidget {
-  const MyFoodDetail({super.key, required this.myFoodItem, required this.ourRefrigeItem});
+  const MyFoodDetail(
+      {super.key, required this.myFoodItem, required this.ourRefrigeItem});
+
   final FoodDetail myFoodItem;
   final RefrigeDetail ourRefrigeItem;
 
@@ -18,32 +23,20 @@ class MyFoodDetail extends StatefulWidget {
 }
 
 class _MyFoodDetailState extends State<MyFoodDetail> {
-  @override
-  final foodRepository = RegisterdFoodsRepository();
-  final refrigeRepository = RegisterdRefrigeRepository();
-  bool isEnabled = true;
-  int extendedPeriod = 0;
-  List<FoodDetail> foods = [];
-
-  bool checkRemainPeriod() {
-    return widget.myFoodItem.remainPeriod < 2;
-  }
-
-  void extendPeriod() {
-    extendedPeriod = widget.myFoodItem.remainPeriod +
-        widget.ourRefrigeItem.extentionPeriod;
-    setState(() {});
-  }
+  final myFoodViewModel = MyFoodDetailViewModel();
+  int _remainPeriod =0;
+  bool _isOld = false;
 
   @override
   void initState() {
-    checkRemainPeriod();
+    _isOld = myFoodViewModel.isOld(widget.myFoodItem, widget.ourRefrigeItem);
     initData();
-
     super.initState();
+    _remainPeriod = myFoodViewModel.calculateRemainPeriod(
+        widget.myFoodItem, widget.ourRefrigeItem);
   }
 
-  void initData() async{
+  void initData() async {
     final foods = RegisterdFoodsRepository().getFirebaseFoodsData();
     setState(() {
       foods;
@@ -51,10 +44,13 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
   }
 
   Widget build(BuildContext context) {
+    final dateFormat = DateFormat('yyyy년 MM월 dd일');
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            context.pop();
+          },
           icon: const Icon(Icons.arrow_back),
         ),
       ),
@@ -64,7 +60,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => FullScreenImage(
+                builder: (context) => MyFoodDetailPageWidget(
                   itemImage: widget.myFoodItem.foodImage,
                 ),
               ),
@@ -94,33 +90,27 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
             children: [
               Row(
                 children: [
-                  Text('등록일: ${widget.myFoodItem.registerDate}',
+                  Text(
+                      '등록일: ${dateFormat.format(DateTime.fromMillisecondsSinceEpoch(widget.myFoodItem.registerDate))}',
                       style: AppTextStyle.body14R()),
                 ],
               ),
               Row(
                 children: [
                   Text('남은기간: ', style: AppTextStyle.body14R()),
-                  isEnabled
-                      ? Text(
-                          '${widget.myFoodItem.remainPeriod}일',
-                          style: AppTextStyle.body14R(
-                              color: checkRemainPeriod()
-                                  ? AppColors.caution
-                                  : AppColors.mainText),
-                        )
-                      : Text(
-                          '$extendedPeriod일',
-                          style: AppTextStyle.body14R(
-                              color: checkRemainPeriod()
-                                  ? AppColors.caution
-                                  : AppColors.mainText),
-                        ),
+                  Text(
+                    '$_remainPeriod일',
+                    style: AppTextStyle.body14R(
+                        color: myFoodViewModel.isOld(
+                                widget.myFoodItem, widget.ourRefrigeItem)
+                            ? AppColors.caution
+                            : AppColors.mainText),
+                  ),
                   const Spacer(),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue[50]),
-                    onPressed: isEnabled
+                    onPressed: _isOld
                         ? () {
                             showDialog(
                                 context: context,
@@ -131,8 +121,11 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                       secondButton: '아니오',
                                       onTap: () {
                                         setState(() {
-                                          isEnabled = false;
-                                          extendPeriod();
+                                         _isOld = false;
+                                          _remainPeriod =
+                                              myFoodViewModel.extendPeriod(
+                                                  widget.myFoodItem,
+                                                  widget.ourRefrigeItem);
                                         });
                                         Navigator.of(context).pop();
                                       });
@@ -143,46 +136,36 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                   )
                 ],
               ),
+              SizedBox(height: 8.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return TwoAnswerDialog(
+                                  title: '등록한 음식을 삭제하시겠습니까?',
+                                  firstButton: '네',
+                                  secondButton: '아니오',
+                                  onTap: () {
+                                    Navigator.of(context).pop(); //네 버튼 동작
+                                  });
+                            });
+                      },
+                      child: const Text('삭제하기')),
+                ],
+              ),
               SizedBox(height: 32.h),
-              checkRemainPeriod()
+              myFoodViewModel.isOld(widget.myFoodItem, widget.ourRefrigeItem)
                   ? Text('곧 폐기됩니다.',
                       style: AppTextStyle.body14R(color: AppColors.caution))
-                  : const Text(''),
+                  : const Text('아직은 연장이 불가해요.'),
             ],
           ),
         ),
       ]),
-    );
-  }
-}
-
-class FullScreenImage extends StatelessWidget {
-  final String itemImage;
-
-  const FullScreenImage({
-    super.key,
-    required this.itemImage,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: Center(
-          child: Hero(
-            tag: 'imageTag',
-            child: Container(
-              width: double.infinity,
-              height: double.infinity,
-              color: Colors.black,
-              child: Image.network(itemImage, fit: BoxFit.contain),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
