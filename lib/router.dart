@@ -7,6 +7,7 @@ import 'package:leute/view/page/main_screen_delete.dart';
 import 'package:leute/view/page/my_food_detail_page/my_food_detail.dart';
 import 'package:leute/view/page/login_pages/login_page.dart';
 import 'package:leute/view/page/login_pages/signup_page.dart';
+import 'package:leute/view/page/register_page/register_page.dart';
 import 'view/page/refrige_detail_page/refrige_detail_screen.dart';
 import 'view/page/refrige_pages/add_refrige.dart';
 import 'package:leute/view_model/login_page_view_model.dart';
@@ -50,6 +51,14 @@ final router = GoRouter(initialLocation: '/login', routes: [
     path: '/addRefrige',
     builder: (context, state) => const addRefrige(),
   ),
+
+  GoRoute(
+    path: '/addMyFood',
+    builder: (context, state) => RegisterPage(
+      fridgeData: state.extra as List<Object>,
+    ),
+  ),
+
   // GoRoute(
   //   path: '/mainScreen',
   //   builder: (context, state) => MainScreen(newRefrige: state.extra as RefrigeDetail),

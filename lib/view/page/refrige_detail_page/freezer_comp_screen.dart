@@ -42,6 +42,7 @@ class _FreezerCompScreenState extends State<FreezerCompScreen> {
         samePositionFoodList: samePositionFoodList[2],
         selectedRefrige: widget.selectedRefrige,
         selectedPosition: i,
+        isFreezed: true,
       ));
     }
   }
