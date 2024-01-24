@@ -51,50 +51,51 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.all(8.0),
       child: Form(
         key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '로그인',
-              style: AppTextStyle.header28(color: AppColors.mainText),
-            ),
-            SizedBox(height: 8.h),
-            LoginTextfield(
-              hintText: '이메일',
-              controller: emailController,
-              validator: viewmodel.emailValidator,
-            ),
-            SizedBox(height: 8.h),
-            PasswordTextfield(
-              hintText: '비밀번호',
-              controller: passwordController,
-              validator: viewmodel.passwordValidator,
-            ),
-            SizedBox(height: 8.h),
-            LoginElevatedButton(
-                childText: '로그인하기',
-                onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    viewmodel.handleLoginButton(
-                        email: emailController.text,
-                        password: passwordController.text,
-                        context: context);
-                  }
-                }),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(onPressed: () {}, child: Text('아이디 찾기')),
-                TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
-                TextButton(
-                    onPressed: () {
-                      context.push(Uri(path: '/signup').toString());
-                    },
-                    child: const Text('회원가입')),
-              ],
-            )
-          ],
+        child: Center(
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              Text(
+                '로그인',
+                style: AppTextStyle.header28(color: AppColors.mainText),
+              ),
+              SizedBox(height: 8.h),
+              LoginTextfield(
+                hintText: '이메일',
+                controller: emailController,
+                validator: viewmodel.emailValidator,
+              ),
+              SizedBox(height: 8.h),
+              PasswordTextfield(
+                hintText: '비밀번호',
+                controller: passwordController,
+                validator: viewmodel.passwordValidator,
+              ),
+              SizedBox(height: 8.h),
+              LoginElevatedButton(
+                  childText: '로그인하기',
+                  onPressed: () {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      viewmodel.handleLoginButton(
+                          email: emailController.text,
+                          password: passwordController.text,
+                          context: context);
+                    }
+                  }),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(onPressed: () {}, child: Text('아이디 찾기')),
+                  TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
+                  TextButton(
+                      onPressed: () {
+                        context.push(Uri(path: '/signup').toString());
+                      },
+                      child: const Text('회원가입')),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     ));
