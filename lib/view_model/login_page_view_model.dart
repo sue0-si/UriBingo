@@ -1,10 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginPageViewModel with ChangeNotifier {
-  handleLoginButton(String email, String password) async {
-    var res = await FirebaseAuth.instance
+  handleLoginButton(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
+    await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
-    print(res);
+    if (context.mounted) {
+      context.go('/');
+    }
   }
 }

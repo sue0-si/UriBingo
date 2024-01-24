@@ -77,7 +77,7 @@ class _SignupPageState extends State<SignupPage> {
               LoginTextfield(
                 hintText: '12-3456',
                 controller: employeeNumberController,
-                validator: viewModel.emailValidator,
+                validator: viewModel.employeeNumberValidator,
               ),
               SizedBox(height: 8.h),
               LoginElevatedButton(
@@ -85,6 +85,7 @@ class _SignupPageState extends State<SignupPage> {
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
                       viewModel.handleSignUp(
+                          context: context,
                           email: emailController.text,
                           password: passwordController.text,
                           confirmPassword: confirmPasswordController.text,

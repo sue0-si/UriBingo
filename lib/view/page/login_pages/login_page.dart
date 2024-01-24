@@ -56,10 +56,9 @@ class _LoginPageState extends State<LoginPage> {
               childText: '로그인하기',
               onPressed: () {
                 viewmodel.handleLoginButton(
-                    emailController.text, passwordController.text);
-                context.go(
-                  '/',
-                );
+                    email: emailController.text,
+                    password: passwordController.text,
+                    context: context);
               }),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
