@@ -46,7 +46,7 @@ class FoodThumbNailList extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final foodItem = samePositionFoodList[index];
                     return FoodThumbNail(
-                      foodItem: foodItem,
+                      foodItem: foodItem, period: selectedRefrige.period,
                     );
                   }),
             ),
