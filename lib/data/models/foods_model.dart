@@ -6,7 +6,6 @@ class FoodDetail {
   String userId;
   String userName;
   int registerDate;
-  int remainPeriod;
   bool isPublic;
   bool isUnknown;
 
@@ -19,7 +18,6 @@ class FoodDetail {
     required this.userId,
     required this.userName,
     required this.registerDate,
-    required this.remainPeriod,
     required this.isPublic,
     required this.isUnknown,
   });
@@ -36,7 +34,6 @@ class FoodDetail {
           userId == other.userId &&
           userName == other.userName &&
           registerDate == other.registerDate &&
-          remainPeriod == other.remainPeriod &&
           isPublic == other.isPublic &&
           isUnknown == other.isUnknown);
 
@@ -49,13 +46,12 @@ class FoodDetail {
       userId.hashCode ^
       userName.hashCode ^
       registerDate.hashCode ^
-      remainPeriod.hashCode ^
       isPublic.hashCode ^
       isUnknown.hashCode;
 
   @override
   String toString() {
-    return 'FoodDetail{ refrigeName: $refrigeName, freezed: $freezed, foodImage: $foodImage, positionId: $positionId, userId: $userId, userName: $userName, registerDate: $registerDate, remainPeriod: $remainPeriod, isPublic: $isPublic, isUnknown: $isUnknown,}';
+    return 'FoodDetail{ refrigeName: $refrigeName, freezed: $freezed, foodImage: $foodImage, positionId: $positionId, userId: $userId, userName: $userName, registerDate: $registerDate, isPublic: $isPublic, isUnknown: $isUnknown,}';
   }
 
   FoodDetail copyWith({
@@ -66,7 +62,6 @@ class FoodDetail {
     String? userId,
     String? userName,
     int? registerDate,
-    int? remainPeriod,
     bool? isPublic,
     bool? isUnknown,
   }) {
@@ -78,7 +73,6 @@ class FoodDetail {
       userId: userId ?? this.userId,
       userName: userName ?? this.userName,
       registerDate: registerDate ?? this.registerDate,
-      remainPeriod: remainPeriod ?? this.remainPeriod,
       isPublic: isPublic ?? this.isPublic,
       isUnknown: isUnknown ?? this.isUnknown,
     );
@@ -93,7 +87,6 @@ class FoodDetail {
       'userId': userId,
       'userName': userName,
       'registerDate': registerDate,
-      'remainPeriod': remainPeriod,
       'isPublic': isPublic,
       'isUnknown': isUnknown,
     };
@@ -108,7 +101,6 @@ class FoodDetail {
       userId: map['userId'] as String,
       userName: map['userName'] as String,
       registerDate: map['registerDate'] as int,
-      remainPeriod: map['remainPeriod'] as int,
       isPublic: map['isPublic'] as bool,
       isUnknown: map['isUnknown'] as bool,
     );

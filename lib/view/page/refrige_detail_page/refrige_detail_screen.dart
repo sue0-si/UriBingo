@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leute/data/models/refrige_model.dart';
-import 'package:leute/view/page/refrige_detail_page/freezer_comp_view_model.dart';
-import 'package:leute/view/page/refrige_detail_page/refrige_comp_view_model.dart';
+import 'package:leute/view_model/freezer_comp_view_model.dart';
+import 'package:leute/view_model/refrige_comp_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'freezer_comp_screen.dart';

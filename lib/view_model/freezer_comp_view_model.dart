@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
-import '../../../data/mock_repository/foods_repository.dart';
-import '../../../data/models/foods_model.dart';
+import '../data/models/foods_model.dart';
+import '../data/repository/foods_repository.dart';
 
 class FreezerCompViewModel extends ChangeNotifier {
   final _repository = RegisterdFoodsRepository();

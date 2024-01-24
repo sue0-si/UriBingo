@@ -13,9 +13,7 @@ class FridgeState extends ChangeNotifier {
       'isPublic': false,
       'isUnknown': false,
       'positionId': 1,
-      'refridgeId': 1,
       'registerDate': DateTime.now().millisecondsSinceEpoch,
-      'remainPeriod': 7,
       'userId': '3',  // FirebaseAuth.instance.currentUser!.uid,
       'userName': '아이유'  // FirebaseAuth.instance.currentUser!.displayName,
 

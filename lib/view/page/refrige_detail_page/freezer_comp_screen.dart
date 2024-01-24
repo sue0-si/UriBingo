@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:leute/view/page/refrige_detail_page/freezer_comp_view_model.dart';
+import 'package:leute/view_model/freezer_comp_view_model.dart';
 
-import '../../../data/mock_repository/foods_repository.dart';
 import '../../../data/models/refrige_model.dart';
+import '../../../data/repository/foods_repository.dart';
 import '../../widget/refrige_detail_page_widget/food_thumb_nail_list.dart';
 
 class FreezerCompScreen extends StatefulWidget {
@@ -42,6 +42,7 @@ class _FreezerCompScreenState extends State<FreezerCompScreen> {
         samePositionFoodList: samePositionFoodList[2],
         selectedRefrige: widget.selectedRefrige,
         selectedPosition: i,
+        isFreezed: true,
       ));
     }
   }

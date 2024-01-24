@@ -10,17 +10,19 @@ class FoodThumbNailList extends StatelessWidget {
       {super.key,
       required this.samePositionFoodList,
       required this.selectedRefrige,
-      required this.selectedPosition});
+      required this.selectedPosition,
+        required this.isFreezed});
 
   final RefrigeDetail selectedRefrige;
   final int selectedPosition;
   final List<FoodDetail> samePositionFoodList;
+  final bool isFreezed;
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
-        margin: EdgeInsets.only(top: 20, bottom: 20),
+        margin: const EdgeInsets.only(top: 20, bottom: 20),
         decoration: BoxDecoration(
           color: Colors.greenAccent,
           borderRadius: BorderRadius.circular(12.0),
@@ -47,6 +49,7 @@ class FoodThumbNailList extends StatelessWidget {
                     final foodItem = samePositionFoodList[index];
                     return FoodThumbNail(
                       foodItem: foodItem,
+                      period: selectedRefrige.period,
                     );
                   }),
             ),
@@ -55,7 +58,8 @@ class FoodThumbNailList extends StatelessWidget {
                     onPressed: () => context.push('/addMyFood', extra: [
                           selectedRefrige,
                           selectedPosition,
-                          samePositionFoodList
+                          samePositionFoodList,
+                          isFreezed
                         ]),
                     icon: const Icon(Icons.add)))
           ],
