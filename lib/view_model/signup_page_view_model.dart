@@ -14,25 +14,54 @@ class SignupPageViewModel with ChangeNotifier {
       required String name,
       required String employeeNumber,
       required BuildContext context}) async {
+    // 이메일 중복 검사
+    bool isEmailInUse = await checkIfEmailInUse(email);
+
+    // 중복된 이메일 처리
+    if (context.mounted) {
+      if (isEmailInUse) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('오류'),
+              content: const Text('해당 이메일은 이미 사용 중입니다.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('확인'),
+                ),
+              ],
+            );
+          },
+        );
+        return;
+      }
+    }
+
     // 비밀번호 확인
-    if (password != confirmPassword) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('오류'),
-            content: const Text('비밀번호와 비밀번호 확인이 일치하지 않습니다.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('확인'),
-              ),
-            ],
-          );
-        },
-      );
+    if (context.mounted) {
+      if (password != confirmPassword) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('오류'),
+              content: const Text('비밀번호와 비밀번호 확인이 일치하지 않습니다.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('확인'),
+                ),
+              ],
+            );
+          },
+        );
+      }
     }
     // Firebase에 회원가입 요청
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
@@ -40,11 +69,30 @@ class SignupPageViewModel with ChangeNotifier {
       password: password,
     );
     // 추가 정보 처리
-    await _firestore.collection('profile').doc(userCredential.user!.uid).set(
-        {'name': name, 'employeeNumber': employeeNumber, 'manager': false});
-// 가입 성공 시 메인 페이지로 이동
+    await _firestore.collection('profile').doc(userCredential.user!.uid).set({
+      'name': name,
+      'employeeNumber': employeeNumber,
+      'manager': false,
+      'email': email
+    });
+    // 가입 성공 시 메인 페이지로 이동
     if (context.mounted) {
       context.go('/');
+    }
+  }
+
+  // 이메일 중복 검사
+  Future<bool> checkIfEmailInUse(String email) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> query = await _firestore
+          .collection('profile')
+          .where('email', isEqualTo: email)
+          .get();
+      return query.docs.isNotEmpty; // 이미 사용 중
+    } catch (e) {
+      // ignore: avoid_print
+      print('에러: $e');
+      return false;
     }
   }
 

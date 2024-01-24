@@ -25,7 +25,7 @@ final router = GoRouter(initialLocation: '/login', routes: [
       builder: (context, state) {
         return ChangeNotifierProvider(
           create: (_) => LoginPageViewModel(),
-          child: LoginPage(),
+          child: const LoginPage(),
         );
       }),
   GoRoute(
@@ -33,7 +33,7 @@ final router = GoRouter(initialLocation: '/login', routes: [
       builder: (context, state) {
         return ChangeNotifierProvider(
           create: (_) => SignupPageViewModel(),
-          child: SignupPage(),
+          child: const SignupPage(),
         );
       }),
   GoRoute(
