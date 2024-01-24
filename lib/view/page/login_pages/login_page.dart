@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,21 +23,21 @@ class _LoginPageState extends State<LoginPage> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  StreamSubscription? authStateChanges;
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.authStateChanges().listen((user) {
+    authStateChanges = FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
         context.go('/');
         return;
       }
-      context.go('/login');
     });
   }
 
   @override
   void dispose() {
+    authStateChanges?.cancel();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
