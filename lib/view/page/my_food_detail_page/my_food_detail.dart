@@ -3,10 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
-import 'package:leute/data/mock_repository/foods_repository.dart';
-import 'package:leute/data/mock_repository/refrige_repository.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
+
+import '../../../data/repository/foods_repository.dart';
+import '../../../data/repository/refrige_repository.dart';
 
 class MyFoodDetail extends StatefulWidget {
   const MyFoodDetail({super.key, required this.myFoodItem, required this.ourRefrigeItem});
@@ -26,11 +27,11 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
   List<FoodDetail> foods = [];
 
   bool checkRemainPeriod() {
-    return widget.myFoodItem.remainPeriod < 2;
+    return widget.myFoodItem.registerDate < 2;
   }
 
   void extendPeriod() {
-    extendedPeriod = widget.myFoodItem.remainPeriod +
+    extendedPeriod = widget.myFoodItem.registerDate +
         widget.ourRefrigeItem.extentionPeriod;
     setState(() {});
   }
@@ -103,7 +104,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                   Text('남은기간: ', style: AppTextStyle.body14R()),
                   isEnabled
                       ? Text(
-                          '${widget.myFoodItem.remainPeriod}일',
+                          '${widget.myFoodItem.registerDate}일',
                           style: AppTextStyle.body14R(
                               color: checkRemainPeriod()
                                   ? AppColors.caution

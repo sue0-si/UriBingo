@@ -11,8 +11,6 @@ class addRefrige extends StatefulWidget {
 
 class _addRefrigeState extends State<addRefrige> {
   RefrigeDetail newRefrige = RefrigeDetail(
-    refrigeId: '0',
-    // 적절한 값으로 수정
     refrigeName: '',
     // 적절한 값으로 수정
     refrigeCompCount: 0,
