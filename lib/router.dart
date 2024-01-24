@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 
 import 'package:leute/view/page/main_my_fridge/main_page.dart';
+import 'package:leute/view/page/main_my_fridge/main_screen.dart';
 import 'package:leute/view/page/main_screen_delete.dart';
 import 'package:leute/view/page/my_food_detail_page/my_food_detail.dart';
 import 'package:leute/view/page/login_pages/login_page.dart';
@@ -13,8 +14,13 @@ import 'package:leute/view_model/login_page_view_model.dart';
 import 'package:leute/view_model/signup_page_view_model.dart';
 import 'package:provider/provider.dart';
 
-final router = GoRouter(initialLocation: '/login', routes: [
-  GoRoute(path: '/', builder: (context, state) => MainPage()),
+import 'view_model/add_page_view_model.dart';
+
+final router = GoRouter(initialLocation: '/', routes: [
+  GoRoute(
+    path: '/',
+    builder: (context, state) => addRefrige(),
+  ),
 
   GoRoute(
     path: '/myfooddetail',
@@ -48,6 +54,16 @@ final router = GoRouter(initialLocation: '/login', routes: [
 
   GoRoute(
     path: '/addRefrige',
+    builder: (context, state) {
+      return ChangeNotifierProvider(
+        create: (_) => AddPageViewModel(),
+        child: addRefrige(),
+      );
+    },
+  ),
+
+  GoRoute(
+    path: '/editRefrige',
     builder: (context, state) => const addRefrige(),
   ),
   // GoRoute(
