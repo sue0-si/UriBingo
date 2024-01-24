@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/refrige_detail/data/mock_repository/refrige_repository.dart';
+import 'package:leute/data/mock_repository/refrige_repository.dart';
 import 'package:leute/styles/app_text_style.dart';
+
+import '../../../data/models/refrige_model.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -12,13 +14,14 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   List<Widget> fridges = [];
+  List<RefrigeDetail> refrigeItems = [];
 
   @override
   void initState() {
-    final refrigeItems = RegisterdRefrigeRepository().getRefrigeDetail();
+    refrigeItems = RegisterdRefrigeRepository().getRefrigeDetail();
 
     for (int i = 1; i <= refrigeItems.length; i++) {
-      fridges.add(makeFridge(refrigeItems[i - 1].refrigeId));
+      fridges.add(makeFridge(i-1));
     }
 
     super.initState();
@@ -26,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget makeFridge(int index) {
     return GestureDetector(
-      onTap: () => context.go('/details', extra: index),
+      onTap: () => context.go('/details', extra: refrigeItems[index]),
       child: Container(
         width: 100,
         height: 150,
@@ -44,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         child: Center(
           child: Text(
-            '${index}번 냉장고',
+            refrigeItems[index].refrigeName,
           ),
         ),
       ),

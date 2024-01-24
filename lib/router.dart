@@ -1,28 +1,57 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/view/page/main_page.dart';
-import 'package:leute/view/page/my_food_detail.dart';
-import 'package:leute/view/page/login_page.dart';
-import 'package:leute/view/page/signup_page.dart';
-import 'refrige_detail/screen/refrige_detail_screen.dart';
+import 'package:leute/data/models/refrige_model.dart';
 
-final router = GoRouter(initialLocation: '/', routes: [
+import 'package:leute/view/page/main_my_fridge/main_page.dart';
+import 'package:leute/view/page/main_screen_delete.dart';
+import 'package:leute/view/page/my_food_detail_page/my_food_detail.dart';
+import 'package:leute/view/page/login_pages/login_page.dart';
+import 'package:leute/view/page/login_pages/signup_page.dart';
+import 'view/page/refrige_detail_page/refrige_detail_screen.dart';
+import 'view/page/refrige_pages/add_refrige.dart';
+import 'package:leute/view_model/login_page_view_model.dart';
+import 'package:leute/view_model/signup_page_view_model.dart';
+import 'package:provider/provider.dart';
+
+final router = GoRouter(initialLocation: '/login', routes: [
   GoRoute(path: '/', builder: (context, state) => MainPage()),
 
   GoRoute(
     path: '/myfooddetail',
-    builder: (context, state) => const MyFoodDetail(),
+    builder: (context, state) => MyFoodDetail(
+      myFoodItem: (state.extra as List)[0],
+      ourRefrigeItem: (state.extra as List)[1],
+    ),
   ),
   GoRoute(
-    path: '/login',
-    builder: (context, state) => const LoginPage(),
-  ),
+      path: '/login',
+      builder: (context, state) {
+        return ChangeNotifierProvider(
+          create: (_) => LoginPageViewModel(),
+          child: LoginPage(),
+        );
+      }),
   GoRoute(
-    path: '/signup',
-    builder: (context, state) => const SignupPage(),
-  ),
+      path: '/signup',
+      builder: (context, state) {
+        return ChangeNotifierProvider(
+          create: (_) => SignupPageViewModel(),
+          child: SignupPage(),
+        );
+      }),
   GoRoute(
     path: '/details',
-    builder: (context, state) => RefrigeDetailScreen(refrigeNum: state.extra as int,),
+    builder: (context, state) => RefrigeDetailScreen(
+      selectedRefrige: state.extra as RefrigeDetail,
+    ),
   ),
 
+  GoRoute(
+    path: '/addRefrige',
+    builder: (context, state) => const addRefrige(),
+  ),
+  // GoRoute(
+  //   path: '/mainScreen',
+  //   builder: (context, state) => MainScreen(newRefrige: state.extra as RefrigeDetail),
+  // ), main스크린으로 냉장고 생성 데이터 값을 넘기려고 해본 코드
 ]);
