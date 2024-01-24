@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/refrige_model.dart';
@@ -19,7 +18,4 @@ class RegisterdRefrigeRepository {
     });
     return data;
   }
-
-
-
 }

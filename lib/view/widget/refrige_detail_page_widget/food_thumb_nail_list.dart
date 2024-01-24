@@ -20,7 +20,7 @@ class FoodThumbNailList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
-        margin: EdgeInsets.only(top: 20, bottom: 20),
+        margin: const EdgeInsets.only(top: 20, bottom: 20),
         decoration: BoxDecoration(
           color: Colors.greenAccent,
           borderRadius: BorderRadius.circular(12.0),
@@ -46,7 +46,8 @@ class FoodThumbNailList extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final foodItem = samePositionFoodList[index];
                     return FoodThumbNail(
-                      foodItem: foodItem, period: selectedRefrige.period,
+                      foodItem: foodItem,
+                      period: selectedRefrige.period,
                     );
                   }),
             ),

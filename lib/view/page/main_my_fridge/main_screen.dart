@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/data/mock_repository/refrige_repository.dart';
 import 'package:leute/styles/app_text_style.dart';
 
 import '../../../data/models/refrige_model.dart';
+import '../../../data/repository/refrige_repository.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -20,15 +20,18 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
-    refrigeItems = RegisterdRefrigeRepository().getRefrigeDetail();
-
-    for (int i = 1; i <= refrigeItems.length; i++) {
-      fridges.add(
-        makeFridge(i - 1),
-      );
-    }
-
+    initData();
     super.initState();
+  }
+
+  void initData() async {
+    refrigeItems = await RegisterdRefrigeRepository().getFirebaseRefrigesData();
+    setState(() {
+      refrigeItems;
+    });
+    for (int i = 1; i <= refrigeItems.length; i++) {
+      fridges.add(makeFridge(i-1));
+    }
   }
 
   Widget makeFridge(int index) {

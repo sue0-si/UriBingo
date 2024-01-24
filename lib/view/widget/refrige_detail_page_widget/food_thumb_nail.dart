@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import '../../../data/models/foods_model.dart';
 
 class FoodThumbNail extends StatelessWidget {
-  const FoodThumbNail({super.key, required this.foodItem, required this.period});
+  const FoodThumbNail(
+      {super.key, required this.foodItem, required this.period});
+
   final int period;
   final FoodDetail foodItem;
 
   @override
   Widget build(BuildContext context) {
-    int passedDate = DateTime.now().day - DateTime.fromMillisecondsSinceEpoch(1705995688660).day;
+    int passedDate = DateTime.now()
+        .difference(DateTime.fromMillisecondsSinceEpoch(foodItem.registerDate))
+        .inDays;
     int remainPeriod = period - passedDate;
     return Container(
       padding: const EdgeInsets.all(5),
