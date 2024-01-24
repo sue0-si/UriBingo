@@ -18,7 +18,10 @@ final router = GoRouter(initialLocation: '/login', routes: [
 
   GoRoute(
     path: '/myfooddetail',
-    builder: (context, state) => const MyFoodDetail(),
+    builder: (context, state) => MyFoodDetail(
+      myFoodItem: (state.extra as List)[0],
+      ourRefrigeItem: (state.extra as List)[1],
+    ),
   ),
   GoRoute(
       path: '/login',

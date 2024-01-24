@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import '../../../data/mock_repository/foods_repository.dart';
 import '../../../data/models/foods_model.dart';
 
-class FreezerCompViewModel extends ChangeNotifier {
+class RefrigeCompViewModel extends ChangeNotifier {
   final _repository = RegisterdFoodsRepository();
 
   List<FoodDetail> _foodItems = [];
@@ -15,5 +15,6 @@ class FreezerCompViewModel extends ChangeNotifier {
     _foodItems = allFoods.where((e) => e.refrigeName == refrigeName).toList();
     return _foodItems;
   }
+
   notifyListeners();
 }

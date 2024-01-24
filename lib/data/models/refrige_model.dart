@@ -1,5 +1,5 @@
 class RefrigeDetail {
-  int refrigeId;
+  String refrigeId;
   String refrigeName;
   int refrigeCompCount;
   int freezerCompCount;
@@ -43,7 +43,7 @@ class RefrigeDetail {
   }
 
   RefrigeDetail copyWith({
-    int? refrigeId,
+    String? refrigeId,
     String? refrigeName,
     int? refrigeCompCount,
     int? freezerCompCount,
@@ -60,7 +60,7 @@ class RefrigeDetail {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'refrigeId': refrigeId,
       'refrigeName': refrigeName,
@@ -71,9 +71,9 @@ class RefrigeDetail {
     };
   }
 
-  factory RefrigeDetail.fromMap(Map<String, dynamic> map) {
+  factory RefrigeDetail.fromJson(Map<String, dynamic> map) {
     return RefrigeDetail(
-      refrigeId: map['refrigeId'] as int,
+      refrigeId: map['refrigeId'] as String,
       refrigeName: map['refrigeName'] as String,
       refrigeCompCount: map['refrigeCompCount'] as int,
       freezerCompCount: map['freezerCompCount'] as int,

@@ -1,25 +1,27 @@
 class FoodDetail {
-  int refrigeId;
+  String refrigeName;
   bool freezed;
-  int foodId;
   String foodImage;
   int positionId;
-  int userId;
+  String userId;
   String userName;
-  String registerDate;
+  int registerDate;
   int remainPeriod;
+  bool isPublic;
+  bool isUnknown;
 
 //<editor-fold desc="Data Methods">
   FoodDetail({
-    required this.refrigeId,
+    required this.refrigeName,
     required this.freezed,
-    required this.foodId,
     required this.foodImage,
     required this.positionId,
     required this.userId,
     required this.userName,
     required this.registerDate,
     required this.remainPeriod,
+    required this.isPublic,
+    required this.isUnknown,
   });
 
   @override
@@ -27,82 +29,88 @@ class FoodDetail {
       identical(this, other) ||
       (other is FoodDetail &&
           runtimeType == other.runtimeType &&
-          refrigeId == other.refrigeId &&
+          refrigeName == other.refrigeName &&
           freezed == other.freezed &&
-          foodId == other.foodId &&
           foodImage == other.foodImage &&
           positionId == other.positionId &&
           userId == other.userId &&
           userName == other.userName &&
           registerDate == other.registerDate &&
-          remainPeriod == other.remainPeriod);
+          remainPeriod == other.remainPeriod &&
+          isPublic == other.isPublic &&
+          isUnknown == other.isUnknown);
 
   @override
   int get hashCode =>
-      refrigeId.hashCode ^
+      refrigeName.hashCode ^
       freezed.hashCode ^
-      foodId.hashCode ^
       foodImage.hashCode ^
       positionId.hashCode ^
       userId.hashCode ^
       userName.hashCode ^
       registerDate.hashCode ^
-      remainPeriod.hashCode;
+      remainPeriod.hashCode ^
+      isPublic.hashCode ^
+      isUnknown.hashCode;
 
   @override
   String toString() {
-    return 'FoodDetail{ refrigeId: $refrigeId, freezed: $freezed, foodId: $foodId, foodImage: $foodImage, positionId: $positionId, userId: $userId, userName: $userName, registerDate: $registerDate, remainPeriod: $remainPeriod,}';
+    return 'FoodDetail{ refrigeName: $refrigeName, freezed: $freezed, foodImage: $foodImage, positionId: $positionId, userId: $userId, userName: $userName, registerDate: $registerDate, remainPeriod: $remainPeriod, isPublic: $isPublic, isUnknown: $isUnknown,}';
   }
 
   FoodDetail copyWith({
-    int? refrigeId,
+    String? refrigeName,
     bool? freezed,
-    int? foodId,
     String? foodImage,
     int? positionId,
-    int? userId,
+    String? userId,
     String? userName,
-    String? registerDate,
+    int? registerDate,
     int? remainPeriod,
+    bool? isPublic,
+    bool? isUnknown,
   }) {
     return FoodDetail(
-      refrigeId: refrigeId ?? this.refrigeId,
+      refrigeName: refrigeName ?? this.refrigeName,
       freezed: freezed ?? this.freezed,
-      foodId: foodId ?? this.foodId,
       foodImage: foodImage ?? this.foodImage,
       positionId: positionId ?? this.positionId,
       userId: userId ?? this.userId,
       userName: userName ?? this.userName,
       registerDate: registerDate ?? this.registerDate,
       remainPeriod: remainPeriod ?? this.remainPeriod,
+      isPublic: isPublic ?? this.isPublic,
+      isUnknown: isUnknown ?? this.isUnknown,
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
-      'refrigeId': refrigeId,
+      'refrigeName': refrigeName,
       'freezed': freezed,
-      'foodId': foodId,
       'foodImage': foodImage,
       'positionId': positionId,
       'userId': userId,
       'userName': userName,
       'registerDate': registerDate,
       'remainPeriod': remainPeriod,
+      'isPublic': isPublic,
+      'isUnknown': isUnknown,
     };
   }
 
-  factory FoodDetail.fromMap(Map<String, dynamic> map) {
+  factory FoodDetail.fromJson(Map<String, dynamic> map) {
     return FoodDetail(
-      refrigeId: map['refrigeId'] as int,
+      refrigeName: map['refrigeName'] as String,
       freezed: map['freezed'] as bool,
-      foodId: map['foodId'] as int,
       foodImage: map['foodImage'] as String,
       positionId: map['positionId'] as int,
-      userId: map['userId'] as int,
+      userId: map['userId'] as String,
       userName: map['userName'] as String,
-      registerDate: map['registerDate'] as String,
+      registerDate: map['registerDate'] as int,
       remainPeriod: map['remainPeriod'] as int,
+      isPublic: map['isPublic'] as bool,
+      isUnknown: map['isUnknown'] as bool,
     );
   }
 
