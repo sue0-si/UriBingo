@@ -38,8 +38,14 @@ class _addRefrigeState extends State<addRefrige> {
   String _selectedFrozenStorage = ''; //선택된냉동칸수
   String _selectedStoragePeriod = ''; //선택된보관기간
   String _selectedExtensionPeriod = ''; //선택된연장가능기간
-
   String? _name; //validate 값 저장되는 변수
+
+  String get selectedColdstorage => _selectedColdstorage;
+  String get selectedFrozenStorage => _selectedFrozenStorage;
+  String get selectedStoragePeriod => _selectedStoragePeriod;
+  String get selectedExtensionPeriod => _selectedExtensionPeriod;
+  String? get name => _name;
+  //getter 설정
 
   @override
   void initState() {
