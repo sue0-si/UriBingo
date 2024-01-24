@@ -3,10 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
-import 'package:leute/view/page/login_pages/my_page.dart';
-
-import 'main_screen.dart';
-import 'my_fridge.dart';
+import 'package:leute/view/page/main_my_fridge/main_screen.dart';
+import 'package:leute/view/page/main_my_fridge/my_fridge.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -21,7 +19,6 @@ class _MainPageState extends State<MainPage> {
   List<Widget> _pages = <Widget>[
     MainScreen(),
     MyFridge(),
-    MyPage(),
   ];
 
   @override
@@ -39,15 +36,11 @@ class _MainPageState extends State<MainPage> {
           NavigationDestination(
               selectedIcon: Icon(Icons.home),
               icon: Icon(Icons.home_outlined),
-              label: '냉장고'),
+              label: '공용 냉장고'),
           NavigationDestination(
               selectedIcon: Icon(Icons.kitchen),
               icon: Icon(Icons.kitchen_outlined),
               label: '나의 냉장고'),
-          NavigationDestination(
-              selectedIcon: Icon(Icons.kitchen),
-              icon: Icon(Icons.kitchen_outlined),
-              label: '마이페이지'),
         ],
       ),
     );

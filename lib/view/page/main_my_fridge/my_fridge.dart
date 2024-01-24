@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/data/mock_repository/foods_repository.dart';
-import 'package:leute/data/mock_repository/refrige_repository.dart';
 import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/styles/app_text_style.dart';
+
+import '../../../data/repository/foods_repository.dart';
+import '../../../data/repository/refrige_repository.dart';
 
 class MyFridge extends StatefulWidget {
   const MyFridge({super.key});
@@ -27,9 +28,11 @@ class _MyFridgeState extends State<MyFridge> {
 
   void initData() async {
     final allFoods = await foodRepository.getFirebaseFoodsData();
+    refrigeDetails = await refrigeRepository.getFirebaseRefrigesData();
     setState(() {
       myFoodDetails = foodRepository.getMyFoodDetail(allFoods, 'sangin');
-      refrigeDetails = refrigeRepository.getRefrigeDetail();
+      refrigeDetails;
+      print(refrigeDetails.length);
     });
   }
 
@@ -75,12 +78,15 @@ class _MyFridgeState extends State<MyFridge> {
                                   refrigeDetail
                                 ]);
                               },
-                              child: Image.network(myFoodDetails
-                                  .where((e) =>
-                                      e.refrigeName ==
-                                      refrigeDetail.refrigeName)
-                                  .toList()[index]
-                                  .foodImage),
+                              child: Image.network(
+                                myFoodDetails
+                                    .where((e) =>
+                                        e.refrigeName ==
+                                        refrigeDetail.refrigeName)
+                                    .toList()[index]
+                                    .foodImage,
+                                fit: BoxFit.cover,
+                              ),
                             );
                           },
                         ),

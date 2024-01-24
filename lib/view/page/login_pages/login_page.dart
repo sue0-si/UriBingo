@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +8,7 @@ import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/login_widget/login_elevated_button.dart';
 import 'package:leute/view/widget/login_widget/login_textfield.dart';
+import 'package:leute/view/widget/login_widget/password_textfield.dart';
 import 'package:leute/view_model/login_page_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -18,9 +22,22 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  StreamSubscription? authStateChanges;
+  @override
+  void initState() {
+    super.initState();
+    authStateChanges = FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user != null) {
+        context.go('/');
+        return;
+      }
+    });
+  }
 
   @override
   void dispose() {
+    authStateChanges?.cancel();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -32,47 +49,54 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '로그인',
-            style: AppTextStyle.header28(color: AppColors.mainText),
-          ),
-          SizedBox(height: 8.h),
-          LoginTextfield(
-            hintText: '이메일',
-            controller: emailController,
-          ),
-          SizedBox(height: 8.h),
-          LoginTextfield(
-            hintText: '비밀번호',
-            controller: passwordController,
-          ),
-          SizedBox(height: 8.h),
-          LoginElevatedButton(
-              childText: '로그인하기',
-              onPressed: () {
-                viewmodel.handleLoginButton(
-                    emailController.text, passwordController.text);
-                context.go(
-                  '/',
-                );
-              }),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      child: Form(
+        key: _formKey,
+        child: Center(
+          child: ListView(
+            shrinkWrap: true,
             children: [
-              TextButton(onPressed: () {}, child: Text('아이디 찾기')),
-              TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
-              TextButton(
+              Text(
+                '로그인',
+                style: AppTextStyle.header28(color: AppColors.mainText),
+              ),
+              SizedBox(height: 8.h),
+              LoginTextfield(
+                hintText: '이메일',
+                controller: emailController,
+                validator: viewmodel.emailValidator,
+              ),
+              SizedBox(height: 8.h),
+              PasswordTextfield(
+                hintText: '비밀번호',
+                controller: passwordController,
+                validator: viewmodel.passwordValidator,
+              ),
+              SizedBox(height: 8.h),
+              LoginElevatedButton(
+                  childText: '로그인하기',
                   onPressed: () {
-                    context.push(Uri(path: '/signup').toString());
-                  },
-                  child: const Text('회원가입')),
+                    if (_formKey.currentState?.validate() ?? false) {
+                      viewmodel.handleLoginButton(
+                          email: emailController.text,
+                          password: passwordController.text,
+                          context: context);
+                    }
+                  }),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(onPressed: () {}, child: Text('아이디 찾기')),
+                  TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
+                  TextButton(
+                      onPressed: () {
+                        context.push(Uri(path: '/signup').toString());
+                      },
+                      child: const Text('회원가입')),
+                ],
+              )
             ],
-          )
-        ],
+          ),
+        ),
       ),
     ));
   }
