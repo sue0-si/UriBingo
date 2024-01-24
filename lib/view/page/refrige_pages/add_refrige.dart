@@ -4,44 +4,31 @@ import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
 
-class addRefrige extends StatefulWidget {
-  const addRefrige({super.key});
+class AddRefrige extends StatefulWidget {
+  const AddRefrige({super.key});
 
   @override
-  State<addRefrige> createState() => _addRefrigeState();
+  State<AddRefrige> createState() => _AddRefrigeState();
 }
 
-class _addRefrigeState extends State<addRefrige> {
+class _AddRefrigeState extends State<AddRefrige> {
   //final addPageViewModel = AddPageViewModel(); //AddPageViewModel 담을 변수 선언
   final _addNameController = TextEditingController();
 
   TextEditingController get addNameController =>
       _addNameController; //addNameController 외부접근
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); //textFormfield 사용하려면 설정해야함
+  final GlobalKey<FormState> _formKey =
+      GlobalKey<FormState>(); //textFormfield 사용하려면 설정해야함
 
-  RefrigeDetail newRefrige = RefrigeDetail(
-    refrigeId: '0',
-    // 적절한 값으로 수정
-    refrigeName: '',
-    // 적절한 값으로 수정
-    refrigeCompCount: 0,
-    // 적절한 값으로 수정
-    freezerCompCount: 0,
-    // 적절한 값으로 수정
-    period: 0,
-    // 적절한 값으로 수정
-    extentionPeriod: 0, // 적절한 값으로 수정
-  );
-
-  @override
-  void initState() {
-    super.initState();
-    AddPageViewModel().selectedColdstorage = AddPageViewModel().coldStorageOfCompartmentsList.first.split('').first;
-    AddPageViewModel().selectedFrozenStorage = AddPageViewModel().frozenStorageOfCompartmentsList.first.split('').first;
-    AddPageViewModel().selectedStoragePeriod = AddPageViewModel().storagePeriodList.first.split('').first;
-    AddPageViewModel().selectedExtensionPeriod = AddPageViewModel().extensionPeriodList.first.split('').first;
-
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   AddPageViewModel().selectedColdstorage = AddPageViewModel().coldStorageOfCompartmentsList.first.split('').first;
+  //   AddPageViewModel().selectedFrozenStorage = AddPageViewModel().frozenStorageOfCompartmentsList.first.split('').first;
+  //   AddPageViewModel().selectedStoragePeriod = AddPageViewModel().storagePeriodList.first.split('').first;
+  //   AddPageViewModel().selectedExtensionPeriod = AddPageViewModel().extensionPeriodList.first.split('').first;
+  //
+  // }
 
   @override
   void dispose() {
@@ -99,10 +86,9 @@ class _addRefrigeState extends State<addRefrige> {
                                   },
                                   onSaved: (value) {
                                     //유효성 검사 후, 폼이 제출될 때 저장되는 콜백
-                                    addPageViewModel.name = value; //여기 잘 모르겠다
+                                    addPageViewModel.name = value!; //여기 잘 모르겠다
                                   },
-                                  controller:
-                                      addNameController,
+                                  controller: addNameController,
                                   //obscureText: true, 입력값을 안보여주고싶을때
                                   style: TextStyle(fontSize: 15),
                                   decoration: InputDecoration(
@@ -155,8 +141,7 @@ class _addRefrigeState extends State<addRefrige> {
                               child: Container(
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
-                                    value:
-                                        addPageViewModel.selectedColdstorage[0],
+                                    value: addPageViewModel.selectedColdstorage,
                                     items: addPageViewModel
                                         .coldStorageOfCompartmentsList //String이 아닌 List<String>을 반환되고 있다
                                         .map((e) => DropdownMenuItem(
@@ -169,8 +154,6 @@ class _addRefrigeState extends State<addRefrige> {
                                       setState(() {
                                         addPageViewModel.selectedColdstorage =
                                             value!;
-                                        print(addPageViewModel
-                                            .selectedColdstorage);
                                       });
                                     }),
                               ),
@@ -194,8 +177,8 @@ class _addRefrigeState extends State<addRefrige> {
                               child: Container(
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
-                                    value: addPageViewModel
-                                        .selectedFrozenStorage[0],
+                                    value:
+                                        addPageViewModel.selectedFrozenStorage,
                                     items: addPageViewModel
                                         .frozenStorageOfCompartmentsList
                                         .map((e) => DropdownMenuItem(
@@ -231,8 +214,10 @@ class _addRefrigeState extends State<addRefrige> {
                               child: Container(
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
-                                    value: addPageViewModel.selectedStoragePeriod[0],
-                                    items: addPageViewModel.frozenStorageOfCompartmentsList
+                                    value:
+                                        addPageViewModel.selectedStoragePeriod,
+                                    items: addPageViewModel
+                                        .frozenStorageOfCompartmentsList
                                         .map((e) => DropdownMenuItem(
                                               value: e,
                                               child: Text(e),
@@ -241,7 +226,8 @@ class _addRefrigeState extends State<addRefrige> {
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        addPageViewModel.selectedStoragePeriod = value!;
+                                        addPageViewModel.selectedStoragePeriod =
+                                            value!;
                                       });
                                     }),
                               ),
@@ -266,8 +252,10 @@ class _addRefrigeState extends State<addRefrige> {
                                 child: DropdownButton(
                                     elevation: 10,
                                     dropdownColor: Colors.green,
-                                    value: addPageViewModel.selectedFrozenStorage[0],
-                                    items: addPageViewModel.frozenStorageOfCompartmentsList
+                                    value:
+                                        addPageViewModel.selectedFrozenStorage,
+                                    items: addPageViewModel
+                                        .frozenStorageOfCompartmentsList
                                         .map((e) => DropdownMenuItem(
                                               value: e,
                                               child: Text(e),
@@ -276,7 +264,8 @@ class _addRefrigeState extends State<addRefrige> {
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        addPageViewModel.selectedExtensionPeriod = value!;
+                                        addPageViewModel
+                                            .selectedExtensionPeriod = value!;
                                       });
                                     }),
                               ),
@@ -290,33 +279,29 @@ class _addRefrigeState extends State<addRefrige> {
                 Column(
                   children: [
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        //왜 async?
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
                           print('냉장고 이름: $addPageViewModel.name');
 
                           //_selectedColdstoragefmf 정수로 변환
-                          int coldStorageValue =
-                              int.parse(addPageViewModel.selectedColdstorage[0]);
-                          int forzenStorageValue =
-                              int.parse(addPageViewModel.selectedFrozenStorage[0]);
-                          int storagePeriodValue =
-                              int.parse(addPageViewModel.selectedStoragePeriod[0]);
-                          int extentionPeriodValue =
-                              int.parse(addPageViewModel.selectedExtensionPeriod[0]);
-
-                          //함수 호출 시 정수 값을 전달
-                          // inputAddRefrige(
-                          //   coldStorageValue,
-                          //   forzenStorageValue,
-                          //   storagePeriodValue,
-                          //   extentionPeriodValue,
-                          // );
+                          // int coldStorageValue =
+                          //     int.parse(addPageViewModel.selectedColdstorage[0]);
+                          // int forzenStorageValue =
+                          //     int.parse(addPageViewModel.selectedFrozenStorage[0]);
+                          // int storagePeriodValue =
+                          //     int.parse(addPageViewModel.selectedStoragePeriod[0]);
+                          // int extentionPeriodValue =
+                          //     int.parse(addPageViewModel.selectedExtensionPeriod[0]);
+                          await addPageViewModel.changeColdstorage();
+                          if (mounted) {
+                            Navigator.pop(
+                              context,
+                              addPageViewModel,
+                            );
+                          }
                         }
-                        Navigator.pop(
-                          context,
-                          addPageViewModel,
-                        );
                       },
                       child: const Text(
                         '추가하기',
@@ -335,24 +320,4 @@ class _addRefrigeState extends State<addRefrige> {
       ),
     );
   }
-
-  // void inputAddRefrige(
-  //   int coldStorageValue,
-  //   int forzenStorageValue,
-  //   int storagePeriodValue,
-  //   int extentionPeriodValue,
-  // ) {
-  //   //RefrigeDetail? newRefrige;
-  //
-  //   newRefrige.refrigeName = _addNameController.text;
-  //   newRefrige.refrigeCompCount = coldStorageValue;
-  //   newRefrige.freezerCompCount = forzenStorageValue;
-  //   newRefrige.period = storagePeriodValue;
-  //   newRefrige.extentionPeriod = extentionPeriodValue;
-  //
-  //   print(coldStorageValue);
-  //   print(forzenStorageValue);
-  //   print(storagePeriodValue);
-  //   print(extentionPeriodValue);
-  // }
 }

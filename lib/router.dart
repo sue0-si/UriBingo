@@ -16,10 +16,10 @@ import 'package:provider/provider.dart';
 
 import 'view_model/add_page_view_model.dart';
 
-final router = GoRouter(initialLocation: '/', routes: [
+final router = GoRouter(initialLocation: '/login', routes: [
   GoRoute(
     path: '/',
-    builder: (context, state) => addRefrige(),
+    builder: (context, state) => MainPage(),
   ),
 
   GoRoute(
@@ -57,14 +57,14 @@ final router = GoRouter(initialLocation: '/', routes: [
     builder: (context, state) {
       return ChangeNotifierProvider(
         create: (_) => AddPageViewModel(),
-        child: addRefrige(),
+        child: const AddRefrige(),
       );
     },
   ),
 
   GoRoute(
     path: '/editRefrige',
-    builder: (context, state) => const addRefrige(),
+    builder: (context, state) => const AddRefrige(),
   ),
   // GoRoute(
   //   path: '/mainScreen',
