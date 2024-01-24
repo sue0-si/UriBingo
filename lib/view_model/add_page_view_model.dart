@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AddPageViewModel extends ChangeNotifier {
-  final _addNameController = TextEditingController();
 
-  TextEditingController get addNameController =>
-      _addNameController; //addNameController 외부접근
 
   final coldStorageOfCompartmentsList = ['1칸', '2칸', '3칸', '4칸', '5칸']; //냉장고칸수
   final frozenStorageOfCompartmentsList = ['1칸', '2칸', '3칸', '4칸', '5칸'];//냉동고칸수
@@ -58,13 +55,7 @@ class AddPageViewModel extends ChangeNotifier {
 
 //getter 설정
 
-  void initAddRefri() {
-    _selectedColdstorage = coldStorageOfCompartmentsList.first.split('').first;
-    _selectedFrozenStorage = frozenStorageOfCompartmentsList.first.split('').first;
-    _selectedStoragePeriod = storagePeriodList.first.split('').first;
-    _selectedExtensionPeriod = extensionPeriodList.first.split('').first;
-    notifyListeners();
-  }
+
 
   void changeColdstorage(int value) {
     _selectedColdstorage = value.toString();

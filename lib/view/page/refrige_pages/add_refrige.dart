@@ -12,8 +12,11 @@ class addRefrige extends StatefulWidget {
 }
 
 class _addRefrigeState extends State<addRefrige> {
-  final addPageViewModel = AddPageViewModel(); //AddPageViewModel 담을 변수 선언
+  //final addPageViewModel = AddPageViewModel(); //AddPageViewModel 담을 변수 선언
+  final _addNameController = TextEditingController();
 
+  TextEditingController get addNameController =>
+      _addNameController; //addNameController 외부접근
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); //textFormfield 사용하려면 설정해야함
 
   RefrigeDetail newRefrige = RefrigeDetail(
@@ -33,12 +36,16 @@ class _addRefrigeState extends State<addRefrige> {
   @override
   void initState() {
     super.initState();
-    addPageViewModel.initAddRefri(); //호출(단발성) - 함수를 포장해서 보내주자
+    AddPageViewModel().selectedColdstorage = AddPageViewModel().coldStorageOfCompartmentsList.first.split('').first;
+    AddPageViewModel().selectedFrozenStorage = AddPageViewModel().frozenStorageOfCompartmentsList.first.split('').first;
+    AddPageViewModel().selectedStoragePeriod = AddPageViewModel().storagePeriodList.first.split('').first;
+    AddPageViewModel().selectedExtensionPeriod = AddPageViewModel().extensionPeriodList.first.split('').first;
+
   }
 
   @override
   void dispose() {
-    addPageViewModel.addNameController.dispose(); //호출(단발성) - 함수를 포장해서 보내주자
+    addNameController.dispose(); //호출(단발성) - 함수를 포장해서 보내주자
     super.dispose();
   }
 
@@ -95,7 +102,7 @@ class _addRefrigeState extends State<addRefrige> {
                                     addPageViewModel.name = value; //여기 잘 모르겠다
                                   },
                                   controller:
-                                      addPageViewModel.addNameController,
+                                      addNameController,
                                   //obscureText: true, 입력값을 안보여주고싶을때
                                   style: TextStyle(fontSize: 15),
                                   decoration: InputDecoration(
