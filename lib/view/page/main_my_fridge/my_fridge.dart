@@ -31,7 +31,8 @@ class _MyFridgeState extends State<MyFridge> {
     final allFoods = await foodRepository.getFirebaseFoodsData();
     refrigeDetails = await refrigeRepository.getFirebaseRefrigesData();
     setState(() {
-      myFoodDetails = foodRepository.getMyFoodDetail(allFoods, FirebaseAuth.instance.currentUser!.displayName!);
+      myFoodDetails = foodRepository.getMyFoodDetail(
+          allFoods, FirebaseAuth.instance.currentUser!.displayName!);
       refrigeDetails;
     });
   }
@@ -54,7 +55,11 @@ class _MyFridgeState extends State<MyFridge> {
                 for (var refrigeDetail in refrigeDetails)
                   Column(
                     children: [
-                      Text(' ${refrigeDetail.refrigeName}'),
+                      if (myFoodDetails
+                          .where(
+                              (e) => e.refrigeName == refrigeDetail.refrigeName)
+                          .isNotEmpty)
+                        Text(' ${refrigeDetail.refrigeName}'),
                       Container(
                         child: GridView.builder(
                           shrinkWrap: true,
