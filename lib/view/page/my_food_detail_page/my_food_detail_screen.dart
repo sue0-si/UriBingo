@@ -1,17 +1,21 @@
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
-import 'package:leute/view/page/my_food_detail_page/my_food_detail_view_model.dart';
+import 'package:leute/view/widget/custom_buttons/first_custom_button.dart';
+import 'package:leute/view_model/my_food_detail_view_model.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
-import 'package:leute/view/widget/my_food_detail_page_widget/my_food_detail_page_widget.dart';
+import 'package:leute/view/widget/my_food_detail_page_widget/food_detail_image_widget.dart';
 
 import '../../../data/repository/foods_repository.dart';
-import '../../../data/repository/refrige_repository.dart';
 
 class MyFoodDetail extends StatefulWidget {
   const MyFoodDetail(
@@ -25,14 +29,13 @@ class MyFoodDetail extends StatefulWidget {
 }
 
 class _MyFoodDetailState extends State<MyFoodDetail> {
-
   final myFoodViewModel = MyFoodDetailViewModel();
-  int _remainPeriod =0;
+  int _remainPeriod = 0;
   bool _isOld = false;
 
   @override
   void initState() {
-    _isOld = myFoodViewModel.isOld(widget.myFoodItem, widget.ourRefrigeItem);
+    _isOld = myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem);
     initData();
     super.initState();
     _remainPeriod = myFoodViewModel.calculateRemainPeriod(
@@ -40,7 +43,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
   }
 
   void initData() async {
-    final foods = RegisterdFoodsRepository().getFirebaseFoodsData();
+    final foods = await RegisterdFoodsRepository().getFirebaseFoodsData();
     setState(() {
       foods;
     });
@@ -63,7 +66,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => MyFoodDetailPageWidget(
+                builder: (context) => FoodDetailImageWidget(
                   itemImage: widget.myFoodItem.foodImage,
                 ),
               ),
@@ -104,7 +107,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                   Text(
                     '$_remainPeriod일',
                     style: AppTextStyle.body14R(
-                        color: myFoodViewModel.isOld(
+                        color: myFoodViewModel.checkOld(
                                 widget.myFoodItem, widget.ourRefrigeItem)
                             ? AppColors.caution
                             : AppColors.mainText),
@@ -124,7 +127,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                       secondButton: '아니오',
                                       onTap: () {
                                         setState(() {
-                                         _isOld = false;
+                                          _isOld = false;
                                           _remainPeriod =
                                               myFoodViewModel.extendPeriod(
                                                   widget.myFoodItem,
@@ -153,7 +156,9 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                   firstButton: '네',
                                   secondButton: '아니오',
                                   onTap: () {
-                                    Navigator.of(context).pop(); //네 버튼 동작
+                                    final result = FirebaseFirestore.instance
+                                        .collection('FoodDetail')
+                                        .doc(widget.myFoodItem.registerDate.toString() + widget.myFoodItem.userId).delete();
                                   });
                             });
                       },
@@ -161,7 +166,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                 ],
               ),
               SizedBox(height: 32.h),
-              myFoodViewModel.isOld(widget.myFoodItem, widget.ourRefrigeItem)
+              myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem)
                   ? Text('곧 폐기됩니다.',
                       style: AppTextStyle.body14R(color: AppColors.caution))
                   : const Text('아직은 연장이 불가해요.'),

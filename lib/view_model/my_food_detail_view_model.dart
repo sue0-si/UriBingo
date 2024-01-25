@@ -3,7 +3,8 @@ import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
 
 
-class MyFoodDetailViewModel extends ChangeNotifier {
+class MyFoodDetailViewModel with ChangeNotifier {
+
 
   int calculateRemainPeriod(FoodDetail myFoodItem, RefrigeDetail ourRefrigeItem) {
     int passedDate =
@@ -19,8 +20,7 @@ class MyFoodDetailViewModel extends ChangeNotifier {
     return extendedPeriod = remainPeriod + ourRefirgeItem.period;
   }
 
-
-  bool isOld(FoodDetail myFoodItem, RefrigeDetail ourRefirgeItem) {
+  bool checkOld(FoodDetail myFoodItem, RefrigeDetail ourRefirgeItem) {
     int remainPeriod = calculateRemainPeriod(myFoodItem, ourRefirgeItem);
     return remainPeriod > 2;
   }
