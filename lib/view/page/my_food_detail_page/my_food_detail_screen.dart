@@ -65,9 +65,10 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => FoodDetailImageWidget(
-                  itemImage: widget.myFoodItem.foodImage,
-                ),
+                builder: (context) =>
+                    FoodDetailImageWidget(
+                      itemImage: widget.myFoodItem.foodImage,
+                    ),
               ),
             );
           },
@@ -96,7 +97,9 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
               Row(
                 children: [
                   Text(
-                      '등록일: ${dateFormat.format(DateTime.fromMillisecondsSinceEpoch(widget.myFoodItem.registerDate))}',
+                      '등록일: ${dateFormat.format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                              widget.myFoodItem.registerDate))}',
                       style: AppTextStyle.body14R()),
                 ],
               ),
@@ -107,7 +110,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                     '$_remainPeriod일',
                     style: AppTextStyle.body14R(
                         color: myFoodViewModel.checkOld(
-                                widget.myFoodItem, widget.ourRefrigeItem)
+                            widget.myFoodItem, widget.ourRefrigeItem)
                             ? AppColors.caution
                             : AppColors.mainText),
                   ),
@@ -117,25 +120,25 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                         backgroundColor: Colors.blue[50]),
                     onPressed: _isOld
                         ? () {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return TwoAnswerDialog(
-                                      title: '연장하시겠습니까?',
-                                      firstButton: '네',
-                                      secondButton: '아니오',
-                                      onTap: () {
-                                        setState(() {
-                                          _isOld = false;
-                                          _remainPeriod =
-                                              myFoodViewModel.extendPeriod(
-                                                  widget.myFoodItem,
-                                                  widget.ourRefrigeItem);
-                                        });
-                                        Navigator.of(context).pop();
-                                      });
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return TwoAnswerDialog(
+                                title: '연장하시겠습니까?',
+                                firstButton: '네',
+                                secondButton: '아니오',
+                                onTap: () {
+                                  setState(() {
+                                    _isOld = false;
+                                    _remainPeriod =
+                                        myFoodViewModel.extendPeriod(
+                                            widget.myFoodItem,
+                                            widget.ourRefrigeItem);
+                                  });
+                                  Navigator.of(context).pop();
                                 });
-                          }
+                          });
+                    }
                         : null,
                     child: const Text('연장하기'),
                   )
@@ -155,14 +158,26 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                   firstButton: '네',
                                   secondButton: '아니오',
                                   onTap: () async {
-                                    await FirebaseFirestore.instance
-                                        .collection('foodDetails')
-                                        .doc(widget.myFoodItem.registerDate
-                                                .toString() +
-                                            widget.myFoodItem.userId)
-                                        .delete();
+                                    try {
+                                      await Future
+                                          .wait([
+                                            FirebaseFirestore.instance
+                                      .collection('foodDetails')
+                                          .doc(widget.myFoodItem.registerDate
+                                          .toString() +
+                                          widget.myFoodItem.userId)
+                                          .delete(),
+
+                                      FirebaseStorage.instance
+                                          .ref("images/${widget.myFoodItem.registerDate}.jpg")
+                                          .delete()
+                                    ]);
+
                                     if (mounted) {
-                                      context.go('/allmyfoods');
+                                    context.go('/allmyfoods');
+                                    }
+                                    }catch (e) {
+                                    print("Error");
                                     }
                                   });
                             });
@@ -173,7 +188,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
               SizedBox(height: 32.h),
               myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem)
                   ? Text('곧 폐기됩니다.',
-                      style: AppTextStyle.body14R(color: AppColors.caution))
+                  style: AppTextStyle.body14R(color: AppColors.caution))
                   : const Text('아직은 연장이 불가해요.'),
             ],
           ),
