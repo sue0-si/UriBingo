@@ -98,7 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         positionId: selectedPosition,
                                         userId: FirebaseAuth.instance.currentUser!.uid,
                                         userName: FirebaseAuth.instance.currentUser!.displayName ?? 'noName',
-                                        registerDate: DateTime.now().millisecondsSinceEpoch,
+                                        registerDate: registerDate,
                                         isPublic: viewModel.selected[0],
                                         isUnknown: viewModel.selected[1],
                               ).toJson());

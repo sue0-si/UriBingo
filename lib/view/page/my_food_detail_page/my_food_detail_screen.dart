@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -155,10 +154,16 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                   title: '등록한 음식을 삭제하시겠습니까?',
                                   firstButton: '네',
                                   secondButton: '아니오',
-                                  onTap: () {
-                                    final result = FirebaseFirestore.instance
-                                        .collection('FoodDetail')
-                                        .doc(widget.myFoodItem.registerDate.toString() + widget.myFoodItem.userId).delete();
+                                  onTap: () async {
+                                    await FirebaseFirestore.instance
+                                        .collection('foodDetails')
+                                        .doc(widget.myFoodItem.registerDate
+                                                .toString() +
+                                            widget.myFoodItem.userId)
+                                        .delete();
+                                    if (mounted) {
+                                      context.go('/allmyfoods');
+                                    }
                                   });
                             });
                       },

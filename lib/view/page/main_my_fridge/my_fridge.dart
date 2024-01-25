@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/foods_model.dart';
@@ -30,7 +31,7 @@ class _MyFridgeState extends State<MyFridge> {
     final allFoods = await foodRepository.getFirebaseFoodsData();
     refrigeDetails = await refrigeRepository.getFirebaseRefrigesData();
     setState(() {
-      myFoodDetails = foodRepository.getMyFoodDetail(allFoods, 'sangin');
+      myFoodDetails = foodRepository.getMyFoodDetail(allFoods, FirebaseAuth.instance.currentUser!.displayName!);
       refrigeDetails;
     });
   }
@@ -72,7 +73,7 @@ class _MyFridgeState extends State<MyFridge> {
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
-                                context.push('/myfooddetail', extra: [
+                                context.go('/myfooddetail', extra: [
                                   myFoodDetails[index],
                                   refrigeDetail
                                 ]);
