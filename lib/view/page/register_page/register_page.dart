@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/view_model/register_view_model.dart';
 import 'package:provider/provider.dart';
@@ -82,27 +81,37 @@ class _RegisterPageState extends State<RegisterPage> {
                       ElevatedButton(
                           onPressed: () async {
                             // 사진 firestore에 올리기
-                            final registerDate = DateTime.now().millisecondsSinceEpoch;
-                            final uploadRef = FirebaseStorage.instance.ref('images').child('$registerDate.jpg');
-                            await uploadRef.putData(viewModel.foodImage, SettableMetadata(contentType: "image/jpeg"));
-                            final downloadUrl = await uploadRef.getDownloadURL();
 
-                            final userId = FirebaseAuth.instance.currentUser!.uid;
+                            final registerDate =
+                                DateTime.now().millisecondsSinceEpoch;
+                            final uploadRef = FirebaseStorage.instance
+                                .ref('images')
+                                .child('$registerDate.jpg');
+                            await uploadRef.putData(viewModel.foodImage,
+                                SettableMetadata(contentType: "image/jpeg"));
+                            final downloadUrl =
+                                await uploadRef.getDownloadURL();
+
+                            final userId =
+                                FirebaseAuth.instance.currentUser!.uid;
 
                             await FirebaseFirestore.instance
-                                .collection('foodDetails').doc(registerDate.toString()+userId)
+                                .collection('foodDetails')
+                                .doc(registerDate.toString() + userId)
                                 .set(FoodDetail(
-                                        refrigeName: selectedRefrige.refrigeName,
-                                        freezed: isFreezed,
-                                        foodImage: downloadUrl,
-                                        positionId: selectedPosition,
-                                        userId: FirebaseAuth.instance.currentUser!.uid,
-                                        userName: FirebaseAuth.instance.currentUser!.displayName ?? 'noName',
-                                        registerDate: registerDate,
-                                        isPublic: viewModel.selected[0],
-                                        isUnknown: viewModel.selected[1],
-                              ).toJson());
-
+                                  refrigeName: selectedRefrige.refrigeName,
+                                  freezed: isFreezed,
+                                  foodImage: downloadUrl,
+                                  positionId: selectedPosition,
+                                  userId:
+                                      FirebaseAuth.instance.currentUser!.uid,
+                                  userName: FirebaseAuth
+                                          .instance.currentUser!.displayName ??
+                                      'noName',
+                                  registerDate: registerDate,
+                                  isPublic: viewModel.selected[0],
+                                  isUnknown: viewModel.selected[1],
+                                ).toJson());
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('등록되었습니다.'),

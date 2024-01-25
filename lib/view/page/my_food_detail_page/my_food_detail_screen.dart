@@ -155,12 +155,19 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                   firstButton: '네',
                                   secondButton: '아니오',
                                   onTap: () async {
-                                    await FirebaseFirestore.instance
-                                        .collection('foodDetails')
-                                        .doc(widget.myFoodItem.registerDate
-                                                .toString() +
-                                            widget.myFoodItem.userId)
-                                        .delete();
+                                    await Future.wait([
+                                      FirebaseFirestore.instance
+                                          .collection('foodDetails')
+                                          .doc(widget.myFoodItem.registerDate
+                                                  .toString() +
+                                              widget.myFoodItem.userId)
+                                          .delete(),
+                                      FirebaseStorage.instance
+                                          .ref(
+                                              "images/${widget.myFoodItem.registerDate}.jpg")
+                                          .delete()
+                                    ]);
+
                                     if (mounted) {
                                       context.go('/', extra: 1);
                                     }
