@@ -16,7 +16,7 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> fridges = [];
   List<RefrigeDetail> refrigeItems = [];
 
-  bool isManager = true;
+  bool isManager = false;
 
   @override
   void initState() {
@@ -30,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
       refrigeItems;
     });
     for (int i = 1; i <= refrigeItems.length; i++) {
-      fridges.add(makeFridge(i-1));
+      fridges.add(makeFridge(i - 1));
     }
   }
 
