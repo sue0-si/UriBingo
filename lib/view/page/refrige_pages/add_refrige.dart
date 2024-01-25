@@ -296,10 +296,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                           //     int.parse(addPageViewModel.selectedExtensionPeriod[0]);
                           await addPageViewModel.changeColdstorage();
                           if (mounted) {
-                            Navigator.pop(
-                              context,
-                              addPageViewModel,
-                            );
+                            context.go('/');
                           }
                         }
                       },

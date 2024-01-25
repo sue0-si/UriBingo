@@ -1,17 +1,18 @@
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:leute/data/models/refrige_model.dart';
 
 import '../../../data/models/foods_model.dart';
-import '../../../fridge_data.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class RegisterPage extends StatefulWidget {
   final List<Object> fridgeData;
+
   const RegisterPage({super.key, required this.fridgeData});
 
   @override
@@ -95,23 +96,32 @@ class _RegisterPageState extends State<RegisterPage> {
                       ElevatedButton(
                           onPressed: () async {
                             // 사진 firestore에 올리기
-                            final uploadRef = FirebaseStorage.instance.ref('images').child('${DateTime.now().microsecondsSinceEpoch}.jpg');
-                            await uploadRef.putData(_foodImage, SettableMetadata(contentType: "image/jpeg"));
-                            final downloadUrl = await uploadRef.getDownloadURL();
+                            final uploadRef = FirebaseStorage.instance
+                                .ref('images')
+                                .child(
+                                    '${DateTime.now().microsecondsSinceEpoch}.jpg');
+                            await uploadRef.putData(_foodImage,
+                                SettableMetadata(contentType: "image/jpeg"));
+                            final downloadUrl =
+                                await uploadRef.getDownloadURL();
+                            final registerDate = DateTime.now().millisecondsSinceEpoch;
+                            final userId = FirebaseAuth.instance.currentUser!.uid;
+                            final userName = FirebaseAuth.instance.currentUser!.displayName!;
 
                             await FirebaseFirestore.instance
-                                .collection('foodDetails')
-                                .add(FoodDetail(
-                                        refrigeName: selectedRefrige.refrigeName,
-                                        freezed: isFreezed,
-                                        foodImage: downloadUrl,
-                                        positionId: selectedPosition,
-                                        userId: '3', // FirebaseAuth.instance.currentUser!.uid,,
-                                        userName: '아이유', // FirebaseAuth.instance.currentUser!.displayName,
-                                        registerDate: DateTime.now().millisecondsSinceEpoch,
-                                        isPublic: _selected[0],
-                                        isUnknown: _selected[1],
-                              ).toJson());
+                                .collection('foodDetails').doc(registerDate.toString()+userId)
+                                .set(FoodDetail(
+                                  refrigeName: selectedRefrige.refrigeName,
+                                  freezed: isFreezed,
+                                  foodImage: downloadUrl,
+                                  positionId: selectedPosition,
+                                  userId: userId,
+                                  userName: userName,
+                                  registerDate:
+                                      DateTime.now().millisecondsSinceEpoch,
+                                  isPublic: _selected[0],
+                                  isUnknown: _selected[1],
+                                ).toJson());
 
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -119,7 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 duration: Duration(seconds: 3),
                               ),
                             );
-                            context.go('/details');
+                            context.go('/details', extra: widget.fridgeData[0]);
                           },
                           child: const Text('등록하기')),
                     ],

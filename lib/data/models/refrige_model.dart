@@ -4,6 +4,7 @@ class RefrigeDetail {
   int freezerCompCount;
   int period;
   int extentionPeriod;
+  int registerDate;
 
 //<editor-fold desc="Data Methods">
   RefrigeDetail({
@@ -12,6 +13,7 @@ class RefrigeDetail {
     required this.freezerCompCount,
     required this.period,
     required this.extentionPeriod,
+    required this.registerDate,
   });
 
   @override
@@ -23,7 +25,8 @@ class RefrigeDetail {
           refrigeCompCount == other.refrigeCompCount &&
           freezerCompCount == other.freezerCompCount &&
           period == other.period &&
-          extentionPeriod == other.extentionPeriod);
+          extentionPeriod == other.extentionPeriod &&
+          registerDate == other.registerDate);
 
   @override
   int get hashCode =>
@@ -31,11 +34,12 @@ class RefrigeDetail {
       refrigeCompCount.hashCode ^
       freezerCompCount.hashCode ^
       period.hashCode ^
-      extentionPeriod.hashCode;
+      extentionPeriod.hashCode ^
+      registerDate.hashCode;
 
   @override
   String toString() {
-    return 'RefrigeDetail{ refrigeName: $refrigeName, refrigeCompCount: $refrigeCompCount, freezerCompCount: $freezerCompCount, period: $period, extentionPeriod: $extentionPeriod,}';
+    return 'RefrigeDetail{ refrigeName: $refrigeName, refrigeCompCount: $refrigeCompCount, freezerCompCount: $freezerCompCount, period: $period, extentionPeriod: $extentionPeriod, registerDate: $registerDate,}';
   }
 
   RefrigeDetail copyWith({
@@ -44,6 +48,7 @@ class RefrigeDetail {
     int? freezerCompCount,
     int? period,
     int? extentionPeriod,
+    int? registerDate,
   }) {
     return RefrigeDetail(
       refrigeName: refrigeName ?? this.refrigeName,
@@ -51,6 +56,7 @@ class RefrigeDetail {
       freezerCompCount: freezerCompCount ?? this.freezerCompCount,
       period: period ?? this.period,
       extentionPeriod: extentionPeriod ?? this.extentionPeriod,
+      registerDate: registerDate ?? this.registerDate,
     );
   }
 
@@ -61,6 +67,7 @@ class RefrigeDetail {
       'freezerCompCount': freezerCompCount,
       'period': period,
       'extentionPeriod': extentionPeriod,
+      'registerDate': registerDate,
     };
   }
 
@@ -71,6 +78,7 @@ class RefrigeDetail {
       freezerCompCount: map['freezerCompCount'] as int,
       period: map['period'] as int,
       extentionPeriod: map['extentionPeriod'] as int,
+      registerDate: map['registerDate'] as int,
     );
   }
 

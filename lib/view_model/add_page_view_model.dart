@@ -58,15 +58,16 @@ class AddPageViewModel extends ChangeNotifier {
 //getter 설정
 
   Future<void> changeColdstorage() async {
-    await FirebaseFirestore.instance
-        .collection('refrigeDetails')
-        .add(RefrigeDetail(
-          refrigeName: name,
-          freezerCompCount: int.parse(selectedFrozenStorage[0]),
-          period: int.parse(selectedStoragePeriod[0]),
-          refrigeCompCount: int.parse(selectedColdstorage[0]), 
-          extentionPeriod: int.parse(selectedExtensionPeriod[0]),
-        ).toJson());
+    final registerDate = DateTime.now().millisecondsSinceEpoch.toString();
+    await FirebaseFirestore.instance.collection('refrigeDetails')
+        .doc(registerDate + name).set(RefrigeDetail(
+      registerDate: int.parse(registerDate),
+      refrigeName: name,
+      freezerCompCount: int.parse(selectedFrozenStorage[0]),
+      period: int.parse(selectedStoragePeriod[0]),
+      refrigeCompCount: int.parse(selectedColdstorage[0]),
+      extentionPeriod: int.parse(selectedExtensionPeriod[0]),
+    ).toJson());
   }
 
   @override
