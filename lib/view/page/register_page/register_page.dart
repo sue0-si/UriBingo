@@ -82,11 +82,11 @@ class _RegisterPageState extends State<RegisterPage> {
                       ElevatedButton(
                           onPressed: () async {
                             // 사진 firestore에 올리기
-                            final uploadRef = FirebaseStorage.instance.ref('images').child('${DateTime.now().microsecondsSinceEpoch}.jpg');
+                            final registerDate = DateTime.now().millisecondsSinceEpoch;
+                            final uploadRef = FirebaseStorage.instance.ref('images').child('$registerDate.jpg');
                             await uploadRef.putData(viewModel.foodImage, SettableMetadata(contentType: "image/jpeg"));
                             final downloadUrl = await uploadRef.getDownloadURL();
 
-                            final registerDate = DateTime.now().millisecondsSinceEpoch;
                             final userId = FirebaseAuth.instance.currentUser!.uid;
 
                             await FirebaseFirestore.instance
