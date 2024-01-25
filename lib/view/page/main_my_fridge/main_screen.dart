@@ -98,7 +98,7 @@ class _MainScreenState extends State<MainScreen> {
                     ? IconButton(
                         icon: Icon(Icons.add),
                         onPressed: () {
-                          context.push('/addRefrige');
+                          context.go('/addRefrige');
                           setState(() {});
                         },
                       )

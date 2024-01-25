@@ -119,7 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 duration: Duration(seconds: 3),
                               ),
                             );
-                            context.pop();
+                            context.go('/details');
                           },
                           child: const Text('등록하기')),
                     ],

@@ -272,7 +272,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                           //함수 호출 시 정수 값을 전달
                           await viewModel.addRefrigeToStorage();
                           if (mounted) {
-                            context.pop();
+                            context.go('/');
                           }
                         }
                       },

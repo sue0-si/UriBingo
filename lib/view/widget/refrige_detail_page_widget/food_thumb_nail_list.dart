@@ -55,7 +55,7 @@ class FoodThumbNailList extends StatelessWidget {
             ),
             Expanded(
                 child: IconButton(
-                    onPressed: () => context.push('/addMyFood', extra: [
+                    onPressed: () => context.go('/addMyFood', extra: [
                           selectedRefrige,
                           selectedPosition,
                           samePositionFoodList,
