@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:leute/data/models/refrige_model.dart';
 
 class AddPageViewModel extends ChangeNotifier {
-  final coldStorageOfCompartmentsList = ['1칸', '2칸', '3칸', '4칸', '5칸']; //냉장고칸수
+  final coldStorageOfCompartmentsList = ['0칸','1칸', '2칸', '3칸', '4칸', '5칸']; //냉장고칸수
   final frozenStorageOfCompartmentsList = [
+    '0칸',
     '1칸',
     '2칸',
     '3칸',
@@ -23,7 +24,7 @@ class AddPageViewModel extends ChangeNotifier {
     _name = value;
   }
 
-  String _selectedColdstorage = '1칸'; //선택된냉장칸수
+  String _selectedColdstorage = '0칸'; //선택된냉장칸수
 
   String get selectedColdstorage => _selectedColdstorage;
 
@@ -31,7 +32,7 @@ class AddPageViewModel extends ChangeNotifier {
     _selectedColdstorage = value.toString();
   }
 
-  String _selectedFrozenStorage = '1칸'; //선택된냉동칸수
+  String _selectedFrozenStorage = '0칸'; //선택된냉동칸수
 
   String get selectedFrozenStorage => _selectedFrozenStorage;
 
@@ -64,11 +65,9 @@ class AddPageViewModel extends ChangeNotifier {
           refrigeName: name,
           freezerCompCount: int.parse(selectedFrozenStorage[0]),
           period: int.parse(selectedStoragePeriod[0]),
-          refrigeCompCount: int.parse(selectedColdstorage[0]), 
+          refrigeCompCount: int.parse(selectedColdstorage[0]),
           extentionPeriod: int.parse(selectedExtensionPeriod[0]),
         ).toJson());
+    notifyListeners();
   }
-
-  @override
-  void notifyListeners();
 }

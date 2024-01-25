@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/view/page/main_my_fridge/main_page.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
+
+import '../main_my_fridge/main_screen.dart';
 
 class AddRefrige extends StatefulWidget {
   const AddRefrige({super.key});
@@ -216,8 +219,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                                 child: DropdownButton(
                                     value:
                                         addPageViewModel.selectedStoragePeriod,
-                                    items: addPageViewModel
-                                        .storagePeriodList
+                                    items: addPageViewModel.storagePeriodList
                                         .map((e) => DropdownMenuItem(
                                               value: e,
                                               child: Text(e),
@@ -252,10 +254,9 @@ class _AddRefrigeState extends State<AddRefrige> {
                                 child: DropdownButton(
                                     elevation: 10,
                                     dropdownColor: Colors.green,
-                                    value:
-                                        addPageViewModel.selectedExtensionPeriod,
-                                    items: addPageViewModel
-                                        .extensionPeriodList
+                                    value: addPageViewModel
+                                        .selectedExtensionPeriod,
+                                    items: addPageViewModel.extensionPeriodList
                                         .map((e) => DropdownMenuItem(
                                               value: e,
                                               child: Text(e),
@@ -294,12 +295,13 @@ class _AddRefrigeState extends State<AddRefrige> {
                           //     int.parse(addPageViewModel.selectedStoragePeriod[0]);
                           // int extentionPeriodValue =
                           //     int.parse(addPageViewModel.selectedExtensionPeriod[0]);
+
+                          //changeColdstorage 메서드 호출해서 데이터 저장
                           await addPageViewModel.changeColdstorage();
+
                           if (mounted) {
-                            Navigator.pop(
-                              context,
-                              addPageViewModel,
-                            );
+                            context.go('/',
+                                extra: {'addPageViewModel': MainPage});
                           }
                         }
                       },
