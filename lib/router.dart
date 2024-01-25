@@ -20,14 +20,14 @@ import 'view_model/my_page_view_model.dart';
 import 'view_model/register_view_model.dart';
 import 'view_model/signup_page_view_model.dart';
 
+
+
+
 final router = GoRouter(initialLocation: '/login', routes: [
   GoRoute(
       path: '/',
       builder: (context, state) => ChangeNotifierProvider(
-          create: (_) => MyPageViewModel(),
-          child: MainPage(
-            currentPageIndex: state.extra as int,
-          ))),
+          create: (_) => MyPageViewModel(), child: MainPage(currentPageIndex: state.extra as int))),
 
   GoRoute(path: '/allmyfoods', builder: (context, state) => const MyFridge()),
 

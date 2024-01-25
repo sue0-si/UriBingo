@@ -5,7 +5,5 @@ import '../data/models/refrige_model.dart';
 
 class EditPageViewModel extends ChangeNotifier {
 
-  Future<void> changeColdstorage() async {
 
-  }
 }

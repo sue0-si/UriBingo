@@ -52,7 +52,7 @@ class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => context.go('/'),
+          onPressed: () => context.go('/', extra: 0),
         ),
         title: Text('냉장실'),
       ),

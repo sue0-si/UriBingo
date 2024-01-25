@@ -162,7 +162,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                             widget.myFoodItem.userId)
                                         .delete();
                                     if (mounted) {
-                                      context.go('/allmyfoods');
+                                      context.go('/', extra: 1);
                                     }
                                   });
                             });
