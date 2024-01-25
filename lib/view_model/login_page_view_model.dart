@@ -8,12 +8,14 @@ class LoginPageViewModel with ChangeNotifier {
       {required String email,
       required String password,
       required BuildContext context}) async {
+    // 로그인하고 메인페이지 이동
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (context.mounted) {
         context.go('/');
       }
+      // 로그인 실패시 다이얼로그
     } on FirebaseAuthException catch (_) {
       if (context.mounted) {
         showDialog(

@@ -54,14 +54,14 @@ class _SignupPageState extends State<SignupPage> {
                 SizedBox(height: 8.h),
                 Text('비밀번호', style: AppTextStyle.body16B()),
                 PasswordTextfield(
-                  hintText: '****',
+                  hintText: '******',
                   controller: passwordController,
                   validator: viewModel.passwordValidator,
                 ),
                 SizedBox(height: 8.h),
                 Text('비밀번호 확인', style: AppTextStyle.body16B()),
                 PasswordTextfield(
-                  hintText: '****',
+                  hintText: '******',
                   controller: confirmPasswordController,
                   validator: viewModel.confirmPasswordValidator,
                 ),

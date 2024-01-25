@@ -68,6 +68,7 @@ class SignupPageViewModel with ChangeNotifier {
       email: email,
       password: password,
     );
+    await userCredential.user?.updateDisplayName(name);
     // 추가 정보 처리
     await _firestore.collection('profile').doc(userCredential.user!.uid).set({
       'name': name,
