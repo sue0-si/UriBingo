@@ -5,7 +5,7 @@ import 'package:leute/view/page/my_food_detail_page/my_food_detail_screen.dart';
 import 'package:leute/view/page/login_pages/login_page.dart';
 import 'package:leute/view/page/login_pages/signup_page.dart';
 import 'package:leute/view/page/register_page/register_page.dart';
-import 'package:leute/view/page/my_food_detail_page/my_food_detail_view_model.dart';
+import 'package:leute/view_model/my_food_detail_view_model.dart';
 import 'package:leute/view_model/register_view_model.dart';
 
 import 'package:leute/view_model/my_page_view_model.dart';
