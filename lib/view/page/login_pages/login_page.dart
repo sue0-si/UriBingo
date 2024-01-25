@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     authStateChanges = FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
-        context.go('/');
+        context.go('/',extra: 0);
         return;
       }
     });

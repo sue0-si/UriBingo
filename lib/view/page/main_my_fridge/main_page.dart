@@ -9,15 +9,18 @@ import 'main_screen.dart';
 import 'my_fridge.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  int currentPageIndex;
+
+  MainPage({
+    super.key,
+    required this.currentPageIndex,
+  });
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  int currentPageIndex = 0;
-
   List<Widget> _pages = <Widget>[
     MainScreen(),
     MyFridge(),
@@ -27,14 +30,14 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[currentPageIndex],
+      body: _pages[widget.currentPageIndex],
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
-            currentPageIndex = index;
+            widget.currentPageIndex = index;
           });
         },
-        selectedIndex: currentPageIndex,
+        selectedIndex: widget.currentPageIndex,
         destinations: <Widget>[
           NavigationDestination(
               selectedIcon: Icon(Icons.home),

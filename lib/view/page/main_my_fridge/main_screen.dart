@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leute/data/models/user_model.dart';
 import 'package:leute/styles/app_text_style.dart';
 
 import '../../../data/models/refrige_model.dart';
@@ -16,7 +19,8 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> fridges = [];
   List<RefrigeDetail> refrigeItems = [];
 
-  bool isManager = false;
+  final UserDataRepository userDataRepository = UserDataRepository();
+  bool isManager = true;
 
   @override
   void initState() {
@@ -27,8 +31,12 @@ class _MainScreenState extends State<MainScreen> {
 
   void initData() async {//비동기로 변경
     refrigeItems = await RegisterdRefrigeRepository().getFirebaseRefrigesData();
+    List<UserModel> userData = await userDataRepository.getFirebaseUserData();
+    UserModel currentUser = userData.firstWhere(
+        (user) => user.email == FirebaseAuth.instance.currentUser!.email);
     setState(() {
       refrigeItems;
+      isManager = currentUser.manager;
     });
     for (int i = 1; i <= refrigeItems.length; i++) {
       fridges.add(makeFridge(i - 1));
@@ -118,18 +126,23 @@ class _MainScreenState extends State<MainScreen> {
             },
           ),
         ),
-        //-----------------------------------------예시
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              isManager = !isManager;
-            });
-            print(isManager);
-          },
-          child: Icon(Icons.toggle_on),
-        ),
-        //-----------------------------------------
       ),
     );
+  }
+}
+
+class UserDataRepository {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<List<UserModel>> getFirebaseUserData() async {
+    // Firebase Firestore에서 데이터 읽어오기
+    QuerySnapshot querySnapshot = await _firestore.collection('profile').get();
+
+    // 데이터 파싱
+    List<UserModel> data = [];
+    querySnapshot.docs.forEach((DocumentSnapshot document) {
+      data.add(UserModel.fromJson(document.data() as Map<String, dynamic>));
+    });
+    return data;
   }
 }

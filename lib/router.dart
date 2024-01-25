@@ -24,6 +24,7 @@ import 'view_model/signup_page_view_model.dart';
 
 
 final router = GoRouter(initialLocation: '/login', routes: [
+  GoRoute(path: '/', builder: (context, state) => MainPage(currentPageIndex: state.extra as int,)),
   GoRoute(
       path: '/',
       builder: (context, state) => ChangeNotifierProvider(
