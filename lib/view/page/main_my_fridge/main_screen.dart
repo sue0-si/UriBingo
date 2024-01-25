@@ -22,9 +22,10 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     initData();
     super.initState();
+
   }
 
-  void initData() async {
+  void initData() async {//비동기로 변경
     refrigeItems = await RegisterdRefrigeRepository().getFirebaseRefrigesData();
     setState(() {
       refrigeItems;
@@ -62,7 +63,11 @@ class _MainScreenState extends State<MainScreen> {
         ),
         //관리자 버튼
         isManager
-            ? ElevatedButton(onPressed: () {}, child: Text('수정'))
+            ? ElevatedButton(
+                onPressed: () {
+                  context.go('/editRefrige');
+                },
+                child: Text('수정'))
             : Container()
       ],
     );
@@ -97,8 +102,11 @@ class _MainScreenState extends State<MainScreen> {
                 return isManager
                     ? IconButton(
                         icon: Icon(Icons.add),
+
                         onPressed: () {
                           context.go('/addRefrige');
+
+
                           setState(() {});
                         },
                       )
