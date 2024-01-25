@@ -1,25 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/view/page/main_my_fridge/main_page.dart';
-import 'package:leute/view/page/main_my_fridge/main_screen.dart';
+import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
 
-import '../../../view_model/add_page_view_model.dart';
-
 class EditRefrige extends StatefulWidget {
-  const EditRefrige({super.key});
+  const EditRefrige({super.key, required this.seletedRefrige});
+
+  final RefrigeDetail seletedRefrige;
 
   @override
   State<EditRefrige> createState() => _EditRefrigeState();
 }
 
 class _EditRefrigeState extends State<EditRefrige> {
-  final _addNameController = TextEditingController();
+  final addPageViewModel = AddPageViewModel();
 
-  TextEditingController get addNameController =>
-      _addNameController; //addNameController 외부접근
+  //final addPageViewModel = AddPageViewModel(); //AddPageViewModel 담을 변수 선언
+  final addNameController = TextEditingController();
+  final selectedColdstorageController = TextEditingController();
+  final selectedFrozenStorageController = TextEditingController();
+  final selectedStoragePeriodController = TextEditingController();
+  final selectedExtensionPeriodController = TextEditingController();
+
   final GlobalKey<FormState> _formKey =
       GlobalKey<FormState>(); //textFormfield 사용하려면 설정해야함
+
+  @override
+  void initState() {
+    addNameController.text = widget.seletedRefrige.refrigeName;
+    selectedColdstorageController.text =
+        '${widget.seletedRefrige.refrigeCompCount}칸';
+    selectedFrozenStorageController.text =
+        '${widget.seletedRefrige.freezerCompCount}칸';
+    selectedStoragePeriodController.text = '${widget.seletedRefrige.period}일';
+    selectedExtensionPeriodController.text =
+        '${widget.seletedRefrige.extentionPeriod}일';
+    super.initState();
+  }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   AddPageViewModel().selectedColdstorage = AddPageViewModel().coldStorageOfCompartmentsList.first.split('').first;
+  //   AddPageViewModel().selectedFrozenStorage = AddPageViewModel().frozenStorageOfCompartmentsList.first.split('').first;
+  //   AddPageViewModel().selectedStoragePeriod = AddPageViewModel().storagePeriodList.first.split('').first;
+  //   AddPageViewModel().selectedExtensionPeriod = AddPageViewModel().extensionPeriodList.first.split('').first;
+  //
+  // }
 
   @override
   void dispose() {
@@ -30,6 +58,11 @@ class _EditRefrigeState extends State<EditRefrige> {
   @override
   Widget build(BuildContext context) {
     final addPageViewModel = context.watch<AddPageViewModel>();
+    addPageViewModel.registerdDate = widget.seletedRefrige.registerDate;
+    addPageViewModel.initialName = widget.seletedRefrige.refrigeName;
+    //뷰모델 람다식 상태변경을 인식하려고 notifyListeners(); - 함수를 포장해서 보내주자
+    //위젯 전체를 인식하려고 쓴것이다
+
     return Scaffold(
       appBar: AppBar(
         actions: [],
@@ -68,7 +101,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                 child: TextFormField(
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return '냉장고 이름을 입력하세요';
+                                      return addPageViewModel.name;
                                     }
                                     return null;
                                   },
@@ -129,7 +162,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                               child: Container(
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
-                                    value: addPageViewModel.selectedColdstorage,
+                                    value: selectedColdstorageController.text,
                                     items: addPageViewModel
                                         .coldStorageOfCompartmentsList //String이 아닌 List<String>을 반환되고 있다
                                         .map((e) => DropdownMenuItem(
@@ -140,9 +173,11 @@ class _EditRefrigeState extends State<EditRefrige> {
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        addPageViewModel.selectedColdstorage =
+                                        selectedColdstorageController.text =
                                             value!;
                                       });
+                                      addPageViewModel.selectedColdstorage =
+                                          value!;
                                     }),
                               ),
                             ),
@@ -166,7 +201,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
                                     value:
-                                        addPageViewModel.selectedFrozenStorage,
+                                    selectedFrozenStorageController.text,
                                     items: addPageViewModel
                                         .frozenStorageOfCompartmentsList
                                         .map((e) => DropdownMenuItem(
@@ -177,9 +212,11 @@ class _EditRefrigeState extends State<EditRefrige> {
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        addPageViewModel.selectedFrozenStorage =
-                                            value!;
+                                        selectedFrozenStorageController.text =
+                                        value!;
                                       });
+                                      addPageViewModel.selectedFrozenStorage =
+                                      value!;
                                     }),
                               ),
                             ),
@@ -203,7 +240,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
                                     value:
-                                        addPageViewModel.selectedStoragePeriod,
+                                    selectedStoragePeriodController.text,
                                     items: addPageViewModel.storagePeriodList
                                         .map((e) => DropdownMenuItem(
                                               value: e,
@@ -213,9 +250,10 @@ class _EditRefrigeState extends State<EditRefrige> {
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        addPageViewModel.selectedStoragePeriod =
-                                            value!;
+                                        selectedStoragePeriodController.text = value!;
                                       });
+                                      addPageViewModel.selectedStoragePeriod =
+                                          value!;
                                     }),
                               ),
                             ),
@@ -239,8 +277,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                 child: DropdownButton(
                                     elevation: 10,
                                     dropdownColor: Colors.green,
-                                    value: addPageViewModel
-                                        .selectedExtensionPeriod,
+                                    value: selectedExtensionPeriodController.text,
                                     items: addPageViewModel.extensionPeriodList
                                         .map((e) => DropdownMenuItem(
                                               value: e,
@@ -250,9 +287,10 @@ class _EditRefrigeState extends State<EditRefrige> {
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        addPageViewModel
-                                            .selectedExtensionPeriod = value!;
+                                        selectedExtensionPeriodController.text = value!;
                                       });
+                                      addPageViewModel.selectedExtensionPeriod =
+                                          value!;
                                     }),
                               ),
                             ),
@@ -266,15 +304,27 @@ class _EditRefrigeState extends State<EditRefrige> {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
+                        //왜 async?
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
+                          print('냉장고 이름: $addPageViewModel.name');
 
-                          await addPageViewModel.changeColdstorage();
+                          //_selectedColdstoragefmf 정수로 변환
+                          // int coldStorageValue =
+                          //     int.parse(addPageViewModel.selectedColdstorage[0]);
+                          // int forzenStorageValue =
+                          //     int.parse(addPageViewModel.selectedFrozenStorage[0]);
+                          // int storagePeriodValue =
+                          //     int.parse(addPageViewModel.selectedStoragePeriod[0]);
+                          // int extentionPeriodValue =
+                          //     int.parse(addPageViewModel.selectedExtensionPeriod[0]);
+
+                          //changeColdstorage 메서드 호출해서 데이터 저장
+                          await addPageViewModel.editRefrige();
+
                           if (mounted) {
-                            context.go(
-                              '/',
-                              extra: {'addPageViewModel': MainPage}
-                            );
+                            context
+                                .go('/', extra: 0);
                           }
                         }
                       },

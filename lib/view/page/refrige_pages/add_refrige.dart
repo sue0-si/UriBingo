@@ -297,11 +297,11 @@ class _AddRefrigeState extends State<AddRefrige> {
                           //     int.parse(addPageViewModel.selectedExtensionPeriod[0]);
 
                           //changeColdstorage 메서드 호출해서 데이터 저장
-                          await addPageViewModel.changeColdstorage();
+                          await addPageViewModel.addRefrige();
 
                           if (mounted) {
 
-                            context.go('/');
+                            context.go('/', extra: 0);
 
                           }
                         }

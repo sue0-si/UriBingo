@@ -77,8 +77,8 @@ final router = GoRouter(initialLocation: '/login', routes: [
     path: '/editRefrige',
     builder: (context, state) {
       return ChangeNotifierProvider(
-        create: (_) => EditPageViewModel(),
-        child: const EditRefrige(),
+        create: (_) => AddPageViewModel(),
+        child: EditRefrige(seletedRefrige: state.extra as RefrigeDetail),
       );
     },
   ),
