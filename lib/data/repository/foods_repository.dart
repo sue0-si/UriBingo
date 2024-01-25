@@ -7,8 +7,10 @@ class RegisterdFoodsRepository {
 
   Future<List<FoodDetail>> getFirebaseFoodsData() async {
     // Firebase Firestore에서 데이터 읽어오기
-    QuerySnapshot querySnapshot =
-        await _firestore.collection('foodDetails').get();
+    QuerySnapshot querySnapshot = await _firestore
+        .collection('foodDetails')
+        .orderBy('registerDate', descending: true)
+        .get();
 
     // 데이터 파싱
     List<FoodDetail> data = [];
