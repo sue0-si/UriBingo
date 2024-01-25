@@ -35,9 +35,10 @@ class RegisterdFoodsRepository {
     // final repository = RegisterdFoodsRepository();
     return allFoods.where((e) => e.userName == userName).toList();
   }
-}
 
-List<FoodDetail> getFoodDetail(
-    List<FoodDetail> allFoods, String targetRefrigeName) {
-  return allFoods.where((e) => e.refrigeName == targetRefrigeName).toList();
+  List<FoodDetail> getFoodDetail(
+      List<FoodDetail> allFoods, String targetRefrigeName) {
+    return allFoods.where((e) => e.refrigeName == targetRefrigeName).toList();
+  }
+
 }
