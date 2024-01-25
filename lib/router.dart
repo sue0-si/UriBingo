@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 import 'view_model/add_page_view_model.dart';
 
 final router = GoRouter(initialLocation: '/login', routes: [
-  GoRoute(path: '/', builder: (context, state) => MainPage()),
+  GoRoute(path: '/', builder: (context, state) => MainPage(currentPageIndex: state.extra as int,)),
   GoRoute(
       path: '/myfooddetail',
       builder: (context, state) {
