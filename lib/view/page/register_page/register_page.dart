@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/view_model/register_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/models/foods_model.dart';
 
@@ -20,24 +20,10 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final ImagePicker picker = ImagePicker();
-  XFile? photo;
-  final List<bool> _selected = [false, false];
-  int selectedIndex = 0;
-  late Uint8List _foodImage;
-
-  Future<Uint8List?> pickImage() async {
-    photo = await picker.pickImage(source: ImageSource.camera);
-    setState(() {});
-    return await photo?.readAsBytes();
-  }
-
-  Future<void> changeImageFormat() async {
-    _foodImage = (await pickImage())!;
-  }
-
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<RegisterViewModel>();
+
     final selectedRefrige = widget.fridgeData[0] as RefrigeDetail;
     final selectedPosition = widget.fridgeData[1] as int;
     final samePositionFoodList = widget.fridgeData[2] as List<FoodDetail>;
@@ -51,9 +37,9 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             GestureDetector(
               onTap: () {
-                changeImageFormat();
+                viewModel.changeImageFormat();
               },
-              child: photo == null
+              child: viewModel.photo == null
                   ? Container(
                       height: MediaQuery.of(context).size.height / 3,
                       width: double.infinity,
@@ -61,7 +47,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: const Icon(Icons.image_rounded, size: 100),
                     )
                   : FutureBuilder(
-                      future: photo?.readAsBytes(),
+                      future: viewModel.photo?.readAsBytes(),
                       builder: (context, snapshot) {
                         final data = snapshot.data;
                         if (data == null ||
@@ -96,32 +82,26 @@ class _RegisterPageState extends State<RegisterPage> {
                       ElevatedButton(
                           onPressed: () async {
                             // 사진 firestore에 올리기
-                            final uploadRef = FirebaseStorage.instance
-                                .ref('images')
-                                .child(
-                                    '${DateTime.now().microsecondsSinceEpoch}.jpg');
-                            await uploadRef.putData(_foodImage,
-                                SettableMetadata(contentType: "image/jpeg"));
-                            final downloadUrl =
-                                await uploadRef.getDownloadURL();
+                            final uploadRef = FirebaseStorage.instance.ref('images').child('${DateTime.now().microsecondsSinceEpoch}.jpg');
+                            await uploadRef.putData(viewModel.foodImage, SettableMetadata(contentType: "image/jpeg"));
+                            final downloadUrl = await uploadRef.getDownloadURL();
+
                             final registerDate = DateTime.now().millisecondsSinceEpoch;
                             final userId = FirebaseAuth.instance.currentUser!.uid;
-                            final userName = FirebaseAuth.instance.currentUser!.displayName!;
 
                             await FirebaseFirestore.instance
                                 .collection('foodDetails').doc(registerDate.toString()+userId)
                                 .set(FoodDetail(
-                                  refrigeName: selectedRefrige.refrigeName,
-                                  freezed: isFreezed,
-                                  foodImage: downloadUrl,
-                                  positionId: selectedPosition,
-                                  userId: userId,
-                                  userName: userName,
-                                  registerDate:
-                                      DateTime.now().millisecondsSinceEpoch,
-                                  isPublic: _selected[0],
-                                  isUnknown: _selected[1],
-                                ).toJson());
+                                        refrigeName: selectedRefrige.refrigeName,
+                                        freezed: isFreezed,
+                                        foodImage: downloadUrl,
+                                        positionId: selectedPosition,
+                                        userId: FirebaseAuth.instance.currentUser!.uid,
+                                        userName: FirebaseAuth.instance.currentUser!.displayName ?? 'noName',
+                                        registerDate: DateTime.now().millisecondsSinceEpoch,
+                                        isPublic: viewModel.selected[0],
+                                        isUnknown: viewModel.selected[1],
+                              ).toJson());
 
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -139,15 +119,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   // 관리자만 보이는 버튼
                   ToggleButtons(
-                      isSelected: _selected,
+                      isSelected: viewModel.selected,
                       color: Colors.black,
                       selectedColor: Colors.deepPurple,
                       onPressed: (int index) {
-                        setState(() {
-                          for (int i = 0; i < _selected.length; i++) {
-                            _selected[i] = i == index;
-                          }
-                        });
+                        viewModel.buttonSelection(index);
                       },
                       children: const [
                         Text('공용'),
