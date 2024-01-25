@@ -32,7 +32,6 @@ class _MyFridgeState extends State<MyFridge> {
     setState(() {
       myFoodDetails = foodRepository.getMyFoodDetail(allFoods, 'sangin');
       refrigeDetails;
-      print(refrigeDetails.length);
     });
   }
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class MyFoodDetailPageWidget extends StatelessWidget {
+class FoodDetailImageWidget extends StatelessWidget {
   final String itemImage;
 
-  const MyFoodDetailPageWidget({
+  const FoodDetailImageWidget({
     super.key,
     required this.itemImage,
   });
