@@ -3,9 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data/repository/foods_repository.dart';
 import '../../../view_model/refrige_comp_view_model.dart';
-import '../../widget/refrige_detail_page_widget/food_thumb_nail_list.dart';
 
 class RefrigeCompScreen extends StatefulWidget {
   final RefrigeDetail selectedRefrige;
@@ -20,33 +18,6 @@ class RefrigeCompScreen extends StatefulWidget {
 }
 
 class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
-  final refrigeViewModel = RefrigeCompViewModel();
-  List<Widget> sliverList = [];
-
-  @override
-  void initState() {
-
-    initData();
-    super.initState();
-  }
-
-  void initData() async {
-    Provider.of<RefrigeCompViewModel>(context, listen: false).getSameRefrigeFoods(widget.selectedRefrige.refrigeName);
-    setState(() {
-      refrigeViewModel.foodItems;
-    });
-    for (int i = 1; i <= widget.selectedRefrige.refrigeCompCount; i++) {
-      final samePositionFoodList = RegisterdFoodsRepository()
-          .filterFoods(refrigeViewModel.foodItems, false, i);
-      sliverList.add(FoodThumbNailList(
-        samePositionFoodList: samePositionFoodList[2],
-        selectedRefrige: widget.selectedRefrige,
-        selectedPosition: i,
-        isFreezed: false,
-      ));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,14 +28,14 @@ class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
         ),
         title: Text('냉장실'),
       ),
-      body:
-      Consumer<RefrigeCompViewModel>(
-        builder:(context, model, child){
+      body: Consumer<RefrigeCompViewModel>(
+        builder: (context, refrigeViewModel, child) {
           return CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: sliverList,
+            physics: const BouncingScrollPhysics(
+                decelerationRate: ScrollDecelerationRate.fast),
+            slivers: refrigeViewModel.fetchedList,
           );
-        }
+        },
       ),
     );
   }
