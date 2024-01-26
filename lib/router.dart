@@ -4,14 +4,20 @@ import 'package:leute/view/page/login_pages/login_page.dart';
 import 'package:leute/view/page/login_pages/signup_page.dart';
 
 import 'package:leute/view/page/main_my_fridge/main_page.dart';
+import 'package:leute/view/page/main_my_fridge/main_page_test.dart';
 import 'package:leute/view/page/main_my_fridge/my_fridge.dart';
 import 'package:leute/view/page/my_food_detail_page/my_food_detail_screen.dart';
 import 'package:leute/view/page/login_pages/group_setting_page.dart';
+import 'package:leute/view/page/refrige_detail_page/freezer_comp_screen.dart';
+import 'package:leute/view/page/refrige_detail_page/refrige_comp_screen.dart';
+import 'package:leute/view/page/refrige_detail_page/refrige_detail_screen.dart';
 
 import 'package:leute/view/page/register_page/register_page.dart';
+import 'package:leute/view_model/freezer_comp_view_model.dart';
 
 import 'package:leute/view_model/group_setting_page_view_model.dart';
 import 'package:leute/view_model/my_page_view_model.dart';
+import 'package:leute/view_model/refrige_comp_view_model.dart';
 import 'view/page/refrige_detail_page/refrige_detail_screen.dart';
 import 'view/page/refrige_pages/add_refrige.dart';
 import 'package:leute/view_model/login_page_view_model.dart';
@@ -113,6 +119,31 @@ final router = GoRouter(initialLocation: '/login', routes: [
   //         child: const MyFridge(),
   //       );
   //     }),
+
+  // 냉장실 가는 라우터(임시)
+  GoRoute(
+      path: '/refrigeDetail',
+      builder: (context, state) {
+        return ChangeNotifierProvider(
+          create: (context) =>
+              RefrigeCompViewModel(state.extra as RefrigeDetail),
+          child: RefrigeCompScreen(
+            selectedRefrige: state.extra as RefrigeDetail,
+          ),
+        );
+      }),
+// 냉동실 가는 라우터(임시)
+  GoRoute(
+      path: '/freezerDetail',
+      builder: (context, state) {
+        return ChangeNotifierProvider(
+          create: (context) =>
+              FreezerCompViewModel(state.extra as RefrigeDetail),
+          child: FreezerCompScreen(
+            selectedRefrige: state.extra as RefrigeDetail,
+          ),
+        );
+      }),
 
 // GoRoute(
 //   path: '/mainScreen',
