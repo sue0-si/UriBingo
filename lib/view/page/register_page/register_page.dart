@@ -81,7 +81,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       ElevatedButton(
                           onPressed: () async {
                             // 사진 firestore에 올리기
-
                             final registerDate =
                                 DateTime.now().millisecondsSinceEpoch;
                             final uploadRef = FirebaseStorage.instance
