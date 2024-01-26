@@ -95,6 +95,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                               child: Form(
                                 key: _formKey,
                                 child: TextFormField(
+                                  enabled: false,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return addPageViewModel.name;
@@ -308,7 +309,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                               context: context,
                               builder: (context) {
                                 return TwoAnswerDialog(
-                                    title: '수정하겠습니까?',
+                                    title: '수정하시겠습니까?',
                                     titleStyle: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
