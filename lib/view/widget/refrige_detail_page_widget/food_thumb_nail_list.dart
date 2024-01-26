@@ -50,6 +50,7 @@ class FoodThumbNailList extends StatelessWidget {
                     return FoodThumbNail(
                       foodItem: foodItem,
                       period: selectedRefrige.period,
+                      extendPeriod: selectedRefrige.extentionPeriod,
                     );
                   }),
             ),

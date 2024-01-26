@@ -9,6 +9,7 @@ class RegisterViewModel extends ChangeNotifier {
   late Uint8List _foodImage;
 
   List<bool> get selected => _selected;
+
   Uint8List get foodImage => _foodImage;
 
   Future<Uint8List?> pickImage() async {
@@ -27,6 +28,4 @@ class RegisterViewModel extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-
 }
