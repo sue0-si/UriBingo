@@ -301,73 +301,80 @@ class _EditRefrigeState extends State<EditRefrige> {
                 ),
                 Column(
                   children: [
-                    ElevatedButton(
-                      onPressed: () async {
-                        //왜 async?
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return TwoAnswerDialog(
-                                    title: '수정하시겠습니까?',
-                                    titleStyle: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () async {
+                            //왜 async?
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return TwoAnswerDialog(
+                                        title: '수정하시겠습니까?',
+                                        titleStyle: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
 
-                                    ),
-                                    firstButton: '네',
-                                    secondButton: '아니오',
-                                    onTap: () async {
-                                      setState(() {});
+                                        ),
+                                        firstButton: '네',
+                                        secondButton: '아니오',
+                                        onTap: () async {
+                                          setState(() {});
 
-                                      if (mounted) {
-                                        context.go('/', extra: 0);
-                                      }
+                                          if (mounted) {
+                                            context.go('/', extra: 0);
+                                          }
 
-                                      await addPageViewModel.editRefrige();
-                                    });
-                              });
-
-                          //changeColdstorage 메서드 호출해서 데이터 저장
-                        }
-                      },
-                      child: const Text(
-                        '수정하기',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return TwoAnswerDialog(
-                                  title: '삭제하겠습니까?',
-                                  firstButton: '네',
-                                  secondButton: '아니오',
-                                  onTap: () async {
-                                    setState(() {});
-
-                                    if (mounted) {
-                                      context.go('/', extra: 0);
-                                    }
-
-                                    await addPageViewModel.deleteRefrige();
+                                          await addPageViewModel.editRefrige();
+                                        });
                                   });
-                            });
-                      },
-                      child: Text(
-                        '삭제하기',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+
+                              //changeColdstorage 메서드 호출해서 데이터 저장
+                            }
+                          },
+                          child: const Text(
+                            '수정하기',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                      ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return TwoAnswerDialog(
+                                      title: '삭제하겠습니까?',
+                                      firstButton: '네',
+                                      secondButton: '아니오',
+                                      onTap: () async {
+                                        setState(() {});
+
+                                        if (mounted) {
+                                          context.go('/', extra: 0);
+                                        }
+
+                                        await addPageViewModel.deleteRefrige();
+                                      });
+                                });
+                          },
+                          child: Text(
+                            '삭제하기',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+
                     ),
+
                   ],
                 ),
               ],
