@@ -26,10 +26,10 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     initData();
     super.initState();
-
   }
 
-  void initData() async {//비동기로 변경
+  Future<void> initData() async {
+    //비동기로 변경
     refrigeItems = await RegisterdRefrigeRepository().getFirebaseRefrigesData();
     List<UserModel> userData = await userDataRepository.getFirebaseUserData();
     UserModel currentUser = userData.firstWhere(
@@ -41,7 +41,6 @@ class _MainScreenState extends State<MainScreen> {
     for (int i = 1; i <= refrigeItems.length; i++) {
       fridges.add(makeFridge(i - 1));
     }
-
   }
 
   Widget makeFridge(int index) {
@@ -111,10 +110,8 @@ class _MainScreenState extends State<MainScreen> {
                 return isManager
                     ? IconButton(
                         icon: Icon(Icons.add),
-
                         onPressed: () {
                           context.go('/addRefrige', extra: 0);
-
 
                           setState(() {});
                         },
