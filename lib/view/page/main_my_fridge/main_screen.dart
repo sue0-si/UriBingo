@@ -65,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
         isManager
             ? ElevatedButton(
                 onPressed: () {
-                  context.go('/editRefrige');
+                  context.go('/editRefrige', extra: refrigeItems[index]);
                 },
                 child: Text('수정'))
             : Container()

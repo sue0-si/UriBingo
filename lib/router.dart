@@ -13,7 +13,7 @@ import 'view/page/refrige_pages/add_refrige.dart';
 import 'view/page/refrige_pages/edit_refrige.dart';
 import 'view/page/register_page/register_page.dart';
 import 'view_model/add_page_view_model.dart';
-import 'view_model/edit_page_view_model.dart';
+
 import 'view_model/login_page_view_model.dart';
 import 'view_model/my_food_detail_view_model.dart';
 import 'view_model/my_page_view_model.dart';
@@ -77,8 +77,8 @@ final router = GoRouter(initialLocation: '/login', routes: [
     path: '/editRefrige',
     builder: (context, state) {
       return ChangeNotifierProvider(
-        create: (_) => EditPageViewModel(),
-        child: const EditRefrige(),
+        create: (_) => AddPageViewModel(),
+        child: EditRefrige(refrigeDetail: state.extra as RefrigeDetail),
       );
     },
   ),

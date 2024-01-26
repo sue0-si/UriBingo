@@ -4,22 +4,37 @@ import 'package:leute/view/page/main_my_fridge/main_page.dart';
 import 'package:leute/view/page/main_my_fridge/main_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../data/models/refrige_model.dart';
 import '../../../view_model/add_page_view_model.dart';
 
 class EditRefrige extends StatefulWidget {
-  const EditRefrige({super.key});
+  const EditRefrige({super.key, required this.refrigeDetail}); //외부 인자값을 받아오는거
+
+  final RefrigeDetail refrigeDetail;
+
+
 
   @override
   State<EditRefrige> createState() => _EditRefrigeState();
 }
 
 class _EditRefrigeState extends State<EditRefrige> {
-  final _addNameController = TextEditingController();
+  final addPageViewModel = AddPageViewModel();
 
-  TextEditingController get addNameController =>
-      _addNameController; //addNameController 외부접근
+
+
+
+
+  final addNameController = TextEditingController();
+
+//addNameController 외부접근
   final GlobalKey<FormState> _formKey =
       GlobalKey<FormState>(); //textFormfield 사용하려면 설정해야함
+  @override
+  void initState() {
+    addPageViewModel.name = widget.refrigeDetail.refrigeName;
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -29,7 +44,18 @@ class _EditRefrigeState extends State<EditRefrige> {
 
   @override
   Widget build(BuildContext context) {
-    final addPageViewModel = context.watch<AddPageViewModel>();
+    final editPageViewModel = context.watch<AddPageViewModel>();
+
+    addPageViewModel.selectedStoragePeriod =
+    '${widget.refrigeDetail.refrigeCompCount}칸'; //수정 초기값 설정 = 파이어베이스에서 받아서 내려온 값
+    addPageViewModel.selectedFrozenStorage =
+    '${widget.refrigeDetail.freezerCompCount}칸';
+    addPageViewModel.selectedStoragePeriod = '${widget.refrigeDetail.period}일';
+    addPageViewModel.selectedExtensionPeriod =
+    '${widget.refrigeDetail.extentionPeriod}일';
+
+    addPageViewModel.registerDate = '${widget.refrigeDetail.registerDate}일';
+
     return Scaffold(
       appBar: AppBar(
         actions: [],
@@ -68,13 +94,13 @@ class _EditRefrigeState extends State<EditRefrige> {
                                 child: TextFormField(
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return '냉장고 이름을 입력하세요';
+                                      return widget.refrigeDetail.refrigeName;
                                     }
                                     return null;
                                   },
                                   onSaved: (value) {
                                     //유효성 검사 후, 폼이 제출될 때 저장되는 콜백
-                                    addPageViewModel.name = value!; //여기 잘 모르겠다
+                                    editPageViewModel.name = value!; //여기 잘 모르겠다
                                   },
                                   controller: addNameController,
                                   //obscureText: true, 입력값을 안보여주고싶을때
@@ -129,7 +155,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                               child: Container(
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
-                                    value: addPageViewModel.selectedColdstorage,
+                                    value:
+                                    addPageViewModel.selectedColdstorage,
                                     items: addPageViewModel
                                         .coldStorageOfCompartmentsList //String이 아닌 List<String>을 반환되고 있다
                                         .map((e) => DropdownMenuItem(
@@ -166,7 +193,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
                                     value:
-                                        addPageViewModel.selectedFrozenStorage,
+                                    addPageViewModel.selectedFrozenStorage,
                                     items: addPageViewModel
                                         .frozenStorageOfCompartmentsList
                                         .map((e) => DropdownMenuItem(
@@ -177,8 +204,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        addPageViewModel.selectedFrozenStorage =
-                                            value!;
+                                        addPageViewModel
+                                            .selectedFrozenStorage = value!;
                                       });
                                     }),
                               ),
@@ -203,7 +230,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
                                     value:
-                                        addPageViewModel.selectedStoragePeriod,
+                                    addPageViewModel.selectedStoragePeriod,
                                     items: addPageViewModel.storagePeriodList
                                         .map((e) => DropdownMenuItem(
                                               value: e,
@@ -213,8 +240,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        addPageViewModel.selectedStoragePeriod =
-                                            value!;
+                                        addPageViewModel
+                                            .selectedStoragePeriod = value!;
                                       });
                                     }),
                               ),
@@ -269,12 +296,10 @@ class _EditRefrigeState extends State<EditRefrige> {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
 
-                          await addPageViewModel.changeColdstorage();
+                          await editPageViewModel.changeColdstorage();
                           if (mounted) {
-                            context.go(
-                              '/',
-                              extra: {'addPageViewModel': MainPage}
-                            );
+                            context
+                                .go('/', extra: {'addPageViewModel': MainPage});
                           }
                         }
                       },
