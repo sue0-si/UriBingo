@@ -56,7 +56,6 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
         leading: IconButton(
           onPressed: () {
             context.go('/', extra: 1);
-            print(widget.myFoodItem.isExtended);
           },
           icon: const Icon(Icons.arrow_back),
         ),
