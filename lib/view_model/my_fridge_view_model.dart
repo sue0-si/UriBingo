@@ -12,16 +12,18 @@ class MyFridgeViewModel extends ChangeNotifier {
   List<RefrigeDetail> refrigeDetails = [];
 
   MyFridgeViewModel() {
-    fetchFridgeData();
+    fetchMyFridgeData();
   }
 
-  Future <void> fetchFridgeData() async {
+
+  Future <void> fetchMyFridgeData() async {
     final allFoods = await foodRepository.getFirebaseFoodsData();
     refrigeDetails = await refrigeRepository.getFirebaseRefrigesData();
 
     myFoodDetails = foodRepository.getMyFoodDetail(
         allFoods, FirebaseAuth.instance.currentUser!.displayName!);
-    refrigeDetails;
+    // refrigeDetails;
     notifyListeners();
   }
+
 }

@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/page/login_pages/my_page.dart';
+import 'package:leute/view_model/my_fridge_view_model.dart';
+import 'package:provider/provider.dart';
 
 import 'main_screen.dart';
 import 'my_fridge.dart';
@@ -23,7 +25,10 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   List<Widget> _pages = <Widget>[
     MainScreen(),
-    MyFridge(),
+    ChangeNotifierProvider(
+      create: (_) => MyFridgeViewModel(),
+      child: const MyFridge(),
+    ),
     MyPage(),
   ];
 

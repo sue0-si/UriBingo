@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/user_model.dart';
 import 'package:leute/styles/app_text_style.dart';
+import 'package:leute/view_model/main_screen_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/models/refrige_model.dart';
 import '../../../data/repository/refrige_repository.dart';
@@ -83,6 +85,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<MainScreenViewModel>();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
