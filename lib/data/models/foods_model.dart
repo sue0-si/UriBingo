@@ -8,6 +8,7 @@ class FoodDetail {
   int registerDate;
   bool isPublic;
   bool isUnknown;
+  bool isExtended;
 
 //<editor-fold desc="Data Methods">
   FoodDetail({
@@ -20,6 +21,7 @@ class FoodDetail {
     required this.registerDate,
     required this.isPublic,
     required this.isUnknown,
+    required this.isExtended,
   });
 
   @override
@@ -35,7 +37,8 @@ class FoodDetail {
           userName == other.userName &&
           registerDate == other.registerDate &&
           isPublic == other.isPublic &&
-          isUnknown == other.isUnknown);
+          isUnknown == other.isUnknown &&
+          isExtended == other.isExtended);
 
   @override
   int get hashCode =>
@@ -47,11 +50,23 @@ class FoodDetail {
       userName.hashCode ^
       registerDate.hashCode ^
       isPublic.hashCode ^
-      isUnknown.hashCode;
+      isUnknown.hashCode ^
+      isExtended.hashCode;
 
   @override
   String toString() {
-    return 'FoodDetail{ refrigeName: $refrigeName, freezed: $freezed, foodImage: $foodImage, positionId: $positionId, userId: $userId, userName: $userName, registerDate: $registerDate, isPublic: $isPublic, isUnknown: $isUnknown,}';
+    return 'FoodDetail{' +
+        ' refrigeName: $refrigeName,' +
+        ' freezed: $freezed,' +
+        ' foodImage: $foodImage,' +
+        ' positionId: $positionId,' +
+        ' userId: $userId,' +
+        ' userName: $userName,' +
+        ' registerDate: $registerDate,' +
+        ' isPublic: $isPublic,' +
+        ' isUnknown: $isUnknown,' +
+        ' isExtended: $isExtended,' +
+        '}';
   }
 
   FoodDetail copyWith({
@@ -64,6 +79,7 @@ class FoodDetail {
     int? registerDate,
     bool? isPublic,
     bool? isUnknown,
+    bool? isExtended,
   }) {
     return FoodDetail(
       refrigeName: refrigeName ?? this.refrigeName,
@@ -75,20 +91,22 @@ class FoodDetail {
       registerDate: registerDate ?? this.registerDate,
       isPublic: isPublic ?? this.isPublic,
       isUnknown: isUnknown ?? this.isUnknown,
+      isExtended: isExtended ?? this.isExtended,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'refrigeName': refrigeName,
-      'freezed': freezed,
-      'foodImage': foodImage,
-      'positionId': positionId,
-      'userId': userId,
-      'userName': userName,
-      'registerDate': registerDate,
-      'isPublic': isPublic,
-      'isUnknown': isUnknown,
+      'refrigeName': this.refrigeName,
+      'freezed': this.freezed,
+      'foodImage': this.foodImage,
+      'positionId': this.positionId,
+      'userId': this.userId,
+      'userName': this.userName,
+      'registerDate': this.registerDate,
+      'isPublic': this.isPublic,
+      'isUnknown': this.isUnknown,
+      'isExtended': this.isExtended,
     };
   }
 
@@ -103,6 +121,7 @@ class FoodDetail {
       registerDate: map['registerDate'] as int,
       isPublic: map['isPublic'] as bool,
       isUnknown: map['isUnknown'] as bool,
+      isExtended: map['isExtended'] as bool,
     );
   }
 
