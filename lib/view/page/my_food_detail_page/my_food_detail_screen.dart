@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
-import 'package:leute/view/widget/custom_buttons/first_custom_button.dart';
 import 'package:leute/view_model/my_food_detail_view_model.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 import 'package:leute/styles/app_text_colors.dart';
@@ -30,17 +28,16 @@ class MyFoodDetail extends StatefulWidget {
 class _MyFoodDetailState extends State<MyFoodDetail> {
   final myFoodViewModel = MyFoodDetailViewModel();
   int _remainPeriod = 0;
-  bool _isOld = false;
 
   @override
   void initState() {
-    _isOld = myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem);
     initData();
     super.initState();
-    _remainPeriod = myFoodViewModel.calculateRemainPeriod(
-        widget.myFoodItem, widget.ourRefrigeItem);
+    _remainPeriod = myFoodViewModel.calculateRemainPeriod(widget.myFoodItem, widget.ourRefrigeItem);
+   myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem);
   }
 
+  // 앱 실행시 foods
   void initData() async {
     final foods = await RegisterdFoodsRepository().getFirebaseFoodsData();
     setState(() {
@@ -54,7 +51,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            context.pop();
+            context.go('/', extra: 1);
           },
           icon: const Icon(Icons.arrow_back),
         ),
@@ -106,8 +103,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                   Text(
                     '$_remainPeriod일',
                     style: AppTextStyle.body14R(
-                        color: myFoodViewModel.checkOld(
-                                widget.myFoodItem, widget.ourRefrigeItem)
+                        color: myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem)
                             ? AppColors.caution
                             : AppColors.mainText),
                   ),
@@ -115,7 +111,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue[50]),
-                    onPressed: _isOld
+                    onPressed: myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem)
                         ? () {
                             showDialog(
                                 context: context,
@@ -126,11 +122,15 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                       secondButton: '아니오',
                                       onTap: () {
                                         setState(() {
-                                          _isOld = false;
+                                          myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem) == false;
                                           _remainPeriod =
                                               myFoodViewModel.extendPeriod(
                                                   widget.myFoodItem,
                                                   widget.ourRefrigeItem);
+                                          FirebaseFirestore.instance.collection('foodDetails')
+                                              .doc(widget.myFoodItem.registerDate
+                                              .toString() +
+                                              widget.myFoodItem.userId).update({"isExtended":"true"});
                                         });
                                         Navigator.of(context).pop();
                                       });
