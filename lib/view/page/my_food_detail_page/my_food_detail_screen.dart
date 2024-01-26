@@ -11,7 +11,6 @@ import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/my_food_detail_page_widget/food_detail_image_widget.dart';
-
 import '../../../data/repository/foods_repository.dart';
 
 class MyFoodDetail extends StatefulWidget {
@@ -28,16 +27,21 @@ class MyFoodDetail extends StatefulWidget {
 class _MyFoodDetailState extends State<MyFoodDetail> {
   final myFoodViewModel = MyFoodDetailViewModel();
   int _remainPeriod = 0;
+  bool _isOld = false;
 
+  // 앱 실행시 initData
+  // 남은기간 계산 후 연장버튼 네 클릭 시 _remainPeriod 업데이트
+  // 음식이 오래됐는지 체크 후 _isOld 업데이트
   @override
   void initState() {
     initData();
     super.initState();
-    _remainPeriod = myFoodViewModel.calculateRemainPeriod(widget.myFoodItem, widget.ourRefrigeItem);
-   myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem);
+    _remainPeriod = myFoodViewModel.calculateRemainPeriod(
+        widget.myFoodItem, widget.ourRefrigeItem);
+    _isOld = myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem);
   }
 
-  // 앱 실행시 foods
+  //foodDetails 데이터 get
   void initData() async {
     final foods = await RegisterdFoodsRepository().getFirebaseFoodsData();
     setState(() {
@@ -103,15 +107,17 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                   Text(
                     '$_remainPeriod일',
                     style: AppTextStyle.body14R(
-                        color: myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem)
+                        color: _isOld
                             ? AppColors.caution
                             : AppColors.mainText),
                   ),
                   const Spacer(),
+
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue[50]),
-                    onPressed: myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem)
+                    //남은 기간이 2일 미만일 경우 _isOld true -> 버튼 활성화 -> 다이얼로그 생성 / 2일 이상일 경우 버튼 비활성화
+                    onPressed:_isOld
                         ? () {
                             showDialog(
                                 context: context,
@@ -121,21 +127,27 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                       firstButton: '네',
                                       secondButton: '아니오',
                                       onTap: () {
+                                        //'네' 클릭 후 _isOld false로 업데이트 ->연장버튼 비활성화처리, 연장된 기간으로 _remainPeriod 업데이트, firestore isExtended 값 true로 변경
                                         setState(() {
-                                          myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem) == false;
+                                         _isOld =
+                                              false;
                                           _remainPeriod =
                                               myFoodViewModel.extendPeriod(
                                                   widget.myFoodItem,
                                                   widget.ourRefrigeItem);
-                                          FirebaseFirestore.instance.collection('foodDetails')
-                                              .doc(widget.myFoodItem.registerDate
-                                              .toString() +
-                                              widget.myFoodItem.userId).update({"isExtended":"true"});
+                                          FirebaseFirestore.instance
+                                              .collection('foodDetails')
+                                              .doc(widget
+                                                      .myFoodItem.registerDate
+                                                      .toString() +
+                                                  widget.myFoodItem.userId)
+                                              .update({"isExtended": true});
                                         });
                                         Navigator.of(context).pop();
                                       });
                                 });
                           }
+                        //연장버튼 비활성화
                         : null,
                     child: const Text('연장하기'),
                   )
@@ -154,6 +166,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                   title: '등록한 음식을 삭제하시겠습니까?',
                                   firstButton: '네',
                                   secondButton: '아니오',
+                                  // 네 버튼 클릭 후 firebase 해당 doc삭제, firestorage 해당 이미지 삭제
                                   onTap: () async {
                                     await Future.wait([
                                       FirebaseFirestore.instance
@@ -167,7 +180,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                               "images/${widget.myFoodItem.registerDate}.jpg")
                                           .delete()
                                     ]);
-
+                                    // dialog 종료 후 메인페이지로 이동
                                     if (mounted) {
                                       context.go('/', extra: 1);
                                     }
@@ -178,10 +191,12 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                 ],
               ),
               SizedBox(height: 32.h),
-              myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem)
+              //남은 기간에 따라 다른 텍스트 출력 (2일 미만 "곧 폐기" 2일 이상 "연장불가)
+              _isOld
                   ? Text('곧 폐기됩니다.',
                       style: AppTextStyle.body14R(color: AppColors.caution))
-                  : const Text('아직은 연장이 불가해요.'),
+                  :  widget.myFoodItem.isExtended ? Text('더이상 연장이 불가해요') //
+                  : Text('아직은 연장이 불가해요')
             ],
           ),
         ),
