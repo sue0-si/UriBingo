@@ -119,35 +119,35 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                     //남은 기간이 2일 미만일 경우 _isOld true -> 버튼 활성화 -> 다이얼로그 생성 / 2일 이상일 경우 버튼 비활성화
                     onPressed:_isOld
                         ? () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return TwoAnswerDialog(
-                                title: '연장하시겠습니까?',
-                                firstButton: '네',
-                                secondButton: '아니오',
-                                onTap: () {
-                                  //'네' 클릭 후 _isOld false로 업데이트 ->연장버튼 비활성화처리, 연장된 기간으로 _remainPeriod 업데이트, firestore isExtended 값 true로 변경
-                                  setState(() {
-                                    _isOld =
-                                    false;
-                                    _remainPeriod =
-                                        myFoodViewModel.extendPeriod(
-                                            widget.myFoodItem,
-                                            widget.ourRefrigeItem);
-                                    FirebaseFirestore.instance
-                                        .collection('foodDetails')
-                                        .doc(widget
-                                        .myFoodItem.registerDate
-                                        .toString() +
-                                        widget.myFoodItem.userId)
-                                        .update({"isExtended": true});
-                                  });
-                                  Navigator.of(context).pop();
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return TwoAnswerDialog(
+                                      title: '연장하시겠습니까?',
+                                      firstButton: '네',
+                                      secondButton: '아니오',
+                                      onTap: () {
+                                        //'네' 클릭 후 _isOld false로 업데이트 ->연장버튼 비활성화처리, 연장된 기간으로 _remainPeriod 업데이트, firestore isExtended 값 true로 변경
+                                        setState(() {
+                                         _isOld =
+                                              false;
+                                          _remainPeriod =
+                                              myFoodViewModel.extendPeriod(
+                                                  widget.myFoodItem,
+                                                  widget.ourRefrigeItem);
+                                          FirebaseFirestore.instance
+                                              .collection('foodDetails')
+                                              .doc(widget
+                                                      .myFoodItem.registerDate
+                                                      .toString() +
+                                                  widget.myFoodItem.userId)
+                                              .update({"isExtended": true});
+                                        });
+                                        Navigator.of(context).pop();
+                                      });
                                 });
-                          });
-                    }
-                    //연장버튼 비활성화
+                          }
+                        //연장버튼 비활성화
                         : null,
                     child: const Text('연장하기'),
                   )
@@ -172,12 +172,12 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                       FirebaseFirestore.instance
                                           .collection('foodDetails')
                                           .doc(widget.myFoodItem.registerDate
-                                          .toString() +
-                                          widget.myFoodItem.userId)
+                                                  .toString() +
+                                              widget.myFoodItem.userId)
                                           .delete(),
                                       FirebaseStorage.instance
                                           .ref(
-                                          "images/${widget.myFoodItem.registerDate}.jpg")
+                                              "images/${widget.myFoodItem.registerDate}.jpg")
                                           .delete()
                                     ]);
                                     // dialog 종료 후 메인페이지로 이동
@@ -194,9 +194,9 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
               //남은 기간에 따라 다른 텍스트 출력 (2일 미만 "곧 폐기" 2일 이상 "연장불가)
               _isOld
                   ? Text('곧 폐기됩니다.',
-                  style: AppTextStyle.body14R(color: AppColors.caution))
-                  :  widget.myFoodItem.isExtended ? const Text('더이상 연장이 불가해요')
-                  : const Text('아직은 연장이 불가해요')
+                      style: AppTextStyle.body14R(color: AppColors.caution))
+                  :  widget.myFoodItem.isExtended ? Text('더이상 연장이 불가해요') //
+                  : Text('아직은 연장이 불가해요')
             ],
           ),
         ),
