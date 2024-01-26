@@ -79,7 +79,7 @@ class SignupPageViewModel with ChangeNotifier {
     });
     // 가입 성공 시 메인 페이지로 이동
     if (context.mounted) {
-      context.go('/');
+      context.go('/', extra: 0);
     }
   }
 
