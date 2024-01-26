@@ -105,14 +105,14 @@ final router = GoRouter(initialLocation: '/login', routes: [
           child: RegisterPage(fridgeData: state.extra as List<Object>),
         );
       }),
-  GoRoute(
-      path: '/myFridge',
-      builder: (context, state) {
-        return ChangeNotifierProvider(
-          create: (_) => MyFridgeViewModel(),
-          child: const MyFridge(),
-        );
-      }),
+  // GoRoute(
+  //     path: '/myFridge',
+  //     builder: (context, state) {
+  //       return ChangeNotifierProvider(
+  //         create: (_) => MyFridgeViewModel(),
+  //         child: const MyFridge(),
+  //       );
+  //     }),
 
 // GoRoute(
 //   path: '/mainScreen',
