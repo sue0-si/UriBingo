@@ -4,9 +4,13 @@ import '../../../data/models/foods_model.dart';
 
 class FoodThumbNail extends StatelessWidget {
   const FoodThumbNail(
-      {super.key, required this.foodItem, required this.period});
+      {super.key,
+      required this.foodItem,
+      required this.period,
+      required this.extendPeriod});
 
   final int period;
+  final int extendPeriod;
   final FoodDetail foodItem;
 
   @override
@@ -15,6 +19,9 @@ class FoodThumbNail extends StatelessWidget {
         .difference(DateTime.fromMillisecondsSinceEpoch(foodItem.registerDate))
         .inDays;
     int remainPeriod = period - passedDate;
+    if (foodItem.isExtended == true) {
+      remainPeriod += extendPeriod;
+    }
     return Container(
       padding: const EdgeInsets.all(5),
       child: Column(
