@@ -47,6 +47,14 @@ dependencies:
   firebase_core: ^2.24.2
   firebase_auth: ^4.16.0
   nice_buttons: ^0.0.3
+  clay_containers: ^0.3.4
+  flutter_carousel_slider: ^1.1.0
+  animated_flip_counter: ^0.2.6
+  delayed_widget: ^1.1.2
+  animation_list: ^3.0.0
+  widget_and_text_animator: ^1.1.5
+  random_text_reveal: ^0.0.7
+  animated_notch_bottom_bar: ^1.0.1
 
 dev_dependencies:
   flutter_test:

@@ -25,7 +25,7 @@ class MyFoodDetailViewModel with ChangeNotifier {
 //연장기간 출력 (남은기간 + 관리자가 설정한 기간)
   int extendPeriod(FoodDetail myFoodItem, RefrigeDetail ourRefirgeItem) {
     int remainPeriod = calculateRemainPeriod(myFoodItem, ourRefirgeItem);
-    return remainPeriod + ourRefirgeItem.period;
+    return remainPeriod + ourRefirgeItem.extentionPeriod;
   }
 
 //2일 미만: true 2일 이상이거나 isExtended가 true : false
