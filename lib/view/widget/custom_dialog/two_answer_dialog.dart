@@ -5,17 +5,29 @@ class TwoAnswerDialog extends StatelessWidget {
   final String title;
   final String firstButton;
   final String secondButton;
-  const TwoAnswerDialog({super.key, required this.onTap, required this.title, required this.firstButton, required this.secondButton});
+
+  const TwoAnswerDialog(
+      {super.key,
+      required this.onTap,
+      required this.title,
+      required this.firstButton,
+      required this.secondButton,
+      TextStyle? titleStyle});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title:  Text(title),
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: 15,
+        ),
+      ),
       actions: <Widget>[
         Container(
           child: ElevatedButton(
             onPressed: onTap,
-            child:  Text(firstButton),
+            child: Text(firstButton),
           ),
         ),
         Container(
@@ -23,7 +35,7 @@ class TwoAnswerDialog extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop(); //창 닫기
             },
-            child:  Text(secondButton),
+            child: Text(secondButton),
           ),
         ),
       ],
