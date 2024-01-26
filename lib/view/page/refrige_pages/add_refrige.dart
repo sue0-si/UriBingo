@@ -9,13 +9,17 @@ import '../main_my_fridge/main_screen.dart';
 
 class AddRefrige extends StatefulWidget {
   const AddRefrige({super.key});
+  //외부에서 값을 받아올 수 있다
+
+
 
   @override
   State<AddRefrige> createState() => _AddRefrigeState();
 }
 
 class _AddRefrigeState extends State<AddRefrige> {
-  //final addPageViewModel = AddPageViewModel(); //AddPageViewModel 담을 변수 선언
+
+
   final _addNameController = TextEditingController();
 
   TextEditingController get addNameController =>
@@ -23,15 +27,6 @@ class _AddRefrigeState extends State<AddRefrige> {
   final GlobalKey<FormState> _formKey =
       GlobalKey<FormState>(); //textFormfield 사용하려면 설정해야함
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   AddPageViewModel().selectedColdstorage = AddPageViewModel().coldStorageOfCompartmentsList.first.split('').first;
-  //   AddPageViewModel().selectedFrozenStorage = AddPageViewModel().frozenStorageOfCompartmentsList.first.split('').first;
-  //   AddPageViewModel().selectedStoragePeriod = AddPageViewModel().storagePeriodList.first.split('').first;
-  //   AddPageViewModel().selectedExtensionPeriod = AddPageViewModel().extensionPeriodList.first.split('').first;
-  //
-  // }
 
   @override
   void dispose() {
