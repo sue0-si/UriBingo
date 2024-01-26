@@ -75,7 +75,7 @@ class SignupPageViewModel with ChangeNotifier {
       'name': name,
       'employeeNumber': employeeNumber,
       'manager': false,
-      'email': email
+      'email': email,
     });
     // 가입 성공 시 메인 페이지로 이동
     if (context.mounted) {
