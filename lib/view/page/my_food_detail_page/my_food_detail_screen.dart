@@ -15,10 +15,10 @@ import '../../../data/repository/foods_repository.dart';
 
 class MyFoodDetail extends StatefulWidget {
   const MyFoodDetail(
-      {super.key, required this.myFoodItem, required this.ourRefrigeItem});
+      {super.key, required this.myFoodItem, required this.ourRefrigItem});
 
   final FoodDetail myFoodItem;
-  final RefrigeDetail ourRefrigeItem;
+  final RefrigeDetail ourRefrigItem;
 
   @override
   State<MyFoodDetail> createState() => _MyFoodDetailState();
@@ -37,8 +37,8 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
     initData();
     super.initState();
     _remainPeriod = myFoodViewModel.calculateRemainPeriod(
-        widget.myFoodItem, widget.ourRefrigeItem);
-    _isOld = myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigeItem);
+        widget.myFoodItem, widget.ourRefrigItem);
+    _isOld = myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigItem);
   }
 
   //foodDetails 데이터 get
@@ -134,14 +134,8 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                           _remainPeriod =
                                               myFoodViewModel.extendPeriod(
                                                   widget.myFoodItem,
-                                                  widget.ourRefrigeItem);
-                                          FirebaseFirestore.instance
-                                              .collection('foodDetails')
-                                              .doc(widget
-                                                      .myFoodItem.registerDate
-                                                      .toString() +
-                                                  widget.myFoodItem.userId)
-                                              .update({"isExtended": true});
+                                                  widget.ourRefrigItem);
+                                         myFoodViewModel.updateFirestore(widget.myFoodItem);
                                         });
                                         Navigator.of(context).pop();
                                       });
@@ -167,19 +161,8 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                   firstButton: '네',
                                   secondButton: '아니오',
                                   // 네 버튼 클릭 후 firebase 해당 doc삭제, firestorage 해당 이미지 삭제
-                                  onTap: () async {
-                                    await Future.wait([
-                                      FirebaseFirestore.instance
-                                          .collection('foodDetails')
-                                          .doc(widget.myFoodItem.registerDate
-                                                  .toString() +
-                                              widget.myFoodItem.userId)
-                                          .delete(),
-                                      FirebaseStorage.instance
-                                          .ref(
-                                              "images/${widget.myFoodItem.registerDate}.jpg")
-                                          .delete()
-                                    ]);
+                                  onTap: () {
+                                    myFoodViewModel.deleteFoodAndStorage(widget.myFoodItem, widget.ourRefrigItem);
                                     // dialog 종료 후 메인페이지로 이동
                                     if (mounted) {
                                       context.go('/', extra: 1);
@@ -195,8 +178,8 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
               _isOld
                   ? Text('곧 폐기됩니다.',
                       style: AppTextStyle.body14R(color: AppColors.caution))
-                  :  widget.myFoodItem.isExtended ? Text('더이상 연장이 불가해요') //
-                  : Text('아직은 연장이 불가해요')
+                  :  widget.myFoodItem.isExtended ? const Text('더이상 연장이 불가해요')
+                  : const Text('아직은 연장이 불가해요')
             ],
           ),
         ),

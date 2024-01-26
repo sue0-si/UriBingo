@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
@@ -37,4 +39,26 @@ class MyFoodDetailViewModel with ChangeNotifier {
     return remainPeriod < 2;
   }
 
-}
+  Future<void> updateFirestore(FoodDetail myFoodItem) async {
+    await FirebaseFirestore.instance
+        .collection('foodDetails')
+        .doc(myFoodItem.registerDate
+        .toString() + myFoodItem.userId)
+        .update({"isExtended": true});
+  }
+
+  Future<void> deleteFoodAndStorage(FoodDetail myFoodItem,RefrigeDetail ourRefirgeItem ) async {
+    await Future.wait([FirebaseFirestore.instance
+        .collection('foodDetails')
+        .doc(myFoodItem.registerDate
+        .toString() + myFoodItem.userId)
+        .delete(),
+    FirebaseStorage.instance
+        .ref("images/${myFoodItem.registerDate}.jpg")
+        .delete(),
+    ]);
+  }
+  }
+
+
+

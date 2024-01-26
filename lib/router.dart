@@ -42,7 +42,7 @@ final router = GoRouter(initialLocation: '/login', routes: [
           create: (_) => MyFoodDetailViewModel(),
           child: MyFoodDetail(
             myFoodItem: (state.extra as List)[0],
-            ourRefrigeItem: (state.extra as List)[1],
+            ourRefrigItem: (state.extra as List)[1],
           ),
         );
       }),
