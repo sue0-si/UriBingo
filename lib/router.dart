@@ -24,6 +24,8 @@ import 'view_model/add_page_view_model.dart';
 
 import 'view_model/my_food_detail_view_model.dart';
 
+import 'view_model/my_fridge_view_model.dart';
+import 'view_model/my_page_view_model.dart';
 import 'view_model/register_view_model.dart';
 
 final router = GoRouter(initialLocation: '/login', routes: [
@@ -33,7 +35,7 @@ final router = GoRouter(initialLocation: '/login', routes: [
           create: (_) => MyPageViewModel(),
           child: MainPage(currentPageIndex: state.extra as int))),
 
-  GoRoute(path: '/allmyfoods', builder: (context, state) => const MyFridge()),
+  // GoRoute(path: '/allmyfoods', builder: (context, state) => const MyFridge()),
 
   GoRoute(
       path: '/myfooddetail',
@@ -101,6 +103,14 @@ final router = GoRouter(initialLocation: '/login', routes: [
         return ChangeNotifierProvider(
           create: (_) => RegisterViewModel(),
           child: RegisterPage(fridgeData: state.extra as List<Object>),
+        );
+      }),
+  GoRoute(
+      path: '/myFridge',
+      builder: (context, state) {
+        return ChangeNotifierProvider(
+          create: (_) => MyFridgeViewModel(),
+          child: const MyFridge(),
         );
       }),
 

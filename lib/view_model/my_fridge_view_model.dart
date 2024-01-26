@@ -1,0 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:leute/data/models/foods_model.dart';
+import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/data/repository/foods_repository.dart';
+import 'package:leute/data/repository/refrige_repository.dart';
+
+class MyFridgeViewModel extends ChangeNotifier {
+  final foodRepository = RegisterdFoodsRepository();
+  final refrigeRepository = RegisterdRefrigeRepository();
+  List<FoodDetail> myFoodDetails = [];
+  List<RefrigeDetail> refrigeDetails = [];
+
+  MyFridgeViewModel() {
+    fetchFridgeData();
+  }
+
+  Future <void> fetchFridgeData() async {
+    final allFoods = await foodRepository.getFirebaseFoodsData();
+    refrigeDetails = await refrigeRepository.getFirebaseRefrigesData();
+
+    myFoodDetails = foodRepository.getMyFoodDetail(
+        allFoods, FirebaseAuth.instance.currentUser!.displayName!);
+    refrigeDetails;
+    notifyListeners();
+  }
+}
