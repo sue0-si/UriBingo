@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -29,15 +27,12 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
   int _remainPeriod = 0;
   bool _isOld = false;
 
-  // 앱 실행시 initData
-  // 남은기간 계산 후 연장버튼 네 클릭 시 _remainPeriod 업데이트
-  // 음식이 오래됐는지 체크 후 _isOld 업데이트
+  // remainPeriod 계산, 연장버튼 네 클릭 -> _remainPeriod 업데이트, 2일 미만 체크 -> _isOld 업데이트
   @override
   void initState() {
     initData();
     super.initState();
-    _remainPeriod = myFoodViewModel.calculateRemainPeriod(
-        widget.myFoodItem, widget.ourRefrigItem);
+    _remainPeriod = myFoodViewModel.calculateRemainPeriod(widget.myFoodItem, widget.ourRefrigItem);
     _isOld = myFoodViewModel.checkOld(widget.myFoodItem, widget.ourRefrigItem);
   }
 
@@ -49,6 +44,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('yyyy년 MM월 dd일');
     return Scaffold(
@@ -104,8 +100,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
               Row(
                 children: [
                   Text('남은기간: ', style: AppTextStyle.body14R()),
-                  Text(
-                    '$_remainPeriod일',
+                  Text('$_remainPeriod일',
                     style: AppTextStyle.body14R(
                         color: _isOld
                             ? AppColors.caution
@@ -114,27 +109,21 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                   const Spacer(),
 
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[50]),
-                    //남은 기간이 2일 미만일 경우 _isOld true -> 버튼 활성화 -> 다이얼로그 생성 / 2일 이상일 경우 버튼 비활성화
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.blue[50]),
+                    //남은 기간이 2일 미만-> 다이얼로그 생성 / 2일 이상 ->버튼 비활성화
                     onPressed:_isOld
                         ? () {
                             showDialog(
-                                context: context,
-                                builder: (context) {
+                                context: context, builder: (context) {
                                   return TwoAnswerDialog(
                                       title: '연장하시겠습니까?',
                                       firstButton: '네',
                                       secondButton: '아니오',
                                       onTap: () {
-                                        //'네' 클릭 후 _isOld false로 업데이트 ->연장버튼 비활성화처리, 연장된 기간으로 _remainPeriod 업데이트, firestore isExtended 값 true로 변경
+                                        //'네' 클릭 -> _isOld 변경, _remainPeriod 변경, firestore isExtended 변경
                                         setState(() {
-                                         _isOld =
-                                              false;
-                                          _remainPeriod =
-                                              myFoodViewModel.extendPeriod(
-                                                  widget.myFoodItem,
-                                                  widget.ourRefrigItem);
+                                         _isOld = false;
+                                         _remainPeriod = myFoodViewModel.extendPeriod(widget.myFoodItem,widget.ourRefrigItem);
                                          myFoodViewModel.updateFirestore(widget.myFoodItem);
                                         });
                                         Navigator.of(context).pop();
@@ -154,16 +143,14 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                   ElevatedButton(
                       onPressed: () {
                         showDialog(
-                            context: context,
-                            builder: (context) {
+                            context: context, builder: (context) {
                               return TwoAnswerDialog(
                                   title: '등록한 음식을 삭제하시겠습니까?',
                                   firstButton: '네',
                                   secondButton: '아니오',
-                                  // 네 버튼 클릭 후 firebase 해당 doc삭제, firestorage 해당 이미지 삭제
+                                  // firebase 삭제
                                   onTap: () {
                                     myFoodViewModel.deleteFoodAndStorage(widget.myFoodItem, widget.ourRefrigItem);
-                                    // dialog 종료 후 메인페이지로 이동
                                     if (mounted) {
                                       context.go('/', extra: 1);
                                     }
@@ -174,7 +161,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                 ],
               ),
               SizedBox(height: 32.h),
-              //남은 기간에 따라 다른 텍스트 출력 (2일 미만 "곧 폐기" 2일 이상 "연장불가)
+              //남은 기간에 따라 다른 텍스트 출력
               _isOld
                   ? Text('곧 폐기됩니다.',
                       style: AppTextStyle.body14R(color: AppColors.caution))

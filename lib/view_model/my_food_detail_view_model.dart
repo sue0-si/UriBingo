@@ -6,16 +6,10 @@ import 'package:leute/data/models/refrige_model.dart';
 
 class MyFoodDetailViewModel with ChangeNotifier {
 
-//남은기간 계산: 관리자가 정한 기간 - 지난날 (등록일과 현재 날짜 사이의 일수)
-//isExtended true이면 remainPeriod를 연장한 기간으로 저장 (초기화 되지 않도록 처리)
+//남은기간 계산, remainPeriod를 연장한 기간으로 저장 (초기화 되지 않도록 처리)
   int calculateRemainPeriod(FoodDetail myFoodItem,
       RefrigeDetail ourRefrigeItem) {
-    int passedDate =
-        DateTime
-            .now()
-            .difference(
-            DateTime.fromMillisecondsSinceEpoch(myFoodItem.registerDate))
-            .inDays;
+    int passedDate = DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(myFoodItem.registerDate)).inDays;
     int remainPeriod = ourRefrigeItem.period - passedDate;
     if (myFoodItem.isExtended == true) {
       remainPeriod += ourRefrigeItem.period;
@@ -24,13 +18,13 @@ class MyFoodDetailViewModel with ChangeNotifier {
   }
 
 
-//연장기간 출력 (남은기간 + 관리자가 설정한 기간)
+//연장기간 출력
   int extendPeriod(FoodDetail myFoodItem, RefrigeDetail ourRefirgeItem) {
     int remainPeriod = calculateRemainPeriod(myFoodItem, ourRefirgeItem);
     return remainPeriod + ourRefirgeItem.period;
   }
 
-//2일 미만: true 2일 이상이거나 isExtended가 true : false
+//2일 미만인지 여부 & isExtended 체크
   bool checkOld(FoodDetail myFoodItem, RefrigeDetail ourRefirgeItem) {
     int remainPeriod = calculateRemainPeriod(myFoodItem, ourRefirgeItem);
     if (remainPeriod >= 2 || myFoodItem.isExtended == true) {
@@ -39,6 +33,7 @@ class MyFoodDetailViewModel with ChangeNotifier {
     return remainPeriod < 2;
   }
 
+  //isExtended값 변경
   Future<void> updateFirestore(FoodDetail myFoodItem) async {
     await FirebaseFirestore.instance
         .collection('foodDetails')
@@ -47,6 +42,7 @@ class MyFoodDetailViewModel with ChangeNotifier {
         .update({"isExtended": true});
   }
 
+  //firebase, firestore 삭제
   Future<void> deleteFoodAndStorage(FoodDetail myFoodItem,RefrigeDetail ourRefirgeItem ) async {
     await Future.wait([FirebaseFirestore.instance
         .collection('foodDetails')
