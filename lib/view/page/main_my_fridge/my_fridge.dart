@@ -4,41 +4,19 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/styles/app_text_style.dart';
+import 'package:leute/view_model/my_fridge_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/repository/foods_repository.dart';
 import '../../../data/repository/refrige_repository.dart';
 
-class MyFridge extends StatefulWidget {
+class MyFridge extends StatelessWidget {
   const MyFridge({super.key});
 
-  @override
-  State<MyFridge> createState() => _MyFridgeState();
-}
-
-class _MyFridgeState extends State<MyFridge> {
-  final foodRepository = RegisterdFoodsRepository();
-  final refrigeRepository = RegisterdRefrigeRepository();
-  List<FoodDetail> myFoodDetails = [];
-  List<RefrigeDetail> refrigeDetails = [];
-
-  @override
-  void initState() {
-    initData();
-    super.initState();
-  }
-
-  void initData() async {
-    final allFoods = await foodRepository.getFirebaseFoodsData();
-    refrigeDetails = await refrigeRepository.getFirebaseRefrigesData();
-    setState(() {
-      myFoodDetails = foodRepository.getMyFoodDetail(
-          allFoods, FirebaseAuth.instance.currentUser!.displayName!);
-      refrigeDetails;
-    });
-  }
-
+  // @override
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<MyFridgeViewModel>();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -52,10 +30,10 @@ class _MyFridgeState extends State<MyFridge> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                for (var refrigeDetail in refrigeDetails)
+                for (var refrigeDetail in viewModel.refrigeDetails)
                   Column(
                     children: [
-                      if (myFoodDetails
+                      if (viewModel.myFoodDetails
                           .where(
                               (e) => e.refrigeName == refrigeDetail.refrigeName)
                           .isNotEmpty)
@@ -71,7 +49,7 @@ class _MyFridgeState extends State<MyFridge> {
                             crossAxisSpacing: 10,
                             childAspectRatio: 1 / 1,
                           ),
-                          itemCount: myFoodDetails
+                          itemCount: viewModel.myFoodDetails
                               .where((e) =>
                                   e.refrigeName == refrigeDetail.refrigeName)
                               .length,
@@ -79,12 +57,12 @@ class _MyFridgeState extends State<MyFridge> {
                             return GestureDetector(
                               onTap: () {
                                 context.go('/myfooddetail', extra: [
-                                  myFoodDetails[index],
+                                  viewModel.myFoodDetails[index],
                                   refrigeDetail
                                 ]);
                               },
                               child: Image.network(
-                                myFoodDetails
+                                viewModel.myFoodDetails
                                     .where((e) =>
                                         e.refrigeName ==
                                         refrigeDetail.refrigeName)
