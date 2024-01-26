@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:leute/fridge_data.dart';
 import 'package:leute/router.dart';
-import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 void main() async {
