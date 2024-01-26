@@ -281,16 +281,6 @@ class _AddRefrigeState extends State<AddRefrige> {
                           _formKey.currentState!.save();
                           print('냉장고 이름: $addPageViewModel.name');
 
-                          //_selectedColdstoragefmf 정수로 변환
-                          // int coldStorageValue =
-                          //     int.parse(addPageViewModel.selectedColdstorage[0]);
-                          // int forzenStorageValue =
-                          //     int.parse(addPageViewModel.selectedFrozenStorage[0]);
-                          // int storagePeriodValue =
-                          //     int.parse(addPageViewModel.selectedStoragePeriod[0]);
-                          // int extentionPeriodValue =
-                          //     int.parse(addPageViewModel.selectedExtensionPeriod[0]);
-
                           //changeColdstorage 메서드 호출해서 데이터 저장
                           await addPageViewModel.addRefrige();
 
