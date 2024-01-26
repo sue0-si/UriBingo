@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:leute/view_model/freezer_comp_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/models/refrige_model.dart';
-import '../../../data/repository/foods_repository.dart';
-import '../../widget/refrige_detail_page_widget/food_thumb_nail_list.dart';
 
 class FreezerCompScreen extends StatefulWidget {
   final RefrigeDetail selectedRefrige;
@@ -18,44 +18,23 @@ class FreezerCompScreen extends StatefulWidget {
 }
 
 class _FreezerCompScreenState extends State<FreezerCompScreen> {
-  final freezerViewModel = FreezerCompViewModel();
-  List<Widget> sliverList = [];
-
-  @override
-  void initState() {
-    initData();
-
-    super.initState();
-  }
-
-  void initData() async {
-    await freezerViewModel
-        .getSameRefrigeFoods(widget.selectedRefrige.refrigeName);
-    setState(() {
-      freezerViewModel.foodItems;
-    });
-
-    for (int i = 1; i <= widget.selectedRefrige.freezerCompCount; i++) {
-      final samePositionFoodList = RegisterdFoodsRepository()
-          .filterFoods(freezerViewModel.foodItems, true, i);
-      sliverList.add(FoodThumbNailList(
-        samePositionFoodList: samePositionFoodList[2],
-        selectedRefrige: widget.selectedRefrige,
-        selectedPosition: i,
-        isFreezed: true,
-      ));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => context.go('/', extra: 0),
+        ),
         title: Text('냉동실'),
       ),
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: sliverList,
+      body: Consumer<FreezerCompViewModel>(
+        builder: (context, freezerViewModel, child) {
+          return CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: freezerViewModel.fetchedList,
+          );
+        },
       ),
     );
   }
