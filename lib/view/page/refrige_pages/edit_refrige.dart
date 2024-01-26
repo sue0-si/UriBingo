@@ -39,9 +39,6 @@ class _EditRefrigeState extends State<EditRefrige> {
     selectedExtensionPeriodController.text =
         '${widget.seletedRefrige.extentionPeriod}일';
     super.initState();
-    /*addPageViewModel
-        .setInitialValues(widget.seletedRefrige);
-    addPageViewModel.notifyListeners();// 수정: 초기값 설정 메서드 호출*/
   }
 
   @override
@@ -59,6 +56,7 @@ class _EditRefrigeState extends State<EditRefrige> {
     final addPageViewModel = context.watch<AddPageViewModel>();
     addPageViewModel.registerdDate = widget.seletedRefrige.registerDate;
     addPageViewModel.initialName = widget.seletedRefrige.refrigeName;
+
     //뷰모델 람다식 상태변경을 인식하려고 notifyListeners(); - 함수를 포장해서 보내주자
     //위젯 전체를 인식하려고 쓴것이다
 
@@ -98,6 +96,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                               child: Form(
                                 key: _formKey,
                                 child: TextFormField(
+                                  enabled: false,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return addPageViewModel.name;
@@ -174,9 +173,9 @@ class _EditRefrigeState extends State<EditRefrige> {
                                       setState(() {
                                         selectedColdstorageController.text =
                                             value!;
-                                      });
                                       addPageViewModel.selectedColdstorage =
                                           value!;
+                                      });
                                     }),
                               ),
                             ),
@@ -212,9 +211,9 @@ class _EditRefrigeState extends State<EditRefrige> {
                                       setState(() {
                                         selectedFrozenStorageController.text =
                                             value!;
-                                      });
                                       addPageViewModel.selectedFrozenStorage =
                                           value!;
+                                      });
                                     }),
                               ),
                             ),
@@ -249,9 +248,9 @@ class _EditRefrigeState extends State<EditRefrige> {
                                       setState(() {
                                         selectedStoragePeriodController.text =
                                             value!;
-                                      });
                                       addPageViewModel.selectedStoragePeriod =
                                           value!;
+                                      });
                                     }),
                               ),
                             ),
@@ -288,9 +287,9 @@ class _EditRefrigeState extends State<EditRefrige> {
                                       setState(() {
                                         selectedExtensionPeriodController.text =
                                             value!;
-                                      });
                                       addPageViewModel.selectedExtensionPeriod =
                                           value!;
+                                      });
                                     }),
                               ),
                             ),
@@ -302,70 +301,80 @@ class _EditRefrigeState extends State<EditRefrige> {
                 ),
                 Column(
                   children: [
-                    ElevatedButton(
-                      onPressed: () async {
-                        //왜 async?
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return TwoAnswerDialog(
-                                    title: '수정하겠습니까?',
-                                    firstButton: '네',
-                                    secondButton: '아니오',
-                                    onTap: () async {
-                                      setState(() {
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () async {
+                            //왜 async?
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return TwoAnswerDialog(
+                                        title: '수정하시겠습니까?',
+                                        titleStyle: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
 
-                                      });
-                                      if (mounted) {
-                                        context.go('/', extra: 0);
-                                      }
+                                        ),
+                                        firstButton: '네',
+                                        secondButton: '아니오',
+                                        onTap: () async {
+                                          setState(() {});
 
-                                       addPageViewModel.editRefrige();
+                                          if (mounted) {
+                                            context.go('/', extra: 0);
+                                          }
 
-                                    });
-                              });
-
-                          //changeColdstorage 메서드 호출해서 데이터 저장
-                        }
-                      },
-                      child: const Text(
-                        '수정하기',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return TwoAnswerDialog(
-                                  title: '삭제하겠습니까?',
-                                  firstButton: '네',
-                                  secondButton: '아니오',
-                                  onTap: () async {
-                                    setState(() {});
-
-                                    if (mounted) {
-                                      context.go('/', extra: 0);
-                                    }
-
-                                    await addPageViewModel.deleteRefrige();
+                                          await addPageViewModel.editRefrige();
+                                        });
                                   });
-                            });
-                      },
-                      child: Text(
-                        '삭제하기',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+
+                              //changeColdstorage 메서드 호출해서 데이터 저장
+                            }
+                          },
+                          child: const Text(
+                            '수정하기',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                      ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return TwoAnswerDialog(
+                                      title: '삭제하겠습니까?',
+                                      firstButton: '네',
+                                      secondButton: '아니오',
+                                      onTap: () async {
+                                        setState(() {});
+
+                                        if (mounted) {
+                                          context.go('/', extra: 0);
+                                        }
+
+                                        await addPageViewModel.deleteRefrige();
+                                      });
+                                });
+                          },
+                          child: Text(
+                            '삭제하기',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+
                     ),
+
                   ],
                 ),
               ],

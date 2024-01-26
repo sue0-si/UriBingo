@@ -17,7 +17,6 @@ class AddPageViewModel extends ChangeNotifier {
     '2칸',
     '3칸',
     '4칸',
-    '5칸'
   ]; //냉동고칸수
   final storagePeriodList = ['1일', '2일', '3일', '4일', '5일']; //보관기간
   final extensionPeriodList = ['1일', '2일', '3일', '4일', '5일']; //연장가능기간
@@ -25,13 +24,10 @@ class AddPageViewModel extends ChangeNotifier {
   int registerdDate = 0;
   String initialName = '';
 
-
-
   //String name = ''; //validate 값 저장되는 변수
   String _name = '';
 
   String get name => _name;
-
 
   set name(String value) {
     _name = value;
@@ -48,6 +44,7 @@ class AddPageViewModel extends ChangeNotifier {
   String _selectedFrozenStorage = '0칸'; //선택된냉동칸수
 
   String get selectedFrozenStorage => _selectedFrozenStorage;
+
   set selectedFrozenStorage(String value) {
     _selectedFrozenStorage = value.toString();
   }
@@ -55,6 +52,7 @@ class AddPageViewModel extends ChangeNotifier {
   String _selectedStoragePeriod = '1일'; //선택된보관기간
 
   String get selectedStoragePeriod => _selectedStoragePeriod;
+
   set selectedStoragePeriod(String value) {
     _selectedStoragePeriod = value.toString();
   }
@@ -62,23 +60,14 @@ class AddPageViewModel extends ChangeNotifier {
   String _selectedExtensionPeriod = '1일'; //선택된연장가능기간
 
   String get selectedExtensionPeriod => _selectedExtensionPeriod;
+
   set selectedExtensionPeriod(String value) {
     _selectedExtensionPeriod = value.toString();
   }
+
   notifyListeners();
+
 //getter 설정
- /* void setInitialValues(RefrigeDetail selectedRefrige) {
-    registerdDate = selectedRefrige.registerDate;
-    initialName = selectedRefrige.refrigeName;
-    _name = selectedRefrige.refrigeName; // 수정: 초기값 설정
-    _selectedColdstorage = '${selectedRefrige.refrigeCompCount}칸'; // 수정: 초기값 설정
-    _selectedFrozenStorage = '${selectedRefrige.freezerCompCount}칸'; // 수정: 초기값 설정
-    _selectedStoragePeriod = '${selectedRefrige.period}일'; // 수정: 초기값 설정
-    _selectedExtensionPeriod = '${selectedRefrige.extentionPeriod}일'; // 수정: 초기값 설정
-    notifyListeners(); // 수정: 변경 사항을 알리기 위해 호출
-  }*/
-
-
 
   Future<void> addRefrige() async {
     final registerDate = DateTime.now().millisecondsSinceEpoch.toString();
@@ -95,6 +84,7 @@ class AddPageViewModel extends ChangeNotifier {
         ).toJson());
     notifyListeners();
   }
+
 //냉장고 수정 함수
   Future<void> editRefrige() async {
     await FirebaseFirestore.instance
@@ -111,7 +101,6 @@ class AddPageViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-
   // 냉장고 삭제 함수
   Future<void> deleteRefrige() async {
     await Future.wait([
@@ -119,7 +108,7 @@ class AddPageViewModel extends ChangeNotifier {
           .collection('refrigeDetails')
           .doc(registerdDate.toString() + initialName)
           .delete(),
-          ]);
+    ]);
     notifyListeners();
   }
 }

@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:leute/styles/app_text_style.dart';
 
 class TwoAnswerDialog extends StatelessWidget {
   final Function() onTap;
   final String title;
   final String firstButton;
   final String secondButton;
-  const TwoAnswerDialog({super.key, required this.onTap, required this.title, required this.firstButton, required this.secondButton});
+
+  const TwoAnswerDialog(
+      {super.key,
+      required this.onTap,
+      required this.title,
+      required this.firstButton,
+      required this.secondButton,
+      TextStyle? titleStyle});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title:  Text(title),
+      title:  Text(title, style: AppTextStyle.body14R()),
       actions: <Widget>[
         Container(
           child: ElevatedButton(
             onPressed: onTap,
-            child:  Text(firstButton),
+
+            child:  Text(firstButton, style: AppTextStyle.body12R()),
           ),
         ),
         Container(
@@ -23,7 +32,7 @@ class TwoAnswerDialog extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop(); //창 닫기
             },
-            child:  Text(secondButton),
+            child:  Text(secondButton, style: AppTextStyle.body12R()),
           ),
         ),
       ],

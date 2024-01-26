@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/view_model/register_view_model.dart';
@@ -32,11 +33,10 @@ class _RegisterPageState extends State<RegisterPage> {
   Future getManagerStatus() async {
     List<UserModel> userData = await UserDataRepository().getFirebaseUserData();
     UserModel currentUser = userData.firstWhere(
-            (user) => user.email == FirebaseAuth.instance.currentUser!.email);
+        (user) => user.email == FirebaseAuth.instance.currentUser!.email);
     setState(() {
       isManager = currentUser.manager;
     });
-
   }
 
   @override
@@ -59,12 +59,19 @@ class _RegisterPageState extends State<RegisterPage> {
                 viewModel.changeImageFormat();
               },
               child: viewModel.photo == null
-                  ? Container(
-                      height: MediaQuery.of(context).size.height / 3,
-                      width: double.infinity,
-                      color: Colors.grey,
-                      child: const Icon(Icons.image_rounded, size: 100),
-                    )
+                  ?
+              SizedBox(
+                height: 200.h,
+                width: 300.w,
+                child: Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                  child: const Icon(Icons.image_rounded, size: 100),
+                ),
+              )
                   : FutureBuilder(
                       future: viewModel.photo?.readAsBytes(),
                       builder: (context, snapshot) {
@@ -76,12 +83,29 @@ class _RegisterPageState extends State<RegisterPage> {
                             child: CircularProgressIndicator(),
                           );
                         }
-                        return Image.memory(
-                          data,
-                          width: double.infinity,
-                          height: MediaQuery.of(context).size.height / 2,
-                          fit: BoxFit.cover,
+                        return SizedBox(
+                          height: 200.h,
+                          width: 300.w,
+                          child: Card(
+                            elevation: 3,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            clipBehavior: Clip.hardEdge,
+                            child: Image.memory(
+                              data,
+                              width: 200.w,
+                              height: 500.h,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         );
+                        // return Image.memory(
+                        //   data,
+                        //   width: 300.w,
+                        //   height: 200.h,
+                        //   fit: BoxFit.cover,
+                        // );
                       },
                     ),
             ),
@@ -93,26 +117,37 @@ class _RegisterPageState extends State<RegisterPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      // 취소버튼
                       ElevatedButton(
                           onPressed: () {
-                            context.pop();
+                            context.go('/details', extra: widget.fridgeData[0]);
                           },
                           child: const Text('취소')),
+                      // 등록하기 버튼
                       ElevatedButton(
-                          onPressed: () async {
-                            // 사진 storage에 올리기
+                        onPressed: () async {
+                          // 이미지 등록 안 했을 경우 에러 처리
+                          if (viewModel.photo == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('이미지를 등록해주세요.'),
+                                duration: Duration(seconds: 3),
+                              ),
+                            );
+                          } else {
                             final registerDate =
                                 DateTime.now().millisecondsSinceEpoch;
+                            final userId =
+                                FirebaseAuth.instance.currentUser!.uid;
                             final uploadRef = FirebaseStorage.instance
                                 .ref('images')
                                 .child('$registerDate.jpg');
+
+                            // 사진 storage에 올리기
                             await uploadRef.putData(viewModel.foodImage,
                                 SettableMetadata(contentType: "image/jpeg"));
                             final downloadUrl =
                                 await uploadRef.getDownloadURL();
-
-                            final userId =
-                                FirebaseAuth.instance.currentUser!.uid;
 
                             await FirebaseFirestore.instance
                                 .collection('foodDetails')
@@ -140,10 +175,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                   duration: Duration(seconds: 3),
                                 ),
                               );
-                              context.go('/details', extra: widget.fridgeData[0]);
+                              context.go('/details',
+                                  extra: widget.fridgeData[0]);
                             }
-                          },
-                          child: const Text('등록하기')),
+                          }
+                        },
+                        child: const Text('등록하기'),
+                      ),
                     ],
                   ),
                   const SizedBox(

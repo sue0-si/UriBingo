@@ -5,28 +5,25 @@ import 'package:leute/view/page/main_my_fridge/main_page.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../widget/custom_dialog/two_answer_dialog.dart';
 import '../main_my_fridge/main_screen.dart';
 
 class AddRefrige extends StatefulWidget {
   const AddRefrige({super.key});
+
   //외부에서 값을 받아올 수 있다
-
-
 
   @override
   State<AddRefrige> createState() => _AddRefrigeState();
 }
 
 class _AddRefrigeState extends State<AddRefrige> {
-
-
   final _addNameController = TextEditingController();
 
   TextEditingController get addNameController =>
       _addNameController; //addNameController 외부접근
   final GlobalKey<FormState> _formKey =
       GlobalKey<FormState>(); //textFormfield 사용하려면 설정해야함
-
 
   @override
   void dispose() {
@@ -76,6 +73,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                               child: Form(
                                 key: _formKey,
                                 child: TextFormField(
+                                  maxLength: 10,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return '냉장고 이름을 입력하세요';
@@ -274,30 +272,58 @@ class _AddRefrigeState extends State<AddRefrige> {
                 ),
                 Column(
                   children: [
-                    ElevatedButton(
-                      onPressed: () async {
-                        //왜 async?
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          print('냉장고 이름: $addPageViewModel.name');
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
 
-                          //changeColdstorage 메서드 호출해서 데이터 저장
-                          await addPageViewModel.addRefrige();
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return TwoAnswerDialog(
+                                        title: '냉장고 이름은 수정이 불가합니다. 추가하시겠습니까?',
+                                        titleStyle: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.green,
+                                        ),
+                                        firstButton: '네',
+                                        secondButton: '아니오',
+                                        onTap: () async {
+                                          setState(() {});
 
-                          if (mounted) {
-
-                            context.go('/', extra: 0);
-
-                          }
-                        }
-                      },
-                      child: const Text(
-                        '추가하기',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                                          if (mounted) {
+                                            context.go('/', extra: 0);
+                                          }
+                                          await addPageViewModel.addRefrige();
+                                        });
+                                  });
+                              //왜 async?
+                            }
+                          },
+                          child: const Text(
+                            '추가하기',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                      ),
+                        ElevatedButton(
+                          onPressed: () {
+                            context.go('/', extra: 0);
+                          },
+                          child: const Text(
+                            '취소하기',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
