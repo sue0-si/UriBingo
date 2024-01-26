@@ -5,7 +5,7 @@ class TwoAnswerDialog extends StatelessWidget {
   final String title;
   final String firstButton;
   final String secondButton;
-  const TwoAnswerDialog({super.key, required this.onTap, required this.title, required this.firstButton, required this.secondButton});
+  const TwoAnswerDialog({super.key, required this.onTap, required this.title, required this.firstButton, required this.secondButton, TextStyle? titleStyle});
 
   @override
   Widget build(BuildContext context) {

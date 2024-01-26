@@ -309,6 +309,11 @@ class _EditRefrigeState extends State<EditRefrige> {
                               builder: (context) {
                                 return TwoAnswerDialog(
                                     title: '수정하겠습니까?',
+                                    titleStyle: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+
+                                    ),
                                     firstButton: '네',
                                     secondButton: '아니오',
                                     onTap: () async {
