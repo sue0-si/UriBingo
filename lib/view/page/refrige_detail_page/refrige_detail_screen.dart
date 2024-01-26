@@ -29,13 +29,13 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
         scrollDirection: Axis.vertical,
         children: [
           ChangeNotifierProvider(
-            create: (context) => FreezerCompViewModel(),
+            create: (context) => FreezerCompViewModel(widget.selectedRefrige),
             child: FreezerCompScreen(
               selectedRefrige: widget.selectedRefrige,
             ),
           ),
           ChangeNotifierProvider(
-            create: (context) => RefrigeCompViewModel(),
+            create: (context) => RefrigeCompViewModel(widget.selectedRefrige),
             child: RefrigeCompScreen(
               selectedRefrige: widget.selectedRefrige,
             ),
