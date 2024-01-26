@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../../data/repository/foods_repository.dart';
 import '../../../view_model/refrige_comp_view_model.dart';
@@ -24,13 +25,13 @@ class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
 
   @override
   void initState() {
+
     initData();
     super.initState();
   }
 
   void initData() async {
-    await refrigeViewModel
-        .getSameRefrigeFoods(widget.selectedRefrige.refrigeName);
+    Provider.of<RefrigeCompViewModel>(context, listen: false).getSameRefrigeFoods(widget.selectedRefrige.refrigeName);
     setState(() {
       refrigeViewModel.foodItems;
     });
@@ -56,9 +57,14 @@ class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
         ),
         title: Text('냉장실'),
       ),
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: sliverList,
+      body:
+      Consumer<RefrigeCompViewModel>(
+        builder:(context, model, child){
+          return CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: sliverList,
+          );
+        }
       ),
     );
   }
