@@ -56,6 +56,7 @@ class _EditRefrigeState extends State<EditRefrige> {
     final addPageViewModel = context.watch<AddPageViewModel>();
     addPageViewModel.registerdDate = widget.seletedRefrige.registerDate;
     addPageViewModel.initialName = widget.seletedRefrige.refrigeName;
+
     //뷰모델 람다식 상태변경을 인식하려고 notifyListeners(); - 함수를 포장해서 보내주자
     //위젯 전체를 인식하려고 쓴것이다
 
@@ -172,9 +173,9 @@ class _EditRefrigeState extends State<EditRefrige> {
                                       setState(() {
                                         selectedColdstorageController.text =
                                             value!;
-                                      });
                                       addPageViewModel.selectedColdstorage =
                                           value!;
+                                      });
                                     }),
                               ),
                             ),
@@ -210,9 +211,9 @@ class _EditRefrigeState extends State<EditRefrige> {
                                       setState(() {
                                         selectedFrozenStorageController.text =
                                             value!;
-                                      });
                                       addPageViewModel.selectedFrozenStorage =
                                           value!;
+                                      });
                                     }),
                               ),
                             ),
@@ -247,9 +248,9 @@ class _EditRefrigeState extends State<EditRefrige> {
                                       setState(() {
                                         selectedStoragePeriodController.text =
                                             value!;
-                                      });
                                       addPageViewModel.selectedStoragePeriod =
                                           value!;
+                                      });
                                     }),
                               ),
                             ),
@@ -286,9 +287,9 @@ class _EditRefrigeState extends State<EditRefrige> {
                                       setState(() {
                                         selectedExtensionPeriodController.text =
                                             value!;
-                                      });
                                       addPageViewModel.selectedExtensionPeriod =
                                           value!;
+                                      });
                                     }),
                               ),
                             ),

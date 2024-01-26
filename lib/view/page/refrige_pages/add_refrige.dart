@@ -271,44 +271,58 @@ class _AddRefrigeState extends State<AddRefrige> {
                 ),
                 Column(
                   children: [
-                    ElevatedButton(
-                      onPressed: () async {
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
 
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return TwoAnswerDialog(
+                                        title: '냉장고 이름은 수정이 불가합니다. 추가하시겠습니까?',
+                                        titleStyle: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.green,
+                                        ),
+                                        firstButton: '네',
+                                        secondButton: '아니오',
+                                        onTap: () async {
+                                          setState(() {});
 
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return TwoAnswerDialog(
-                                  title: '냉장고 이름은 수정이 불가합니다. 추가하시겠습니까?',
-                                  titleStyle: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.green,
-                                  ),
-                                  firstButton: '네',
-                                  secondButton: '아니오',
-                                  onTap: () async {
-                                    setState(() {});
-
-                                    if (mounted) {
-                                      context.go('/', extra: 0);
-                                    }
-                          await addPageViewModel.addRefrige();
+                                          if (mounted) {
+                                            context.go('/', extra: 0);
+                                          }
+                                          await addPageViewModel.addRefrige();
+                                        });
                                   });
-                            });
-                        //왜 async?
-
-                        }
-                      },
-                      child: const Text(
-                        '추가하기',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                              //왜 async?
+                            }
+                          },
+                          child: const Text(
+                            '추가하기',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                      ),
+                        ElevatedButton(
+                          onPressed: () {
+                            context.go('/', extra: 0);
+                          },
+                          child: const Text(
+                            '취소하기',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
