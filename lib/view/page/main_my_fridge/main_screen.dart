@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
   }
 
-  void initData() async {
+  Future<void> initData() async {
     //비동기로 변경
     refrigeItems = await RegisterdRefrigeRepository().getFirebaseRefrigesData();
     List<UserModel> userData = await userDataRepository.getFirebaseUserData();
