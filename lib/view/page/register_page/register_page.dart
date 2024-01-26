@@ -8,6 +8,8 @@ import 'package:leute/view_model/register_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/models/foods_model.dart';
+import '../../../data/models/user_model.dart';
+import '../main_my_fridge/main_screen.dart';
 
 class RegisterPage extends StatefulWidget {
   final List<Object> fridgeData;
@@ -19,6 +21,24 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  bool isManager = false;
+
+  @override
+  void initState() {
+    getManagerStatus();
+    super.initState();
+  }
+
+  Future getManagerStatus() async {
+    List<UserModel> userData = await UserDataRepository().getFirebaseUserData();
+    UserModel currentUser = userData.firstWhere(
+            (user) => user.email == FirebaseAuth.instance.currentUser!.email);
+    setState(() {
+      isManager = currentUser.manager;
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<RegisterViewModel>();
@@ -80,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           child: const Text('취소')),
                       ElevatedButton(
                           onPressed: () async {
-                            // 사진 firestore에 올리기
+                            // 사진 storage에 올리기
                             final registerDate =
                                 DateTime.now().millisecondsSinceEpoch;
                             final uploadRef = FirebaseStorage.instance
@@ -112,6 +132,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   isUnknown: viewModel.selected[1],
                                   isExtended: false,
                                 ).toJson());
+
                             if (mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
@@ -119,8 +140,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   duration: Duration(seconds: 3),
                                 ),
                               );
-                              context.go('/details',
-                                  extra: widget.fridgeData[0]);
+                              context.go('/details', extra: widget.fridgeData[0]);
                             }
                           },
                           child: const Text('등록하기')),
@@ -130,17 +150,19 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 32,
                   ),
                   // 관리자만 보이는 버튼
-                  ToggleButtons(
-                      isSelected: viewModel.selected,
-                      color: Colors.black,
-                      selectedColor: Colors.deepPurple,
-                      onPressed: (int index) {
-                        viewModel.buttonSelection(index);
-                      },
-                      children: const [
-                        Text('공용'),
-                        Text('미확인'),
-                      ]),
+                  isManager
+                      ? ToggleButtons(
+                          isSelected: viewModel.selected,
+                          color: Colors.black,
+                          selectedColor: Colors.deepPurple,
+                          onPressed: (int index) {
+                            viewModel.buttonSelection(index);
+                          },
+                          children: const [
+                              Text('공용'),
+                              Text('미확인'),
+                            ])
+                      : Container()
                 ],
               ),
             ),
