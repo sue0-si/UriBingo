@@ -13,7 +13,7 @@ class LoginPageViewModel with ChangeNotifier {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (context.mounted) {
-        context.go('/',extra: 0);
+        context.go('/', extra: 0);
       }
       // 로그인 실패시 다이얼로그
     } on FirebaseAuthException catch (_) {

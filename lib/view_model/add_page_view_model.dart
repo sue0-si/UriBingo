@@ -25,6 +25,8 @@ class AddPageViewModel extends ChangeNotifier {
   int registerdDate = 0;
   String initialName = '';
 
+
+
   //String name = ''; //validate 값 저장되는 변수
   String _name = '';
 
@@ -84,7 +86,7 @@ class AddPageViewModel extends ChangeNotifier {
         ).toJson());
     notifyListeners();
   }
-
+//냉장고 수정 함수
   Future<void> editRefrige() async {
     await FirebaseFirestore.instance
         .collection('refrigeDetails')

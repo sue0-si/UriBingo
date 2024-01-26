@@ -4,6 +4,8 @@ import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../widget/custom_dialog/two_answer_dialog.dart';
+
 class EditRefrige extends StatefulWidget {
   const EditRefrige({super.key, required this.seletedRefrige});
 
@@ -15,6 +17,8 @@ class EditRefrige extends StatefulWidget {
 
 class _EditRefrigeState extends State<EditRefrige> {
   final addPageViewModel = AddPageViewModel();
+
+  bool isEditing = false; //냉장고 수정
 
   //final addPageViewModel = AddPageViewModel(); //AddPageViewModel 담을 변수 선언
   final addNameController = TextEditingController();
@@ -38,16 +42,6 @@ class _EditRefrigeState extends State<EditRefrige> {
         '${widget.seletedRefrige.extentionPeriod}일';
     super.initState();
   }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   AddPageViewModel().selectedColdstorage = AddPageViewModel().coldStorageOfCompartmentsList.first.split('').first;
-  //   AddPageViewModel().selectedFrozenStorage = AddPageViewModel().frozenStorageOfCompartmentsList.first.split('').first;
-  //   AddPageViewModel().selectedStoragePeriod = AddPageViewModel().storagePeriodList.first.split('').first;
-  //   AddPageViewModel().selectedExtensionPeriod = AddPageViewModel().extensionPeriodList.first.split('').first;
-  //
-  // }
 
   @override
   void dispose() {
@@ -308,24 +302,27 @@ class _EditRefrigeState extends State<EditRefrige> {
                 Column(
                   children: [
                     ElevatedButton(
-                      onPressed: () async {
+                      onPressed:  () async {
                         //왜 async?
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          print('냉장고 이름: $addPageViewModel.name');
-
-                          //_selectedColdstoragefmf 정수로 변환
-                          // int coldStorageValue =
-                          //     int.parse(addPageViewModel.selectedColdstorage[0]);
-                          // int forzenStorageValue =
-                          //     int.parse(addPageViewModel.selectedFrozenStorage[0]);
-                          // int storagePeriodValue =
-                          //     int.parse(addPageViewModel.selectedStoragePeriod[0]);
-                          // int extentionPeriodValue =
-                          //     int.parse(addPageViewModel.selectedExtensionPeriod[0]);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return TwoAnswerDialog(
+                                    title: '수정하겠습니까?',
+                                    firstButton: '네',
+                                    secondButton: '아니오',
+                                    onTap: () {
+                                      setState(() {
+                                        selectedColdstorageController;
+                                      });
+                                      Navigator.of(context).pop();
+                                    });
+                              });
+                          await addPageViewModel.editRefrige();
 
                           //changeColdstorage 메서드 호출해서 데이터 저장
-                          await addPageViewModel.editRefrige();
                           if (mounted) {
                             context.go('/', extra: 0);
                           }
