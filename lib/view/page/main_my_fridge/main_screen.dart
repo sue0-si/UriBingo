@@ -29,11 +29,11 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Future<void> initData() async {
-    //비동기로 변경
+//비동기로 변경
     refrigeItems = await RegisterdRefrigeRepository().getFirebaseRefrigesData();
     List<UserModel> userData = await userDataRepository.getFirebaseUserData();
     UserModel currentUser = userData.firstWhere(
-        (user) => user.email == FirebaseAuth.instance.currentUser!.email);
+            (user) => user.email == FirebaseAuth.instance.currentUser!.email);
     setState(() {
       refrigeItems;
       isManager = currentUser.manager;

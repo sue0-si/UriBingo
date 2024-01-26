@@ -39,9 +39,6 @@ class _EditRefrigeState extends State<EditRefrige> {
     selectedExtensionPeriodController.text =
         '${widget.seletedRefrige.extentionPeriod}일';
     super.initState();
-    /*addPageViewModel
-        .setInitialValues(widget.seletedRefrige);
-    addPageViewModel.notifyListeners();// 수정: 초기값 설정 메서드 호출*/
   }
 
   @override
@@ -315,15 +312,13 @@ class _EditRefrigeState extends State<EditRefrige> {
                                     firstButton: '네',
                                     secondButton: '아니오',
                                     onTap: () async {
-                                      setState(() {
+                                      setState(() {});
 
-                                      });
                                       if (mounted) {
                                         context.go('/', extra: 0);
                                       }
 
-                                       addPageViewModel.editRefrige();
-
+                                      await addPageViewModel.editRefrige();
                                     });
                               });
 
