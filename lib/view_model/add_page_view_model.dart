@@ -67,7 +67,16 @@ class AddPageViewModel extends ChangeNotifier {
   }
   notifyListeners();
 //getter 설정
-
+ /* void setInitialValues(RefrigeDetail selectedRefrige) {
+    registerdDate = selectedRefrige.registerDate;
+    initialName = selectedRefrige.refrigeName;
+    _name = selectedRefrige.refrigeName; // 수정: 초기값 설정
+    _selectedColdstorage = '${selectedRefrige.refrigeCompCount}칸'; // 수정: 초기값 설정
+    _selectedFrozenStorage = '${selectedRefrige.freezerCompCount}칸'; // 수정: 초기값 설정
+    _selectedStoragePeriod = '${selectedRefrige.period}일'; // 수정: 초기값 설정
+    _selectedExtensionPeriod = '${selectedRefrige.extentionPeriod}일'; // 수정: 초기값 설정
+    notifyListeners(); // 수정: 변경 사항을 알리기 위해 호출
+  }*/
 
 
 
