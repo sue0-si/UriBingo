@@ -112,13 +112,16 @@ class _RegisterPageState extends State<RegisterPage> {
                                   isPublic: viewModel.selected[0],
                                   isUnknown: viewModel.selected[1],
                                 ).toJson());
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('등록되었습니다.'),
-                                duration: Duration(seconds: 3),
-                              ),
-                            );
-                            context.go('/details', extra: widget.fridgeData[0]);
+                            if(mounted){
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('등록되었습니다.'),
+                                  duration: Duration(seconds: 3),
+                                ),
+                              );
+                              context.go('/details', extra: widget.fridgeData[0]);
+                            }
+
                           },
                           child: const Text('등록하기')),
                     ],

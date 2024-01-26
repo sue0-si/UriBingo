@@ -99,4 +99,16 @@ class AddPageViewModel extends ChangeNotifier {
         ).toJson());
     notifyListeners();
   }
+
+
+  // 냉장고 삭제 함수
+  Future<void> deleteRefrige() async {
+    await Future.wait([
+      FirebaseFirestore.instance
+          .collection('refrigeDetails')
+          .doc(registerdDate.toString() + initialName)
+          .delete(),
+          ]);
+    notifyListeners();
+  }
 }

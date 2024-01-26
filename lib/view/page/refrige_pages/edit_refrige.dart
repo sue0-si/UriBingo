@@ -52,6 +52,10 @@ class _EditRefrigeState extends State<EditRefrige> {
   @override
   void dispose() {
     addNameController.dispose(); //호출(단발성) - 함수를 포장해서 보내주자
+    selectedColdstorageController.dispose();
+    selectedFrozenStorageController.dispose();
+    selectedStoragePeriodController.dispose();
+    selectedExtensionPeriodController.dispose();
     super.dispose();
   }
 
@@ -200,8 +204,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                               child: Container(
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
-                                    value:
-                                    selectedFrozenStorageController.text,
+                                    value: selectedFrozenStorageController.text,
                                     items: addPageViewModel
                                         .frozenStorageOfCompartmentsList
                                         .map((e) => DropdownMenuItem(
@@ -213,10 +216,10 @@ class _EditRefrigeState extends State<EditRefrige> {
                                     onChanged: (value) {
                                       setState(() {
                                         selectedFrozenStorageController.text =
-                                        value!;
+                                            value!;
                                       });
                                       addPageViewModel.selectedFrozenStorage =
-                                      value!;
+                                          value!;
                                     }),
                               ),
                             ),
@@ -239,8 +242,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                               child: Container(
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
-                                    value:
-                                    selectedStoragePeriodController.text,
+                                    value: selectedStoragePeriodController.text,
                                     items: addPageViewModel.storagePeriodList
                                         .map((e) => DropdownMenuItem(
                                               value: e,
@@ -250,7 +252,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        selectedStoragePeriodController.text = value!;
+                                        selectedStoragePeriodController.text =
+                                            value!;
                                       });
                                       addPageViewModel.selectedStoragePeriod =
                                           value!;
@@ -277,7 +280,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                                 child: DropdownButton(
                                     elevation: 10,
                                     dropdownColor: Colors.green,
-                                    value: selectedExtensionPeriodController.text,
+                                    value:
+                                        selectedExtensionPeriodController.text,
                                     items: addPageViewModel.extensionPeriodList
                                         .map((e) => DropdownMenuItem(
                                               value: e,
@@ -287,7 +291,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                                     isExpanded: true,
                                     onChanged: (value) {
                                       setState(() {
-                                        selectedExtensionPeriodController.text = value!;
+                                        selectedExtensionPeriodController.text =
+                                            value!;
                                       });
                                       addPageViewModel.selectedExtensionPeriod =
                                           value!;
@@ -321,10 +326,8 @@ class _EditRefrigeState extends State<EditRefrige> {
 
                           //changeColdstorage 메서드 호출해서 데이터 저장
                           await addPageViewModel.editRefrige();
-
                           if (mounted) {
-                            context
-                                .go('/', extra: 0);
+                            context.go('/', extra: 0);
                           }
                         }
                       },
@@ -337,7 +340,12 @@ class _EditRefrigeState extends State<EditRefrige> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await addPageViewModel.deleteRefrige();
+                        if (mounted) {
+                          context.go('/', extra: 0);
+                        }
+                      },
                       child: Text(
                         '삭제하기',
                         style: TextStyle(
