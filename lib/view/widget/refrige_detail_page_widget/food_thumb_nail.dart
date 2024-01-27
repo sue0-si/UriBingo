@@ -1,3 +1,5 @@
+import 'package:cupertino_rounded_corners/cupertino_rounded_corners.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
@@ -34,31 +36,40 @@ class FoodThumbNail extends StatelessWidget {
               numberOfPlays: 2,
             ),
             child: Container(
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              )),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  foodItem.foodImage,
-                  height: 70,
-                  width: 80,
+              height: 70,
+              width: 80,
+              decoration: ShapeDecoration(
+                image: DecorationImage(
                   fit: BoxFit.cover,
+                  image: NetworkImage(
+                    foodItem.foodImage,
+                  ),
+                ),
+                shape: const SquircleBorder(
+                  radius: BorderRadius.all(
+                    Radius.circular(50.0),
+                  ),
                 ),
               ),
+
             ),
           ),
-          Container(
-            color: Colors.transparent,
-            child: Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Column(
-                children: [
-                  Text('주인: ${foodItem.userName}',
-                      style: AppTextStyle.body12R()),
-                  Text('남은날: $remainPeriod 일', style: AppTextStyle.body12R())
-                ],
+          DottedBorder(
+            borderType: BorderType.RRect,
+            radius: Radius.circular(12),
+            color: Colors.black,
+            strokeWidth: 1,
+            child: Container(
+              color: Colors.transparent,
+              child: Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: Column(
+                  children: [
+                    Text('주인: ${foodItem.userName}',
+                        style: AppTextStyle.body12R()),
+                    Text('남은날: $remainPeriod 일', style: AppTextStyle.body12R())
+                  ],
+                ),
               ),
             ),
           )
@@ -67,3 +78,5 @@ class FoodThumbNail extends StatelessWidget {
     );
   }
 }
+
+

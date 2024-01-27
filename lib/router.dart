@@ -120,7 +120,7 @@ final router = GoRouter(initialLocation: '/login', routes: [
   //       );
   //     }),
 
-  // 냉장실 가는 라우터(임시)
+  // 냉장실 가는 라우터
   GoRoute(
       path: '/refrigeDetail',
       builder: (context, state) {
@@ -132,7 +132,7 @@ final router = GoRouter(initialLocation: '/login', routes: [
           ),
         );
       }),
-// 냉동실 가는 라우터(임시)
+// 냉동실 가는 라우터
   GoRoute(
       path: '/freezerDetail',
       builder: (context, state) {

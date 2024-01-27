@@ -1,5 +1,6 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cupertino_rounded_corners/cupertino_rounded_corners.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,11 +8,12 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
-import 'package:leute/view_model/my_food_detail_view_model.dart';
-import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
+import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 import 'package:leute/view/widget/my_food_detail_page_widget/food_detail_image_widget.dart';
+import 'package:leute/view_model/my_food_detail_view_model.dart';
+
 import '../../../data/repository/foods_repository.dart';
 
 class MyFoodDetail extends StatefulWidget {
@@ -67,10 +69,9 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    FoodDetailImageWidget(
-                      itemImage: widget.myFoodItem.foodImage,
-                    ),
+                builder: (context) => FoodDetailImageWidget(
+                  itemImage: widget.myFoodItem.foodImage,
+                ),
               ),
             );
           },
@@ -79,14 +80,18 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
             child: Container(
               height: 200.h,
               width: 300.w,
-              child: Card(
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
+              decoration: ShapeDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                    widget.myFoodItem.foodImage,
+                  ),
                 ),
-                clipBehavior: Clip.hardEdge,
-                child: Image.network(widget.myFoodItem.foodImage,
-                    fit: BoxFit.cover),
+                shape: const SquircleBorder(
+                  radius: BorderRadius.all(
+                    Radius.circular(150.0),
+                  ),
+                ),
               ),
             ),
           ),
@@ -99,9 +104,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
               Row(
                 children: [
                   Text(
-                      '등록일: ${dateFormat.format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                              widget.myFoodItem.registerDate))}',
+                      '등록일: ${dateFormat.format(DateTime.fromMillisecondsSinceEpoch(widget.myFoodItem.registerDate))}',
                       style: AppTextStyle.body14R()),
                 ],
               ),
@@ -113,47 +116,43 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                     value: _remainPeriod,
                     suffix: '일',
                     textStyle: AppTextStyle.body14R(
-                        color: _isOld
-                            ? AppColors.caution
-                            : AppColors.mainText),
+                        color: _isOld ? AppColors.caution : AppColors.mainText),
                   ),
                   const Spacer(),
-
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue[50]),
                     //남은 기간이 2일 미만일 경우 _isOld true -> 버튼 활성화 -> 다이얼로그 생성 / 2일 이상일 경우 버튼 비활성화
                     onPressed: _isOld
                         ? () {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return TwoAnswerDialog(
-                                title: '연장하시겠습니까?',
-                                firstButton: '네',
-                                secondButton: '아니오',
-                                onTap: () {
-                                  //'네' 클릭 후 _isOld false로 업데이트 ->연장버튼 비활성화처리, 연장된 기간으로 _remainPeriod 업데이트, firestore isExtended 값 true로 변경
-                                  setState(() {
-                                    _isOld =
-                                    false;
-                                    _remainPeriod =
-                                        myFoodViewModel.extendPeriod(
-                                            widget.myFoodItem,
-                                            widget.ourRefrigeItem);
-                                    FirebaseFirestore.instance
-                                        .collection('foodDetails')
-                                        .doc(widget
-                                        .myFoodItem.registerDate
-                                        .toString() +
-                                        widget.myFoodItem.userId)
-                                        .update({"isExtended": true});
-                                  });
-                                  Navigator.of(context).pop();
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return TwoAnswerDialog(
+                                      title: '연장하시겠습니까?',
+                                      firstButton: '네',
+                                      secondButton: '아니오',
+                                      onTap: () {
+                                        //'네' 클릭 후 _isOld false로 업데이트 ->연장버튼 비활성화처리, 연장된 기간으로 _remainPeriod 업데이트, firestore isExtended 값 true로 변경
+                                        setState(() {
+                                          _isOld = false;
+                                          _remainPeriod =
+                                              myFoodViewModel.extendPeriod(
+                                                  widget.myFoodItem,
+                                                  widget.ourRefrigeItem);
+                                          FirebaseFirestore.instance
+                                              .collection('foodDetails')
+                                              .doc(widget
+                                                      .myFoodItem.registerDate
+                                                      .toString() +
+                                                  widget.myFoodItem.userId)
+                                              .update({"isExtended": true});
+                                        });
+                                        Navigator.of(context).pop();
+                                      });
                                 });
-                          });
-                    }
-                    //연장버튼 비활성화
+                          }
+                        //연장버튼 비활성화
                         : null,
                     child: const Text('연장하기'),
                   )
@@ -178,13 +177,12 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                       FirebaseFirestore.instance
                                           .collection('foodDetails')
                                           .doc(widget.myFoodItem.registerDate
-                                          .toString() +
-                                          widget.myFoodItem.userId)
+                                                  .toString() +
+                                              widget.myFoodItem.userId)
                                           .delete(),
                                       FirebaseStorage.instance
                                           .ref(
-                                          "images/${widget.myFoodItem
-                                              .registerDate}.jpg")
+                                              "images/${widget.myFoodItem.registerDate}.jpg")
                                           .delete()
                                     ]);
                                     // dialog 종료 후 메인페이지로 이동
@@ -201,9 +199,10 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
               //남은 기간에 따라 다른 텍스트 출력 (2일 미만 "곧 폐기" 2일 이상 "연장불가)
               _isOld
                   ? Text('곧 폐기됩니다.',
-                  style: AppTextStyle.body14R(color: AppColors.caution))
-                  : widget.myFoodItem.isExtended ? Text('더이상 연장이 불가해요') //
-                  : Text('아직은 연장이 불가해요')
+                      style: AppTextStyle.body14R(color: AppColors.caution))
+                  : widget.myFoodItem.isExtended
+                      ? Text('더이상 연장이 불가해요') //
+                      : Text('아직은 연장이 불가해요')
             ],
           ),
         ),

@@ -120,7 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       // 취소버튼
                       ElevatedButton(
                           onPressed: () {
-                            context.go('/details', extra: widget.fridgeData[0]);
+                            context.go(isFreezed ? '/freezerDetail' : '/refrigeDetail', extra: widget.fridgeData[0]);
                           },
                           child: const Text('취소')),
                       // 등록하기 버튼
@@ -175,8 +175,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   duration: Duration(seconds: 3),
                                 ),
                               );
-                              context.go('/details',
-                                  extra: widget.fridgeData[0]);
+                              context.go(isFreezed ? '/freezerDetail' : '/refrigeDetail', extra: widget.fridgeData[0]);
                             }
                           }
                         },

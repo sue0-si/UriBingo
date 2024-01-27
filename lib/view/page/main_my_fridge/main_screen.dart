@@ -6,6 +6,7 @@ import 'package:leute/data/models/user_model.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view_model/main_screen_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:unicons/unicons.dart';
 
 import '../../../data/models/refrige_model.dart';
 import '../../../data/repository/refrige_repository.dart';
@@ -58,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
                 // Last item is the add button
                 return viewModel.isManager
                     ? IconButton(
-                        icon: Icon(Icons.add),
+                        icon: Icon(UniconsLine.plus_square, size: 40),
                         onPressed: () {
                           context.go('/addRefrige', extra: 0);
 

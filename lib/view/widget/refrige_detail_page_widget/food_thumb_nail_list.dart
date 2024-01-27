@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:unicons/unicons.dart';
 
 import '../../../data/models/foods_model.dart';
 import 'food_thumb_nail.dart';
@@ -65,7 +66,7 @@ class FoodThumbNailList extends StatelessWidget {
                         samePositionFoodList,
                         isFreezed
                       ]),
-                  icon: const Icon(Icons.add)))
+                  icon: const Icon(UniconsLine.plus_circle, size: 30,)))
         ],
       ),
     );
