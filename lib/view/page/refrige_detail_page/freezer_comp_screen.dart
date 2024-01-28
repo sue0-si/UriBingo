@@ -22,26 +22,27 @@ class FreezerCompScreen extends StatefulWidget {
 class _FreezerCompScreenState extends State<FreezerCompScreen> {
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<FreezerCompViewModel>();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () =>
               context.go('/details', extra: widget.selectedRefrige),
         ),
         title: Text('냉동실', style: AppTextStyle.body14R()),
       ),
-      body: Consumer<FreezerCompViewModel>(
-        builder: (context, freezerViewModel, child) {
-          return Center(
-            child: AnimationList(
-              children: freezerViewModel.fetchedList,
-              duration: 2000,
-              reBounceDepth: 5.0,
+      body: (viewModel.isLoading)
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Center(
+              child: AnimationList(
+                duration: 2000,
+                reBounceDepth: 5.0,
+                children: viewModel.fetchedList,
+              ),
             ),
-          );
-        },
-      ),
     );
   }
 }

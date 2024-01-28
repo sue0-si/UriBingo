@@ -14,6 +14,7 @@ class FreezerCompViewModel extends ChangeNotifier {
   List<FoodDetail> get foodItems => _foodItems;
 
   List<Widget> fetchedList = [];
+  bool isLoading = false;
   bool _disposed = false;
 
   @override
@@ -34,18 +35,30 @@ class FreezerCompViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchData() async {
-    await getSameRefrigeFoods(selectedRefrige.refrigeName);
-    for (int i = 1; i <= selectedRefrige.freezerCompCount; i++) {
-      final samePositionFoodList =
-          RegisterdFoodsRepository().filterFoods(foodItems, true, i);
-      fetchedList.add(FoodThumbNailList(
-        samePositionFoodList: samePositionFoodList[2],
-        selectedRefrige: selectedRefrige,
-        selectedPosition: i,
-        isFreezed: true,
-      ));
-    }
+    isLoading = true;
     notifyListeners();
+
+    try {
+      await getSameRefrigeFoods(selectedRefrige.refrigeName);
+      for (int i = 1; i <= selectedRefrige.freezerCompCount; i++) {
+        final samePositionFoodList =
+            RegisterdFoodsRepository().filterFoods(foodItems, true, i);
+        fetchedList.add(FoodThumbNailList(
+          samePositionFoodList: samePositionFoodList[2],
+          selectedRefrige: selectedRefrige,
+          selectedPosition: i,
+          isFreezed: true,
+        ));
+      }
+    } catch (error) {
+      // 에러 처리
+      print('Error fetching data: $error');
+    } finally {
+      isLoading = false;
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        notifyListeners();
+      });
+    }
   }
 
   Future<List<FoodDetail>> getSameRefrigeFoods(String refrigeName) async {
