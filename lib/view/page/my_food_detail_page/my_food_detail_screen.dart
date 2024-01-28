@@ -11,6 +11,7 @@ import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
+import 'package:leute/view/widget/custom_widgets/custom_container.dart';
 import 'package:leute/view/widget/my_food_detail_page_widget/food_detail_image_widget.dart';
 import 'package:leute/view_model/my_food_detail_view_model.dart';
 
@@ -77,23 +78,16 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
           },
           child: Hero(
             tag: 'imageTag',
-            child: Container(
+            child: SuperContainer(
               height: 200.h,
-              width: 300.w,
-              decoration: ShapeDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                    widget.myFoodItem.foodImage,
-                  ),
-                ),
-                shape: const SquircleBorder(
-                  radius: BorderRadius.all(
-                    Radius.circular(150.0),
-                  ),
+              width: 300.w, border: 150, borderWidth: 10, borderColor: _isOld ? AppColors.caution : Color(0xFF254e7a),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  widget.myFoodItem.foodImage,
                 ),
               ),
-            ),
+            )
           ),
         ),
         SizedBox(height: 32.h),

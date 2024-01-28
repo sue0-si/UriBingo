@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_style.dart';
+import 'package:leute/view/widget/custom_widgets/custom_container.dart';
 import 'package:leute/view_model/my_fridge_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class MyFridge extends StatelessWidget {
   // @override
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<MyFridgeViewModel>();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -28,19 +30,21 @@ class MyFridge extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10)),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Consumer<MyFridgeViewModel>(
-              builder: (context, viewModel, child) {
-                return Column(
+        body: viewModel.myFoodDetails.isEmpty
+            ? Center(
+                child: Text('보관중인 음식이 없습니다.'),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SingleChildScrollView(
+                    child: Column(
                   children: [
                     for (var refrigeDetail in viewModel.refrigeDetails)
                       Column(
                         children: [
                           if (viewModel.myFoodDetails
-                              .where(
-                                  (e) => e.refrigeName == refrigeDetail.refrigeName)
+                              .where((e) =>
+                                  e.refrigeName == refrigeDetail.refrigeName)
                               .isNotEmpty)
                             Text(' ${refrigeDetail.refrigeName}'),
                           Container(
@@ -48,7 +52,7 @@ class MyFridge extends StatelessWidget {
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
                               gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 10,
@@ -56,35 +60,36 @@ class MyFridge extends StatelessWidget {
                               ),
                               itemCount: viewModel.myFoodDetails
                                   .where((e) =>
-                              e.refrigeName == refrigeDetail.refrigeName)
+                                      e.refrigeName ==
+                                      refrigeDetail.refrigeName)
                                   .length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () {
                                     context.go('/myfooddetail', extra: [
-                                      viewModel.myFoodDetails[index],
+                                      viewModel.myFoodDetails
+                                          .where((e) =>
+                                      e.refrigeName ==
+                                          refrigeDetail.refrigeName)
+                                          .toList()[index],
                                       refrigeDetail
                                     ]);
                                   },
-                                  child: Container(
-                                    height: 20.h,
-                                    width: 30.w,
-                                    decoration: ShapeDecoration(
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                          viewModel.myFoodDetails
-                                              .where((e) =>
-                                          e.refrigeName ==
-                                              refrigeDetail.refrigeName)
-                                              .toList()[index]
-                                              .foodImage,
-                                        ),
-                                      ),
-                                      shape: const SquircleBorder(
-                                        radius: BorderRadius.all(
-                                          Radius.circular(70.0),
-                                        ),
+                                  child: SuperContainer(
+                                    height: 90.h,
+                                    width: 100.w,
+                                    border: 80,
+                                    borderWidth: 5,
+                                    borderColor: Color(0xFF254e7a),
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                        viewModel.myFoodDetails
+                                            .where((e) =>
+                                                e.refrigeName ==
+                                                refrigeDetail.refrigeName)
+                                            .toList()[index]
+                                            .foodImage,
                                       ),
                                     ),
                                   ),
@@ -95,11 +100,8 @@ class MyFridge extends StatelessWidget {
                         ],
                       ),
                   ],
-                );
-              },
-            ),
-          ),
-        ),
+                )),
+              ),
       ),
     );
   }

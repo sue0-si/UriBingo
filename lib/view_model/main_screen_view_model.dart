@@ -15,6 +15,21 @@ class MainScreenViewModel extends ChangeNotifier {
   final UserDataRepository userDataRepository = UserDataRepository();
   bool isManager = false;
 
+  bool _disposed = false;
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
+  }
+
   MainScreenViewModel() {
     fetchFridgeData();
   }
@@ -33,6 +48,7 @@ class MainScreenViewModel extends ChangeNotifier {
     }
     notifyListeners();
   }
+
 
 // Widget makeFridge(int index) {
 //   return Column(

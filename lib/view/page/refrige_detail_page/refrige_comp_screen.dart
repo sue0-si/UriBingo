@@ -26,19 +26,21 @@ class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => context.go('/details', extra: widget.selectedRefrige),
+          onPressed: () =>
+              context.go('/details', extra: widget.selectedRefrige),
         ),
         title: Text('냉장실', style: AppTextStyle.body14R()),
       ),
       body: Consumer<RefrigeCompViewModel>(
         builder: (context, refrigeViewModel, child) {
           return Center(
-              child: AnimationList(
-                physics: NeverScrollableScrollPhysics(),
-                children: refrigeViewModel.fetchedList,
-                duration: 2000,
-                reBounceDepth:5.0,
-              ));
+            child: AnimationList(
+              physics: NeverScrollableScrollPhysics(),
+              children: refrigeViewModel.fetchedList,
+              duration: 2000,
+              reBounceDepth: 5.0,
+            ),
+          );
         },
       ),
     );

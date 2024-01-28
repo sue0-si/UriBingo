@@ -26,7 +26,8 @@ class _FreezerCompScreenState extends State<FreezerCompScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => context.go('/details', extra: widget.selectedRefrige),
+          onPressed: () =>
+              context.go('/details', extra: widget.selectedRefrige),
         ),
         title: Text('냉동실', style: AppTextStyle.body14R()),
       ),
@@ -34,19 +35,11 @@ class _FreezerCompScreenState extends State<FreezerCompScreen> {
         builder: (context, freezerViewModel, child) {
           return Center(
             child: AnimationList(
-                children: freezerViewModel.fetchedList,
-            duration: 2000,
-            reBounceDepth:5.0,
-          ));
-
-
-
-
-
-          //   CustomScrollView(
-          //   physics: const BouncingScrollPhysics(),
-          //   slivers: freezerViewModel.fetchedList,
-          // );
+              children: freezerViewModel.fetchedList,
+              duration: 2000,
+              reBounceDepth: 5.0,
+            ),
+          );
         },
       ),
     );

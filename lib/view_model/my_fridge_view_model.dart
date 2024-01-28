@@ -10,20 +10,31 @@ class MyFridgeViewModel extends ChangeNotifier {
   final refrigeRepository = RegisterdRefrigeRepository();
   List<FoodDetail> myFoodDetails = [];
   List<RefrigeDetail> refrigeDetails = [];
+  bool _disposed = false;
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
+  }
 
   MyFridgeViewModel() {
     fetchMyFridgeData();
   }
 
-
-  Future <void> fetchMyFridgeData() async {
+  Future<void> fetchMyFridgeData() async {
     final allFoods = await foodRepository.getFirebaseFoodsData();
     refrigeDetails = await refrigeRepository.getFirebaseRefrigesData();
-
     myFoodDetails = foodRepository.getMyFoodDetail(
         allFoods, FirebaseAuth.instance.currentUser!.displayName!);
     // refrigeDetails;
     notifyListeners();
   }
-
 }

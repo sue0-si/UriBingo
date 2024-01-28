@@ -14,6 +14,20 @@ class RefrigeCompViewModel extends ChangeNotifier {
   List<FoodDetail> get foodItems => _foodItems;
 
   List<Widget> fetchedList = [];
+  bool _disposed = false;
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
+  }
 
   RefrigeCompViewModel(this.selectedRefrige) {
     fetchData();
@@ -40,5 +54,4 @@ class RefrigeCompViewModel extends ChangeNotifier {
     return _foodItems;
   }
 
-  notifyListeners();
 }

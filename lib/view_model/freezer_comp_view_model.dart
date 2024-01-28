@@ -14,6 +14,20 @@ class FreezerCompViewModel extends ChangeNotifier {
   List<FoodDetail> get foodItems => _foodItems;
 
   List<Widget> fetchedList = [];
+  bool _disposed = false;
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
+  }
 
   FreezerCompViewModel(this.selectedRefrige) {
     fetchData();
@@ -39,6 +53,4 @@ class FreezerCompViewModel extends ChangeNotifier {
     _foodItems = allFoods.where((e) => e.refrigeName == refrigeName).toList();
     return _foodItems;
   }
-
-  notifyListeners();
 }

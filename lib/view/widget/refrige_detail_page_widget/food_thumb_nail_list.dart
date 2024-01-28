@@ -46,7 +46,9 @@ class FoodThumbNailList extends StatelessWidget {
           Expanded(
             flex: 8,
             child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(
+                  decelerationRate: ScrollDecelerationRate.fast
+                ),
                 scrollDirection: Axis.horizontal,
                 itemCount: samePositionFoodList.length,
                 itemBuilder: (context, index) {
