@@ -7,7 +7,6 @@ import 'package:leute/data/models/refrige_model.dart';
 import '../data/repository/foods_repository.dart';
 
 class MyFoodDetailViewModel with ChangeNotifier {
-  // 이 데이터를 뷰에서 참조할거에요
   List<FoodDetail> foodDetails = [];
 
   int remainPeriod = 0;
@@ -22,11 +21,12 @@ class MyFoodDetailViewModel with ChangeNotifier {
       remainPeriod += ourRefrigeItem.extentionPeriod;
     }
 
-    this.remainPeriod = remainPeriod;
+    this.remainPeriod = remainPeriod;//값 할당
 
     notifyListeners();
     return remainPeriod;
   }
+
 
 //연장기간 출력
   int extendPeriod(FoodDetail myFoodItem, RefrigeDetail ourRefirgeItem) {
@@ -35,6 +35,7 @@ class MyFoodDetailViewModel with ChangeNotifier {
     return remainPeriod + ourRefirgeItem.extentionPeriod;
   }
 
+
 //2일 미만인지 여부 & isExtended 체크
   bool checkOld(FoodDetail myFoodItem, RefrigeDetail ourRefirgeItem) {
     int remainPeriod = calculateRemainPeriod(myFoodItem, ourRefirgeItem);
@@ -42,11 +43,12 @@ class MyFoodDetailViewModel with ChangeNotifier {
       return false;
     }
 
-    isOld = remainPeriod < 2;
+    isOld = remainPeriod < 2;//값 할당
 
     notifyListeners();
     return remainPeriod < 2;
   }
+
 
   //isExtended값 변경
   Future<void> updateFirestore(FoodDetail myFoodItem) async {
@@ -55,6 +57,7 @@ class MyFoodDetailViewModel with ChangeNotifier {
         .doc(myFoodItem.registerDate.toString() + myFoodItem.userId)
         .update({"isExtended": true});
   }
+
 
   //firebase, firestore 삭제
   Future<void> deleteFoodAndStorage(FoodDetail myFoodItem, RefrigeDetail ourRefirgeItem) async {
@@ -67,13 +70,14 @@ class MyFoodDetailViewModel with ChangeNotifier {
     ]);
   }
 
+
+  //firebase 데이터 get
   Future<void> getFirebaseFoodsData() async {
     final result = await RegisterdFoodsRepository().getFirebaseFoodsData();
 
     foodDetails.clear();
     foodDetails.addAll(result);
 
-    // 변화를 알려주기위해 반드시 필요합니다
     notifyListeners();
   }
 }
