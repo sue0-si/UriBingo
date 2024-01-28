@@ -21,7 +21,9 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       builder: (context, child) => MaterialApp.router(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'Pretendard'),
+        theme: ThemeData(
+          fontFamily: 'Pretendard',
+        ),
         routerConfig: router,
       ),
     );

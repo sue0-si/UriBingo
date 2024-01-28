@@ -1,37 +1,78 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../data/models/foods_model.dart';
 import '../data/models/refrige_model.dart';
+import '../data/models/user_model.dart';
 import '../data/repository/foods_repository.dart';
+import '../view/page/main_my_fridge/main_screen.dart';
 import '../view/widget/refrige_detail_page_widget/food_thumb_nail_list.dart';
 
 class RefrigeCompViewModel extends ChangeNotifier {
   final RefrigeDetail selectedRefrige;
   final _repository = RegisterdFoodsRepository();
+  final UserDataRepository userDataRepository = UserDataRepository();
 
   List<FoodDetail> _foodItems = [];
 
   List<FoodDetail> get foodItems => _foodItems;
 
   List<Widget> fetchedList = [];
+  bool isLoading = false;
+  bool isManager = false;
+  bool _disposed = false;
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
+  }
 
   RefrigeCompViewModel(this.selectedRefrige) {
     fetchData();
   }
 
   Future<void> fetchData() async {
-    await getSameRefrigeFoods(selectedRefrige.refrigeName);
-    for (int i = 1; i <= selectedRefrige.refrigeCompCount; i++) {
-      final samePositionFoodList =
-          RegisterdFoodsRepository().filterFoods(foodItems, false, i);
-      fetchedList.add(FoodThumbNailList(
-        samePositionFoodList: samePositionFoodList[2],
-        selectedRefrige: selectedRefrige,
-        selectedPosition: i,
-        isFreezed: false,
-      ));
-    }
+    isLoading = true;
     notifyListeners();
+
+    try {
+      await getSameRefrigeFoods(selectedRefrige.refrigeName);
+
+      // 관리자 여부 확인용 메서드
+      List<UserModel> userData = await userDataRepository.getFirebaseUserData();
+      isManager = userData
+          .firstWhere(
+              (user) => user.email == FirebaseAuth.instance.currentUser!.email)
+          .manager;
+
+      for (int i = 1; i <= selectedRefrige.refrigeCompCount; i++) {
+        final samePositionFoodList =
+            RegisterdFoodsRepository().filterFoods(foodItems, false, i);
+        fetchedList.add(FoodThumbNailList(
+          samePositionFoodList: samePositionFoodList[2],
+          selectedRefrige: selectedRefrige,
+          selectedPosition: i,
+          isFreezed: false,
+          isManager: isManager,
+        ));
+      }
+    } catch (error) {
+      // 에러 처리
+      print('Error fetching data: $error');
+    } finally {
+      isLoading = false;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        notifyListeners();
+      });
+    }
   }
 
   Future<List<FoodDetail>> getSameRefrigeFoods(String refrigeName) async {
@@ -39,6 +80,4 @@ class RefrigeCompViewModel extends ChangeNotifier {
     _foodItems = allFoods.where((e) => e.refrigeName == refrigeName).toList();
     return _foodItems;
   }
-
-  notifyListeners();
 }

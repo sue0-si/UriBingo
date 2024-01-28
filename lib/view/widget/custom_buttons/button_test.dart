@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nice_buttons/nice_buttons.dart';
 
-import 'first_custom_button.dart';
 
 class ButtonTest extends StatelessWidget {
   const ButtonTest({super.key});
