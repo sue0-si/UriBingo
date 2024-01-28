@@ -12,12 +12,14 @@ class FoodThumbNailList extends StatelessWidget {
       required this.samePositionFoodList,
       required this.selectedRefrige,
       required this.selectedPosition,
-        required this.isFreezed});
+      required this.isFreezed,
+      required this.isManager});
 
   final RefrigeDetail selectedRefrige;
   final int selectedPosition;
   final List<FoodDetail> samePositionFoodList;
   final bool isFreezed;
+  final bool isManager;
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +49,7 @@ class FoodThumbNailList extends StatelessWidget {
             flex: 8,
             child: ListView.builder(
                 physics: const BouncingScrollPhysics(
-                  decelerationRate: ScrollDecelerationRate.fast
-                ),
+                    decelerationRate: ScrollDecelerationRate.fast),
                 scrollDirection: Axis.horizontal,
                 itemCount: samePositionFoodList.length,
                 itemBuilder: (context, index) {
@@ -57,6 +58,7 @@ class FoodThumbNailList extends StatelessWidget {
                     foodItem: foodItem,
                     period: selectedRefrige.period,
                     extendPeriod: selectedRefrige.extentionPeriod,
+                    isManager: isManager,
                   );
                 }),
           ),
@@ -66,9 +68,13 @@ class FoodThumbNailList extends StatelessWidget {
                         selectedRefrige,
                         selectedPosition,
                         samePositionFoodList,
-                        isFreezed
+                        isFreezed,
+                        isManager
                       ]),
-                  icon: const Icon(UniconsLine.plus_circle, size: 30,)))
+                  icon: const Icon(
+                    UniconsLine.plus_circle,
+                    size: 30,
+                  )))
         ],
       ),
     );

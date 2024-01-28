@@ -62,7 +62,11 @@ class _EditRefrigeState extends State<EditRefrige> {
 
     return Scaffold(
       appBar: AppBar(
-        actions: [],
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () =>
+              context.go('/', extra: 0),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -109,9 +113,9 @@ class _EditRefrigeState extends State<EditRefrige> {
                                   },
                                   controller: addNameController,
                                   //obscureText: true, 입력값을 안보여주고싶을때
-                                  style: TextStyle(fontSize: 15),
+                                  style: const TextStyle(fontSize: 15),
                                   decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
+                                    border: const OutlineInputBorder(),
                                     contentPadding: const EdgeInsets.only(
                                       left: 15,
                                       top: 10,
@@ -137,7 +141,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 25,
                             ),
                           ],
@@ -158,7 +162,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40),
                                 child: DropdownButton(
                                     value: selectedColdstorageController.text,
                                     items: addPageViewModel
@@ -173,8 +177,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                                       setState(() {
                                         selectedColdstorageController.text =
                                             value!;
-                                      addPageViewModel.selectedColdstorage =
-                                          value!;
+                                        addPageViewModel.selectedColdstorage =
+                                            value!;
                                       });
                                     }),
                               ),
@@ -196,7 +200,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40),
                                 child: DropdownButton(
                                     value: selectedFrozenStorageController.text,
                                     items: addPageViewModel
@@ -211,8 +215,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                                       setState(() {
                                         selectedFrozenStorageController.text =
                                             value!;
-                                      addPageViewModel.selectedFrozenStorage =
-                                          value!;
+                                        addPageViewModel.selectedFrozenStorage =
+                                            value!;
                                       });
                                     }),
                               ),
@@ -234,7 +238,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40),
                                 child: DropdownButton(
                                     value: selectedStoragePeriodController.text,
                                     items: addPageViewModel.storagePeriodList
@@ -248,8 +252,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                                       setState(() {
                                         selectedStoragePeriodController.text =
                                             value!;
-                                      addPageViewModel.selectedStoragePeriod =
-                                          value!;
+                                        addPageViewModel.selectedStoragePeriod =
+                                            value!;
                                       });
                                     }),
                               ),
@@ -270,7 +274,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40),
                                 child: DropdownButton(
                                     elevation: 10,
                                     dropdownColor: Colors.green,
@@ -287,8 +291,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                                       setState(() {
                                         selectedExtensionPeriodController.text =
                                             value!;
-                                      addPageViewModel.selectedExtensionPeriod =
-                                          value!;
+                                        addPageViewModel
+                                            .selectedExtensionPeriod = value!;
                                       });
                                     }),
                               ),
@@ -314,10 +318,9 @@ class _EditRefrigeState extends State<EditRefrige> {
                                   builder: (context) {
                                     return TwoAnswerDialog(
                                         title: '수정하시겠습니까?',
-                                        titleStyle: TextStyle(
+                                        titleStyle: const TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,
-
                                         ),
                                         firstButton: '네',
                                         secondButton: '아니오',
@@ -327,8 +330,15 @@ class _EditRefrigeState extends State<EditRefrige> {
                                           if (mounted) {
                                             context.go('/', extra: 0);
                                           }
-
-                                          await addPageViewModel.editRefrige();
+                                          await addPageViewModel.editRefrige(
+                                              selectedColdstorageController
+                                                  .text,
+                                              selectedFrozenStorageController
+                                                  .text,
+                                              selectedStoragePeriodController
+                                                  .text,
+                                              selectedExtensionPeriodController
+                                                  .text);
                                         });
                                   });
 
@@ -346,24 +356,46 @@ class _EditRefrigeState extends State<EditRefrige> {
                         ElevatedButton(
                           onPressed: () async {
                             showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return TwoAnswerDialog(
-                                      title: '삭제하겠습니까?',
-                                      firstButton: '네',
-                                      secondButton: '아니오',
-                                      onTap: () async {
-                                        setState(() {});
-
-                                        if (mounted) {
-                                          context.go('/', extra: 0);
-                                        }
-
-                                        await addPageViewModel.deleteRefrige();
-                                      });
-                                });
+                              context: context,
+                              builder: (context) {
+                                return TwoAnswerDialog(
+                                  title: '삭제하겠습니까?',
+                                  firstButton: '네',
+                                  secondButton: '아니오',
+                                  onTap: () async {
+                                    await addPageViewModel.remainFoodsCheck(
+                                        widget.seletedRefrige.refrigeName);
+                                    if (addPageViewModel.foodItems.isNotEmpty) {
+                                      Navigator.of(context, rootNavigator: true).pop();
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return TwoAnswerDialog(
+                                              title:
+                                                  '음식이 남아있습니다. 그래도 삭제하시겠습니까?',
+                                              firstButton: '네',
+                                              secondButton: '아니오',
+                                              onTap: () async {
+                                                await addPageViewModel
+                                                    .deleteRefrige();
+                                                if (mounted) {
+                                                  context.go('/', extra: 0);
+                                                }
+                                              },
+                                            );
+                                          });
+                                    } else {
+                                      await addPageViewModel.deleteRefrige();
+                                      if (mounted) {
+                                        context.go('/', extra: 0);
+                                      }
+                                    }
+                                  },
+                                );
+                              },
+                            );
                           },
-                          child: Text(
+                          child: const Text(
                             '삭제하기',
                             style: TextStyle(
                               fontSize: 14,
@@ -372,9 +404,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                           ),
                         ),
                       ],
-
                     ),
-
                   ],
                 ),
               ],

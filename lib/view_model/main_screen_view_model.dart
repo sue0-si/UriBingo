@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
 import 'package:leute/data/repository/refrige_repository.dart';
@@ -14,7 +13,7 @@ class MainScreenViewModel extends ChangeNotifier {
 
   final UserDataRepository userDataRepository = UserDataRepository();
   bool isManager = false;
-
+  bool isLoading = false;
   bool _disposed = false;
 
   @override
@@ -35,20 +34,33 @@ class MainScreenViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchFridgeData() async {
-    //비동기로 변경
-    refrigeItems = await RegisterdRefrigeRepository().getFirebaseRefrigesData();
-    List<UserModel> userData = await userDataRepository.getFirebaseUserData();
-    UserModel currentUser = userData.firstWhere(
-        (user) => user.email == FirebaseAuth.instance.currentUser!.email);
-    isManager = currentUser.manager;
-
-    for (int i = 1; i <= refrigeItems.length; i++) {
-      fridges.add(MakeFridge(
-          refrigeItems: refrigeItems, isManager: isManager, index: i - 1));
-    }
+    isLoading = true;
     notifyListeners();
-  }
 
+    try {
+      //비동기로 변경
+      refrigeItems =
+          await RegisterdRefrigeRepository().getFirebaseRefrigesData();
+      List<UserModel> userData = await userDataRepository.getFirebaseUserData();
+      isManager = userData
+          .firstWhere(
+              (user) => user.email == FirebaseAuth.instance.currentUser!.email)
+          .manager;
+
+      for (int i = 1; i <= refrigeItems.length; i++) {
+        fridges.add(MakeFridge(
+            refrigeItems: refrigeItems, isManager: isManager, index: i - 1));
+      }
+    } catch (error) {
+      // 에러 처리
+      print('Error fetching data: $error');
+    } finally {
+      isLoading = false;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        notifyListeners();
+      });
+    }
+  }
 
 // Widget makeFridge(int index) {
 //   return Column(

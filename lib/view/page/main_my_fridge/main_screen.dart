@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/user_model.dart';
@@ -8,8 +7,7 @@ import 'package:leute/view_model/main_screen_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
 
-import '../../../data/models/refrige_model.dart';
-import '../../../data/repository/refrige_repository.dart';
+import '../../widget/custom_widgets/super_loading_bar.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -40,40 +38,48 @@ class _MainScreenState extends State<MainScreen> {
           ),
           flexibleSpace: Container(
             decoration: BoxDecoration(
-                color: Color(0xFF254e7a),
+                color: const Color(0xFF254e7a),
                 borderRadius: BorderRadius.circular(10)),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              mainAxisSpacing: 30,
-              crossAxisSpacing: 30,
-              childAspectRatio: 3 / 6,
-            ),
-            itemCount: viewModel.fridges.length + 1,
-            itemBuilder: (context, index) {
-              if (index == viewModel.fridges.length) {
-                // Last item is the add button
-                return viewModel.isManager
-                    ? IconButton(
-                        icon: Icon(UniconsLine.plus_square, size: 40),
-                        onPressed: () {
-                          context.go('/addRefrige', extra: 0);
+        body: (viewModel.isLoading)
+            ? Center(
+                child: SuperLoadingBar(
+                  colors: const [Color(0xFF254e7a)],
+                  strokeWidth: 4,
+                ),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 30,
+                    crossAxisSpacing: 30,
+                    childAspectRatio: 3 / 6,
+                  ),
+                  itemCount: viewModel.fridges.length + 1,
+                  itemBuilder: (context, index) {
+                    if (index == viewModel.fridges.length) {
+                      // Last item is the add button
+                      return viewModel.isManager
+                          ? IconButton(
+                              icon:
+                                  const Icon(UniconsLine.plus_circle, size: 40),
+                              onPressed: () {
+                                context.go('/addRefrige', extra: 0);
 
-                          setState(() {});
-                        },
-                      )
-                    : Container();
-              } else {
-                // Display the fridge container
-                return viewModel.fridges[index];
-              }
-            },
-          ),
-        ),
+                                setState(() {});
+                              },
+                            )
+                          : Container();
+                    } else {
+                      // Display the fridge container
+                      return viewModel.fridges[index];
+                    }
+                  },
+                ),
+              ),
       ),
     );
   }

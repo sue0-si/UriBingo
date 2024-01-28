@@ -30,7 +30,7 @@ class TwoAnswerDialog extends StatelessWidget {
         Container(
           child: ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pop(); //창 닫기
+              Navigator.of(context, rootNavigator: true).pop(); //창 닫기
             },
             child:  Text(secondButton, style: AppTextStyle.body12R()),
           ),
