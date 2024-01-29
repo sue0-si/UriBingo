@@ -61,42 +61,4 @@ class MainScreenViewModel extends ChangeNotifier {
       });
     }
   }
-
-// Widget makeFridge(int index) {
-//   return Column(
-//     children: [
-//       GestureDetector(
-//         onTap: () => context.go('/details', extra: refrigeItems[index]),
-//         child: Container(
-//           height: 150,
-//           decoration: BoxDecoration(
-//             color: Colors.white,
-//             border: Border.all(color: Colors.black12),
-//             borderRadius: BorderRadius.circular(10),
-//             boxShadow: [
-//               BoxShadow(
-//                 color: Colors.grey,
-//                 offset: Offset(0, 3),
-//                 blurRadius: 2.0,
-//               ),
-//             ],
-//           ),
-//           child: Center(
-//             child: Text(
-//               refrigeItems[index].refrigeName,
-//             ),
-//           ),
-//         ),
-//       ),
-//       //관리자 버튼
-//       isManager
-//           ? ElevatedButton(
-//           onPressed: () {
-//             context.go('/editRefrige', extra: refrigeItems[index]);
-//           },
-//           child: Text('수정'))
-//           : Container()
-//     ],
-//   );
-// }
 }
