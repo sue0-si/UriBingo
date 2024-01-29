@@ -37,9 +37,7 @@ final router = GoRouter(initialLocation: '/login', routes: [
       builder: (context, state) {
         return ChangeNotifierProvider(
           create: (_) => MyFoodDetailViewModel(),
-          child: MyFoodDetail(
-            myFoodItem: (state.extra as List)[0],
-            ourRefrigItem: (state.extra as List)[1],
+          child: MyFoodDetail(myFoodItem: (state.extra as List)[0], ourRefrigItem: (state.extra as List)[1],
           ),
         );
       }),

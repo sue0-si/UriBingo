@@ -18,15 +18,11 @@ class MyFoodDetail extends StatefulWidget {
   final FoodDetail myFoodItem;
   final RefrigeDetail ourRefrigItem;
 
-
   @override
   State<MyFoodDetail> createState() => _MyFoodDetailState();
 }
 
 class _MyFoodDetailState extends State<MyFoodDetail> {
-  FoodDetail get foodItem => widget.myFoodItem;
-  RefrigeDetail get refreigItem => widget.ourRefrigItem;
-
   @override
   void initState() {
     super.initState();
@@ -42,8 +38,8 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
 
   @override
   Widget build(BuildContext context) {
-    final dateFormat = DateFormat('yyyy년 MM월 dd일');
     final viewModel = context.watch<MyFoodDetailViewModel>();
+    final dateFormat = DateFormat('yyyy년 MM월 dd일');
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -98,9 +94,9 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                 children: [
                   Text('남은기간: ', style: AppTextStyle.body14R()),
                   Text(
-                    '${context.watch<MyFoodDetailViewModel>().remainPeriod} 일',
+                    '${viewModel.remainPeriod} 일',
                     style: AppTextStyle.body14R(
-                        color: context.watch<MyFoodDetailViewModel>().isOld
+                        color: viewModel.isOld
                             ? AppColors.caution
                             : AppColors.mainText),
                   ),
@@ -111,7 +107,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                     //남은 기간이 2일 미만-> 다이얼로그 생성 / 2일 이상 ->버튼 비활성화
                     onPressed: context.watch<MyFoodDetailViewModel>().isOld
                         ? () {
-                            showDialog(
+                           showDialog(
                                 context: context,
                                 builder: (desContext) {
                                   return TwoAnswerDialog(
@@ -120,17 +116,12 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                       secondButton: '아니오',
                                       onTap: () {
                                         //'네' 클릭 -> 함수호출
-                                        context
-                                            .read<MyFoodDetailViewModel>()
-                                            .isOld = false;
-                                        context
-                                            .read<MyFoodDetailViewModel>()
-                                            .extendPeriod(widget.myFoodItem,
-                                                widget.ourRefrigItem);
-                                        context
-                                            .read<MyFoodDetailViewModel>()
+                                        viewModel.isOld = false;
+                                        viewModel.extendPeriod(
+                                            widget.myFoodItem,
+                                            widget.ourRefrigItem);
+                                        viewModel
                                             .updateFirestore(widget.myFoodItem);
-
                                         Navigator.of(context).pop();
                                       });
                                 });
@@ -156,10 +147,9 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                   secondButton: '아니오',
                                   // 함수호출
                                   onTap: () {
-                                    context
-                                        .read<MyFoodDetailViewModel>()
-                                        .deleteFoodAndStorage(widget.myFoodItem,
-                                            widget.ourRefrigItem);
+                                    viewModel.deleteFoodAndStorage(
+                                        widget.myFoodItem,
+                                        widget.ourRefrigItem);
                                     if (mounted) {
                                       context.go('/', extra: 1);
                                     }
@@ -171,7 +161,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
               ),
               SizedBox(height: 32.h),
               //남은 기간에 따라 다른 텍스트 출력
-              context.watch<MyFoodDetailViewModel>().isOld
+              viewModel.isOld
                   ? Text('곧 폐기됩니다.',
                       style: AppTextStyle.body14R(color: AppColors.caution))
                   : widget.myFoodItem.isExtended
