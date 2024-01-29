@@ -14,7 +14,7 @@ class AppColors {
   // 아이콘 색상
   static const Color icon = Color(0xff333333);
   // 버튼 색상
-  static const Color mainButton = Color(0xff337AFF);
+  static const Color mainButton = Color(0xFF9bc6bf);
   // 오류, 중요 알림
   static const Color caution = Colors.red;
 }
