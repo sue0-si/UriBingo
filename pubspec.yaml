@@ -106,6 +106,10 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: Tmoney
+      fonts:
+        - asset: assets/fonts/TmoneyRoundWindRegular.ttf
+        - asset: assets/fonts/TmoneyRoundWindExtraBold.ttf
     - family: Pretendard
       fonts:
         - asset: assets/fonts/Pretendard-Regular.otf

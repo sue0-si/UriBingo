@@ -38,14 +38,15 @@ class _MainScreenState extends State<MainScreen> {
           ),
           flexibleSpace: Container(
             decoration: BoxDecoration(
-                color: const Color(0xFF254e7a),
+                //color: const Color(0xFF254e7a),
+                color: const Color(0xFF99B0A7),
                 borderRadius: BorderRadius.circular(10)),
           ),
         ),
         body: (viewModel.isLoading)
             ? Center(
                 child: SuperLoadingBar(
-                  colors: const [Color(0xFF254e7a)],
+                  colors: const [Color(0xFF9bc6bf)],
                   strokeWidth: 4,
                 ),
               )
