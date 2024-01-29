@@ -26,6 +26,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainScreenViewModel>();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -63,8 +64,11 @@ class _MainScreenState extends State<MainScreen> {
                     // Last item is the add button
                     return viewModel.isManager
                         ? IconButton(
-                            icon:
-                                Icon(UniconsLine.plus_circle, size: 40,color: Colors.grey.shade400,),
+                            icon: Icon(
+                              UniconsLine.plus_circle,
+                              size: 40,
+                              color: Colors.grey.shade400,
+                            ),
                             onPressed: () {
                               context.go('/addRefrige', extra: 0);
 
@@ -82,5 +86,3 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
-
-

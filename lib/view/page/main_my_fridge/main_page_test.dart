@@ -41,7 +41,10 @@ class _MainPageState extends State<MainPage> {
         animationCurve: Curves.easeInOutExpo,
         index: widget.currentPageIndex,
         backgroundColor: Colors.white,
+
         color: const Color(0xFF9bc6bf),
+
+
         onTap: (int index) {
           setState(() {
             widget.currentPageIndex = index;

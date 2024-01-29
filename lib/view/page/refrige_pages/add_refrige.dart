@@ -39,7 +39,15 @@ class _AddRefrigeState extends State<AddRefrige> {
 
     return Scaffold(
       appBar: AppBar(
-        actions: [],
+        title: Text(
+          '냉장고 추가',
+          style: TextStyle(
+            fontWeight: FontWeight.w200,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Color(0xFF9bc6bf),
+        //actions: [],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -244,6 +252,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                               child: Text(
                                 '연장가능기간',
                                 style: TextStyle(
+                                  color: Color(0xFF00557F),
                                   fontSize: 20,
                                 ),
                               ),
