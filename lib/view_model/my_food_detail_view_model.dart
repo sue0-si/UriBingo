@@ -70,7 +70,6 @@ class MyFoodDetailViewModel with ChangeNotifier {
     ]);
   }
 
-
   //firebase 데이터 get
   Future<void> getFirebaseFoodsData() async {
     final result = await RegisterdFoodsRepository().getFirebaseFoodsData();
@@ -79,5 +78,6 @@ class MyFoodDetailViewModel with ChangeNotifier {
     foodDetails.addAll(result);
 
     notifyListeners();
+
   }
 }
