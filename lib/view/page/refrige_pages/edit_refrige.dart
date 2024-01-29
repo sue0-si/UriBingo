@@ -318,6 +318,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                   builder: (context) {
                                     return TwoAnswerDialog(
                                         title: '수정하시겠습니까?',
+                                        subtitle: '',
                                         titleStyle: const TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,
@@ -360,6 +361,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                               builder: (context) {
                                 return TwoAnswerDialog(
                                   title: '삭제하겠습니까?',
+                                  subtitle: '삭제 후 복구가 불가합니다.',
                                   firstButton: '네',
                                   secondButton: '아니오',
                                   onTap: () async {
@@ -373,6 +375,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                             return TwoAnswerDialog(
                                               title:
                                                   '음식이 남아있습니다. 그래도 삭제하시겠습니까?',
+                                              subtitle: '삭제 후 복구가 불가합니다.',
                                               firstButton: '네',
                                               secondButton: '아니오',
                                               onTap: () async {

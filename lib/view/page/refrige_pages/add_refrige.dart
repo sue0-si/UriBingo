@@ -301,7 +301,8 @@ class _AddRefrigeState extends State<AddRefrige> {
                                   context: context,
                                   builder: (context) {
                                     return TwoAnswerDialog(
-                                        title: '냉장고 이름은 수정이 불가합니다. 추가하시겠습니까?',
+                                        title: '등록하시겠습니까?',
+                                        subtitle: '등록된 냉장고 이름은 수정이 불가합니다.',
                                         titleStyle: TextStyle(
                                           fontSize: 15,
                                           color: Colors.green,
