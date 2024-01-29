@@ -27,6 +27,32 @@ class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<RefrigeCompViewModel>();
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white,),
+          onPressed: () =>
+              context.go('/', extra: 0)
+        ),
+        title: Text('냉장실', style: AppTextStyle.body14R(color: Colors.white)),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: GestureDetector(
+              onTap: () {
+                context.go('/', extra: 1);
+              },
+              child: const Icon(Icons.kitchen_outlined,
+                  color: Colors.white, semanticLabel: '마이냉장고', size: 30),
+            ),
+          ),
+        ],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              color: const Color(0xFF9bc6bf),
+              borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
       body: (viewModel.isLoading)
           ? Center(
               child: LoadingAnimationWidget.inkDrop(

@@ -1,10 +1,16 @@
-import 'package:delayed_widget/delayed_widget.dart';
+import 'package:animated_button_bar/animated_button_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/view/page/refrige_detail_page/freezer_comp_screen.dart';
+import 'package:leute/view/page/refrige_detail_page/refrige_comp_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../../styles/app_text_style.dart';
+import '../../../view_model/freezer_comp_view_model.dart';
+import '../../../view_model/refrige_comp_view_model.dart';
+
+
 
 class RefrigeDetailScreen extends StatefulWidget {
   final RefrigeDetail selectedRefrige;
@@ -17,91 +23,89 @@ class RefrigeDetailScreen extends StatefulWidget {
 }
 
 class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
+  final PageController _pageController = PageController(initialPage: 1);
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/', extra: 0),
-        ),
-        title: Text(widget.selectedRefrige.refrigeName,
-            style: AppTextStyle.body20R()),
-      ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DelayedWidget(
-            delayDuration: const Duration(milliseconds: 1000),
-            // Not required
-            animationDuration: const Duration(seconds: 1),
-            // Not required
-            animation: DelayedAnimations.SLIDE_FROM_BOTTOM,
-            // Not required
-            child: GestureDetector(
-              onTap: () =>
-                  context.go('/freezerDetail', extra: widget.selectedRefrige),
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 5),
-                width: 220.w,
-                height: 106.h,
-                decoration: BoxDecoration(
-                  image: const DecorationImage(
-                      image: AssetImage('assets/images/freezer_comp.png'),
-                      fit: BoxFit.cover),
-                  color: Colors.white,
-                  border: Border.all(color: Colors.black12),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0, 3),
-                      blurRadius: 2.0,
-                    ),
-                  ],
-                ),
-                child: Center(
-                  child: Text('냉동실', style: AppTextStyle.body14R()),
-                ),
-              ),
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () => context.go('/', extra: 0)),
+        title: Center(
+          child: SizedBox(
+            height: 50,
+            child: AnimatedButtonBar(
+              radius: 32.0,
+              padding: const EdgeInsets.all(3.0),
+              backgroundColor: Colors.white,
+              foregroundColor: const Color(0xFF9bc6bf),
+              elevation: 24,
+              borderColor: Colors.white,
+              borderWidth: 3,
+              innerVerticalPadding: 5,
+              children: [
+                ButtonBarEntry(
+                    onTap: () => _pageController.animateToPage(1,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut),
+                    child: Text('냉장실', style: AppTextStyle.body14R(color: Colors.black))),
+                ButtonBarEntry(
+                    onTap: () => _pageController.animateToPage(0,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut),
+                    child: Text('냉동실', style: AppTextStyle.body14R(color: Colors.black))),
+              ],
             ),
           ),
-          DelayedWidget(
-            delayDuration: const Duration(milliseconds: 100),
-            // Not required
-            animationDuration: const Duration(seconds: 1),
-            // Not required
-            animation: DelayedAnimations.SLIDE_FROM_RIGHT,
-            // Not required
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
             child: GestureDetector(
-              onTap: () =>
-                  context.go('/refrigeDetail', extra: widget.selectedRefrige),
-              child: Container(
-                width: 220.w,
-                height: 220.h,
-                decoration: BoxDecoration(
-                  image: const DecorationImage(
-                      image: AssetImage('assets/images/refrige_comp.png'),
-                      fit: BoxFit.cover),
-                  color: Colors.white,
-                  border: Border.all(color: Colors.black12),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0, 3),
-                      blurRadius: 2.0,
-                    ),
-                  ],
-                ),
-                child:
-                    Center(child: Text('냉장실', style: AppTextStyle.body14R())),
-              ),
+              onTap: () {
+                context.go('/', extra: 1);
+              },
+              child: const Icon(Icons.kitchen_outlined,
+                  color: Colors.white, semanticLabel: '마이냉장고', size: 30),
             ),
           ),
         ],
-      )),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              color: const Color(0xFF9bc6bf),
+              borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
+      body: PageView(
+        physics: const ClampingScrollPhysics(),
+        controller: _pageController,
+        scrollDirection: Axis.vertical,
+        children: [
+          ChangeNotifierProvider(
+            create: (context) => FreezerCompViewModel(widget.selectedRefrige),
+            child: FreezerCompScreen(
+              selectedRefrige: widget.selectedRefrige,
+            ),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => RefrigeCompViewModel(widget.selectedRefrige),
+            child: RefrigeCompScreen(
+              selectedRefrige: widget.selectedRefrige,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
