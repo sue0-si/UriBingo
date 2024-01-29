@@ -137,21 +137,29 @@ class _AddRefrigeState extends State<AddRefrige> {
                               child: Container(
                                 margin: EdgeInsets.only(right: 40),
                                 child: DropdownButton(
-                                    value: addPageViewModel.selectedColdstorage,
-                                    items: addPageViewModel
-                                        .coldStorageOfCompartmentsList //String이 아닌 List<String>을 반환되고 있다
-                                        .map((e) => DropdownMenuItem(
-                                              value: e,
-                                              child: Text(e),
-                                            ))
-                                        .toList(),
-                                    isExpanded: true,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        addPageViewModel.selectedColdstorage =
-                                            value!;
-                                      });
-                                    }),
+                                  value: addPageViewModel.selectedColdstorage,
+                                  items: addPageViewModel
+                                      .coldStorageOfCompartmentsList //String이 아닌 List<String>을 반환되고 있다
+                                      .map((e) => DropdownMenuItem(
+                                            value: e,
+                                            child: Text(e),
+                                          ))
+                                      .toList(),
+                                  isExpanded: true,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      addPageViewModel.selectedColdstorage =
+                                          value!;
+                                    });
+                                  },
+                                  /*selectedItemBuilder: (BuildContext context) {
+                                    return addPageViewModel
+                                        .coldStorageOfCompartmentsList
+                                        .map<Widget>((String value) {
+                                      return Text('선택');
+                                    }).toList()
+                                  },*/
+                                ),
                               ),
                             ),
                           ],
