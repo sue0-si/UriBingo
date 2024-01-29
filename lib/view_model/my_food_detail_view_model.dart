@@ -3,7 +3,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
-
 import '../data/repository/foods_repository.dart';
 
 class MyFoodDetailViewModel with ChangeNotifier {
@@ -32,6 +31,7 @@ class MyFoodDetailViewModel with ChangeNotifier {
   int extendPeriod(FoodDetail myFoodItem, RefrigeDetail ourRefirgeItem) {
     int remainPeriod = calculateRemainPeriod(myFoodItem, ourRefirgeItem);
     myFoodItem.isExtended = true;
+    calculateRemainPeriod(myFoodItem, ourRefirgeItem);
     return remainPeriod + ourRefirgeItem.extentionPeriod;
   }
 
@@ -70,6 +70,7 @@ class MyFoodDetailViewModel with ChangeNotifier {
     ]);
   }
 
+
   //firebase 데이터 get
   Future<void> getFirebaseFoodsData() async {
     final result = await RegisterdFoodsRepository().getFirebaseFoodsData();
@@ -78,6 +79,5 @@ class MyFoodDetailViewModel with ChangeNotifier {
     foodDetails.addAll(result);
 
     notifyListeners();
-
   }
 }
