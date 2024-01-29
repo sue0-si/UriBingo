@@ -2,8 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:leute/fridge_data.dart';
 import 'package:leute/router.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Tmoney',
-          colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF325c6a)),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF325c6a)),
         ),
         routerConfig: router,
       ),

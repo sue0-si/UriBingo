@@ -10,12 +10,12 @@ import '../../../styles/app_text_style.dart';
 import '../../../view_model/freezer_comp_view_model.dart';
 import '../../../view_model/refrige_comp_view_model.dart';
 
-
-
 class RefrigeDetailScreen extends StatefulWidget {
   final RefrigeDetail selectedRefrige;
+  final int selectedIndex;
 
-  const RefrigeDetailScreen({Key? key, required this.selectedRefrige})
+  const RefrigeDetailScreen(
+      {Key? key, required this.selectedRefrige, required this.selectedIndex})
       : super(key: key);
 
   @override
@@ -56,15 +56,19 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
               innerVerticalPadding: 5,
               children: [
                 ButtonBarEntry(
-                    onTap: () => _pageController.animateToPage(1,
+                    onTap: () => _pageController.animateToPage(
+                        widget.selectedIndex == 1 ? widget.selectedIndex : 1,
                         duration: const Duration(milliseconds: 500),
                         curve: Curves.easeInOut),
-                    child: Text('냉장실', style: AppTextStyle.body14R(color: Colors.black))),
+                    child: Text('냉장실',
+                        style: AppTextStyle.body14R(color: Colors.black))),
                 ButtonBarEntry(
-                    onTap: () => _pageController.animateToPage(0,
+                    onTap: () => _pageController.animateToPage(
+                        widget.selectedIndex == 0 ? widget.selectedIndex : 0,
                         duration: const Duration(milliseconds: 500),
                         curve: Curves.easeInOut),
-                    child: Text('냉동실', style: AppTextStyle.body14R(color: Colors.black))),
+                    child: Text('냉동실',
+                        style: AppTextStyle.body14R(color: Colors.black))),
               ],
             ),
           ),

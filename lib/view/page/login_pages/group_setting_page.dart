@@ -14,6 +14,7 @@ class GroupSettingPage extends StatefulWidget {
 
 class _GroupSettingPageState extends State<GroupSettingPage> {
   var emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +94,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                       ),
                       trailing: InkWell(
                         onTap: () {},
-                        child: Icon(
+                        child: const Icon(
                           Icons.delete,
                           color: AppColors.info,
                         ),

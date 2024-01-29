@@ -7,13 +7,11 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/repository/user_data_repository.dart';
 import 'package:leute/view_model/register_view_model.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/models/foods_model.dart';
 import '../../../data/models/user_model.dart';
-
-import '../../widget/custom_widgets/super_loading_bar.dart';
-import '../main_my_fridge/main_screen.dart';
 
 class RegisterPage extends StatefulWidget {
   final List<Object> fridgeData;
@@ -48,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     final selectedRefrige = widget.fridgeData[0] as RefrigeDetail;
     final selectedPosition = widget.fridgeData[1] as int;
-    final samePositionFoodList = widget.fridgeData[2] as List<FoodDetail>;
+    // final samePositionFoodList = widget.fridgeData[2] as List<FoodDetail>;
     final isFreezed = widget.fridgeData[3] as bool;
 
     return Scaffold(
@@ -57,9 +55,9 @@ class _RegisterPageState extends State<RegisterPage> {
         padding: const EdgeInsets.all(16.0),
         child: viewModel.isLoading
             ? Center(
-                child: SuperLoadingBar(
-                  colors: const [Color(0xFF254e7a)],
-                  strokeWidth: 4,
+                child: LoadingAnimationWidget.inkDrop(
+                  color: Colors.white,
+                  size: 50,
                 ),
               )
             : Column(
@@ -148,8 +146,12 @@ class _RegisterPageState extends State<RegisterPage> {
                             // 취소버튼
                             ElevatedButton(
                                 onPressed: () {
-                                  context.go('/details',
-                                      extra: widget.fridgeData[0]);
+                                  context.go(
+                                    '/details',
+                                    extra: isFreezed
+                                        ? [widget.fridgeData[0], 0]
+                                        : [widget.fridgeData[0], 1],
+                                  );
                                 },
                                 child: const Text('취소')),
                             // 등록하기 버튼
@@ -211,10 +213,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                       ),
                                     );
                                     context.go(
-                                        isFreezed
-                                            ? '/freezerDetail'
-                                            : '/refrigeDetail',
-                                        extra: widget.fridgeData[0]);
+                                      '/details',
+                                      extra: isFreezed
+                                          ? [widget.fridgeData[0], 0]
+                                          : [widget.fridgeData[0], 1],
+                                    );
                                   }
                                 }
                               },

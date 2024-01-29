@@ -42,5 +42,4 @@ class RegisterdFoodsRepository {
       List<FoodDetail> allFoods, String targetRefrigeName) {
     return allFoods.where((e) => e.refrigeName == targetRefrigeName).toList();
   }
-
 }

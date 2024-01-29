@@ -66,18 +66,17 @@ class FoodThumbNailList extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                    child: IconButton(
-                        onPressed: () => context.go('/addMyFood', extra: [
-                              selectedRefrige,
-                              selectedPosition,
-                              samePositionFoodList,
-                              isFreezed,
-                              isManager
-                            ]),
-                        icon: Icon(UniconsLine.plus_circle,
-                            size: 30, color: Colors.grey.shade400)),
-                  ),
-
+                  child: IconButton(
+                      onPressed: () => context.go('/addMyFood', extra: [
+                            selectedRefrige,
+                            selectedPosition,
+                            samePositionFoodList,
+                            isFreezed,
+                            isManager
+                          ]),
+                      icon: Icon(UniconsLine.plus_circle,
+                          size: 30, color: Colors.grey.shade400)),
+                ),
               ],
             ),
           )

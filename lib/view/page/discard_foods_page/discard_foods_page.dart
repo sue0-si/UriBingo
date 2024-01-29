@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_widgets/super_container.dart';
 import 'package:leute/view_model/discard_foods_view_model.dart';
-import 'package:leute/view_model/my_fridge_view_model.dart';
 import 'package:provider/provider.dart';
 
 class DiscardFoods extends StatelessWidget {
@@ -14,7 +13,6 @@ class DiscardFoods extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<DiscardFoodsViewModel>();
-    print(viewModel.discardFoodsDetails);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -39,27 +37,26 @@ class DiscardFoods extends StatelessWidget {
         ),
         body: viewModel.discardFoodsDetails.isEmpty
             ? const Center(
-          child: Text('폐기예정인 음식이 없습니다.'),
-        )
+                child: Text('폐기예정인 음식이 없습니다.'),
+              )
             : Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  for (var refrigeDetail in viewModel.refrigeDetails)
-                    Column(
-                      children: [
-                        if (viewModel.discardFoodsDetails
-                            .where((e) =>
-                        e.refrigeName == refrigeDetail.refrigeName)
-                            .isNotEmpty)
-                          Text(' ${refrigeDetail.refrigeName}'),
-                        Container(
-                          child: GridView.builder(
+                padding: const EdgeInsets.all(16.0),
+                child: SingleChildScrollView(
+                    child: Column(
+                  children: [
+                    for (var refrigeDetail in viewModel.refrigeDetails)
+                      Column(
+                        children: [
+                          if (viewModel.discardFoodsDetails
+                              .where((e) =>
+                                  e.refrigeName == refrigeDetail.refrigeName)
+                              .isNotEmpty)
+                            Text(' ${refrigeDetail.refrigeName}'),
+                          GridView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 3,
                               mainAxisSpacing: 10,
                               crossAxisSpacing: 10,
@@ -67,8 +64,8 @@ class DiscardFoods extends StatelessWidget {
                             ),
                             itemCount: viewModel.discardFoodsDetails
                                 .where((e) =>
-                            e.refrigeName ==
-                                refrigeDetail.refrigeName)
+                                    e.refrigeName ==
+                                    refrigeDetail.refrigeName)
                                 .length,
                             itemBuilder: (context, index) {
                               return GestureDetector(
@@ -76,8 +73,8 @@ class DiscardFoods extends StatelessWidget {
                                   context.go('/discardFoodDetail', extra: [
                                     viewModel.discardFoodsDetails
                                         .where((e) =>
-                                    e.refrigeName ==
-                                        refrigeDetail.refrigeName)
+                                            e.refrigeName ==
+                                            refrigeDetail.refrigeName)
                                         .toList()[index],
                                     refrigeDetail
                                   ]);
@@ -93,8 +90,8 @@ class DiscardFoods extends StatelessWidget {
                                     image: NetworkImage(
                                       viewModel.discardFoodsDetails
                                           .where((e) =>
-                                      e.refrigeName ==
-                                          refrigeDetail.refrigeName)
+                                              e.refrigeName ==
+                                              refrigeDetail.refrigeName)
                                           .toList()[index]
                                           .foodImage,
                                     ),
@@ -103,12 +100,11 @@ class DiscardFoods extends StatelessWidget {
                               );
                             },
                           ),
-                        ),
-                      ],
-                    ),
-                ],
-              )),
-        ),
+                        ],
+                      ),
+                  ],
+                )),
+              ),
       ),
     );
   }

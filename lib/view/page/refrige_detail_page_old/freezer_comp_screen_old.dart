@@ -4,11 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/view_model/freezer_comp_view_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:unicons/unicons.dart';
 
 import '../../../data/models/refrige_model.dart';
 import '../../../styles/app_text_style.dart';
-import '../../widget/custom_widgets/super_loading_bar.dart';
 
 class FreezerCompScreen extends StatefulWidget {
   final RefrigeDetail selectedRefrige;
@@ -27,13 +25,14 @@ class _FreezerCompScreenState extends State<FreezerCompScreen> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<FreezerCompViewModel>();
     return Scaffold(
-      appBar:AppBar(
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white,),
-          onPressed: () =>
-              context.go('/', extra: 0)
-        ),
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () => context.go('/', extra: 0)),
         title: Text('냉동실', style: AppTextStyle.body14R(color: Colors.white)),
         actions: [
           Padding(

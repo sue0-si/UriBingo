@@ -54,9 +54,11 @@ class FreezerCompViewModel extends ChangeNotifier {
           .manager;
       for (int i = 1; i <= selectedRefrige.freezerCompCount; i++) {
         final samePositionFoodList =
-        _repository.filterFoods(foodItems, true, i);
+            _repository.filterFoods(foodItems, true, i);
         fetchedList.add(FoodThumbNailList(
-          samePositionFoodList: samePositionFoodList[2].where((e) => fetchValidFoods(selectedRefrige, e) > 0).toList(),
+          samePositionFoodList: samePositionFoodList[2]
+              .where((e) => fetchValidFoods(selectedRefrige, e) > 0)
+              .toList(),
           selectedRefrige: selectedRefrige,
           selectedPosition: i,
           isFreezed: true,
@@ -80,8 +82,7 @@ class FreezerCompViewModel extends ChangeNotifier {
     return _foodItems;
   }
 
-
-  int fetchValidFoods(RefrigeDetail selectedRefrige, FoodDetail foodItem){
+  int fetchValidFoods(RefrigeDetail selectedRefrige, FoodDetail foodItem) {
     int passedDate = DateTime.now()
         .difference(DateTime.fromMillisecondsSinceEpoch(foodItem.registerDate))
         .inDays;
@@ -92,5 +93,3 @@ class FreezerCompViewModel extends ChangeNotifier {
     return remainPeriod;
   }
 }
-
-

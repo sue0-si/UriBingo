@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
-
-import '../custom_buttons/first_custom_button.dart';
 
 class MakeFridge extends StatelessWidget {
   final List<RefrigeDetail> refrigeItems;
@@ -19,12 +16,13 @@ class MakeFridge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * 0.4,
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => context.go('/details', extra: refrigeItems[index]),
+            onTap: () =>
+                context.go('/details', extra: [refrigeItems[index], 1]),
             child: Column(
               children: [
                 Container(
@@ -32,7 +30,8 @@ class MakeFridge extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: const DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage('assets/images/new_refrig_icon_eunjin.png'),
+                      image: AssetImage(
+                          'assets/images/new_refrig_icon_eunjin.png'),
                     ),
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
@@ -52,7 +51,7 @@ class MakeFridge extends StatelessWidget {
                   onPressed: () {
                     context.go('/editRefrige', extra: refrigeItems[index]);
                   },
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     '수정',
                     style: TextStyle(fontSize: 15, color: Colors.black),

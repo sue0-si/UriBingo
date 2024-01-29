@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 class SignupPageViewModel with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   // 회원가입
   Future<void> handleSignUp(
       {required String email,

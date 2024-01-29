@@ -56,7 +56,9 @@ class FoodThumbNail extends StatelessWidget {
                   width: 80,
                   border: 50,
                   borderWidth: 5,
-                  borderColor: (remainPeriod > 1) ?  const Color(0xFF9bc6bf) : const Color(0xFFcb7d74),
+                  borderColor: (remainPeriod > 1)
+                      ? const Color(0xFF9bc6bf)
+                      : const Color(0xFFcb7d74),
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: NetworkImage(
@@ -72,10 +74,8 @@ class FoodThumbNail extends StatelessWidget {
                   padding: const EdgeInsets.all(3.0),
                   child: Column(
                     children: [
-                      Text(foodItem.userName,
-                          style: AppTextStyle.body12R()),
-                      Text('남은날: $remainPeriod일',
-                          style: AppTextStyle.body12R())
+                      Text(foodItem.userName, style: AppTextStyle.body12R()),
+                      Text('남은날: $remainPeriod일', style: AppTextStyle.body12R())
                     ],
                   ),
                 ),

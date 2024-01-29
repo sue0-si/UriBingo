@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/data/models/refrige_model.dart';
-import 'package:leute/view/page/main_my_fridge/main_page.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/custom_dialog/two_answer_dialog.dart';
-import '../main_my_fridge/main_screen.dart';
 
 class AddRefrige extends StatefulWidget {
   const AddRefrige({super.key});
@@ -39,14 +36,14 @@ class _AddRefrigeState extends State<AddRefrige> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           '냉장고 추가',
           style: TextStyle(
             fontWeight: FontWeight.w200,
           ),
         ),
         centerTitle: true,
-        backgroundColor: Color(0xFF9bc6bf),
+        backgroundColor: const Color(0xFF9bc6bf),
         //actions: [],
       ),
       body: Padding(
@@ -59,7 +56,7 @@ class _AddRefrigeState extends State<AddRefrige> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 20),
-                  child: Container(
+                  child: SizedBox(
                     height: 300,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,9 +91,9 @@ class _AddRefrigeState extends State<AddRefrige> {
                                   },
                                   controller: addNameController,
                                   //obscureText: true, 입력값을 안보여주고싶을때
-                                  style: TextStyle(fontSize: 15),
+                                  style: const TextStyle(fontSize: 15),
                                   decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
+                                    border: const OutlineInputBorder(),
                                     contentPadding: const EdgeInsets.only(
                                       left: 15,
                                       top: 10,
@@ -122,7 +119,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 25,
                             ),
                           ],
@@ -143,7 +140,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40),
                                 child: DropdownButton(
                                   value: addPageViewModel.selectedColdstorage,
                                   items: addPageViewModel
@@ -187,7 +184,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40),
                                 child: DropdownButton(
                                     value:
                                         addPageViewModel.selectedFrozenStorage,
@@ -224,7 +221,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40),
                                 child: DropdownButton(
                                     value:
                                         addPageViewModel.selectedStoragePeriod,
@@ -260,7 +257,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40),
                                 child: DropdownButton(
                                     elevation: 10,
                                     dropdownColor: Colors.green,
@@ -303,7 +300,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                                     return TwoAnswerDialog(
                                         title: '등록하시겠습니까?',
                                         subtitle: '등록된 냉장고 이름은 수정이 불가합니다.',
-                                        titleStyle: TextStyle(
+                                        titleStyle: const TextStyle(
                                           fontSize: 15,
                                           color: Colors.green,
                                         ),

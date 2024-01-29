@@ -1,14 +1,10 @@
 import 'package:animation_list/animation_list.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:unicons/unicons.dart';
 
-import '../../../styles/app_text_style.dart';
 import '../../../view_model/refrige_comp_view_model.dart';
-import '../../widget/custom_widgets/super_loading_bar.dart';
 
 class RefrigeCompScreen extends StatefulWidget {
   final RefrigeDetail selectedRefrige;

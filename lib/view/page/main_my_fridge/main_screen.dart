@@ -1,14 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/data/models/user_model.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view_model/main_screen_view_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
-
-import '../../widget/custom_widgets/super_loading_bar.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -89,7 +85,10 @@ class _MainScreenState extends State<MainScreen> {
             ? FloatingActionButton(
                 backgroundColor: const Color(0xFF9bc6bf),
                 onPressed: () => context.go('/discardPage'),
-                child: const Icon(Icons.delete_forever_sharp, color: Colors.white,),
+                child: const Icon(
+                  Icons.delete_forever_sharp,
+                  color: Colors.white,
+                ),
               )
             : null);
   }

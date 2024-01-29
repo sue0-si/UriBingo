@@ -63,13 +63,11 @@ class MyFridge extends StatelessWidget {
                                 ),
                               Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.grey.shade300
-                                ),
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.grey.shade300),
                                 child: GridView.builder(
                                   shrinkWrap: true,
-                                  physics:
-                                      const NeverScrollableScrollPhysics(),
+                                  physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3,
@@ -116,7 +114,7 @@ class MyFridge extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               )
                             ],

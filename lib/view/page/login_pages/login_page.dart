@@ -24,12 +24,13 @@ class _LoginPageState extends State<LoginPage> {
   var passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   StreamSubscription? authStateChanges;
+
   @override
   void initState() {
     super.initState();
     authStateChanges = FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
-        context.go('/',extra: 0);
+        context.go('/', extra: 0);
         return;
       }
     });
@@ -85,8 +86,8 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextButton(onPressed: () {}, child: Text('아이디 찾기')),
-                  TextButton(onPressed: () {}, child: Text('비밀번호 찾기')),
+                  TextButton(onPressed: () {}, child: const Text('아이디 찾기')),
+                  TextButton(onPressed: () {}, child: const Text('비밀번호 찾기')),
                   TextButton(
                       onPressed: () {
                         context.push(Uri(path: '/signup').toString());
