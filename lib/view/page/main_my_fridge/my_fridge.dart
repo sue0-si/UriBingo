@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_widgets/super_container.dart';
+import 'package:leute/view/widget/custom_widgets/super_loading_bar.dart';
 import 'package:leute/view_model/my_fridge_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +30,14 @@ class MyFridge extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10)),
           ),
         ),
-        body: viewModel.myFoodDetails.isEmpty
+        body: viewModel.isLoading
+            ?Center(
+          child: SuperLoadingBar(
+            colors: const [Color(0xFF254e7a)],
+            strokeWidth: 4,
+          ),
+        )
+            :viewModel.myFoodDetails.isEmpty
             ? const Center(
                 child: Text('보관중인 음식이 없습니다.'),
               )

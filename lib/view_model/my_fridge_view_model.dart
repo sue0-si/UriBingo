@@ -11,6 +11,7 @@ class MyFridgeViewModel extends ChangeNotifier {
   List<FoodDetail> myFoodDetails = [];
   List<RefrigeDetail> refrigeDetails = [];
   bool _disposed = false;
+  bool isLoading = false;
 
   @override
   void dispose() {
@@ -30,11 +31,15 @@ class MyFridgeViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchMyFridgeData() async {
+    isLoading = true;
+    notifyListeners();
+
     final allFoods = await foodRepository.getFirebaseFoodsData();
     refrigeDetails = await refrigeRepository.getFirebaseRefrigesData();
     myFoodDetails = foodRepository.getMyFoodDetail(
         allFoods, FirebaseAuth.instance.currentUser!.displayName!);
     // refrigeDetails;
+    isLoading = false;
     notifyListeners();
   }
 }
