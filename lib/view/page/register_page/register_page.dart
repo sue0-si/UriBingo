@@ -76,13 +76,14 @@ class _RegisterPageState extends State<RegisterPage> {
                                 width: 300.w,
                                 child: Card(
                                   elevation: 3,
+                                  color: Color(0xFFbcd9d7),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
                                   clipBehavior: Clip.hardEdge,
                                   child: Center(
                                     child: Text('이미지를 촬영하세요',
-                                        style: AppTextStyle.body15R()),
+                                        style: AppTextStyle.body15R(),),
                                   ),
                                 ),
                               )
@@ -131,9 +132,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                 color: Colors.white),
                             child: viewModel.photo == null
                                 ? const Icon(Icons.add_a_photo_rounded,
-                                    size: 30, color: Color(0xFF6a9a9e))
+                                    size: 30, color: Color(0xFF325c6a))
                                 : const Icon(Icons.change_circle,
-                                    size: 30, color: Color(0xFF6a9a9e)),
+                                    size: 30, color: Color(0xFF325c6a)),
                           ),
                         ),
                       ],
@@ -156,6 +157,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                         : '/refrigeDetail',
                                     extra: widget.fridgeData[0]);
                               },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFFbcd9d7), // 배경색 설정
+                              ),
                               child: Text('취소',
                                   style: AppTextStyle.body12R(
                                       color: Colors.black)),
@@ -226,6 +230,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                   }
                                 }
                               },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFFbcd9d7), // 배경색 설정
+                              ),
                               child: Text(
                                 '등록하기',
                                 style:
