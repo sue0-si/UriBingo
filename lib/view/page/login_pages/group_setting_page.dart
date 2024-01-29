@@ -86,12 +86,18 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                     return ListTile(
                       title: Text(
                         '홍길동',
-                        style: AppTextStyle.body14B(),
+                        style: AppTextStyle.body16B(),
                       ),
-                      subtitle: Text('test3@test.com'),
-                      trailing: Icon(
-                        Icons.delete,
-                        color: AppColors.info,
+                      subtitle: Text(
+                        'test3@test.com',
+                        style: AppTextStyle.body14R(),
+                      ),
+                      trailing: InkWell(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.delete,
+                          color: AppColors.info,
+                        ),
                       ),
                     );
                   }),
