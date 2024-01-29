@@ -18,11 +18,15 @@ class MyFoodDetail extends StatefulWidget {
   final FoodDetail myFoodItem;
   final RefrigeDetail ourRefrigItem;
 
+
   @override
   State<MyFoodDetail> createState() => _MyFoodDetailState();
 }
 
 class _MyFoodDetailState extends State<MyFoodDetail> {
+  FoodDetail get foodItem => widget.myFoodItem;
+  RefrigeDetail get refreigItem => widget.ourRefrigItem;
+
   @override
   void initState() {
     super.initState();
@@ -39,6 +43,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('yyyy년 MM월 dd일');
+    final viewModel = context.watch<MyFoodDetailViewModel>();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -115,7 +120,6 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                       secondButton: '아니오',
                                       onTap: () {
                                         //'네' 클릭 -> 함수호출
-
                                         context
                                             .read<MyFoodDetailViewModel>()
                                             .isOld = false;
