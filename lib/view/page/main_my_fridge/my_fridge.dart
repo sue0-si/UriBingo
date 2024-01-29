@@ -14,119 +14,118 @@ class MyFridge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MyFridgeViewModel>();
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: Center(
-            child: Text(
-              '나의냉장고',
-              style: AppTextStyle.header22(color: Colors.white),
-            ),
-          ),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-                color: const Color(0xFF9bc6bf),
-                borderRadius: BorderRadius.circular(10)),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Center(
+          child: Text(
+            '나의냉장고',
+            style: AppTextStyle.header22(color: Colors.white),
           ),
         ),
-        body: viewModel.isLoading
-            ? Center(
-                child: SuperLoadingBar(
-                  colors: const [Color(0xFF254e7a)],
-                  strokeWidth: 4,
-                ),
-              )
-            : viewModel.myFoodDetails.isEmpty
-                ? const Center(
-                    child: Text('보관중인 음식이 없습니다.'),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          for (var refrigeDetail in viewModel.refrigeDetails)
-                            Column(
-                              children: [
-                                if (viewModel.myFoodDetails
-                                    .where((e) =>
-                                        e.refrigeName ==
-                                        refrigeDetail.refrigeName)
-                                    .isNotEmpty)
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: Colors.grey.shade300),
-                                    child: Text(
-                                      ' ${refrigeDetail.refrigeName}',
-                                    ),
-                                  ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              color: const Color(0xFF9bc6bf),
+              borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
+      body: viewModel.isLoading
+          ? Center(
+              child: SuperLoadingBar(
+                colors: const [Color(0xFF254e7a)],
+                strokeWidth: 4,
+              ),
+            )
+          : viewModel.myFoodDetails.isEmpty
+              ? const Center(
+                  child: Text('보관중인 음식이 없습니다.'),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        for (var refrigeDetail in viewModel.refrigeDetails)
+                          Column(
+                            children: [
+                              if (viewModel.myFoodDetails
+                                  .where((e) =>
+                                      e.refrigeName ==
+                                      refrigeDetail.refrigeName)
+                                  .isNotEmpty)
                                 Container(
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey.shade300
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Colors.grey.shade300),
+                                  child: Text(
+                                    ' ${refrigeDetail.refrigeName}',
                                   ),
-                                  child: GridView.builder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      mainAxisSpacing: 10,
-                                      crossAxisSpacing: 10,
-                                      childAspectRatio: 1 / 1,
-                                    ),
-                                    itemCount: viewModel.myFoodDetails
-                                        .where((e) =>
-                                            e.refrigeName ==
-                                            refrigeDetail.refrigeName)
-                                        .length,
-                                    itemBuilder: (context, index) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          context.go('/myfooddetail', extra: [
+                                ),
+                              SizedBox(height: 10),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color(0xFFbbd7da)
+                                ),
+                                child: GridView.builder(
+                                  shrinkWrap: true,
+                                  physics:
+                                      const NeverScrollableScrollPhysics(),
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    mainAxisSpacing: 10,
+                                    crossAxisSpacing: 10,
+                                    childAspectRatio: 1 / 1,
+                                  ),
+                                  itemCount: viewModel.myFoodDetails
+                                      .where((e) =>
+                                          e.refrigeName ==
+                                          refrigeDetail.refrigeName)
+                                      .length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        context.go('/myfooddetail', extra: [
+                                          viewModel.myFoodDetails
+                                              .where((e) =>
+                                                  e.refrigeName ==
+                                                  refrigeDetail.refrigeName)
+                                              .toList()[index],
+                                          refrigeDetail
+                                        ]);
+                                      },
+                                      child: SuperContainer(
+                                        height: 90.h,
+                                        width: 100.w,
+                                        border: 80,
+                                        borderWidth: 5,
+                                        borderColor: const Color(0xFF254e7a),
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(
                                             viewModel.myFoodDetails
                                                 .where((e) =>
                                                     e.refrigeName ==
                                                     refrigeDetail.refrigeName)
-                                                .toList()[index],
-                                            refrigeDetail
-                                          ]);
-                                        },
-                                        child: SuperContainer(
-                                          height: 90.h,
-                                          width: 100.w,
-                                          border: 80,
-                                          borderWidth: 5,
-                                          borderColor: const Color(0xFF254e7a),
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(
-                                              viewModel.myFoodDetails
-                                                  .where((e) =>
-                                                      e.refrigeName ==
-                                                      refrigeDetail.refrigeName)
-                                                  .toList()[index]
-                                                  .foodImage,
-                                            ),
+                                                .toList()[index]
+                                                .foodImage,
                                           ),
                                         ),
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 ),
-                                SizedBox(
-                                  height: 20,
-                                )
-                              ],
-                            ),
-                        ],
-                      ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              )
+                            ],
+                          ),
+                      ],
                     ),
                   ),
-      ),
+                ),
     );
   }
 }
