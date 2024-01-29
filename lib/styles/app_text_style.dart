@@ -4,11 +4,11 @@ import 'package:leute/styles/app_text_colors.dart';
 
 class AppTextStyle {
   static const _regular =
-      TextStyle(fontFamily: 'Pretendard', fontWeight: FontWeight.w400);
+      TextStyle(fontFamily: 'Tmoney', fontWeight: FontWeight.w400);
   static const _medium =
-      TextStyle(fontFamily: 'Pretendard', fontWeight: FontWeight.w500);
+      TextStyle(fontFamily: 'Tmoney', fontWeight: FontWeight.w500);
   static const _bold =
-      TextStyle(fontFamily: 'Pretendard', fontWeight: FontWeight.w700);
+      TextStyle(fontFamily: 'Tmoney', fontWeight: FontWeight.w700);
 
   // header
   static TextStyle header40({Color color = AppColors.mainText}) =>
@@ -19,6 +19,8 @@ class AppTextStyle {
       _bold.copyWith(fontSize: 28.sp, color: color);
   static TextStyle header24({Color color = AppColors.mainText}) =>
       _bold.copyWith(fontSize: 24.sp, color: color);
+  static TextStyle header22({Color color = AppColors.mainText}) =>
+      _bold.copyWith(fontSize: 22.sp, color: color);
   static TextStyle header20({Color color = AppColors.mainText}) =>
       _bold.copyWith(fontSize: 20.sp, color: color);
 
@@ -41,6 +43,12 @@ class AppTextStyle {
       _medium.copyWith(fontSize: 16.sp, color: color);
   static TextStyle body16R({Color color = AppColors.mainText}) =>
       _regular.copyWith(fontSize: 16.sp, color: color);
+  static TextStyle body15B({Color color = AppColors.mainText}) =>
+      _bold.copyWith(fontSize: 15.sp, color: color);
+  static TextStyle body15M({Color color = AppColors.mainText}) =>
+      _medium.copyWith(fontSize: 15.sp, color: color);
+  static TextStyle body15R({Color color = AppColors.mainText}) =>
+      _regular.copyWith(fontSize: 15.sp, color: color);
   static TextStyle body14B({Color color = AppColors.mainText}) =>
       _bold.copyWith(fontSize: 14.sp, color: color);
   static TextStyle body14M({Color color = AppColors.mainText}) =>

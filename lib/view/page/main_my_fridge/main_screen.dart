@@ -26,61 +26,59 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainScreenViewModel>();
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: Center(
-            child: Text(
-              '냉장고',
-              style: AppTextStyle.header20(color: Colors.white),
-            ),
-          ),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-                color: const Color(0xFF9bc6bf),
-                borderRadius: BorderRadius.circular(10)),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Center(
+          child: Text(
+            '냉장고',
+            style: AppTextStyle.header22(color: Colors.white),
           ),
         ),
-        body: (viewModel.isLoading)
-            ? Center(
-                child: SuperLoadingBar(
-                  colors: const [Color(0xFF254e7a)],
-                  strokeWidth: 4,
-                ),
-              )
-            : Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 30,
-                    crossAxisSpacing: 30,
-                    childAspectRatio: 3 / 6,
-                  ),
-                  itemCount: viewModel.fridges.length + 1,
-                  itemBuilder: (context, index) {
-                    if (index == viewModel.fridges.length) {
-                      // Last item is the add button
-                      return viewModel.isManager
-                          ? IconButton(
-                              icon:
-                                  const Icon(UniconsLine.plus_circle, size: 40),
-                              onPressed: () {
-                                context.go('/addRefrige', extra: 0);
-
-                                setState(() {});
-                              },
-                            )
-                          : Container();
-                    } else {
-                      // Display the fridge container
-                      return viewModel.fridges[index];
-                    }
-                  },
-                ),
-              ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              color: const Color(0xFF9bc6bf),
+              borderRadius: BorderRadius.circular(10)),
+        ),
       ),
+      body: (viewModel.isLoading)
+          ? Center(
+              child: SuperLoadingBar(
+                colors: const [Color(0xFF254e7a)],
+                strokeWidth: 4,
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 30,
+                  crossAxisSpacing: 30,
+                  childAspectRatio: 3 / 6,
+                ),
+                itemCount: viewModel.fridges.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == viewModel.fridges.length) {
+                    // Last item is the add button
+                    return viewModel.isManager
+                        ? IconButton(
+                            icon:
+                                Icon(UniconsLine.plus_circle, size: 40,color: Colors.grey.shade400,),
+                            onPressed: () {
+                              context.go('/addRefrige', extra: 0);
+
+                              setState(() {});
+                            },
+                          )
+                        : Container();
+                  } else {
+                    // Display the fridge container
+                    return viewModel.fridges[index];
+                  }
+                },
+              ),
+            ),
     );
   }
 }
