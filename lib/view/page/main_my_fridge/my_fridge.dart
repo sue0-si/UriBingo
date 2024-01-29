@@ -26,7 +26,7 @@ class MyFridge extends StatelessWidget {
           ),
           flexibleSpace: Container(
             decoration: BoxDecoration(
-                color: const Color(0xFF254e7a),
+                color: const Color(0xFF9bc6bf),
                 borderRadius: BorderRadius.circular(10)),
           ),
         ),
@@ -53,7 +53,7 @@ class MyFridge extends StatelessWidget {
                               .where((e) =>
                                   e.refrigeName == refrigeDetail.refrigeName)
                               .isNotEmpty)
-                            Text(' ${refrigeDetail.refrigeName}'),
+                            Text(' ${refrigeDetail.refrigeName}',style: AppTextStyle.body12B(),),
                           Container(
                             child: GridView.builder(
                               shrinkWrap: true,
@@ -104,10 +104,10 @@ class MyFridge extends StatelessWidget {
                               },
                             ),
                           ),
-                        ],
+                          SizedBox(height: 20,)],
                       ),
                   ],
-                )),
+                ),),
               ),
       ),
     );
