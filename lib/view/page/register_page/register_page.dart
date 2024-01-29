@@ -148,10 +148,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             // 취소버튼
                             ElevatedButton(
                                 onPressed: () {
-                                  context.go(
-                                      isFreezed
-                                          ? '/freezerDetail'
-                                          : '/refrigeDetail',
+                                  context.go('/details',
                                       extra: widget.fridgeData[0]);
                                 },
                                 child: const Text('취소')),

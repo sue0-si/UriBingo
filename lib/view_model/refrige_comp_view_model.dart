@@ -55,9 +55,9 @@ class RefrigeCompViewModel extends ChangeNotifier {
 
       for (int i = 1; i <= selectedRefrige.refrigeCompCount; i++) {
         final samePositionFoodList =
-            RegisterdFoodsRepository().filterFoods(foodItems, false, i);
+        _repository.filterFoods(foodItems, false, i);
         fetchedList.add(FoodThumbNailList(
-          samePositionFoodList: samePositionFoodList[2],
+          samePositionFoodList: samePositionFoodList[2].where((e) => fetchValidFoods(selectedRefrige, e) > 0).toList(),
           selectedRefrige: selectedRefrige,
           selectedPosition: i,
           isFreezed: false,
@@ -79,5 +79,16 @@ class RefrigeCompViewModel extends ChangeNotifier {
     final allFoods = await _repository.getFirebaseFoodsData();
     _foodItems = allFoods.where((e) => e.refrigeName == refrigeName).toList();
     return _foodItems;
+  }
+
+  int fetchValidFoods(RefrigeDetail selectedRefrige, FoodDetail foodItem) {
+    int passedDate = DateTime.now()
+        .difference(DateTime.fromMillisecondsSinceEpoch(foodItem.registerDate))
+        .inDays;
+    int remainPeriod = selectedRefrige.period - passedDate;
+    if (foodItem.isExtended == true) {
+      remainPeriod += selectedRefrige.extentionPeriod;
+    }
+    return remainPeriod;
   }
 }
