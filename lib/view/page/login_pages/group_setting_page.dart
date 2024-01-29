@@ -66,8 +66,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                             backgroundColor: MaterialStateProperty.all(
                                 AppColors.mainButton)),
                         child: Text('추가',
-                            style: AppTextStyle.body20B(
-                                color: AppColors.mainText)),
+                            style: AppTextStyle.body20B(color: Colors.white)),
                       )
                     ],
                   )

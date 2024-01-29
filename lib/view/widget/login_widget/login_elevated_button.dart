@@ -23,7 +23,7 @@ class LoginElevatedButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all(AppColors.mainButton)),
       child: Text(
         childText,
-        style: AppTextStyle.body20B(color: AppColors.icon),
+        style: AppTextStyle.body20B(color: Colors.white),
       ),
     );
     //     NiceButtons(
