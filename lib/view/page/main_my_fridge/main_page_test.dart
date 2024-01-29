@@ -41,7 +41,7 @@ class _MainPageState extends State<MainPage> {
         animationCurve: Curves.easeInOutExpo,
         index: widget.currentPageIndex,
         backgroundColor: Colors.white,
-        color: const Color(0xFF254e7a),
+        color: const Color(0xFF9bc6bf),
         onTap: (int index) {
           setState(() {
             widget.currentPageIndex = index;
@@ -50,7 +50,7 @@ class _MainPageState extends State<MainPage> {
         items: const <Widget>[
           Icon(UniconsLine.home,
               color: Colors.white, semanticLabel: '냉장고', size: 30),
-          Icon(UniconsLine.apps,
+          Icon(Icons.kitchen_outlined,
               color: Colors.white, semanticLabel: '마이냉장고', size: 30),
           Icon(UniconsLine.user,
               color: Colors.white, semanticLabel: '마이페이지', size: 30),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
 import 'package:leute/data/repository/refrige_repository.dart';
+import 'package:leute/data/repository/user_data_repository.dart';
 import 'package:leute/view/page/main_my_fridge/main_screen.dart';
 import 'package:leute/view/widget/main_my_fridge_widget/make_fridge_widget.dart';
 

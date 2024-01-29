@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/data/repository/user_data_repository.dart';
 
 import '../data/models/foods_model.dart';
 import '../data/models/user_model.dart';
 import '../data/repository/foods_repository.dart';
-import '../view/page/main_my_fridge/main_screen.dart';
 import '../view/widget/refrige_detail_page_widget/food_thumb_nail_list.dart';
 
 class FreezerCompViewModel extends ChangeNotifier {

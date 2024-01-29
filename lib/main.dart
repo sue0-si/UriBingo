@@ -22,7 +22,8 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          fontFamily: 'Pretendard',
+          fontFamily: 'Tmoney',
+          colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF325c6a)),
         ),
         routerConfig: router,
       ),

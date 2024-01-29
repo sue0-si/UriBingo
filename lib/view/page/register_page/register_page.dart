@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/data/repository/user_data_repository.dart';
 import 'package:leute/view_model/register_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/models/foods_model.dart';
 import '../../../data/models/user_model.dart';
+
 import '../../widget/custom_widgets/super_loading_bar.dart';
 import '../main_my_fridge/main_screen.dart';
 
