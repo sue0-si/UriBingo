@@ -13,99 +13,97 @@ class DiscardFoods extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<DiscardFoodsViewModel>();
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () => context.go('/', extra: 0)),
-          title: Center(
-            child: Text(
-              '폐기할음식들',
-              style: AppTextStyle.header20(color: Colors.white),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
             ),
-          ),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-                color: const Color(0xFF9bc6bf),
-                borderRadius: BorderRadius.circular(10)),
+            onPressed: () => context.go('/', extra: 0)),
+        title: Center(
+          child: Text(
+            '폐기할음식들',
+            style: AppTextStyle.header20(color: Colors.white),
           ),
         ),
-        body: viewModel.discardFoodsDetails.isEmpty
-            ? const Center(
-                child: Text('폐기예정인 음식이 없습니다.'),
-              )
-            : Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: SingleChildScrollView(
-                    child: Column(
-                  children: [
-                    for (var refrigeDetail in viewModel.refrigeDetails)
-                      Column(
-                        children: [
-                          if (viewModel.discardFoodsDetails
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              color: const Color(0xFF9bc6bf),
+              borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
+      body: viewModel.discardFoodsDetails.isEmpty
+          ? const Center(
+              child: Text('폐기예정인 음식이 없습니다.'),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SingleChildScrollView(
+                  child: Column(
+                children: [
+                  for (var refrigeDetail in viewModel.refrigeDetails)
+                    Column(
+                      children: [
+                        if (viewModel.discardFoodsDetails
+                            .where((e) =>
+                                e.refrigeName == refrigeDetail.refrigeName)
+                            .isNotEmpty)
+                          Text(' ${refrigeDetail.refrigeName}'),
+                        GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            childAspectRatio: 1 / 1,
+                          ),
+                          itemCount: viewModel.discardFoodsDetails
                               .where((e) =>
-                                  e.refrigeName == refrigeDetail.refrigeName)
-                              .isNotEmpty)
-                            Text(' ${refrigeDetail.refrigeName}'),
-                          GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                              childAspectRatio: 1 / 1,
-                            ),
-                            itemCount: viewModel.discardFoodsDetails
-                                .where((e) =>
-                                    e.refrigeName ==
-                                    refrigeDetail.refrigeName)
-                                .length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  context.go('/discardFoodDetail', extra: [
+                                  e.refrigeName ==
+                                  refrigeDetail.refrigeName)
+                              .length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                context.go('/discardFoodDetail', extra: [
+                                  viewModel.discardFoodsDetails
+                                      .where((e) =>
+                                          e.refrigeName ==
+                                          refrigeDetail.refrigeName)
+                                      .toList()[index],
+                                  refrigeDetail
+                                ]);
+                              },
+                              child: SuperContainer(
+                                height: 90.h,
+                                width: 100.w,
+                                border: 80,
+                                borderWidth: 5,
+                                borderColor: const Color(0xFF9bc6bf),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
                                     viewModel.discardFoodsDetails
                                         .where((e) =>
                                             e.refrigeName ==
                                             refrigeDetail.refrigeName)
-                                        .toList()[index],
-                                    refrigeDetail
-                                  ]);
-                                },
-                                child: SuperContainer(
-                                  height: 90.h,
-                                  width: 100.w,
-                                  border: 80,
-                                  borderWidth: 5,
-                                  borderColor: const Color(0xFF9bc6bf),
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                      viewModel.discardFoodsDetails
-                                          .where((e) =>
-                                              e.refrigeName ==
-                                              refrigeDetail.refrigeName)
-                                          .toList()[index]
-                                          .foodImage,
-                                    ),
+                                        .toList()[index]
+                                        .foodImage,
                                   ),
                                 ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                  ],
-                )),
-              ),
-      ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                ],
+              )),
+            ),
     );
   }
 }

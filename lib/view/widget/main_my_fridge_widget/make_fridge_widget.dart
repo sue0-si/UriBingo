@@ -33,7 +33,7 @@ class MakeFridge extends StatelessWidget {
                     image: DecorationImage(
                       fit: BoxFit.fill,
                       image: AssetImage(
-                          'assets/images/new_uribingo_icon2.png'),
+                          'assets/images/lemon.png'),
                     ),
                     color: Colors.white,
                     // borderRadius: BorderRadius.circular(10),
