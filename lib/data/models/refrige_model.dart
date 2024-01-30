@@ -5,6 +5,7 @@ class RefrigeDetail {
   int period;
   int extentionPeriod;
   int registerDate;
+  String validationCode;
 
 //<editor-fold desc="Data Methods">
   RefrigeDetail({
@@ -14,6 +15,7 @@ class RefrigeDetail {
     required this.period,
     required this.extentionPeriod,
     required this.registerDate,
+    required this.validationCode,
   });
 
   @override
@@ -26,7 +28,8 @@ class RefrigeDetail {
           freezerCompCount == other.freezerCompCount &&
           period == other.period &&
           extentionPeriod == other.extentionPeriod &&
-          registerDate == other.registerDate);
+          registerDate == other.registerDate &&
+          validationCode == other.validationCode);
 
   @override
   int get hashCode =>
@@ -35,11 +38,12 @@ class RefrigeDetail {
       freezerCompCount.hashCode ^
       period.hashCode ^
       extentionPeriod.hashCode ^
-      registerDate.hashCode;
+      registerDate.hashCode ^
+      validationCode.hashCode;
 
   @override
   String toString() {
-    return 'RefrigeDetail{ refrigeName: $refrigeName, refrigeCompCount: $refrigeCompCount, freezerCompCount: $freezerCompCount, period: $period, extentionPeriod: $extentionPeriod, registerDate: $registerDate,}';
+    return 'RefrigeDetail{ refrigeName: $refrigeName, refrigeCompCount: $refrigeCompCount, freezerCompCount: $freezerCompCount, period: $period, extentionPeriod: $extentionPeriod, registerDate: $registerDate, validationCode: $validationCode,}';
   }
 
   RefrigeDetail copyWith({
@@ -49,6 +53,7 @@ class RefrigeDetail {
     int? period,
     int? extentionPeriod,
     int? registerDate,
+    String? validationCode,
   }) {
     return RefrigeDetail(
       refrigeName: refrigeName ?? this.refrigeName,
@@ -57,6 +62,7 @@ class RefrigeDetail {
       period: period ?? this.period,
       extentionPeriod: extentionPeriod ?? this.extentionPeriod,
       registerDate: registerDate ?? this.registerDate,
+      validationCode: validationCode ?? this.validationCode,
     );
   }
 
@@ -68,6 +74,7 @@ class RefrigeDetail {
       'period': period,
       'extentionPeriod': extentionPeriod,
       'registerDate': registerDate,
+      'validationCode': validationCode,
     };
   }
 
@@ -79,6 +86,7 @@ class RefrigeDetail {
       period: map['period'] as int,
       extentionPeriod: map['extentionPeriod'] as int,
       registerDate: map['registerDate'] as int,
+      validationCode: map['validationCode'] as String,
     );
   }
 

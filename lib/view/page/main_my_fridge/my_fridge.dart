@@ -32,7 +32,7 @@ class MyFridge extends StatelessWidget {
       body: viewModel.isLoading
           ? Center(
               child: LoadingAnimationWidget.inkDrop(
-                color: Colors.white,
+                color: const Color(0xFF9bc6bf),
                 size: 50,
               ),
             )

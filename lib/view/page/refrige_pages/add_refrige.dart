@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leute/data/models/user_model.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/custom_dialog/two_answer_dialog.dart';
 
 class AddRefrige extends StatefulWidget {
-  const AddRefrige({super.key});
+  const AddRefrige({super.key, required this.currentUser});
+  final UserModel currentUser;
 
   //외부에서 값을 받아올 수 있다
 
@@ -312,7 +314,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                                           if (mounted) {
                                             context.go('/', extra: 0);
                                           }
-                                          await addPageViewModel.addRefrige();
+                                          await addPageViewModel.addRefrige(widget.currentUser);
                                         });
                                   });
                               //왜 async?

@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/data/models/user_model.dart';
 import 'package:leute/view/page/discard_foods_page/discard_food_detail_page.dart';
 import 'package:leute/view/page/discard_foods_page/discard_foods_page.dart';
 import 'package:leute/view/page/login_pages/group_setting_page.dart';
@@ -80,7 +81,7 @@ final router = GoRouter(initialLocation: '/login', routes: [
     builder: (context, state) {
       return ChangeNotifierProvider(
         create: (_) => AddPageViewModel(),
-        child: const AddRefrige(),
+        child: AddRefrige(currentUser: state.extra as UserModel,),
       );
     },
   ),
@@ -89,7 +90,7 @@ final router = GoRouter(initialLocation: '/login', routes: [
     builder: (context, state) {
       return ChangeNotifierProvider(
         create: (_) => AddPageViewModel(),
-        child: EditRefrige(seletedRefrige: state.extra as RefrigeDetail),
+        child: EditRefrige(seletedRefrige: (state.extra as List)[0], currentUser: (state.extra as List)[1],),
       );
     },
   ),
