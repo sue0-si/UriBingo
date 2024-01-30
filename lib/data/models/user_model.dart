@@ -50,10 +50,10 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'email': this.email,
-      'employeeNumber': this.employeeNumber,
-      'manager': this.manager,
-      'name': this.name,
+      'email': email,
+      'employeeNumber': employeeNumber,
+      'manager': manager,
+      'name': name,
     };
   }
 

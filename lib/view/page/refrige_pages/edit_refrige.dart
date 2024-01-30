@@ -64,8 +64,7 @@ class _EditRefrigeState extends State<EditRefrige> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () =>
-              context.go('/', extra: 0),
+          onPressed: () => context.go('/', extra: 0),
         ),
       ),
       body: Padding(
@@ -78,7 +77,7 @@ class _EditRefrigeState extends State<EditRefrige> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 20),
-                  child: Container(
+                  child: SizedBox(
                     height: 300,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,7 +177,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                         selectedColdstorageController.text =
                                             value!;
                                         addPageViewModel.selectedColdstorage =
-                                            value!;
+                                            value;
                                       });
                                     }),
                               ),
@@ -216,7 +215,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                         selectedFrozenStorageController.text =
                                             value!;
                                         addPageViewModel.selectedFrozenStorage =
-                                            value!;
+                                            value;
                                       });
                                     }),
                               ),
@@ -253,7 +252,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                         selectedStoragePeriodController.text =
                                             value!;
                                         addPageViewModel.selectedStoragePeriod =
-                                            value!;
+                                            value;
                                       });
                                     }),
                               ),
@@ -292,7 +291,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                         selectedExtensionPeriodController.text =
                                             value!;
                                         addPageViewModel
-                                            .selectedExtensionPeriod = value!;
+                                            .selectedExtensionPeriod = value;
                                       });
                                     }),
                               ),
@@ -318,6 +317,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                   builder: (context) {
                                     return TwoAnswerDialog(
                                         title: '수정하시겠습니까?',
+                                        subtitle: '',
                                         titleStyle: const TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,
@@ -360,19 +360,24 @@ class _EditRefrigeState extends State<EditRefrige> {
                               builder: (context) {
                                 return TwoAnswerDialog(
                                   title: '삭제하겠습니까?',
+                                  subtitle: '삭제 후 복구가 불가합니다.',
                                   firstButton: '네',
                                   secondButton: '아니오',
                                   onTap: () async {
                                     await addPageViewModel.remainFoodsCheck(
                                         widget.seletedRefrige.refrigeName);
                                     if (addPageViewModel.foodItems.isNotEmpty) {
-                                      Navigator.of(context, rootNavigator: true).pop();
-                                      showDialog(
+                                      if (mounted) {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .pop();
+                                        showDialog(
                                           context: context,
                                           builder: (context) {
                                             return TwoAnswerDialog(
                                               title:
                                                   '음식이 남아있습니다. 그래도 삭제하시겠습니까?',
+                                              subtitle: '삭제 후 복구가 불가합니다.',
                                               firstButton: '네',
                                               secondButton: '아니오',
                                               onTap: () async {
@@ -383,7 +388,9 @@ class _EditRefrigeState extends State<EditRefrige> {
                                                 }
                                               },
                                             );
-                                          });
+                                          },
+                                        );
+                                      }
                                     } else {
                                       await addPageViewModel.deleteRefrige();
                                       if (mounted) {

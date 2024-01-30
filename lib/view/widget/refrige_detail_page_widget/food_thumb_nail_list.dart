@@ -24,7 +24,7 @@ class FoodThumbNailList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.only(top: 10, left: 16, right: 16),
       decoration: BoxDecoration(
         // image: DecorationImage(opacity: 0.5,
         //   image: AssetImage('assets/images/shelf.png'),
@@ -63,18 +63,23 @@ class FoodThumbNailList extends StatelessWidget {
                 }),
           ),
           Expanded(
-              child: IconButton(
-                  onPressed: () => context.go('/addMyFood', extra: [
-                        selectedRefrige,
-                        selectedPosition,
-                        samePositionFoodList,
-                        isFreezed,
-                        isManager
-                      ]),
-                  icon: const Icon(
-                    UniconsLine.plus_circle,
-                    size: 30,
-                  )))
+            child: Column(
+              children: [
+                Expanded(
+                  child: IconButton(
+                      onPressed: () => context.go('/addMyFood', extra: [
+                            selectedRefrige,
+                            selectedPosition,
+                            samePositionFoodList,
+                            isFreezed,
+                            isManager
+                          ]),
+                      icon: Icon(UniconsLine.plus_circle,
+                          size: 30, color: Colors.grey.shade400)),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

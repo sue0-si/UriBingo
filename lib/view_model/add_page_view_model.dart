@@ -141,23 +141,19 @@ class AddPageViewModel extends ChangeNotifier {
           .doc(registerdDate.toString() + initialName)
           .delete(),
     ]);
-    if (_foodItems.isNotEmpty){
-      for (int i = 0; i< _foodItems.length; i++){
+    if (_foodItems.isNotEmpty) {
+      for (int i = 0; i < _foodItems.length; i++) {
         await Future.wait([
           FirebaseFirestore.instance
               .collection('foodDetails')
-              .doc(_foodItems[i].registerDate
-              .toString() +
-              _foodItems[i].userId)
+              .doc(_foodItems[i].registerDate.toString() + _foodItems[i].userId)
               .delete(),
           FirebaseStorage.instance
-              .ref(
-              "images/${_foodItems[i].registerDate}.jpg")
+              .ref("images/${_foodItems[i].registerDate}.jpg")
               .delete()
         ]);
       }
     }
-
 
     notifyListeners();
   }

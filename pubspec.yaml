@@ -66,6 +66,8 @@ dependencies:
   pretty_animated_buttons: ^0.0.1
   animated_icon_button: ^1.0.2
   shared_preferences: ^2.2.2
+  loading_animation_widget: ^1.2.0+4
+  animated_button_bar: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -113,6 +115,8 @@ flutter:
           weight: 700
         - asset: assets/fonts/TmoneyRoundWindRegular.ttf
           weight: 400
+        - asset: assets/fonts/TmoneyRoundWindRegular.ttf
+        - asset: assets/fonts/TmoneyRoundWindExtraBold.ttf
 
     - family: Pretendard
       fonts:

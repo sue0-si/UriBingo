@@ -5,6 +5,7 @@ class LoginTextfield extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final String? Function(String?)? validator;
+
   const LoginTextfield(
       {super.key,
       required this.hintText,
@@ -17,6 +18,7 @@ class LoginTextfield extends StatefulWidget {
 
 class _LoginTextfieldState extends State<LoginTextfield> {
   String textFormFieldText = '';
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(

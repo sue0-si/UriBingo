@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
-import 'package:leute/view/widget/custom_buttons/first_custom_button.dart';
 
 class LoginElevatedButton extends StatelessWidget {
   final Function() onPressed;
   final String childText;
+
   const LoginElevatedButton(
       {super.key, required this.childText, required this.onPressed});
 

@@ -13,18 +13,18 @@ import 'package:provider/provider.dart';
 
 import '../../widget/custom_widgets/super_container.dart';
 
-class MyFoodDetail extends StatefulWidget {
-  const MyFoodDetail(
+class DiscardFoodDetail extends StatefulWidget {
+  const DiscardFoodDetail(
       {super.key, required this.myFoodItem, required this.ourRefrigItem});
 
   final FoodDetail myFoodItem;
   final RefrigeDetail ourRefrigItem;
 
   @override
-  State<MyFoodDetail> createState() => _MyFoodDetailState();
+  State<DiscardFoodDetail> createState() => _DiscardFoodDetailState();
 }
 
-class _MyFoodDetailState extends State<MyFoodDetail> {
+class _DiscardFoodDetailState extends State<DiscardFoodDetail> {
   @override
   void initState() {
     super.initState();
@@ -46,7 +46,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            context.go('/', extra: 1);
+            context.go('/discardPage');
           },
           icon: const Icon(Icons.arrow_back),
         ),
@@ -79,69 +79,35 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
             ),
           ),
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 32.h),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 40.w),
+          padding: EdgeInsets.symmetric(horizontal: 30.w),
           child: Column(
             children: [
               Row(
                 children: [
-                  Text(
-                      '등록일: ${dateFormat.format(DateTime.fromMillisecondsSinceEpoch(widget.myFoodItem.registerDate))}',
-                      style: AppTextStyle.body15R()),
+                  Text('주  인: ${widget.myFoodItem.userName}',
+                      style: AppTextStyle.body14R()),
                 ],
               ),
-              SizedBox(height: 8.h),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('남은기간: ', style: AppTextStyle.body15R()),
                   Text(
-                    '${viewModel.remainPeriod}일',
-                    style: AppTextStyle.body15B(
+                      '등록일: ${dateFormat.format(DateTime.fromMillisecondsSinceEpoch(widget.myFoodItem.registerDate))}',
+                      style: AppTextStyle.body14R()),
+                ],
+              ),
+              Row(
+                children: [
+                  Text('남은기간: ', style: AppTextStyle.body14R()),
+                  Text(
+                    '${viewModel.remainPeriod} 일',
+                    style: AppTextStyle.body14R(
                         color: viewModel.isOld
                             ? AppColors.caution
                             : AppColors.mainText),
                   ),
                   const Spacer(),
-                  SizedBox(
-                    width: 90.w,
-                    height: 27.h,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          backgroundColor: const Color(0xFFbcd9d7)),
-                      //남은 기간이 2일 미만-> 다이얼로그 생성 / 2일 이상 ->버튼 비활성화
-                      onPressed: context.watch<MyFoodDetailViewModel>().isOld
-                          ? () {
-                              showDialog(
-                                  context: context,
-                                  builder: (desContext) {
-                                    return TwoAnswerDialog(
-                                        title: '연장하시겠습니까?',
-                                        subtitle: '연장은 1회만 가능합니다',
-                                        firstButton: '네',
-                                        secondButton: '아니오',
-                                        onTap: () {
-                                          //'네' 클릭 -> 함수호출
-                                          viewModel.isOld = false;
-                                          viewModel.extendPeriod(
-                                              widget.myFoodItem,
-                                              widget.ourRefrigItem);
-                                          viewModel.updateFirestore(
-                                              widget.myFoodItem);
-                                          Navigator.of(context).pop();
-                                        });
-                                  });
-                            }
-                          //연장버튼 비활성화
-                          : null,
-                      child: Text('연장하기',
-                          style:
-                              AppTextStyle.body12R(color: AppColors.mainText)),
-                    ),
-                  )
                 ],
               ),
               SizedBox(height: 90.h),
@@ -178,7 +144,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                 viewModel.deleteFoodAndStorage(
                                     widget.myFoodItem, widget.ourRefrigItem);
                                 if (mounted) {
-                                  context.go('/', extra: 1);
+                                  context.go('/discardPage');
                                 }
                               });
                         });

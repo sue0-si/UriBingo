@@ -7,6 +7,7 @@ class InkwellRowTile extends StatelessWidget {
   final IconData icon;
   final String text;
   final Function() onTap;
+
   const InkwellRowTile(
       {super.key, required this.text, required this.onTap, required this.icon});
 

@@ -6,6 +6,7 @@ class PasswordTextfield extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final String? Function(String?)? validator;
+
   const PasswordTextfield(
       {super.key,
       required this.hintText,
@@ -19,6 +20,7 @@ class PasswordTextfield extends StatefulWidget {
 class _PasswordTextfieldState extends State<PasswordTextfield> {
   String textFormFieldText = '';
   bool obscureText = true;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
