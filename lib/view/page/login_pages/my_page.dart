@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/login_widget/Inkwell_row_tile.dart';
@@ -41,7 +42,12 @@ class MyPage extends StatelessWidget {
                 },
                 icon: Icons.group_rounded),
           InkwellRowTile(
-              text: '비밀번호 변경', onTap: () {}, icon: Icons.lock_outline_rounded),
+              text: '비밀번호 변경',
+              onTap: () {
+                // context.go('/changePassword');
+                context.push(Uri(path: '/changePassword').toString());
+              },
+              icon: Icons.lock_outline_rounded),
           InkwellRowTile(
               text: '로그아웃',
               onTap: () {

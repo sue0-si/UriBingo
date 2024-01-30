@@ -3,6 +3,7 @@ import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
 import 'package:leute/view/page/discard_foods_page/discard_food_detail_page.dart';
 import 'package:leute/view/page/discard_foods_page/discard_foods_page.dart';
+import 'package:leute/view/page/login_pages/change_password_page.dart';
 import 'package:leute/view/page/login_pages/group_setting_page.dart';
 import 'package:leute/view/page/login_pages/login_page.dart';
 import 'package:leute/view/page/login_pages/signup_page.dart';
@@ -126,6 +127,17 @@ final router = GoRouter(initialLocation: '/login', routes: [
           ),
         );
       }),
+
+  // 비밀번호 변경 페이지
+  GoRoute(
+    path: '/changePassword',
+    builder: (context, state) {
+      return ChangeNotifierProvider(
+        create: (_) => LoginPageViewModel(),
+        child: const ChangePasswordPage(),
+      );
+    },
+  )
 
   // GoRoute(
   //     path: '/myFridge',
