@@ -53,70 +53,100 @@ class MyFridge extends StatelessWidget {
                                       e.refrigeName ==
                                       refrigeDetail.refrigeName)
                                   .isNotEmpty)
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: Colors.grey.shade300),
-                                  child: Text(
-                                    ' ${refrigeDetail.refrigeName}',
-                                  ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(color: Colors.white,
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                            color: Color(0xFF9bc6bf), width: 3),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          ' ${refrigeDetail.refrigeName}',
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
+                              if (viewModel.myFoodDetails
+                                  .where((e) =>
+                                      e.refrigeName ==
+                                      refrigeDetail.refrigeName)
+                                  .isNotEmpty)
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              if (viewModel.myFoodDetails
+                                  .where((e) =>
+                              e.refrigeName ==
+                                  refrigeDetail.refrigeName)
+                                  .isNotEmpty)
                               Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey.shade300),
-                                child: GridView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3,
-                                    mainAxisSpacing: 10,
-                                    crossAxisSpacing: 10,
-                                    childAspectRatio: 1 / 1,
-                                  ),
-                                  itemCount: viewModel.myFoodDetails
-                                      .where((e) =>
-                                          e.refrigeName ==
-                                          refrigeDetail.refrigeName)
-                                      .length,
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        context.go('/myfooddetail', extra: [
-                                          viewModel.myFoodDetails
-                                              .where((e) =>
-                                                  e.refrigeName ==
-                                                  refrigeDetail.refrigeName)
-                                              .toList()[index],
-                                          refrigeDetail
-                                        ]);
-                                      },
-                                      child: SuperContainer(
-                                        height: 90.h,
-                                        width: 100.w,
-                                        border: 80,
-                                        borderWidth: 5,
-                                        borderColor: const Color(0xFF9bc6bf),
-                                        image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: NetworkImage(
+                                    color: Color(0xFFbbd7da)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: GridView.builder(
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      mainAxisSpacing: 10,
+                                      crossAxisSpacing: 10,
+                                      childAspectRatio: 1 / 1,
+                                    ),
+                                    itemCount: viewModel.myFoodDetails
+                                        .where((e) =>
+                                            e.refrigeName ==
+                                            refrigeDetail.refrigeName)
+                                        .length,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          context.go('/myfooddetail', extra: [
                                             viewModel.myFoodDetails
                                                 .where((e) =>
                                                     e.refrigeName ==
                                                     refrigeDetail.refrigeName)
-                                                .toList()[index]
-                                                .foodImage,
+                                                .toList()[index],
+                                            refrigeDetail
+                                          ]);
+                                        },
+                                        child: SuperContainer(
+                                          height: 90.h,
+                                          width: 100.w,
+                                          border: 80,
+                                          borderWidth: 5,
+                                          borderColor: const Color(0xFF9bc6bf),
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                              viewModel.myFoodDetails
+                                                  .where((e) =>
+                                                      e.refrigeName ==
+                                                      refrigeDetail.refrigeName)
+                                                  .toList()[index]
+                                                  .foodImage,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 20,
-                              )
+                              if (viewModel.myFoodDetails
+                                  .where((e) =>
+                                      e.refrigeName ==
+                                      refrigeDetail.refrigeName)
+                                  .isNotEmpty)
+                                SizedBox(
+                                  height: 30,
+                                )
                             ],
                           ),
                       ],
