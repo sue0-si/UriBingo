@@ -4,28 +4,33 @@ import 'package:leute/styles/app_text_colors.dart';
 class LoginTextfield extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
+  final String? Function(String?)? validator;
+
   const LoginTextfield(
-      {super.key, required this.hintText, required this.controller});
+      {super.key,
+      required this.hintText,
+      required this.controller,
+      this.validator});
 
   @override
   State<LoginTextfield> createState() => _LoginTextfieldState();
 }
 
 class _LoginTextfieldState extends State<LoginTextfield> {
+  String textFormFieldText = '';
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      onChanged: (text) {},
       keyboardType: TextInputType.text,
-      maxLines: 1,
-      validator: (value) {
-        // 유효성 검사
-        if (value == null || value.isEmpty) {
-          return '입력된 값이 없을때 나오는 텍스트';
-        }
-        return null;
+      onChanged: (text) {
+        setState(() {
+          textFormFieldText = text;
+        });
       },
+      maxLines: 1,
+      validator: widget.validator,
       decoration: InputDecoration(
           // 기본디자인
           enabledBorder: OutlineInputBorder(
@@ -43,7 +48,22 @@ class _LoginTextfieldState extends State<LoginTextfield> {
               color: AppColors.mainButton,
             ),
           ),
-          hintText: widget.hintText),
+          hintText: widget.hintText,
+          hintStyle: const TextStyle(color: AppColors.info),
+          suffixIcon: textFormFieldText.isEmpty
+              ? null
+              : GestureDetector(
+                  child: const Icon(
+                    Icons.cancel,
+                    color: AppColors.mainButton,
+                  ),
+                  onTap: () {
+                    setState(() {
+                      widget.controller.clear();
+                      textFormFieldText = '';
+                    });
+                  },
+                )),
     );
   }
 }

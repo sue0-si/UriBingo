@@ -1,10 +1,10 @@
+import 'package:animation_list/animation_list.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:provider/provider.dart';
 
-import '../../../data/mock_repository/foods_repository.dart';
-import '../../../data/mock_repository/refrige_repository.dart';
-import '../../widget/refrige_detail_page_widget/food_thumb_nail_list.dart';
+import '../../../view_model/refrige_comp_view_model.dart';
 
 class RefrigeCompScreen extends StatefulWidget {
   final RefrigeDetail selectedRefrige;
@@ -19,42 +19,26 @@ class RefrigeCompScreen extends StatefulWidget {
 }
 
 class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
-  List<Widget> sliverList = [];
-
-  @override
-  void initState() {
-    super.initState();
-    final foodInfos = RegisterdFoodsRepository()
-        .getFoodDetail(widget.selectedRefrige.refrigeId);
-    var refrigeItem = RegisterdRefrigeRepository()
-        .getRefrigeDetail()[(widget.selectedRefrige.refrigeId) - 1];
-
-    for (int i = 1; i <= refrigeItem.refrigeCompCount; i++) {
-      final samePositionFoodList =
-          RegisterdFoodsRepository().filterFoods(foodInfos, false, i);
-      sliverList.add(
-        FoodThumbNailList(
-            selectedRefrige: widget.selectedRefrige,
-            samePositionFoodList: samePositionFoodList[2],
-            selectedPosition: i),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<RefrigeCompViewModel>();
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => context.go('/'),
-        ),
-        title: Text('냉장실'),
-      ),
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: sliverList,
-      ),
+      body: (viewModel.isLoading)
+          ? Center(
+              child: LoadingAnimationWidget.inkDrop(
+                color: Colors.white,
+                size: 50,
+              ),
+            )
+          : Center(
+              child: AnimationList(
+                physics: const BouncingScrollPhysics(
+                    decelerationRate: ScrollDecelerationRate.fast),
+                duration: 2000,
+                reBounceDepth: 5.0,
+                children: viewModel.fetchedList,
+              ),
+            ),
     );
   }
 }

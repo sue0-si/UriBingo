@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'first_custom_button.dart';
+import 'package:nice_buttons/nice_buttons.dart';
 
 class ButtonTest extends StatelessWidget {
   const ButtonTest({super.key});
@@ -8,7 +7,12 @@ class ButtonTest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: NiceButtons(onTap: (){}, child: Container(),),),
+      body: Center(
+        child: NiceButtons(
+          onTap: () {},
+          child: Container(),
+        ),
+      ),
     );
   }
 }

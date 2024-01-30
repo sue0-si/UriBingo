@@ -1,21 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:leute/fridge_data.dart';
 import 'package:leute/router.dart';
-import 'package:provider/provider.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(ChangeNotifierProvider(
-    create: (BuildContext context) {
-      return FridgeState();
-    },
-    builder: (context, child) => const MyApp(),
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -23,11 +18,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       builder: (context, child) => MaterialApp.router(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'Pretendard'),
+        theme: ThemeData(
+          fontFamily: 'Tmoney',
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF325c6a)),
+        ),
         routerConfig: router,
       ),
     );

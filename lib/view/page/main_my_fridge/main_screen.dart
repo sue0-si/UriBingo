@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/data/mock_repository/refrige_repository.dart';
 import 'package:leute/styles/app_text_style.dart';
+import 'package:leute/view_model/main_screen_view_model.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:unicons/unicons.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -11,86 +14,82 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<Widget> fridges = [];
-
-  @override
-  void initState() {
-    final refrigeItems = RegisterdRefrigeRepository().getRefrigeDetail();
-
-    for (int i = 1; i <= refrigeItems.length; i++) {
-      fridges.add(makeFridge(refrigeItems[i - 1].refrigeId));
-    }
-
-    super.initState();
-  }
-
-  Widget makeFridge(int index) {
-    return GestureDetector(
-      onTap: () => context.go('/details', extra: index),
-      child: Container(
-        width: 100,
-        height: 150,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.black12),
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              offset: Offset(0, 3),
-              blurRadius: 2.0,
-            ),
-          ],
-        ),
-        child: Center(
-          child: Text(
-            '${index}번 냉장고',
-          ),
-        ),
-      ),
-    );
-  }
+//   List<Widget> fridges = [];
+//   List<RefrigeDetail> refrigeItems = [];
+//
+//   final UserDataRepository userDataRepository = UserDataRepository();
+//   bool isManager = false;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    final viewModel = context.watch<MainScreenViewModel>();
+    return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black12,
+          backgroundColor: Colors.transparent,
           title: Center(
             child: Text(
               '냉장고',
-              style: AppTextStyle.header20(),
+              style: AppTextStyle.header22(color: Colors.white),
             ),
           ),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 30,
-                crossAxisSpacing: 30,
-                childAspectRatio: 4 / 6),
-            itemCount: fridges.length + 1,
-            itemBuilder: (context, index) {
-              if (index == fridges.length) {
-                // Last item is the add button
-                return IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () {
-                    fridges.add(makeFridge(index + 1));
-                    setState(() {});
-                  },
-                );
-              } else {
-                // Display the fridge container
-                return fridges[index];
-              }
-            },
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                color: const Color(0xFF9bc6bf),
+                borderRadius: BorderRadius.circular(10)),
           ),
         ),
-      ),
-    );
+        body: (viewModel.isLoading)
+            ? Center(
+                child: LoadingAnimationWidget.inkDrop(
+                  color: Colors.white,
+                  size: 50,
+                ),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: GridView.builder(
+                  physics: const BouncingScrollPhysics(
+                      decelerationRate: ScrollDecelerationRate.fast),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 30,
+                    crossAxisSpacing: 30,
+                    childAspectRatio: 2.6 / 6,
+                  ),
+                  itemCount: viewModel.fridges.length + 1,
+                  itemBuilder: (context, index) {
+                    if (index == viewModel.fridges.length) {
+                      // Last item is the add button
+                      return viewModel.isManager
+                          ? IconButton(
+                              icon: Icon(
+                                UniconsLine.plus_circle,
+                                size: 40,
+                                color: Colors.grey.shade400,
+                              ),
+                              onPressed: () {
+                                context.go('/addRefrige', extra: 0);
+
+                                setState(() {});
+                              },
+                            )
+                          : Container();
+                    } else {
+                      // Display the fridge container
+                      return viewModel.fridges[index];
+                    }
+                  },
+                ),
+              ),
+        floatingActionButton: viewModel.isManager
+            ? FloatingActionButton(
+                backgroundColor: const Color(0xFF9bc6bf),
+                onPressed: () => context.go('/discardPage'),
+                child: const Icon(
+                  Icons.delete_forever_sharp,
+                  color: Colors.white,
+                ),
+              )
+            : null);
   }
 }

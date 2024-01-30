@@ -6,6 +6,7 @@ import 'package:leute/styles/app_text_style.dart';
 class LoginElevatedButton extends StatelessWidget {
   final Function() onPressed;
   final String childText;
+
   const LoginElevatedButton(
       {super.key, required this.childText, required this.onPressed});
 
@@ -22,8 +23,17 @@ class LoginElevatedButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all(AppColors.mainButton)),
       child: Text(
         childText,
-        style: AppTextStyle.body20B(color: AppColors.icon),
+        style: AppTextStyle.body20B(color: Colors.white),
       ),
     );
+    //     NiceButtons(
+    //   stretch: true,
+    //   gradientOrientation: GradientOrientation.Horizontal,
+    //   onTap: onPressed,
+    //   child: Text(
+    //     childText,
+    //     style: TextStyle(color: Colors.white, fontSize: 18),
+    //   ),
+    // );
   }
 }

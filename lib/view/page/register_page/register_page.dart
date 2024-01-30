@@ -1,111 +1,252 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/data/repository/user_data_repository.dart';
+import 'package:leute/view_model/register_view_model.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:provider/provider.dart';
 
-import '../../../fridge_data.dart';
+import '../../../data/models/foods_model.dart';
+import '../../../data/models/user_model.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final List<Object> fridgeData;
+
+  const RegisterPage({super.key, required this.fridgeData});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final ImagePicker picker = ImagePicker();
-  XFile? photo;
-  final List<bool> _selected = [false, false];
-  int selectedIndex = 0;
+  bool isManager = false;
 
-  Future<void> pickImage() async {
-    photo = await picker.pickImage(source: ImageSource.camera);
-    setState(() {});
+  @override
+  void initState() {
+    getManagerStatus();
+    super.initState();
+  }
+
+  Future getManagerStatus() async {
+    List<UserModel> userData = await UserDataRepository().getFirebaseUserData();
+    UserModel currentUser = userData.firstWhere(
+        (user) => user.email == FirebaseAuth.instance.currentUser!.email);
+    setState(() {
+      isManager = currentUser.manager;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<RegisterViewModel>();
+
+    final selectedRefrige = widget.fridgeData[0] as RefrigeDetail;
+    final selectedPosition = widget.fridgeData[1] as int;
+    // final samePositionFoodList = widget.fridgeData[2] as List<FoodDetail>;
+    final isFreezed = widget.fridgeData[3] as bool;
+
     return Scaffold(
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: () {
-                pickImage();
-              },
-              child: photo == null
-                  ? Container(
-                      height: MediaQuery.of(context).size.height / 3,
-                      width: double.infinity,
-                      color: Colors.grey,
-                      child: const Icon(Icons.image_rounded, size: 100),
-                    )
-                  : FutureBuilder(
-                      future: photo?.readAsBytes(),
-                      builder: (context, snapshot) {
-                        final data = snapshot.data;
-                        if (data == null ||
-                            snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        return Image.memory(
-                          data,
-                          width: double.infinity,
-                          height: MediaQuery.of(context).size.height / 2,
-                          fit: BoxFit.cover,
-                        );
-                      },
-                    ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: viewModel.isLoading
+            ? Center(
+                child: LoadingAnimationWidget.inkDrop(
+                  color: Colors.white,
+                  size: 50,
+                ),
+              )
+            : Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(onPressed: () {}, child: const Text('취소')),
-                      ElevatedButton(
-                          onPressed: () {
-                            FridgeState().addInfo();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('등록되었습니다.'),
-                                duration: Duration(seconds: 3),
-                              ),
-                            );
-                          },
-                          child: const Text('등록하기')),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  // 관리자만 보이는 버튼
-                  ToggleButtons(
+                  GestureDetector(
+                      onTap: () {
+                        viewModel.changeImageFormat();
+                      },
+                      child: Stack(
+                        children: [
+                          viewModel.photo == null
+                              ? SizedBox(
+                                  height: 200.h,
+                                  width: 300.w,
+                                  child: Card(
+                                    elevation: 3,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    clipBehavior: Clip.hardEdge,
+                                  ),
+                                )
+                              : FutureBuilder(
+                                  future: viewModel.photo?.readAsBytes(),
+                                  builder: (context, snapshot) {
+                                    final data = snapshot.data;
+                                    if (data == null ||
+                                        snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }
+                                    return SizedBox(
+                                      height: 200.h,
+                                      width: 300.w,
+                                      child: Card(
+                                        elevation: 3,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                        clipBehavior: Clip.hardEdge,
+                                        child: Image.memory(
+                                          data,
+                                          width: 200.w,
+                                          height: 500.h,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                                    // return Image.memory(
+                                    //   data,
+                                    //   width: 300.w,
+                                    //   height: 200.h,
+                                    //   fit: BoxFit.cover,
+                                    // );
+                                  },
+                                ),
+                          Positioned(
+                            bottom: 4,
+                            right: 4,
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(8.0),
+                                    bottomRight: Radius.circular(8.0),
+                                  ),
+                                  color: Colors.white),
+                              child: const Icon(Icons.add_a_photo_rounded,
+                                  size: 30, color: Color(0xFF254e7a)),
+                            ),
+                          ),
+                        ],
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const Text('공용'),
-                        const Text('미확인'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // 취소버튼
+                            ElevatedButton(
+                                onPressed: () {
+                                  context.go(
+                                    '/details',
+                                    extra: isFreezed
+                                        ? [widget.fridgeData[0], 0]
+                                        : [widget.fridgeData[0], 1],
+                                  );
+                                },
+                                child: const Text('취소')),
+                            // 등록하기 버튼
+                            ElevatedButton(
+                              onPressed: () async {
+                                // 이미지 등록 안 했을 경우 에러 처리
+                                if (viewModel.photo == null) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('이미지를 등록해주세요.'),
+                                      duration: Duration(seconds: 3),
+                                    ),
+                                  );
+                                } else {
+                                  final registerDate =
+                                      DateTime.now().millisecondsSinceEpoch;
+                                  final userId =
+                                      FirebaseAuth.instance.currentUser!.uid;
+                                  final uploadRef = FirebaseStorage.instance
+                                      .ref('images')
+                                      .child('$registerDate.jpg');
+
+                                  viewModel.changeLoadingState();
+
+                                  // 사진 storage에 올리기
+                                  await uploadRef.putData(
+                                      viewModel.foodImage,
+                                      SettableMetadata(
+                                          contentType: "image/jpeg"));
+                                  final downloadUrl =
+                                      await uploadRef.getDownloadURL();
+
+                                  await FirebaseFirestore.instance
+                                      .collection('foodDetails')
+                                      .doc(registerDate.toString() + userId)
+                                      .set(FoodDetail(
+                                        refrigeName:
+                                            selectedRefrige.refrigeName,
+                                        freezed: isFreezed,
+                                        foodImage: downloadUrl,
+                                        positionId: selectedPosition,
+                                        userId: FirebaseAuth
+                                            .instance.currentUser!.uid,
+                                        userName: FirebaseAuth.instance
+                                                .currentUser!.displayName ??
+                                            'noName',
+                                        registerDate: registerDate,
+                                        isPublic: viewModel.selected[0],
+                                        isUnknown: viewModel.selected[1],
+                                        isExtended: false,
+                                      ).toJson());
+
+                                  if (mounted) {
+                                    viewModel.isLoading = false;
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('등록되었습니다.'),
+                                        duration: Duration(seconds: 3),
+                                      ),
+                                    );
+                                    context.go(
+                                      '/details',
+                                      extra: isFreezed
+                                          ? [widget.fridgeData[0], 0]
+                                          : [widget.fridgeData[0], 1],
+                                    );
+                                  }
+                                }
+                              },
+                              child: const Text('등록하기'),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 32,
+                        ),
+                        // 관리자만 보이는 버튼
+                        isManager
+                            ? ToggleButtons(
+                                isSelected: viewModel.selected,
+                                color: Colors.black,
+                                selectedColor: Colors.deepPurple,
+                                onPressed: (int index) {
+                                  viewModel.buttonSelection(index);
+                                },
+                                children: const [
+                                    Text('공용'),
+                                    Text('미확인'),
+                                  ])
+                            : Container()
                       ],
-                      isSelected: _selected,
-                      color: Colors.black,
-                      selectedColor: Colors.deepPurple,
-                      onPressed: (int index) {
-                        setState(() {
-                          for (int i = 0; i < _selected.length; i++) {
-                            _selected[i] = i == index;
-                          }
-                        });
-                      }),
+                    ),
+                  ),
                 ],
               ),
-            ),
-          ],
-        ),
       )),
     );
   }

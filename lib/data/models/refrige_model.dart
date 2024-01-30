@@ -1,19 +1,19 @@
 class RefrigeDetail {
-  int refrigeId;
   String refrigeName;
   int refrigeCompCount;
   int freezerCompCount;
   int period;
   int extentionPeriod;
+  int registerDate;
 
 //<editor-fold desc="Data Methods">
   RefrigeDetail({
-    required this.refrigeId,
     required this.refrigeName,
     required this.refrigeCompCount,
     required this.freezerCompCount,
     required this.period,
     required this.extentionPeriod,
+    required this.registerDate,
   });
 
   @override
@@ -21,64 +21,64 @@ class RefrigeDetail {
       identical(this, other) ||
       (other is RefrigeDetail &&
           runtimeType == other.runtimeType &&
-          refrigeId == other.refrigeId &&
           refrigeName == other.refrigeName &&
           refrigeCompCount == other.refrigeCompCount &&
           freezerCompCount == other.freezerCompCount &&
           period == other.period &&
-          extentionPeriod == other.extentionPeriod);
+          extentionPeriod == other.extentionPeriod &&
+          registerDate == other.registerDate);
 
   @override
   int get hashCode =>
-      refrigeId.hashCode ^
       refrigeName.hashCode ^
       refrigeCompCount.hashCode ^
       freezerCompCount.hashCode ^
       period.hashCode ^
-      extentionPeriod.hashCode;
+      extentionPeriod.hashCode ^
+      registerDate.hashCode;
 
   @override
   String toString() {
-    return 'RefrigeDetail{ refrigeId: $refrigeId, refrigeName: $refrigeName, refrigeCompCount: $refrigeCompCount, freezerCompCount: $freezerCompCount, period: $period, extentionPeriod: $extentionPeriod,}';
+    return 'RefrigeDetail{ refrigeName: $refrigeName, refrigeCompCount: $refrigeCompCount, freezerCompCount: $freezerCompCount, period: $period, extentionPeriod: $extentionPeriod, registerDate: $registerDate,}';
   }
 
   RefrigeDetail copyWith({
-    int? refrigeId,
     String? refrigeName,
     int? refrigeCompCount,
     int? freezerCompCount,
     int? period,
     int? extentionPeriod,
+    int? registerDate,
   }) {
     return RefrigeDetail(
-      refrigeId: refrigeId ?? this.refrigeId,
       refrigeName: refrigeName ?? this.refrigeName,
       refrigeCompCount: refrigeCompCount ?? this.refrigeCompCount,
       freezerCompCount: freezerCompCount ?? this.freezerCompCount,
       period: period ?? this.period,
       extentionPeriod: extentionPeriod ?? this.extentionPeriod,
+      registerDate: registerDate ?? this.registerDate,
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
-      'refrigeId': refrigeId,
       'refrigeName': refrigeName,
       'refrigeCompCount': refrigeCompCount,
       'freezerCompCount': freezerCompCount,
       'period': period,
       'extentionPeriod': extentionPeriod,
+      'registerDate': registerDate,
     };
   }
 
-  factory RefrigeDetail.fromMap(Map<String, dynamic> map) {
+  factory RefrigeDetail.fromJson(Map<String, dynamic> map) {
     return RefrigeDetail(
-      refrigeId: map['refrigeId'] as int,
       refrigeName: map['refrigeName'] as String,
       refrigeCompCount: map['refrigeCompCount'] as int,
       freezerCompCount: map['freezerCompCount'] as int,
       period: map['period'] as int,
       extentionPeriod: map['extentionPeriod'] as int,
+      registerDate: map['registerDate'] as int,
     );
   }
 

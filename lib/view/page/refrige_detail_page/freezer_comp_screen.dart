@@ -1,12 +1,10 @@
+import 'package:animation_list/animation_list.dart';
 import 'package:flutter/material.dart';
-import 'package:leute/data/models/foods_model.dart';
-import 'package:leute/view/page/refrige_detail_page/freezer_comp_view_model.dart';
-
-import '../../../data/mock_repository/foods_repository.dart';
-import '../../../data/mock_repository/refrige_repository.dart';
-import '../../../data/models/refrige_model.dart';
-import '../../widget/refrige_detail_page_widget/food_thumb_nail_list.dart';
+import 'package:leute/view_model/freezer_comp_view_model.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
+
+import '../../../data/models/refrige_model.dart';
 
 class FreezerCompScreen extends StatefulWidget {
   final RefrigeDetail selectedRefrige;
@@ -21,47 +19,26 @@ class FreezerCompScreen extends StatefulWidget {
 }
 
 class _FreezerCompScreenState extends State<FreezerCompScreen> {
-  final freezerViewModel = FreezerCompViewModel();
-  List<Widget> sliverList = [];
-
-  @override
-  void initState() {
-    super.initState();
-    initData();
-    final foodInfos = freezerViewModel.foodItems;
-
-    var refrigeItem = RegisterdRefrigeRepository()
-        .getRefrigeDetail()[(widget.selectedRefrige.refrigeId) - 1];
-
-    for (int i = 1; i <= refrigeItem.freezerCompCount; i++) {
-      final samePositionFoodList =
-          RegisterdFoodsRepository().filterFoods(foodInfos, true, i);
-      sliverList.add(FoodThumbNailList(
-        samePositionFoodList: samePositionFoodList[2],
-        selectedRefrige: widget.selectedRefrige,
-        selectedPosition: i,
-      ));
-    }
-  }
-
-  void initData() async {
-    await freezerViewModel
-        .getSameRefrigeFoods(widget.selectedRefrige.refrigeId);
-    setState(() {
-      freezerViewModel.foodItems;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<FreezerCompViewModel>();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('냉동실'),
-      ),
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: sliverList,
-      ),
+      body: (viewModel.isLoading)
+          ? Center(
+              child: LoadingAnimationWidget.inkDrop(
+                color: Colors.white,
+                size: 50,
+              ),
+            )
+          : Center(
+              child: AnimationList(
+                physics: const BouncingScrollPhysics(
+                    decelerationRate: ScrollDecelerationRate.fast),
+                duration: 2000,
+                reBounceDepth: 5.0,
+                children: viewModel.fetchedList,
+              ),
+            ),
     );
   }
 }
