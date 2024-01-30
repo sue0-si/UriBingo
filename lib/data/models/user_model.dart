@@ -3,6 +3,8 @@ class UserModel {
   String employeeNumber;
   bool manager;
   String name;
+  String validationCode;
+  String groupName;
 
 //<editor-fold desc="Data Methods">
   UserModel({
@@ -10,6 +12,8 @@ class UserModel {
     required this.employeeNumber,
     required this.manager,
     required this.name,
+    required this.validationCode,
+    required this.groupName,
   });
 
   @override
@@ -20,18 +24,22 @@ class UserModel {
           email == other.email &&
           employeeNumber == other.employeeNumber &&
           manager == other.manager &&
-          name == other.name);
+          name == other.name &&
+          validationCode == other.validationCode &&
+          groupName == other.groupName);
 
   @override
   int get hashCode =>
       email.hashCode ^
       employeeNumber.hashCode ^
       manager.hashCode ^
-      name.hashCode;
+      name.hashCode ^
+      validationCode.hashCode ^
+      groupName.hashCode;
 
   @override
   String toString() {
-    return 'UserModel{ email: $email, employeeNumber: $employeeNumber, manager: $manager, name: $name,}';
+    return 'UserModel{ email: $email, employeeNumber: $employeeNumber, manager: $manager, name: $name, validationCode: $validationCode, groupName: $groupName,}';
   }
 
   UserModel copyWith({
@@ -39,12 +47,16 @@ class UserModel {
     String? employeeNumber,
     bool? manager,
     String? name,
+    String? validationCode,
+    String? groupName,
   }) {
     return UserModel(
       email: email ?? this.email,
       employeeNumber: employeeNumber ?? this.employeeNumber,
       manager: manager ?? this.manager,
       name: name ?? this.name,
+      validationCode: validationCode ?? this.validationCode,
+      groupName: groupName ?? this.groupName,
     );
   }
 
@@ -54,6 +66,8 @@ class UserModel {
       'employeeNumber': employeeNumber,
       'manager': manager,
       'name': name,
+      'validationCode': validationCode,
+      'groupName': groupName,
     };
   }
 
@@ -63,6 +77,8 @@ class UserModel {
       employeeNumber: map['employeeNumber'] as String,
       manager: map['manager'] as bool,
       name: map['name'] as String,
+      validationCode: map['validationCode'] as String,
+      groupName: map['groupName'] as String,
     );
   }
 

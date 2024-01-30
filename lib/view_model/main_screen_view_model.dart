@@ -12,7 +12,7 @@ class MainScreenViewModel extends ChangeNotifier {
   List<RefrigeDetail> refrigeItems = [];
 
   final UserDataRepository userDataRepository = UserDataRepository();
-  bool isManager = false;
+  UserModel? currentUser;
   bool isLoading = false;
   bool _disposed = false;
 
@@ -39,18 +39,24 @@ class MainScreenViewModel extends ChangeNotifier {
 
     try {
       //비동기로 변경
-      refrigeItems =
-          await RegisterdRefrigeRepository().getFirebaseRefrigesData();
       List<UserModel> userData = await userDataRepository.getFirebaseUserData();
-      isManager = userData
+      currentUser = userData
           .firstWhere(
-              (user) => user.email == FirebaseAuth.instance.currentUser!.email)
-          .manager;
+              (user) => user.email == FirebaseAuth.instance.currentUser!.email);
+
+      if (currentUser == null) {
+        isLoading = true;
+        notifyListeners();
+      }
+      final allRefrigeItems =
+          await RegisterdRefrigeRepository().getFirebaseRefrigesData();
+      refrigeItems = allRefrigeItems.where((e) => e.validationCode == currentUser!.validationCode).toList();
 
       for (int i = 1; i <= refrigeItems.length; i++) {
         fridges.add(MakeFridge(
-            refrigeItems: refrigeItems, isManager: isManager, index: i - 1));
+            refrigeItems: refrigeItems, currentUser: currentUser!, index: i - 1));
       }
+      notifyListeners();
     } catch (error) {
       // 에러 처리
       print('Error fetching data: $error');

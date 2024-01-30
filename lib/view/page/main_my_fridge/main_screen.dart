@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leute/data/models/user_model.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view_model/main_screen_view_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -23,6 +24,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainScreenViewModel>();
+    UserModel? currentUser = viewModel.currentUser;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -41,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
         body: (viewModel.isLoading)
             ? Center(
                 child: LoadingAnimationWidget.inkDrop(
-                  color: Colors.white,
+                  color: const Color(0xFF9bc6bf),
                   size: 50,
                 ),
               )
@@ -60,7 +62,7 @@ class _MainScreenState extends State<MainScreen> {
                   itemBuilder: (context, index) {
                     if (index == viewModel.fridges.length) {
                       // Last item is the add button
-                      return viewModel.isManager
+                      return currentUser!.manager
                           ? IconButton(
                               icon: Icon(
                                 UniconsLine.plus_circle,
@@ -68,10 +70,8 @@ class _MainScreenState extends State<MainScreen> {
                                 color: Colors.grey.shade400,
                               ),
                               onPressed: () {
-                                context.go('/addRefrige', extra: 0);
-
-                                setState(() {});
-                              },
+                                context.go('/addRefrige', extra: currentUser);
+                                },
                             )
                           : Container();
                     } else {
@@ -81,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
                   },
                 ),
               ),
-        floatingActionButton: viewModel.isManager
+        floatingActionButton: (currentUser != null && currentUser.manager)
             ? FloatingActionButton(
                 backgroundColor: const Color(0xFF9bc6bf),
                 onPressed: () => context.go('/discardPage'),

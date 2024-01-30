@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/data/models/user_model.dart';
 
 import '../data/models/foods_model.dart';
 import '../data/repository/foods_repository.dart';
@@ -90,7 +91,7 @@ class AddPageViewModel extends ChangeNotifier {
 
 //getter 설정
 
-  Future<void> addRefrige() async {
+  Future<void> addRefrige(UserModel currentUser) async {
     final registerDate = DateTime.now().millisecondsSinceEpoch.toString();
     await FirebaseFirestore.instance
         .collection('refrigeDetails')
@@ -102,6 +103,7 @@ class AddPageViewModel extends ChangeNotifier {
           period: int.parse(selectedStoragePeriod[0]),
           refrigeCompCount: int.parse(selectedColdstorage[0]),
           extentionPeriod: int.parse(selectedExtensionPeriod[0]),
+          validationCode: currentUser.validationCode,
         ).toJson());
     notifyListeners();
   }
@@ -111,7 +113,8 @@ class AddPageViewModel extends ChangeNotifier {
       String selectedColdstorage,
       String selectedFrozenStorage,
       String selectedStoragePeriod,
-      String selectedExtensionPeriod) async {
+      String selectedExtensionPeriod,
+      UserModel currentUser) async {
     await FirebaseFirestore.instance
         .collection('refrigeDetails')
         .doc(registerdDate.toString() + initialName)
@@ -122,6 +125,7 @@ class AddPageViewModel extends ChangeNotifier {
           freezerCompCount: int.parse(selectedFrozenStorage[0]),
           period: int.parse(selectedStoragePeriod[0]),
           extentionPeriod: int.parse(selectedExtensionPeriod[0]),
+          validationCode: currentUser.validationCode,
         ).toJson());
     notifyListeners();
   }
