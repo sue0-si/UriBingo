@@ -297,26 +297,26 @@ class _AddRefrigeState extends State<AddRefrige> {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
 
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return TwoAnswerDialog(
-                                        title: '냉장고 이름은 수정이 불가합니다. 추가하시겠습니까?',
-                                        titleStyle: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.green,
-                                        ),
-                                        firstButton: '네',
-                                        secondButton: '아니오',
-                                        onTap: () async {
-                                          setState(() {});
-
-                                          if (mounted) {
-                                            context.go('/', extra: 0);
-                                          }
-                                          await addPageViewModel.addRefrige();
-                                        });
-                                  });
+                              // showDialog(
+                              //     context: context,
+                              //     builder: (context) {
+                              //       return TwoAnswerDialog(
+                              //           title: '냉장고 이름은 수정이 불가합니다. 추가하시겠습니까?',
+                              //           titleStyle: TextStyle(
+                              //             fontSize: 15,
+                              //             color: Colors.green,
+                              //           ),
+                              //           firstButton: '네',
+                              //           secondButton: '아니오',
+                              //           onTap: () async {
+                              //             setState(() {});
+                              //
+                              //             if (mounted) {
+                              //               context.go('/', extra: 0);
+                              //             }
+                              //             await addPageViewModel.addRefrige();
+                              //           });
+                              //     });
                               //왜 async?
                             }
                           },
