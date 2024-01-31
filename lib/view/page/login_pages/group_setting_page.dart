@@ -45,7 +45,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                 children: [
                   Text(
                     '그룹원 추가',
-                    style: AppTextStyle.body16B(),
+                    style: AppTextStyle.body15B(),
                   ),
                   Row(
                     children: [
@@ -76,7 +76,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
             const Divider(),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('그룹원 리스트', style: AppTextStyle.body16B()),
+              child: Text('그룹원 리스트', style: AppTextStyle.body15B()),
             ),
             Expanded(
               child: ListView.builder(
@@ -85,7 +85,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                     return ListTile(
                       title: Text(
                         '홍길동',
-                        style: AppTextStyle.body16B(),
+                        style: AppTextStyle.body15B(),
                       ),
                       subtitle: Text(
                         'test3@test.com',

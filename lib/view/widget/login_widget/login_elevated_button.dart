@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
-import 'package:leute/view/widget/custom_buttons/first_custom_button.dart';
 
 class LoginElevatedButton extends StatelessWidget {
   final Function() onPressed;
@@ -26,14 +25,5 @@ class LoginElevatedButton extends StatelessWidget {
         style: AppTextStyle.body20B(color: Colors.white),
       ),
     );
-    //     NiceButtons(
-    //   stretch: true,
-    //   gradientOrientation: GradientOrientation.Horizontal,
-    //   onTap: onPressed,
-    //   child: Text(
-    //     childText,
-    //     style: TextStyle(color: Colors.white, fontSize: 18),
-    //   ),
-    // );
   }
 }

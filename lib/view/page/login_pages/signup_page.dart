@@ -45,35 +45,35 @@ class _SignupPageState extends State<SignupPage> {
             child: ListView(
               shrinkWrap: true,
               children: [
-                Text('이메일', style: AppTextStyle.body16B()),
+                Text('이메일', style: AppTextStyle.body15B()),
                 LoginTextfield(
                   hintText: 'email@email.com',
                   controller: emailController,
                   validator: viewModel.emailValidator,
                 ),
                 SizedBox(height: 8.h),
-                Text('비밀번호', style: AppTextStyle.body16B()),
+                Text('비밀번호', style: AppTextStyle.body15B()),
                 PasswordTextfield(
                   hintText: '******',
                   controller: passwordController,
                   validator: viewModel.passwordValidator,
                 ),
                 SizedBox(height: 8.h),
-                Text('비밀번호 확인', style: AppTextStyle.body16B()),
+                Text('비밀번호 확인', style: AppTextStyle.body15B()),
                 PasswordTextfield(
                   hintText: '******',
                   controller: confirmPasswordController,
                   validator: viewModel.confirmPasswordValidator,
                 ),
                 SizedBox(height: 8.h),
-                Text('이름', style: AppTextStyle.body16B()),
+                Text('이름', style: AppTextStyle.body15B()),
                 LoginTextfield(
                   hintText: '홍길동',
                   controller: nameController,
                   validator: viewModel.nameValidator,
                 ),
                 SizedBox(height: 8.h),
-                Text('사원번호', style: AppTextStyle.body16B()),
+                Text('사원번호', style: AppTextStyle.body15B()),
                 LoginTextfield(
                   hintText: '12-3456',
                   controller: employeeNumberController,

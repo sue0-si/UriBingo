@@ -67,7 +67,7 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
                         )
                       : const Icon(
                           Icons.remove_red_eye,
-                          color: AppColors.icon,
+                          color: AppColors.mainButton,
                         ))
               : Padding(
                   padding: const EdgeInsets.only(right: 12),
@@ -90,7 +90,7 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
                                 )
                               : const Icon(
                                   Icons.remove_red_eye,
-                                  color: AppColors.icon,
+                                  color: AppColors.mainButton,
                                 )),
                       GestureDetector(
                         child: const Icon(
