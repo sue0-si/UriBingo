@@ -20,7 +20,7 @@ class OneAnswerDialog extends StatelessWidget {
     return Dialog(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20.r),
           color: Colors.white,
         ),
         height: 180.h,
@@ -30,19 +30,19 @@ class OneAnswerDialog extends StatelessWidget {
           children: [
             Image.asset(
               'assets/images/dialog_cookie.gif',
-              width: 80,
-              height: 80,
+              width: 80.w,
+              height: 80.h,
             ),
             Text(
               title,
               style: AppTextStyle.body18M(),
             ),
-            SizedBox(height: 6.0.h),
+            SizedBox(height: 6.h),
             Text(
               subtitle,
               style: AppTextStyle.body12R(),
             ),
-            SizedBox(height: 16.0.h),
+            SizedBox(height: 16.h),
             ElevatedButton(
                 onPressed: onTap,
                 style: ElevatedButton.styleFrom(

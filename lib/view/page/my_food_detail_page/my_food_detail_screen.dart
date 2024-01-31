@@ -70,8 +70,8 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
             child: SuperContainer(
               height: 200.h,
               width: 280.w,
-              border: 110,
-              borderWidth: 9,
+              border: 110.r,
+              borderWidth: 9.w,
               borderColor:
                   viewModel.isOld ? AppColors.caution : const Color(0xFF9bc6bf),
               image: DecorationImage(
@@ -126,7 +126,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
+                          borderRadius: BorderRadius.circular(15.r)),
                       backgroundColor: const Color(0xFF9DCFD4)),
                   //남은 기간이 2일 미만-> 다이얼로그 생성 / 2일 이상 ->버튼 비활성화
                   onPressed: context.watch<MyFoodDetailViewModel>().isOld
@@ -164,7 +164,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
+                          borderRadius: BorderRadius.circular(15.r)),
                       backgroundColor: const Color(0xFFcb7d74)),
                   onPressed: () {
                     showDialog(
