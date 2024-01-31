@@ -29,7 +29,7 @@ import 'view_model/register_view_model.dart';
 final router = GoRouter(initialLocation: '/splash_page', routes: [
 
   GoRoute(
-      path: '/main_page',
+      path: '/',
       builder: (context, state) => ChangeNotifierProvider(
           create: (_) => MyPageViewModel(),
           child: MainPage(currentPageIndex: state.extra as int))),
