@@ -1,3 +1,4 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
@@ -9,7 +10,7 @@ import 'package:leute/view/page/login_pages/login_page.dart';
 import 'package:leute/view/page/login_pages/signup_page.dart';
 import 'package:leute/view/page/main_my_fridge/main_page.dart';
 import 'package:leute/view/page/my_food_detail_page/my_food_detail_screen.dart';
-import 'package:leute/view/page/refrige_detail_page/refrige_detail_screen.dart';
+
 import 'package:leute/view/page/register_page/register_page.dart';
 import 'package:leute/view_model/discard_foods_view_model.dart';
 import 'package:leute/view_model/group_setting_page_view_model.dart';
@@ -20,13 +21,15 @@ import 'package:provider/provider.dart';
 
 import 'view/page/refrige_pages/add_refrige.dart';
 import 'view/page/refrige_pages/edit_refrige.dart';
+import 'view/page/splash_page/splash_page.dart';
 import 'view_model/add_page_view_model.dart';
 import 'view_model/my_food_detail_view_model.dart';
 import 'view_model/register_view_model.dart';
 
-final router = GoRouter(initialLocation: '/login', routes: [
+final router = GoRouter(initialLocation: '/splash_page', routes: [
+
   GoRoute(
-      path: '/',
+      path: '/main_page',
       builder: (context, state) => ChangeNotifierProvider(
           create: (_) => MyPageViewModel(),
           child: MainPage(currentPageIndex: state.extra as int))),
@@ -49,7 +52,9 @@ final router = GoRouter(initialLocation: '/login', routes: [
       builder: (context, state) {
         return ChangeNotifierProvider(
           create: (_) => LoginPageViewModel(),
-          child: const LoginPage(),
+          child: const LoginPage(
+            title: '',
+          ),
         );
       }),
   GoRoute(
@@ -70,19 +75,25 @@ final router = GoRouter(initialLocation: '/login', routes: [
       }),
 
   // 냉장고 상세 페이지
+
   GoRoute(
-    path: '/details',
-    builder: (context, state) => RefrigeDetailScreen(
-      selectedRefrige: (state.extra as List)[0],
-      selectedIndex: (state.extra as List)[1],
-    ),
+    path: '/splash_page',
+    builder: (context, state) {
+      return ChangeNotifierProvider(
+        create: (_) => LoginPageViewModel(),
+        child: const SplashScreen(title: ''),
+      );
+    },
   ),
+
   GoRoute(
     path: '/addRefrige',
     builder: (context, state) {
       return ChangeNotifierProvider(
         create: (_) => AddPageViewModel(),
-        child: AddRefrige(currentUser: state.extra as UserModel,),
+        child: AddRefrige(
+          currentUser: state.extra as UserModel,
+        ),
       );
     },
   ),
@@ -91,7 +102,10 @@ final router = GoRouter(initialLocation: '/login', routes: [
     builder: (context, state) {
       return ChangeNotifierProvider(
         create: (_) => AddPageViewModel(),
-        child: EditRefrige(seletedRefrige: (state.extra as List)[0], currentUser: (state.extra as List)[1],),
+        child: EditRefrige(
+          seletedRefrige: (state.extra as List)[0],
+          currentUser: (state.extra as List)[1],
+        ),
       );
     },
   ),
