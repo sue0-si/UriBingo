@@ -21,7 +21,7 @@ class InkwellRowTile extends StatelessWidget {
           children: [
             Icon(icon, color: AppColors.info),
             SizedBox(width: 16.w),
-            Text(text, style: AppTextStyle.body16B()),
+            Text(text, style: AppTextStyle.body15B()),
           ],
         ),
       ),

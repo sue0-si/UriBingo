@@ -1,8 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageViewModel with ChangeNotifier {
+  bool checkBoxMemory = false;
+  String idMemory = '';
+  SharedPreferences? prefs;
+
+  LoginPageViewModel() {
+    initPreferences();
+  }
   // 로그인
   Future<void> handleLoginButton(
       {required String email,
@@ -13,6 +21,7 @@ class LoginPageViewModel with ChangeNotifier {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (context.mounted) {
+        prefs!.setString('_email', email);
         context.go('/', extra: 0);
       }
       // 로그인 실패시 다이얼로그
@@ -61,5 +70,26 @@ class LoginPageViewModel with ChangeNotifier {
       return '6자리 이상 입력하세요';
     }
     return null;
+  }
+
+// 체크박스 저장
+  checkBox(value) {
+    checkBoxMemory = value;
+    if (prefs != null) {
+      prefs!.setBool('_checkBox', value);
+    }
+    notifyListeners();
+  }
+
+// 아이디 불러오기 체크박스 불러오기
+  void initPreferences() async {
+    prefs = await SharedPreferences.getInstance();
+    if (prefs != null) {
+      checkBoxMemory = prefs!.getBool('_checkBox') ?? false;
+      if (checkBoxMemory) {
+        idMemory = prefs!.getString('_email') ?? '';
+      }
+      notifyListeners();
+    }
   }
 }

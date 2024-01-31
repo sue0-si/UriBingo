@@ -47,6 +47,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     var viewmodel = context.watch<LoginPageViewModel>();
+    emailController.text = viewmodel.idMemory;
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.all(8.0),
@@ -72,7 +73,18 @@ class _LoginPageState extends State<LoginPage> {
                 controller: passwordController,
                 validator: viewmodel.passwordValidator,
               ),
-              SizedBox(height: 8.h),
+              Row(
+                children: [
+                  Text(
+                    '아이디 저장',
+                    style: AppTextStyle.body15M(color: AppColors.mainText),
+                  ),
+                  Checkbox(
+                    value: viewmodel.checkBoxMemory,
+                    onChanged: viewmodel.checkBox,
+                  )
+                ],
+              ),
               LoginElevatedButton(
                   childText: '로그인하기',
                   onPressed: () {

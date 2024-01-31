@@ -26,14 +26,5 @@ class LoginElevatedButton extends StatelessWidget {
         style: AppTextStyle.body20B(color: Colors.white),
       ),
     );
-    //     NiceButtons(
-    //   stretch: true,
-    //   gradientOrientation: GradientOrientation.Horizontal,
-    //   onTap: onPressed,
-    //   child: Text(
-    //     childText,
-    //     style: TextStyle(color: Colors.white, fontSize: 18),
-    //   ),
-    // );
   }
 }
