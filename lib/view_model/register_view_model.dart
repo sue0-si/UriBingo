@@ -25,7 +25,10 @@ class RegisterViewModel extends ChangeNotifier {
   }
 
   Future<void> changeImageFormat() async {
-    _foodImage = (await pickImage())!;
+    final resultImage = await pickImage();
+    if (resultImage != null) {
+      _foodImage = resultImage;
+    }
   }
 
   void buttonSelection(int index) {
