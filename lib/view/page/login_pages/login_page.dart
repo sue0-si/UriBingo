@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                   TextButton(onPressed: () {}, child: const Text('비밀번호 찾기')),
                   TextButton(
                       onPressed: () {
-                        context.push(Uri(path: '/signup').toString());
+                        context.go('/signup');
                       },
                       child: const Text('회원가입')),
                 ],
