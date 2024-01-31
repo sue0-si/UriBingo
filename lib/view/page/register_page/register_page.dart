@@ -64,12 +64,13 @@ class _RegisterPageState extends State<RegisterPage> {
             : Column(
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      viewModel.changeImageFormat();
+                    onTap: () async {
+                      await viewModel.pickImage();
                     },
                     child: Stack(
                       children: [
-                        viewModel.photo == null
+                        viewModel.photo == null ||
+                                viewModel.photo?.readAsBytes() == null
                             ? SizedBox(
                                 height: 200.h,
                                 width: 300.w,
@@ -80,41 +81,65 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ),
                                   clipBehavior: Clip.hardEdge,
                                   child: Center(
-                                    child: Text('사진을 촬영해주세요', style: AppTextStyle.body15R(color: Colors.black)),
+                                    child: Text('사진을 촬영해주세요',
+                                        style: AppTextStyle.body15R(
+                                            color: Colors.black)),
                                   ),
                                 ),
                               )
-                            : FutureBuilder(
-                                future: viewModel.photo?.readAsBytes(),
-                                builder: (context, snapshot) {
-                                  final data = snapshot.data;
-                                  if (data == null ||
-                                      snapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  }
-                                  return SizedBox(
-                                    height: 200.h,
-                                    width: 300.w,
-                                    child: Card(
-                                      elevation: 3,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0),
-                                      ),
-                                      clipBehavior: Clip.hardEdge,
-                                      child: Image.memory(
-                                        data,
-                                        width: 200.w,
-                                        height: 500.h,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  );
-                                },
+                            : SizedBox(
+                                height: 200.h,
+                                width: 300.w,
+                                child: Card(
+                                  elevation: 3,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  clipBehavior: Clip.hardEdge,
+                                  child: viewModel.photo?.readAsBytes() == null
+                                      ? const Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : Image.memory(
+                                          viewModel.foodImage,
+                                          width: 200.w,
+                                          height: 500.h,
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
                               ),
+
+                        // FutureBuilder(
+                        //         future: viewModel.photo?.readAsBytes(),
+                        //         builder: (context, snapshot) {
+                        //           final data = snapshot.data;
+                        //           if (data == null ||
+                        //               snapshot.connectionState ==
+                        //                   ConnectionState.waiting) {
+                        //             return const Center(
+                        //               child: CircularProgressIndicator(),
+                        //             );
+                        //           }
+                        //           return SizedBox(
+                        //             height: 200.h,
+                        //             width: 300.w,
+                        //             child: Card(
+                        //               elevation: 3,
+                        //               shape: RoundedRectangleBorder(
+                        //                 borderRadius:
+                        //                     BorderRadius.circular(15.0),
+                        //               ),
+                        //               clipBehavior: Clip.hardEdge,
+                        //               child: Image.memory(
+                        //                 data,
+                        //                 width: 200.w,
+                        //                 height: 500.h,
+                        //                 fit: BoxFit.cover,
+                        //               ),
+                        //             ),
+                        //           );
+                        //         },
+                        //       ),
                         Positioned(
                           bottom: 4,
                           right: 4,
@@ -155,7 +180,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                         : [widget.fridgeData[0], 1],
                                   );
                                 },
-                                child: Text('취소', style: AppTextStyle.body12R(color: Colors.black),)),
+                                child: Text(
+                                  '취소',
+                                  style:
+                                      AppTextStyle.body12R(color: Colors.black),
+                                )),
                             // 등록하기 버튼
                             ElevatedButton(
                               onPressed: () async {
@@ -223,7 +252,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                   }
                                 }
                               },
-                              child: Text('등록하기', style: AppTextStyle.body12R(color: Colors.black)),
+                              child: Text('등록하기',
+                                  style: AppTextStyle.body12R(
+                                      color: Colors.black)),
                             ),
                           ],
                         ),
@@ -240,8 +271,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                   viewModel.buttonSelection(index);
                                 },
                                 children: [
-                                    Text('공용', style: AppTextStyle.body12R(color: Colors.black)),
-                                    Text('미확인', style: AppTextStyle.body12R(color: Colors.black)),
+                                    Text('공용',
+                                        style: AppTextStyle.body12R(
+                                            color: Colors.black)),
+                                    Text('미확인',
+                                        style: AppTextStyle.body12R(
+                                            color: Colors.black)),
                                   ])
                             : Container()
                       ],

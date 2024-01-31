@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -6,12 +7,11 @@ class RegisterViewModel extends ChangeNotifier {
   XFile? photo;
   final List<bool> _selected = [false, false];
   int selectedIndex = 0;
-  late Uint8List _foodImage;
+  late Uint8List foodImage;
   bool isLoading = false;
 
   List<bool> get selected => _selected;
 
-  Uint8List get foodImage => _foodImage;
 
   void changeLoadingState() {
     isLoading = !isLoading;
@@ -20,16 +20,24 @@ class RegisterViewModel extends ChangeNotifier {
 
   Future<Uint8List?> pickImage() async {
     photo = await picker.pickImage(source: ImageSource.camera);
+    if (await photo?.readAsBytes() == null) {
+      notifyListeners();
+      return null;
+    }
+    foodImage = (await photo?.readAsBytes())!;
     notifyListeners();
-    return await photo?.readAsBytes();
+    return foodImage;
   }
 
-  Future<void> changeImageFormat() async {
-    final resultImage = await pickImage();
-    if (resultImage != null) {
-      _foodImage = resultImage;
-    }
-  }
+  // Future<void> changeImageFormat() async {
+  //   final resultImage = await pickImage();
+  //   if (resultImage != null) {
+  //     _foodImage = resultImage;
+  //   } else {
+  //
+  //   }
+  //   notifyListeners();
+  // }
 
   void buttonSelection(int index) {
     for (int i = 0; i < selected.length; i++) {
