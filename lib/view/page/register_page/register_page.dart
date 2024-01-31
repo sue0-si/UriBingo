@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/repository/user_data_repository.dart';
+import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view_model/register_view_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
@@ -63,78 +64,79 @@ class _RegisterPageState extends State<RegisterPage> {
             : Column(
                 children: [
                   GestureDetector(
-                      onTap: () {
-                        viewModel.changeImageFormat();
-                      },
-                      child: Stack(
-                        children: [
-                          viewModel.photo == null
-                              ? SizedBox(
-                                  height: 200.h,
-                                  width: 300.w,
-                                  child: Card(
-                                    elevation: 3,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
-                                    clipBehavior: Clip.hardEdge,
+                    onTap: () {
+                      viewModel.changeImageFormat();
+                    },
+                    child: Stack(
+                      children: [
+                        viewModel.photo == null
+                            ? SizedBox(
+                                height: 200.h,
+                                width: 300.w,
+                                child: Card(
+                                  elevation: 3,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
                                   ),
-                                )
-                              : FutureBuilder(
-                                  future: viewModel.photo?.readAsBytes(),
-                                  builder: (context, snapshot) {
-                                    final data = snapshot.data;
-                                    if (data == null ||
-                                        snapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                      return const Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    }
-                                    return SizedBox(
-                                      height: 200.h,
-                                      width: 300.w,
-                                      child: Card(
-                                        elevation: 3,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                        ),
-                                        clipBehavior: Clip.hardEdge,
-                                        child: Image.memory(
-                                          data,
-                                          width: 200.w,
-                                          height: 500.h,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    );
-                                    // return Image.memory(
-                                    //   data,
-                                    //   width: 300.w,
-                                    //   height: 200.h,
-                                    //   fit: BoxFit.cover,
-                                    // );
-                                  },
+                                  clipBehavior: Clip.hardEdge,
+                                  child: Center(
+                                    child: Text('사진을 촬영해주세요', style: AppTextStyle.body15R(color: Colors.black)),
+                                  ),
                                 ),
-                          Positioned(
-                            bottom: 4,
-                            right: 4,
-                            child: Container(
-                              height: 50,
-                              width: 50,
-                              decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(8.0),
-                                    bottomRight: Radius.circular(8.0),
-                                  ),
-                                  color: Colors.white),
-                              child: const Icon(Icons.add_a_photo_rounded,
-                                  size: 30, color: Color(0xFF254e7a)),
-                            ),
+                              )
+                            : FutureBuilder(
+                                future: viewModel.photo?.readAsBytes(),
+                                builder: (context, snapshot) {
+                                  final data = snapshot.data;
+                                  if (data == null ||
+                                      snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                  return SizedBox(
+                                    height: 200.h,
+                                    width: 300.w,
+                                    child: Card(
+                                      elevation: 3,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                      ),
+                                      clipBehavior: Clip.hardEdge,
+                                      child: Image.memory(
+                                        data,
+                                        width: 200.w,
+                                        height: 500.h,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                        Positioned(
+                          bottom: 4,
+                          right: 4,
+                          child: Container(
+                            height: 45.h,
+                            width: 45.w,
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(8.0),
+                                  bottomRight: Radius.circular(8.0),
+                                ),
+                                color: Colors.white),
+                            child: viewModel.photo == null
+                                ? const Icon(Icons.add_a_photo_rounded,
+                                    size: 30, color: Color(0xFF9bc6bf))
+                                : const Icon(Icons.change_circle,
+                                    size: 30, color: Color(0xFF9bc6bf)),
                           ),
-                        ],
-                      )),
+                        ),
+                      ],
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(32.0),
                     child: Column(
@@ -153,7 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         : [widget.fridgeData[0], 1],
                                   );
                                 },
-                                child: const Text('취소')),
+                                child: Text('취소', style: AppTextStyle.body12R(color: Colors.black),)),
                             // 등록하기 버튼
                             ElevatedButton(
                               onPressed: () async {
@@ -161,7 +163,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 if (viewModel.photo == null) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text('이미지를 등록해주세요.'),
+                                      content: Text('사진을 등록해주세요.'),
                                       duration: Duration(seconds: 3),
                                     ),
                                   );
@@ -221,12 +223,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                   }
                                 }
                               },
-                              child: const Text('등록하기'),
+                              child: Text('등록하기', style: AppTextStyle.body12R(color: Colors.black)),
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 32,
+                        SizedBox(
+                          height: 32.h,
                         ),
                         // 관리자만 보이는 버튼
                         isManager
@@ -237,9 +239,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                 onPressed: (int index) {
                                   viewModel.buttonSelection(index);
                                 },
-                                children: const [
-                                    Text('공용'),
-                                    Text('미확인'),
+                                children: [
+                                    Text('공용', style: AppTextStyle.body12R(color: Colors.black)),
+                                    Text('미확인', style: AppTextStyle.body12R(color: Colors.black)),
                                   ])
                             : Container()
                       ],
