@@ -8,6 +8,9 @@ import 'package:leute/view/widget/login_widget/password_textfield.dart';
 import 'package:leute/view_model/signup_page_view_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../widget/custom_dialog/one_answer_dialog.dart';
+import '../../widget/custom_dialog/two_answer_dialog.dart';
+
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
@@ -21,6 +24,8 @@ class _SignupPageState extends State<SignupPage> {
   var confirmPasswordController = TextEditingController();
   var nameController = TextEditingController();
   var employeeNumberController = TextEditingController();
+  var groupNameController = TextEditingController();
+  var validationCodeController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -30,6 +35,8 @@ class _SignupPageState extends State<SignupPage> {
     confirmPasswordController.dispose();
     nameController.dispose();
     employeeNumberController.dispose();
+    groupNameController.dispose();
+    validationCodeController.dispose();
     super.dispose();
   }
 
@@ -45,52 +52,166 @@ class _SignupPageState extends State<SignupPage> {
             child: ListView(
               shrinkWrap: true,
               children: [
-                Text('이메일', style: AppTextStyle.body15B()),
+                Text('이메일', style: AppTextStyle.body16B()),
                 LoginTextfield(
                   hintText: 'email@email.com',
                   controller: emailController,
                   validator: viewModel.emailValidator,
                 ),
                 SizedBox(height: 8.h),
-                Text('비밀번호', style: AppTextStyle.body15B()),
+                Text('비밀번호', style: AppTextStyle.body16B()),
                 PasswordTextfield(
                   hintText: '******',
                   controller: passwordController,
                   validator: viewModel.passwordValidator,
                 ),
                 SizedBox(height: 8.h),
-                Text('비밀번호 확인', style: AppTextStyle.body15B()),
+                Text('비밀번호 확인', style: AppTextStyle.body16B()),
                 PasswordTextfield(
                   hintText: '******',
                   controller: confirmPasswordController,
                   validator: viewModel.confirmPasswordValidator,
                 ),
                 SizedBox(height: 8.h),
-                Text('이름', style: AppTextStyle.body15B()),
-                LoginTextfield(
-                  hintText: '홍길동',
-                  controller: nameController,
-                  validator: viewModel.nameValidator,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('이름', style: AppTextStyle.body16B()),
+                          LoginTextfield(
+                            hintText: '홍길동',
+                            controller: nameController,
+                            validator: viewModel.nameValidator,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 8.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('멤버번호', style: AppTextStyle.body16B()),
+                          LoginTextfield(
+                            hintText: '123456',
+                            controller: employeeNumberController,
+                            validator: viewModel.employeeNumberValidator,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 8.h),
-                Text('사원번호', style: AppTextStyle.body15B()),
-                LoginTextfield(
-                  hintText: '12-3456',
-                  controller: employeeNumberController,
-                  validator: viewModel.employeeNumberValidator,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('그룹명', style: AppTextStyle.body16B()),
+                          LoginTextfield(
+                            hintText: 'ㅇㅇ그룹',
+                            controller: groupNameController,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 8.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('그룹고유번호', style: AppTextStyle.body16B()),
+                          LoginTextfield(
+                            hintText: '123456',
+                            controller: validationCodeController,
+                            validator: viewModel.validationCodeValidator,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 8.h),
                 LoginElevatedButton(
                     childText: '가입하기',
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState?.validate() ?? false) {
-                        viewModel.handleSignUp(
+                        await viewModel.handleSignUp(
                             context: context,
                             email: emailController.text,
                             password: passwordController.text,
                             confirmPassword: confirmPasswordController.text,
                             name: nameController.text,
-                            employeeNumber: employeeNumberController.text);
+                            employeeNumber: employeeNumberController.text,
+                            groupName: groupNameController.text,
+                            validationCode: validationCodeController.text);
+
+                        // 그룹 고유번호가 이미 존재할 경우 - 그 그룹의 사용자로 등록함
+                        if (viewModel.isValidationCodeInUse) {
+                          if (mounted) {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return TwoAnswerDialog(
+                                  title: '그룹명: ${viewModel.usingGroupName}',
+                                  subtitle: '사용자로 등록됩니다.',
+                                  firstButton: '확인',
+                                  secondButton: '취소',
+                                  onTap: () async {
+                                    // Firebase에 회원가입 요청(사용자)
+                                    await viewModel.postNewMemberData(
+                                        emailController.text,
+                                        passwordController.text,
+                                        nameController.text,
+                                        employeeNumberController.text,
+                                        groupNameController.text,
+                                        validationCodeController.text,
+                                        false);
+                                    // 가입 성공 시 메인 페이지로 이동
+                                    if (mounted) {
+                                      context.go('/', extra: 0);
+                                    }
+                                  },
+                                );
+                              },
+                            );
+                          }
+                        } else {
+                          // 그룹 고유번호가 없는 경우 - 신규로 생성하고 관리자로 등록함
+                          if (mounted) {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return TwoAnswerDialog(
+                                  title: '신규 생성될 고유번호',
+                                  subtitle:
+                                      '그룹명: ${groupNameController.text}의 관리자로 등록됩니다.',
+                                  firstButton: '확인',
+                                  secondButton: '취소',
+                                  onTap: () async {
+                                    // Firebase에 회원가입 요청(관리자)
+                                    await viewModel.postNewMemberData(
+                                        emailController.text,
+                                        passwordController.text,
+                                        nameController.text,
+                                        employeeNumberController.text,
+                                        groupNameController.text,
+                                        validationCodeController.text,
+                                        true);
+                                    // 가입 성공 시 메인 페이지로 이동
+                                    if (mounted) {
+                                      context.go('/', extra: 0);
+                                    }
+                                  },
+                                );
+                              },
+                            );
+                          }
+                        }
                       }
                     }),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [

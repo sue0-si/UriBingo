@@ -1,11 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
+import '../data/models/user_model.dart';
+import '../data/repository/user_data_repository.dart';
 
 class SignupPageViewModel with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  final UserDataRepository userDataRepository = UserDataRepository();
+  UserModel? currentUser;
+  bool isLoading = false;
+  bool _disposed = false;
+  bool isValidationCodeInUse = false;
+  String usingGroupName = '';
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
+  }
 
   // 회원가입
   Future<void> handleSignUp(
@@ -14,11 +36,19 @@ class SignupPageViewModel with ChangeNotifier {
       required String confirmPassword,
       required String name,
       required String employeeNumber,
+      required String groupName,
+      required String validationCode,
       required BuildContext context}) async {
     // 이메일 중복 검사
     bool isEmailInUse = await checkIfEmailInUse(email);
+    // 그룹고유번호 중복 검사
+    final checkInUse =
+        await checkIfValidationCodeInUse(validationCode, groupName);
+    notifyListeners();
+    isValidationCodeInUse = checkInUse[0];
+    usingGroupName = checkInUse[1];
 
-    // 중복된 이메일 처리
+    // 중복된 이메일 및 중복 그룹고유번호 처리
     if (context.mounted) {
       if (isEmailInUse) {
         showDialog(
@@ -64,24 +94,7 @@ class SignupPageViewModel with ChangeNotifier {
         );
       }
     }
-    // Firebase에 회원가입 요청
-    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    // displayname에 이름 추가
-    await userCredential.user?.updateDisplayName(name);
-    // 추가 정보 처리
-    await _firestore.collection('profile').doc(userCredential.user!.uid).set({
-      'name': name,
-      'employeeNumber': employeeNumber,
-      'manager': false,
-      'email': email,
-    });
-    // 가입 성공 시 메인 페이지로 이동
-    if (context.mounted) {
-      context.go('/', extra: 0);
-    }
+    notifyListeners();
   }
 
   // 이메일 중복 검사
@@ -97,6 +110,65 @@ class SignupPageViewModel with ChangeNotifier {
       print('에러: $e');
       return false;
     }
+  }
+
+  // 그룹 고유번호, 그룹명 중복검사
+  Future<List<dynamic>> checkIfValidationCodeInUse(
+      String validationCode, String groupName) async {
+    QuerySnapshot<Map<String, dynamic>> query = await _firestore
+        .collection('profile')
+        .where('validationCode', isEqualTo: validationCode)
+        .get();
+    if (query.size > 0) {
+      return [query.docs.isNotEmpty, query.docs.first.data()['groupName']];
+    }
+    // 이미 사용 중
+    else {
+      return [false, groupName];
+    }
+  }
+
+// 신규 유저 Firebase 등록 요청 메서드
+  Future<void> postNewMemberData(
+      String email,
+      String password,
+      String name,
+      String employeeNumber,
+      String groupName,
+      String validationCode,
+      bool isManager) async {
+    // Firebase에 회원가입 요청
+    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    // displayname에 이름 추가
+    await userCredential.user?.updateDisplayName(name);
+    // 추가 정보 처리
+    await _firestore.collection('profile').doc(userCredential.user!.uid).set({
+      'userId': userCredential.user!.uid,
+      'name': name,
+      'employeeNumber': employeeNumber,
+      'manager': isManager,
+      'email': email,
+      'groupName': groupName,
+      'validationCode': validationCode,
+    });
+    notifyListeners();
+  }
+
+  // 신규 유저 확인용 요청 메서드
+  Future<void> getNewMemberData() async {
+    isLoading = true;
+    notifyListeners();
+    List<UserModel> userData = await userDataRepository.getFirebaseUserData();
+    currentUser = userData.firstWhere(
+        (user) => user.email == FirebaseAuth.instance.currentUser?.email);
+
+    isLoading = false;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
   }
 
   // 이메일 유효성 검사
@@ -144,8 +216,16 @@ class SignupPageViewModel with ChangeNotifier {
 
 // 사원번호 유효성 검사
   String? employeeNumberValidator(String? value) {
+    // if (value == null || value.isEmpty) {
+    //   return '사원번호를 입력하세요.';
+    // }
+    return null;
+  }
+
+  // 그룹 고유번호 유효성 검사
+  String? validationCodeValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return '사원번호를 입력하세요.';
+      return '그룹 고유번호를 입력하세요.';
     }
     return null;
   }
