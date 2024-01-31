@@ -68,14 +68,16 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       context: context,
                       builder: (context) {
                         return OneAnswerDialog(
-                            onTap: () async {
-                              await FirebaseAuth.instance.signOut();
-                              if (mounted) {
-                                context.go('/login');
-                              }
-                            },
-                            title: '로그아웃되었습니다. 새로운 비밀번호로 로그인 해주세요.',
-                            firstButton: '확인');
+                          onTap: () async {
+                            await FirebaseAuth.instance.signOut();
+                            if (mounted) {
+                              context.go('/login');
+                            }
+                          },
+                          title: '',
+                          firstButton: '확인',
+                          subtitle: '로그아웃되었습니다. 새로운 비밀번호로 로그인 해주세요.',
+                        );
                       },
                     );
                   }
