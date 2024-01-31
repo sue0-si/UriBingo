@@ -22,7 +22,7 @@ class LoginPageViewModel with ChangeNotifier {
           .signInWithEmailAndPassword(email: email, password: password);
       if (context.mounted) {
         prefs!.setString('_email', email);
-        context.go('/', extra: 0);
+        context.go('/main_page', extra: 0);
       }
       // 로그인 실패시 다이얼로그
     } on FirebaseAuthException catch (_) {

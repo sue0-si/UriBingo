@@ -35,7 +35,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
               children: [
                 IconButton(
                     onPressed: () {
-                      context.go('/', extra: 2);
+                      context.go('/main_page', extra: 2);
                     },
                     icon: const Icon(Icons.arrow_back)),
                 Text(

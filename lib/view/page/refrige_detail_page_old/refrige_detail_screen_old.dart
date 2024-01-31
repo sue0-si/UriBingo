@@ -23,7 +23,7 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/', extra: 0),
+          onPressed: () => context.go('/main_page', extra: 0),
         ),
         title: Text(widget.selectedRefrige.refrigeName,
             style: AppTextStyle.body20R()),

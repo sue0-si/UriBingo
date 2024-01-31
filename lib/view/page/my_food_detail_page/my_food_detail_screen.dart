@@ -48,7 +48,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            context.go('/', extra: 1);
+            context.go('/main_page', extra: 1);
           },
           icon: const Icon(Icons.arrow_back),
         ),

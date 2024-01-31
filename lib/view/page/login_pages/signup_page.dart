@@ -8,7 +8,6 @@ import 'package:leute/view/widget/login_widget/password_textfield.dart';
 import 'package:leute/view_model/signup_page_view_model.dart';
 import 'package:provider/provider.dart';
 
-import '../../widget/custom_dialog/one_answer_dialog.dart';
 import '../../widget/custom_dialog/two_answer_dialog.dart';
 
 class SignupPage extends StatefulWidget {
@@ -173,7 +172,7 @@ class _SignupPageState extends State<SignupPage> {
                                         false);
                                     // 가입 성공 시 메인 페이지로 이동
                                     if (mounted) {
-                                      context.go('/', extra: 0);
+                                      context.go('/main_page', extra: 0);
                                     }
                                   },
                                 );
@@ -204,7 +203,7 @@ class _SignupPageState extends State<SignupPage> {
                                         true);
                                     // 가입 성공 시 메인 페이지로 이동
                                     if (mounted) {
-                                      context.go('/', extra: 0);
+                                      context.go('/main_page', extra: 0);
                                     }
                                   },
                                 );

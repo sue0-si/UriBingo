@@ -68,7 +68,7 @@ class _DiscardFoodDetailState extends State<DiscardFoodDetail> {
             child: SuperContainer(
               height: 200.h,
               width: 300.w,
-              border: 120,
+              border: 120.r,
               borderWidth: 9,
               borderColor:
                   viewModel.isOld ? AppColors.caution : const Color(0xFF9bc6bf),

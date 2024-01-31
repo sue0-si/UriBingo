@@ -13,7 +13,7 @@ import 'package:leute/view_model/login_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, required String title});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
     });
     authStateChanges = FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
-        context.go('/', extra: 0);
+        context.go('/main_page', extra: 0);
         return;
       }
     });

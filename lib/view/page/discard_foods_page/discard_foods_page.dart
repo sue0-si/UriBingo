@@ -22,7 +22,7 @@ class DiscardFoods extends StatelessWidget {
               Icons.arrow_back,
               color: Colors.white,
             ),
-            onPressed: () => context.go('/', extra: 0)),
+            onPressed: () => context.go('/main_page', extra: 0)),
         title: Center(
           child: Text(
             '폐기할음식들',
