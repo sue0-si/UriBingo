@@ -71,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                               onPressed: () {
                                 context.go('/addRefrige', extra: currentUser);
-                                },
+                              },
                             )
                           : Container();
                     } else {
