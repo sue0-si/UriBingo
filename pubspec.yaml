@@ -68,8 +68,12 @@ dependencies:
   shared_preferences: ^2.2.2
   loading_animation_widget: ^1.2.0+4
   animated_button_bar: ^1.0.0
+<<<<<<< HEAD
   checkbox_grouped: ^2.0.0
   roundcheckbox: ^2.0.5
+=======
+  giffy_dialog: ^2.0.0+2
+>>>>>>> origin/eunjin
 
 dev_dependencies:
   flutter_test:

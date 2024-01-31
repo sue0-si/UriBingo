@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:leute/styles/app_text_style.dart';
 
-class TwoAnswerDialog extends StatelessWidget {
+class NoTwoAnswerDialog extends StatelessWidget {
   final Function() onTap;
   final String title;
   final String subtitle;
   final String firstButton;
   final String secondButton;
 
-  const TwoAnswerDialog({
+  const NoTwoAnswerDialog({
     super.key,
     required this.onTap,
     required this.title,
@@ -33,7 +33,7 @@ class TwoAnswerDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/dialog_cookie.gif',
+              'assets/images/dialog_carrot.gif',
               width: 80.w,
               height: 80.h,
             ),

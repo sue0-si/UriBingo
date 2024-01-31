@@ -199,7 +199,8 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                   : viewModel.fetchData();
                               Navigator.of(context, rootNavigator: true).pop();
                             },
-                            title: '관리자가 아무도 없습니다.',
+                            title: '',
+                            subtitle: '관리자가 아무도 없습니다.',
                             firstButton: '취소',
                           );
                         });
@@ -226,7 +227,8 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                   Navigator.of(context, rootNavigator: true)
                                       .pop();
                                 },
-                                title: '변경되었습니다.',
+                                title: '',
+                                subtitle: '변경되었습니다',
                                 firstButton: '확인',
                               );
                             });
