@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/user_model.dart';
 import 'package:leute/styles/app_text_style.dart';
@@ -37,7 +38,7 @@ class _MainScreenState extends State<MainScreen> {
           flexibleSpace: Container(
             decoration: BoxDecoration(
                 color: const Color(0xFF9bc6bf),
-                borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(10).r),
           ),
         ),
         body: (viewModel.isLoading)
@@ -48,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               )
             : Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0).w,
                 child: GridView.builder(
                   physics: const BouncingScrollPhysics(
                       decelerationRate: ScrollDecelerationRate.fast),
