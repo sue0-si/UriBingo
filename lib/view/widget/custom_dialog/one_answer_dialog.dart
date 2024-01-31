@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../styles/app_text_style.dart';
+
 class OneAnswerDialog extends StatelessWidget {
   final Function() onTap;
   final String title;
@@ -14,11 +16,11 @@ class OneAnswerDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(title),
+      title: Text(title, style: AppTextStyle.body18R()),
       actions: <Widget>[
         ElevatedButton(
           onPressed: onTap,
-          child: Text(firstButton),
+          child: Text(firstButton, style: AppTextStyle.body14R()),
         ),
       ],
     );

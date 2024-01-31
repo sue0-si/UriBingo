@@ -57,7 +57,7 @@ class FreezerCompViewModel extends ChangeNotifier {
             _repository.filterFoods(foodItems, true, i);
         fetchedList.add(FoodThumbNailList(
           samePositionFoodList: samePositionFoodList[2]
-              .where((e) => fetchValidFoods(selectedRefrige, e) > 0)
+              .where((e) => fetchValidFoods(selectedRefrige, e) >= 0)
               .toList(),
           selectedRefrige: selectedRefrige,
           selectedPosition: i,

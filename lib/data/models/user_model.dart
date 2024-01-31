@@ -5,6 +5,7 @@ class UserModel {
   String name;
   String validationCode;
   String groupName;
+  String userId;
 
 //<editor-fold desc="Data Methods">
   UserModel({
@@ -14,6 +15,7 @@ class UserModel {
     required this.name,
     required this.validationCode,
     required this.groupName,
+    required this.userId,
   });
 
   @override
@@ -26,7 +28,8 @@ class UserModel {
           manager == other.manager &&
           name == other.name &&
           validationCode == other.validationCode &&
-          groupName == other.groupName);
+          groupName == other.groupName &&
+          userId == other.userId);
 
   @override
   int get hashCode =>
@@ -35,11 +38,12 @@ class UserModel {
       manager.hashCode ^
       name.hashCode ^
       validationCode.hashCode ^
-      groupName.hashCode;
+      groupName.hashCode ^
+      userId.hashCode;
 
   @override
   String toString() {
-    return 'UserModel{ email: $email, employeeNumber: $employeeNumber, manager: $manager, name: $name, validationCode: $validationCode, groupName: $groupName,}';
+    return 'UserModel{ email: $email, employeeNumber: $employeeNumber, manager: $manager, name: $name, validationCode: $validationCode, groupName: $groupName, userId: $userId,}';
   }
 
   UserModel copyWith({
@@ -49,6 +53,7 @@ class UserModel {
     String? name,
     String? validationCode,
     String? groupName,
+    String? userId,
   }) {
     return UserModel(
       email: email ?? this.email,
@@ -57,6 +62,7 @@ class UserModel {
       name: name ?? this.name,
       validationCode: validationCode ?? this.validationCode,
       groupName: groupName ?? this.groupName,
+      userId: userId ?? this.userId,
     );
   }
 
@@ -68,6 +74,7 @@ class UserModel {
       'name': name,
       'validationCode': validationCode,
       'groupName': groupName,
+      'userId': userId,
     };
   }
 
@@ -79,6 +86,7 @@ class UserModel {
       name: map['name'] as String,
       validationCode: map['validationCode'] as String,
       groupName: map['groupName'] as String,
+      userId: map['userId'] as String,
     );
   }
 

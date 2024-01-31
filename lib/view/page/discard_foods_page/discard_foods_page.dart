@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_widgets/super_container.dart';
 import 'package:leute/view_model/discard_foods_view_model.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 class DiscardFoods extends StatelessWidget {
@@ -34,7 +35,14 @@ class DiscardFoods extends StatelessWidget {
               borderRadius: BorderRadius.circular(10)),
         ),
       ),
-      body: viewModel.discardFoodsDetails.isEmpty
+      body: viewModel.isLoading
+          ? Center(
+        child: LoadingAnimationWidget.inkDrop(
+          color: const Color(0xFF9bc6bf),
+          size: 50,
+        ),
+      ) :
+      viewModel.discardFoodsDetails.isEmpty
           ? const Center(
               child: Text('폐기예정인 음식이 없습니다.'),
             )
