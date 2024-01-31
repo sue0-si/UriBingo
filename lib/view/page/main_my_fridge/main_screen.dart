@@ -62,7 +62,7 @@ class _MainScreenState extends State<MainScreen> {
                   itemBuilder: (context, index) {
                     if (index == viewModel.fridges.length) {
                       // Last item is the add button
-                      return currentUser!.manager
+                      return (currentUser != null && currentUser.manager)
                           ? IconButton(
                               icon: Icon(
                                 UniconsLine.plus_circle,
