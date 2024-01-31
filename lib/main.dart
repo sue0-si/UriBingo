@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Tmoney',
+          // useMaterial3: false,
           colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF325c6a)),
         ),
         routerConfig: router,

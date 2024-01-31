@@ -10,6 +10,7 @@ class DiscardFoodsViewModel extends ChangeNotifier {
   List<FoodDetail> discardFoodsDetails = [];
   List<RefrigeDetail> refrigeDetails = [];
   bool _disposed = false;
+  bool isLoading = false;
 
   @override
   void dispose() {
@@ -29,6 +30,9 @@ class DiscardFoodsViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchDiscardFoodsData() async {
+    isLoading = true;
+    notifyListeners();
+
     final allFoods = await foodRepository.getFirebaseFoodsData();
     refrigeDetails = await refrigeRepository.getFirebaseRefrigesData();
 
@@ -36,10 +40,11 @@ class DiscardFoodsViewModel extends ChangeNotifier {
       final sameRefrigeFoods =
           foodRepository.getFoodDetail(allFoods, refrigeDetail.refrigeName);
       discardFoodsDetails += sameRefrigeFoods
-          .where((e) => fetchValidFoods(refrigeDetail, e) <= 0)
+          .where((e) => fetchValidFoods(refrigeDetail, e) < 0)
           .toList();
     }
     // refrigeDetails;
+    isLoading = false;
     notifyListeners();
   }
 

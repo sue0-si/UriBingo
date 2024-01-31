@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/data/models/user_model.dart';
 
 class MakeFridge extends StatelessWidget {
   final List<RefrigeDetail> refrigeItems;
-  final bool isManager;
+  final UserModel currentUser;
   final int index;
 
   const MakeFridge({
     super.key,
     required this.refrigeItems,
-    required this.isManager,
+    required this.currentUser,
     required this.index,
   });
 
@@ -27,14 +28,15 @@ class MakeFridge extends StatelessWidget {
               children: [
                 Container(
                   height: MediaQuery.of(context).size.height * 0.2,
-                  decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      fit: BoxFit.cover,
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
                       image: AssetImage(
-                          'assets/images/new_refrig_icon_eunjin.png'),
+                          'assets/images/lemon.png'),
                     ),
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
+                    // borderRadius: BorderRadius.circular(10),
                   ),
                 ),
                 Center(
@@ -46,10 +48,10 @@ class MakeFridge extends StatelessWidget {
             ),
           ),
           //관리자 버튼
-          isManager
+          currentUser.manager
               ? ElevatedButton(
                   onPressed: () {
-                    context.go('/editRefrige', extra: refrigeItems[index]);
+                    context.go('/editRefrige', extra: [refrigeItems[index], currentUser]);
                   },
                   child: const Center(
                       child: Text(

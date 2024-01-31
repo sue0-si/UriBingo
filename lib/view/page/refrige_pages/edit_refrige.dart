@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/data/models/user_model.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/custom_dialog/two_answer_dialog.dart';
 
 class EditRefrige extends StatefulWidget {
-  const EditRefrige({super.key, required this.seletedRefrige});
+  const EditRefrige({super.key, required this.seletedRefrige, required this.currentUser});
 
   final RefrigeDetail seletedRefrige;
+  final UserModel currentUser;
 
   @override
   State<EditRefrige> createState() => _EditRefrigeState();
@@ -338,7 +340,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                               selectedStoragePeriodController
                                                   .text,
                                               selectedExtensionPeriodController
-                                                  .text);
+                                                  .text, widget.currentUser);
                                         });
                                   });
 
