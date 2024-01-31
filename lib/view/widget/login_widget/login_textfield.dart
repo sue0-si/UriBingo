@@ -1,3 +1,4 @@
+import 'package:checkbox_grouped/checkbox_grouped.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/styles/app_text_colors.dart';
 
@@ -5,12 +6,14 @@ class LoginTextfield extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
 
   const LoginTextfield(
       {super.key,
       required this.hintText,
       required this.controller,
-      this.validator});
+      this.validator,
+      this.onChanged});
 
   @override
   State<LoginTextfield> createState() => _LoginTextfieldState();
@@ -25,6 +28,7 @@ class _LoginTextfieldState extends State<LoginTextfield> {
       controller: widget.controller,
       keyboardType: TextInputType.text,
       onChanged: (text) {
+        widget.onChanged?.call(text);
         setState(() {
           textFormFieldText = text;
         });

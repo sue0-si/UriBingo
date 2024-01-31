@@ -28,6 +28,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    Future.microtask(() {
+      var viewmodel = context.read<LoginPageViewModel>();
+      viewmodel.initPreferences().then((value) => emailController.text = value);
+    });
     authStateChanges = FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
         context.go('/', extra: 0);
@@ -47,7 +51,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     var viewmodel = context.watch<LoginPageViewModel>();
-    emailController.text = viewmodel.idMemory;
     return Scaffold(
         body: Padding(
       padding: const EdgeInsets.all(8.0),
@@ -80,9 +83,10 @@ class _LoginPageState extends State<LoginPage> {
                     style: AppTextStyle.body15M(color: AppColors.mainText),
                   ),
                   Checkbox(
-                    value: viewmodel.checkBoxMemory,
-                    onChanged: viewmodel.checkBox,
-                  )
+                      value: viewmodel.checkBoxMemory,
+                      onChanged: (value) {
+                        viewmodel.checkBox(value);
+                      })
                 ],
               ),
               LoginElevatedButton(

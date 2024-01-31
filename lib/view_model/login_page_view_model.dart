@@ -82,14 +82,17 @@ class LoginPageViewModel with ChangeNotifier {
   }
 
 // 아이디 불러오기 체크박스 불러오기
-  void initPreferences() async {
+  Future<String> initPreferences() async {
     prefs = await SharedPreferences.getInstance();
     if (prefs != null) {
       checkBoxMemory = prefs!.getBool('_checkBox') ?? false;
       if (checkBoxMemory) {
         idMemory = prefs!.getString('_email') ?? '';
+        notifyListeners();
+        return idMemory;
       }
-      notifyListeners();
     }
+    notifyListeners();
+    return '';
   }
 }
