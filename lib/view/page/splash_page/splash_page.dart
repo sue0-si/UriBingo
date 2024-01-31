@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_style.dart';
 
 import '../login_pages/login_page.dart';
@@ -9,6 +10,8 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 3))
+        .then((value) => GoRouter.of(context).go('/login'));
     return AnimatedSplashScreen(
       splash: Column(
         children: [
@@ -28,12 +31,9 @@ class SplashScreen extends StatelessWidget {
         ],
       ),
       backgroundColor: Colors.white,
-      nextScreen: const LoginPage(
-        title: 'Uribingo',
-        //title: 'Uribingo',
-      ),
+      nextScreen: const LoginPage(),
+      duration: 50,
       splashIconSize: 500,
-      duration: 4700,
       splashTransition: SplashTransition.fadeTransition,
 
       //curve: Curves.easeIn,
