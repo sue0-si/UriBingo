@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/user_model.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
@@ -8,6 +9,7 @@ import '../../widget/custom_dialog/two_answer_dialog.dart';
 
 class AddRefrige extends StatefulWidget {
   const AddRefrige({super.key, required this.currentUser});
+
   final UserModel currentUser;
 
   //외부에서 값을 받아올 수 있다
@@ -38,9 +40,10 @@ class _AddRefrigeState extends State<AddRefrige> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           '냉장고 추가',
           style: TextStyle(
+            fontSize: 20.sp,
             fontWeight: FontWeight.w200,
           ),
         ),
@@ -49,7 +52,7 @@ class _AddRefrigeState extends State<AddRefrige> {
         //actions: [],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0).w,
         child: SafeArea(
           child: Center(
             child: Column(
@@ -57,21 +60,21 @@ class _AddRefrigeState extends State<AddRefrige> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 20).w,
                   child: SizedBox(
-                    height: 300,
+                    height: 300.h,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Expanded(
+                            Expanded(
                               flex: 1,
                               child: Text(
                                 '냉장고 이름',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                 ),
                               ),
                             ),
@@ -93,25 +96,27 @@ class _AddRefrigeState extends State<AddRefrige> {
                                   },
                                   controller: addNameController,
                                   //obscureText: true, 입력값을 안보여주고싶을때
-                                  style: const TextStyle(fontSize: 15),
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
+                                  ),
                                   decoration: InputDecoration(
                                     border: const OutlineInputBorder(),
-                                    contentPadding: const EdgeInsets.only(
+                                    contentPadding: EdgeInsets.only(
                                       left: 15,
                                       top: 10,
                                       bottom: 10,
-                                    ),
+                                    ).w,
                                     focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(10).w,
                                       borderSide: const BorderSide(
                                         width: 1,
                                         color: Colors.green,
                                       ),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: const BorderSide(
-                                        width: 1,
+                                      borderRadius: BorderRadius.circular(10).w,
+                                      borderSide: BorderSide(
+                                        width: 1.r,
                                         color: Colors.green,
                                       ),
                                     ),
@@ -121,8 +126,8 @@ class _AddRefrigeState extends State<AddRefrige> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 25,
+                            SizedBox(
+                              width: 25.w,
                             ),
                           ],
                         ),
@@ -130,19 +135,19 @@ class _AddRefrigeState extends State<AddRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Expanded(
+                            Expanded(
                               flex: 1,
                               child: Text(
                                 '냉장고 칸수',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                 ),
                               ),
                             ),
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: const EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40).w,
                                 child: DropdownButton(
                                   value: addPageViewModel.selectedColdstorage,
                                   items: addPageViewModel
@@ -174,19 +179,19 @@ class _AddRefrigeState extends State<AddRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Expanded(
+                             Expanded(
                               flex: 1,
                               child: Text(
                                 '냉동고 칸수',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                 ),
                               ),
                             ),
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: const EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40).w,
                                 child: DropdownButton(
                                     value:
                                         addPageViewModel.selectedFrozenStorage,
@@ -211,19 +216,19 @@ class _AddRefrigeState extends State<AddRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Expanded(
+                            Expanded(
                               flex: 1,
                               child: Text(
                                 '보관기간',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                 ),
                               ),
                             ),
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: const EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40).w,
                                 child: DropdownButton(
                                     value:
                                         addPageViewModel.selectedStoragePeriod,
@@ -247,19 +252,19 @@ class _AddRefrigeState extends State<AddRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Expanded(
+                             Expanded(
                               child: Text(
                                 '연장가능기간',
                                 style: TextStyle(
                                   color: Color(0xFF00557F),
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                 ),
                               ),
                             ),
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: const EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40).w,
                                 child: DropdownButton(
                                     elevation: 10,
                                     dropdownColor: Colors.green,
@@ -302,8 +307,8 @@ class _AddRefrigeState extends State<AddRefrige> {
                                     return TwoAnswerDialog(
                                         title: '등록하시겠습니까?',
                                         subtitle: '등록된 냉장고 이름은 수정이 불가합니다.',
-                                        titleStyle: const TextStyle(
-                                          fontSize: 15,
+                                        titleStyle: TextStyle(
+                                          fontSize: 15.sp,
                                           color: Colors.green,
                                         ),
                                         firstButton: '네',
@@ -314,16 +319,17 @@ class _AddRefrigeState extends State<AddRefrige> {
                                           if (mounted) {
                                             context.go('/', extra: 0);
                                           }
-                                          await addPageViewModel.addRefrige(widget.currentUser);
+                                          await addPageViewModel
+                                              .addRefrige(widget.currentUser);
                                         });
                                   });
                               //왜 async?
                             }
                           },
-                          child: const Text(
+                          child: Text(
                             '추가하기',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -332,10 +338,10 @@ class _AddRefrigeState extends State<AddRefrige> {
                           onPressed: () {
                             context.go('/', extra: 0);
                           },
-                          child: const Text(
+                          child: Text(
                             '취소하기',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

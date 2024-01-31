@@ -13,7 +13,7 @@ import 'package:leute/view_model/login_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({super.key, required String title});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
