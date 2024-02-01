@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../styles/app_text_style.dart';
 
-import '../../../styles/app_text_style.dart';
-
 class OneAnswerDialog extends StatelessWidget {
   final Function() onTap;
   final String title;
@@ -37,14 +35,13 @@ class OneAnswerDialog extends StatelessWidget {
             ),
             Text(
               title,
-              style: AppTextStyle.body18M(),
+              style: AppTextStyle.body16M(),
             ),
-            SizedBox(height: 6.h),
             Text(
               subtitle,
               style: AppTextStyle.body12R(),
             ),
-            SizedBox(height: 16.h),
+            SizedBox(height: 8.h),
             ElevatedButton(
                 onPressed: onTap,
                 style: ElevatedButton.styleFrom(
