@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_colors.dart';
@@ -25,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   StreamSubscription? authStateChanges;
 
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +41,7 @@ class _LoginPageState extends State<LoginPage> {
         return;
       }
     });
+
   }
 
   @override
