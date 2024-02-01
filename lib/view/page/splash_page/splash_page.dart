@@ -1,41 +1,53 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../styles/app_text_style.dart';
-
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 3))
+    Future.delayed(const Duration(seconds: 6))
         .then((value) => GoRouter.of(context).go('/login'));
-    return AnimatedSplashScreen(
-      splash: Column(
-        children: [
-          Container(
-            height: 300,
-            width: MediaQuery.of(context).size.width * 0.6,
-            child: Image.asset(
-              'assets/images/refrigerator.gif',
-            ),
-          ),
-          Text(
-            'Uribingo',
-            style: AppTextStyle.body15R(
-              color: Colors.orangeAccent,
-            ),
-          ),
-        ],
-      ),
-      backgroundColor: Colors.white,
-      splashIconSize: 500,
-      duration: 4700,
-      splashTransition: SplashTransition.fadeTransition,
-      nextScreen: SplashScreen(),
 
-//curve: Curves.easeIn,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: AnimatedOpacity(
+          duration: Duration(seconds: 4),
+          opacity: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/cut_refrigerator.gif',
+                height: 200.h,
+                width: MediaQuery.of(context).size.width * 0.4,
+              ),
+              SizedBox(height: 20.h),
+              Text(
+                'UriBingo',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25.sp,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xFFFFB500),
+                  letterSpacing: 3.sp,
+                  shadows: [
+                    Shadow(
+                      color: Colors.black.withOpacity(0.1),
+                      offset: const Offset(2.0, 1.0),
+                      blurRadius: 4.0.r,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -83,7 +83,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                               child: Form(
                                 key: _formKey,
                                 child: TextFormField(
-                                  maxLength: 10,
+                                  maxLength: 7,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return '냉장고 이름을 입력하세요';

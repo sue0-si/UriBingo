@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
@@ -70,7 +71,7 @@ class _EditRefrigeState extends State<EditRefrige> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0).r,
         child: SafeArea(
           child: Center(
             child: Column(
@@ -78,7 +79,7 @@ class _EditRefrigeState extends State<EditRefrige> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 20).r,
                   child: SizedBox(
                     height: 300,
                     child: Column(
