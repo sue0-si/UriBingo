@@ -26,7 +26,7 @@ class MyFridge extends StatelessWidget {
         flexibleSpace: Container(
           decoration: BoxDecoration(
               color: const Color(0xFF9bc6bf),
-              borderRadius: BorderRadius.circular(10)),
+              borderRadius: BorderRadius.circular(10).r),
         ),
       ),
       body: viewModel.isLoading
@@ -41,7 +41,7 @@ class MyFridge extends StatelessWidget {
                   child: Text('보관중인 음식이 없습니다.'),
                 )
               : Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8).w,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -57,14 +57,15 @@ class MyFridge extends StatelessWidget {
                                       .isNotEmpty)
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 40, left: 16, right: 16),
+                                              top: 40, left: 16, right: 16)
+                                          .w,
                                       child: Container(
                                         decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(10),
+                                                BorderRadius.circular(10).r,
                                             color: Color(0xFFbbd7da)),
                                         child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
+                                          padding: const EdgeInsets.all(16.0).w,
                                           child: GridView.builder(
                                             shrinkWrap: true,
                                             physics:
@@ -129,21 +130,23 @@ class MyFridge extends StatelessWidget {
                                     Row(
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0).w,
                                           child: Container(
                                             decoration: BoxDecoration(
                                               color: Colors.white,
                                               borderRadius:
-                                                  BorderRadius.circular(5),
+                                                  BorderRadius.circular(5).r,
                                               border: Border.all(
                                                   color: Color(0xFF9bc6bf),
                                                   width: 3),
                                             ),
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.all(8.0).w,
                                               child: Text(
                                                 ' ${refrigeDetail.refrigeName}',
+                                                style: AppTextStyle.body12R(
+                                                    color: Colors.black),
                                               ),
                                             ),
                                           ),
@@ -158,7 +161,7 @@ class MyFridge extends StatelessWidget {
                                       refrigeDetail.refrigeName)
                                   .isNotEmpty)
                                 SizedBox(
-                                  height: 30,
+                                  height: 30.h,
                                 )
                             ],
                           ),

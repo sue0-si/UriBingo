@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view_model/main_screen_view_model.dart';
@@ -53,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
                         )
                       : Container(),
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16.0).w,
                     child: GridView.builder(
                       physics: const BouncingScrollPhysics(
                           decelerationRate: ScrollDecelerationRate.fast),
