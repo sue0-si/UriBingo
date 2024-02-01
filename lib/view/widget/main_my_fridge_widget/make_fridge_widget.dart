@@ -44,7 +44,7 @@ class MakeFridge extends StatelessWidget {
                 Center(
                   child: Text(
                     refrigeItems[index].refrigeName,
-                    style: AppTextStyle.body15R(color: Colors.black),
+                    style: AppTextStyle.body12R(color: Colors.black),
                   ),
                 ),
               ],
@@ -59,7 +59,7 @@ class MakeFridge extends StatelessWidget {
                   child: Center(
                       child: Text(
                     '수정',
-                    style: AppTextStyle.body15R(color: Colors.black),
+                    style: AppTextStyle.body12R(color: Colors.black),
                   )),
                 )
 
