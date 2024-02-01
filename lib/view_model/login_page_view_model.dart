@@ -95,4 +95,14 @@ class LoginPageViewModel with ChangeNotifier {
     notifyListeners();
     return '';
   }
+
+// 비밀번호 찾기 페이지 이동
+  goToPasswordResetPage(BuildContext context) {
+    context.go('/passwordReset');
+  }
+
+// 비밀번호 재설정 이메일 전송
+  Future<void> sendPasswordResetEmail(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
 }
