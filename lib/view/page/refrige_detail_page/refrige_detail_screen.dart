@@ -78,7 +78,7 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
             padding: const EdgeInsets.only(right: 16.0),
             child: GestureDetector(
               onTap: () {
-                context.go('/', extra: 1);
+                context.go('/main_page', extra: 1);
               },
               child: const Icon(Icons.kitchen_outlined,
                   color: Colors.white, semanticLabel: '마이냉장고', size: 30),
