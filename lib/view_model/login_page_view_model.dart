@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leute/view/widget/custom_dialog/one_answer_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageViewModel with ChangeNotifier {
@@ -30,18 +31,13 @@ class LoginPageViewModel with ChangeNotifier {
         showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog(
-              title: const Text('오류'),
-              content: const Text('존재하지 않는 아이디 혹은 비밀번호가 일치하지 않습니다.'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('확인'),
-                ),
-              ],
-            );
+            return OneAnswerDialog(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                title: '로그인 실패',
+                subtitle: '존재하지 않는 아이디 혹은 비밀번호가 일치하지 않습니다.',
+                firstButton: '확인');
           },
         );
       }
