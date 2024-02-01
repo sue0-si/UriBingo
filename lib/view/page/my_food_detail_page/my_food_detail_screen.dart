@@ -6,6 +6,7 @@ import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
+import 'package:leute/view/widget/custom_buttons/custom_button.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 import 'package:leute/view/widget/my_food_detail_page_widget/food_detail_image_widget.dart';
 import 'package:leute/view_model/my_food_detail_view_model.dart';
@@ -159,9 +160,13 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                 ),
               ),
               SizedBox(height: 6.h),
+
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
+                child:
+
+
+                ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.r)),
