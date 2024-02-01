@@ -76,7 +76,7 @@ class _MainPageState extends State<MainPage> {
       create: (_) => MyFridgeViewModel(),
       child: const MyFridge(),
     ),
-    const MyPage(),
+    MyPage(),
   ];
 
   @override

@@ -7,6 +7,7 @@ import 'package:leute/view/page/discard_foods_page/discard_foods_page.dart';
 import 'package:leute/view/page/login_pages/change_password_page.dart';
 import 'package:leute/view/page/login_pages/group_setting_page.dart';
 import 'package:leute/view/page/login_pages/login_page.dart';
+import 'package:leute/view/page/login_pages/password_reset_page.dart';
 import 'package:leute/view/page/login_pages/signup_page.dart';
 import 'package:leute/view/page/main_my_fridge/main_page.dart';
 import 'package:leute/view/page/my_food_detail_page/my_food_detail_screen.dart';
@@ -28,7 +29,6 @@ import 'view_model/my_food_detail_view_model.dart';
 import 'view_model/register_view_model.dart';
 
 final router = GoRouter(initialLocation: '/splash_page', routes: [
-
   GoRoute(
       path: '/main_page',
       builder: (context, state) => ChangeNotifierProvider(
@@ -67,6 +67,16 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
         return ChangeNotifierProvider(
           create: (_) => SignupPageViewModel(),
           child: const SignupPage(),
+        );
+      }),
+
+  // 비밀번호 찾기 페이지
+  GoRoute(
+      path: '/passwordReset',
+      builder: (context, state) {
+        return ChangeNotifierProvider(
+          create: (_) => LoginPageViewModel(),
+          child: const PasswordResetPage(),
         );
       }),
 

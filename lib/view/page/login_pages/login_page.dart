@@ -106,8 +106,11 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextButton(onPressed: () {}, child: const Text('아이디 찾기')),
-                  TextButton(onPressed: () {}, child: const Text('비밀번호 찾기')),
+                  TextButton(
+                      onPressed: () async {
+                        await viewmodel.goToPasswordResetPage(context);
+                      },
+                      child: const Text('비밀번호 찾기')),
                   TextButton(
                       onPressed: () {
                         context.go('/signup');
