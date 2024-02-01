@@ -27,7 +27,7 @@ class TwoAnswerDialog extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.r),
           color: Colors.white,
         ),
-        height: 180.h,
+        height: 200.h,
         width: 270.w,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

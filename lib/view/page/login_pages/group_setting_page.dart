@@ -227,8 +227,8 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                   Navigator.of(context, rootNavigator: true)
                                       .pop();
                                 },
-                                title: '',
-                                subtitle: '변경되었습니다',
+                                title: '변경되었습니다.',
+                                subtitle: '',
                                 firstButton: '확인',
                               );
                             });
