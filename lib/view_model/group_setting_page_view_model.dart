@@ -16,6 +16,8 @@ class GroupSettingPageViewModel with ChangeNotifier {
 
   List<UserModel> groupUserList = [];
   List<UserModel> fetchedUserList = [];
+  List<UserModel> addTargetMember = [];
+  bool isMember = false;
   bool _disposed = false;
 
   @override
@@ -35,6 +37,7 @@ class GroupSettingPageViewModel with ChangeNotifier {
     fetchData();
   }
 
+  //
   Future<void> fetchData() async {
     isLoading = true;
     notifyListeners();
@@ -58,6 +61,7 @@ class GroupSettingPageViewModel with ChangeNotifier {
     }
   }
 
+  // 그룹원 검색 함수
   void searchUser(String query) async {
     isLoading = true;
     await fetchData();
@@ -75,8 +79,8 @@ class GroupSettingPageViewModel with ChangeNotifier {
     });
   }
 
-  // 관리자 변경 함수
-  Future<void> editManager(List<UserModel> groupUsers) async {
+  // 그룹원 상태 변경 함수
+  Future<void> editGroupUser(List<UserModel> groupUsers) async {
     isLoading = true;
     notifyListeners();
     // List<UserModel> userData = await _repository.getFirebaseUserData();
@@ -102,17 +106,56 @@ class GroupSettingPageViewModel with ChangeNotifier {
     });
   }
 
-  // 사용자 삭제 함수
-  Future<void> deleteUser() async {
-    await Future.wait([
-      FirebaseFirestore.instance
-          .collection('profile')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .delete(),
-    ]);
+  // 미그룹원 검색 함수
+  Future<void> searchNoGroupUser(String userEmail) async {
+    List<UserModel> userData = await _repository.getFirebaseUserData();
+    List<UserModel> noGroupUsers =
+        userData.where((e) => e.validationCode == '').toList();
+    addTargetMember +=
+        noGroupUsers.where((user) => user.email == userEmail).toList();
     notifyListeners();
   }
 
+  Future<void> addToMember(UserModel user) async {
+    if (addTargetMember.isEmpty) {
+      isLoading = false;
+      notifyListeners();
+    } else {
+      UserModel manager = fetchedUserList.firstWhere(
+              (user) => user.email == FirebaseAuth.instance.currentUser?.email);
+      await FirebaseFirestore.instance
+          .collection('profile')
+          .doc(addTargetMember[0].userId)
+          .update(UserModel(
+                  validationCode: manager.validationCode,
+                  email: addTargetMember[0].email,
+                  employeeNumber: addTargetMember[0].employeeNumber,
+                  manager: addTargetMember[0].manager,
+                  name: addTargetMember[0].name,
+                  groupName: manager.groupName,
+                  userId: addTargetMember[0].userId)
+              .toJson());
+      isMember = true;
+      addTargetMember.remove(user);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        notifyListeners();
+      });
+    }
+  }
+
+  // 사용자 그룹탈퇴 체크박스
+  void withdrawUserCheckBoxTap(UserModel targetUser) {
+    fetchedUserList
+        .where((user) => user == targetUser)
+        .map((e) => e..validationCode = '')
+        .toList()
+        .map((e) => e..groupName = '')
+        .toList();
+
+    notifyListeners();
+  }
+
+  // 관리자 - 사용자 변경 체크박스
   void managerCheckBoxTap(UserModel targetUser) {
     fetchedUserList
         .where((user) => user == targetUser)
