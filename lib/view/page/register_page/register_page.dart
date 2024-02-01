@@ -81,7 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ),
                                   clipBehavior: Clip.hardEdge,
                                   child: Center(
-                                    child: Text('사진을 촬영해주세요',
+                                    child: Text('음식 사진을 촬영해주세요',
                                         style: AppTextStyle.body15R(
                                             color: Colors.black)),
                                   ),
@@ -259,25 +259,40 @@ class _RegisterPageState extends State<RegisterPage> {
                           ],
                         ),
                         SizedBox(
-                          height: 32.h,
+                          height: 64.h,
                         ),
                         // 관리자만 보이는 버튼
                         isManager
-                            ? ToggleButtons(
-                                isSelected: viewModel.selected,
-                                color: Colors.black,
-                                selectedColor: Colors.deepPurple,
-                                onPressed: (int index) {
-                                  viewModel.buttonSelection(index);
-                                },
+                            ? Column(
                                 children: [
-                                    Text('공용',
-                                        style: AppTextStyle.body12R(
-                                            color: Colors.black)),
-                                    Text('미확인',
-                                        style: AppTextStyle.body12R(
-                                            color: Colors.black)),
-                                  ])
+                                  Text(
+                                    '공용 여부를 선택해주세요',
+                                    style: AppTextStyle.body14M(),
+                                  ),
+                                  SizedBox(
+                                    height: 16.h,
+                                  ),
+                                  ToggleButtons(
+                                      borderWidth: 3.0,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderColor: Color(0xFF9bc6bf),
+                                      selectedBorderColor: Color(0xFF9bc6bf),
+                                      isSelected: viewModel.selected,
+                                      color: Colors.black,
+                                      selectedColor: Colors.deepPurple,
+                                      onPressed: (int index) {
+                                        viewModel.buttonSelection(index);
+                                      },
+                                      children: [
+                                        Text('공용',
+                                            style: AppTextStyle.body12R(
+                                                color: Colors.black)),
+                                        Text('미확인',
+                                            style: AppTextStyle.body12R(
+                                                color: Colors.black)),
+                                      ]),
+                                ],
+                              )
                             : Container()
                       ],
                     ),
