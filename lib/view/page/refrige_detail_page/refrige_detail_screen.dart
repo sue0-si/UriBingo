@@ -41,7 +41,7 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
               Icons.arrow_back,
               color: Colors.white,
             ),
-            onPressed: () => context.go('/', extra: 0)),
+            onPressed: () => context.go('/main_page', extra: 0)),
         title: Center(
           child: SizedBox(
             height: 50,

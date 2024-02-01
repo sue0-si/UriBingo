@@ -66,7 +66,7 @@ class _EditRefrigeState extends State<EditRefrige> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/', extra: 0),
+          onPressed: () => context.go('/main_page', extra: 0),
         ),
       ),
       body: Padding(
@@ -330,7 +330,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                           setState(() {});
 
                                           if (mounted) {
-                                            context.go('/', extra: 0);
+                                            context.go('/main_page', extra: 0);
                                           }
                                           await addPageViewModel.editRefrige(
                                               selectedColdstorageController
@@ -386,7 +386,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                                 await addPageViewModel
                                                     .deleteRefrige();
                                                 if (mounted) {
-                                                  context.go('/', extra: 0);
+                                                  context.go('/main_page', extra: 0);
                                                 }
                                               },
                                             );
@@ -396,7 +396,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                     } else {
                                       await addPageViewModel.deleteRefrige();
                                       if (mounted) {
-                                        context.go('/', extra: 0);
+                                        context.go('/main_page', extra: 0);
                                       }
                                     }
                                   },

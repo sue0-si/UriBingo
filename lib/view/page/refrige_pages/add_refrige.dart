@@ -317,7 +317,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                                           setState(() {});
 
                                           if (mounted) {
-                                            context.go('/', extra: 0);
+                                            context.go('/main_page', extra: 0);
                                           }
                                           await addPageViewModel
                                               .addRefrige(widget.currentUser);
@@ -336,7 +336,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            context.go('/', extra: 0);
+                            context.go('/main_page', extra: 0);
                           },
                           child: Text(
                             '취소하기',

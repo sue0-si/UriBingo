@@ -1,42 +1,27 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:leute/styles/app_text_style.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../login_pages/login_page.dart';
+import '../../../router.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key, required String title});
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSplashScreen(
-      splash: Column(
-        children: [
-          Container(
-            height: 300,
-            width: MediaQuery.of(context).size.width * 0.6,
-            child: Image.asset(
-              'assets/images/refrigerator.gif',
-            ),
-          ),
-          Text(
-            'Uribingo',
-            style: AppTextStyle.body15R(
-              color: Colors.orangeAccent,
-            ),
-          ),
-        ],
+    // Future.delayed(const Duration(seconds: 3))
+    //     .then((value) => GoRouter.of(context).go('/login'));
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      builder: (context, child) => MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Tmoney',
+// useMaterial3: false,
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF325c6a)),
+        ),
+        routerConfig: router,
       ),
-      backgroundColor: Colors.white,
-      nextScreen: const LoginPage(
-        title: 'Uribingo',
-        //title: 'Uribingo',
-      ),
-      splashIconSize: 500,
-      duration: 4700,
-      splashTransition: SplashTransition.fadeTransition,
-
-      //curve: Curves.easeIn,
     );
   }
 }

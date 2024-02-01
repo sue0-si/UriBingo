@@ -32,14 +32,14 @@ class _FreezerCompScreenState extends State<FreezerCompScreen> {
               Icons.arrow_back,
               color: Colors.white,
             ),
-            onPressed: () => context.go('/', extra: 0)),
+            onPressed: () => context.go('/main_page', extra: 0)),
         title: Text('냉동실', style: AppTextStyle.body14R(color: Colors.white)),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: GestureDetector(
               onTap: () {
-                context.go('/', extra: 1);
+                context.go('/main_page', extra: 1);
               },
               child: const Icon(Icons.kitchen_outlined,
                   color: Colors.white, semanticLabel: '마이냉장고', size: 30),
