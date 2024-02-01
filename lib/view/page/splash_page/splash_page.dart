@@ -1,12 +1,11 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/styles/app_text_style.dart';
 
-import '../login_pages/login_page.dart';
+import '../../../styles/app_text_style.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key, required String title});
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +30,12 @@ class SplashScreen extends StatelessWidget {
         ],
       ),
       backgroundColor: Colors.white,
-      nextScreen: const LoginPage(),
-      duration: 50,
       splashIconSize: 500,
+      duration: 4700,
       splashTransition: SplashTransition.fadeTransition,
+      nextScreen: SplashScreen(),
 
-      //curve: Curves.easeIn,
+//curve: Curves.easeIn,
     );
   }
 }
