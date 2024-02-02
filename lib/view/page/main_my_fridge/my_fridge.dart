@@ -97,8 +97,8 @@ class MyFridge extends StatelessWidget {
                                                       ]);
                                                 },
                                                 child: SuperContainer(
-                                                  height: 90.h,
-                                                  width: 100.w,
+                                                  height: 90,
+                                                  width: 100,
                                                   border: 80,
                                                   borderWidth: 5,
                                                   borderColor:

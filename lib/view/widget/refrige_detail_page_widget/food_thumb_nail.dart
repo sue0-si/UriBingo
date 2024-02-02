@@ -77,7 +77,7 @@ class FoodThumbNail extends StatelessWidget {
                   child: foodItem.isPublic
                       ? Column(children: [
                           Text('공용', style: AppTextStyle.body12R()),
-                          Text('물품', style: AppTextStyle.body12R())
+                          Text('', style: AppTextStyle.body12R())
                         ])
                       : Column(children: [
                           Text(foodItem.userName,

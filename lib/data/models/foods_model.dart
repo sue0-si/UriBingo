@@ -5,10 +5,8 @@ class FoodDetail {
   int positionId;
   String userId;
   String userName;
-  String userToken;
   int registerDate;
   bool isPublic;
-  bool isUnknown;
   bool isExtended;
 
 //<editor-fold desc="Data Methods">
@@ -19,10 +17,8 @@ class FoodDetail {
     required this.positionId,
     required this.userId,
     required this.userName,
-    required this.userToken,
     required this.registerDate,
     required this.isPublic,
-    required this.isUnknown,
     required this.isExtended,
   });
 
@@ -37,10 +33,8 @@ class FoodDetail {
           positionId == other.positionId &&
           userId == other.userId &&
           userName == other.userName &&
-          userToken == other.userToken &&
           registerDate == other.registerDate &&
           isPublic == other.isPublic &&
-          isUnknown == other.isUnknown &&
           isExtended == other.isExtended);
 
   @override
@@ -51,15 +45,13 @@ class FoodDetail {
       positionId.hashCode ^
       userId.hashCode ^
       userName.hashCode ^
-      userToken.hashCode ^
       registerDate.hashCode ^
       isPublic.hashCode ^
-      isUnknown.hashCode ^
       isExtended.hashCode;
 
   @override
   String toString() {
-    return 'FoodDetail{ refrigeName: $refrigeName, freezed: $freezed, foodImage: $foodImage, positionId: $positionId, userId: $userId, userName: $userName, userToken: $userToken, registerDate: $registerDate, isPublic: $isPublic, isUnknown: $isUnknown, isExtended: $isExtended,}';
+    return 'FoodDetail{ refrigeName: $refrigeName, freezed: $freezed, foodImage: $foodImage, positionId: $positionId, userId: $userId, userName: $userName, registerDate: $registerDate, isPublic: $isPublic, isExtended: $isExtended,}';
   }
 
   FoodDetail copyWith({
@@ -69,10 +61,8 @@ class FoodDetail {
     int? positionId,
     String? userId,
     String? userName,
-    String? userToken,
     int? registerDate,
     bool? isPublic,
-    bool? isUnknown,
     bool? isExtended,
   }) {
     return FoodDetail(
@@ -82,10 +72,8 @@ class FoodDetail {
       positionId: positionId ?? this.positionId,
       userId: userId ?? this.userId,
       userName: userName ?? this.userName,
-      userToken: userToken ?? this.userToken,
       registerDate: registerDate ?? this.registerDate,
       isPublic: isPublic ?? this.isPublic,
-      isUnknown: isUnknown ?? this.isUnknown,
       isExtended: isExtended ?? this.isExtended,
     );
   }
@@ -98,10 +86,8 @@ class FoodDetail {
       'positionId': positionId,
       'userId': userId,
       'userName': userName,
-      'userToken': userToken,
       'registerDate': registerDate,
       'isPublic': isPublic,
-      'isUnknown': isUnknown,
       'isExtended': isExtended,
     };
   }
@@ -114,10 +100,8 @@ class FoodDetail {
       positionId: map['positionId'] as int,
       userId: map['userId'] as String,
       userName: map['userName'] as String,
-      userToken: map['userToken'] as String,
       registerDate: map['registerDate'] as int,
       isPublic: map['isPublic'] as bool,
-      isUnknown: map['isUnknown'] as bool,
       isExtended: map['isExtended'] as bool,
     );
   }

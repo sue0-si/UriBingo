@@ -1,4 +1,5 @@
 import 'package:animated_button_bar/animated_button_bar.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
@@ -90,7 +91,7 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
         ),
       ),
       body: PageView(
-        physics: const ClampingScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         scrollDirection: Axis.vertical,
         children: [
