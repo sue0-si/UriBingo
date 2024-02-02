@@ -26,6 +26,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   bool isManager = false;
+  String groupName = '';
 
   @override
   void initState() {
@@ -39,6 +40,7 @@ class _RegisterPageState extends State<RegisterPage> {
         (user) => user.email == FirebaseAuth.instance.currentUser!.email);
     setState(() {
       isManager = currentUser.manager;
+      groupName = currentUser.groupName;
     });
   }
 
@@ -230,16 +232,15 @@ class _RegisterPageState extends State<RegisterPage> {
                                         userName: FirebaseAuth.instance
                                                 .currentUser!.displayName ??
                                             'noName',
+                                        groupName: groupName,
                                         registerDate: registerDate,
                                         isPublic: viewModel.selected,
                                         isExtended: false,
                                       ).toJson());
-                                  NotificationController
-                                      .scheduleNewNotification(
-                                          selectedRefrige.period - 1);
 
                                   if (mounted) {
                                     viewModel.isLoading = false;
+
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content: Text('등록되었습니다.'),
@@ -252,6 +253,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                           ? [widget.fridgeData[0], 0]
                                           : [widget.fridgeData[0], 1],
                                     );
+                                    await NotificationController
+                                        .scheduleNewNotification(
+                                            selectedRefrige.period - 1,
+                                            FirebaseAuth.instance.currentUser!
+                                                .displayName!);
                                   }
                                 }
                               },
@@ -291,9 +297,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                         Text('공용',
                                             style: AppTextStyle.body12R(
                                                 color: Colors.black)),
-                                        Text('미확인',
-                                            style: AppTextStyle.body12R(
-                                                color: Colors.black)),
+                                        // Text('미확인',
+                                        //     style: AppTextStyle.body12R(
+                                        //         color: Colors.black)),
                                       ]),
                                 ],
                               )

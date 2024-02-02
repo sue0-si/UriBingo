@@ -171,7 +171,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                                 widget.myFoodItem);
                                             NotificationController
                                                 .scheduleNewNotification(
-                                                widget.ourRefrigItem.extentionPeriod - 1);
+                                                widget.ourRefrigItem.extentionPeriod - 1, widget.myFoodItem.userName);
                                             Navigator.of(context).pop();
                                           });
                                     });

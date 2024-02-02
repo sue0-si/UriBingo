@@ -49,7 +49,6 @@ class NotificationController {
               ledColor: Colors.deepPurple)
         ],
         debug: true);
-
     // Get initial notification action is optional
     initialAction = await AwesomeNotifications()
         .getInitialNotificationAction(removeFromActionEvents: false);
@@ -198,7 +197,8 @@ class NotificationController {
   ///     NOTIFICATION CREATION METHODS
   ///  *********************************************
 
-  static Future<void> scheduleNewNotification(int dayFromNow) async {
+  static Future<void> scheduleNewNotification(
+      int dayFromNow, String userName) async {
     bool isAllowed = await AwesomeNotifications().isNotificationAllowed();
     if (!isAllowed) isAllowed = await displayNotificationRationale();
     if (!isAllowed) return;
@@ -207,8 +207,10 @@ class NotificationController {
         title: '보관음식 중 곧 폐기될 음식이 있습니다!',
         msg: '음식을 비워주세요.',
         daysFromNow: dayFromNow,
-        username: 'test user',
+        username: userName,
         repeatNotif: true);
+
+    print('푸시알림 정상등록');
   }
 
   static Future<void> createNewNotification() async {
@@ -265,16 +267,15 @@ Future<void> myNotifyScheduleInDays({
     schedule: NotificationCalendar(
       //weekday: nowDate.day,
       day: nowDate.day,
-      minute: 0,
+      minute: 5,
       second: nowDate.second,
-      repeats: repeatNotif,
       //allowWhileIdle: true,
     ),
     // schedule: NotificationCalendar.fromDate(
     //    date: DateTime.now().add(const Duration(seconds: 10))),
     content: NotificationContent(
       id: -1,
-      channelKey: 'basic_channel',
+      channelKey: 'alerts',
       wakeUpScreen: true,
       category: NotificationCategory.Reminder,
       title: '${Emojis.food_bowl_with_spoon} $title',
