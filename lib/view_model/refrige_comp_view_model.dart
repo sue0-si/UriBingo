@@ -44,7 +44,7 @@ class RefrigeCompViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await getSameRefrigeFoods(selectedRefrige.refrigeName, foodItems[0].groupName);
+      await getSameRefrigeFoods(selectedRefrige.refrigeName);
 
       // 관리자 여부 확인용 메서드
       List<UserModel> userData = await userDataRepository.getFirebaseUserData();
@@ -77,9 +77,9 @@ class RefrigeCompViewModel extends ChangeNotifier {
     }
   }
 
-  Future<List<FoodDetail>> getSameRefrigeFoods(String refrigeName, String groupName) async {
+  Future<List<FoodDetail>> getSameRefrigeFoods(String refrigeName) async {
     final allFoods = await _repository.getFirebaseFoodsData();
-    _foodItems = allFoods.where((e) => (e.refrigeName == refrigeName && e.groupName == groupName)).toList();
+    _foodItems = allFoods.where((e) => e.refrigeName == refrigeName).toList();
     return _foodItems;
   }
 
