@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
+import 'package:leute/styles/app_text_style.dart';
+import 'package:leute/view/widget/custom_buttons/custom_button.dart';
 
 class MakeFridge extends StatelessWidget {
   final List<RefrigeDetail> refrigeItems;
@@ -32,32 +35,37 @@ class MakeFridge extends StatelessWidget {
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.fill,
-                      image: AssetImage(
-                          'assets/images/lemon.png'),
+                      image: AssetImage('assets/images/lemon.png'),
                     ),
                     color: Colors.white,
                     // borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                Center(
-                  child: Text(
-                    refrigeItems[index].refrigeName,
+                SizedBox(
+                  height: 30.h,
+                  width: 100.w,
+                  child: Center(
+                    child: Text(
+                      refrigeItems[index].refrigeName,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
           //관리자 버튼
+
           currentUser.manager
-              ? ElevatedButton(
-                  onPressed: () {
-                    context.go('/editRefrige', extra: [refrigeItems[index], currentUser]);
+              ? CustomButton(
+                  width: 65.w,
+                  height: 25.h,
+                  backgroundColor: Colors.grey.shade400,
+                  text: '수정',
+                  textStyle: AppTextStyle.body12R(color: Colors.white),
+                  onTap: () {
+                    context.go('/editRefrige',
+                        extra: [refrigeItems[index], currentUser]);
                   },
-                  child: const Center(
-                      child: Text(
-                    '수정',
-                    style: TextStyle(fontSize: 15, color: Colors.black),
-                  )),
                 )
 
               // ElevatedButton(

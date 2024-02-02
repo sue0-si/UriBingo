@@ -33,4 +33,17 @@ class MyPageViewModel with ChangeNotifier {
   goToGroupSettingPage(BuildContext context) {
     context.push('/groupSetting');
   }
+
+  // 회원탈퇴
+  Future<void> deleteAccount(BuildContext context) async {
+    await user!.delete();
+    if (context.mounted) {
+      context.go('/login');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('회원탈퇴 완료'),
+        ),
+      );
+    }
+  }
 }

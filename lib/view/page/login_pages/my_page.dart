@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
+import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 import 'package:leute/view/widget/login_widget/Inkwell_row_tile.dart';
 import 'package:leute/view/widget/login_widget/advertising_area.dart';
 import 'package:leute/view_model/my_page_view_model.dart';
@@ -50,6 +51,23 @@ class MyPage extends StatelessWidget {
                     viewModel.goToGroupSettingPage(context);
                   },
                   icon: Icons.group_rounded),
+            InkwellRowTile(
+                text: '회원탈퇴',
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return TwoAnswerDialog(
+                            onTap: () {
+                              viewModel.deleteAccount(context);
+                            },
+                            title: '회원 탈퇴 알림',
+                            subtitle: '정말 회원탈퇴를 하시겠습니까?',
+                            firstButton: '네',
+                            secondButton: '아니요');
+                      });
+                },
+                icon: Icons.output_rounded),
             InkwellRowTile(
                 text: '비밀번호 변경',
                 onTap: () {

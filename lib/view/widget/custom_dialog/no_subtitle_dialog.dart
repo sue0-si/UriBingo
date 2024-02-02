@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../styles/app_text_style.dart';
 
-class OneAnswerDialog extends StatelessWidget {
+class NoSubtitleDialog extends StatelessWidget {
   final Function() onTap;
   final String title;
-  final String subtitle;
   final String firstButton;
 
-  const OneAnswerDialog(
+  const NoSubtitleDialog(
       {super.key,
         required this.onTap,
         required this.title,
-        required this.subtitle,
         required this.firstButton});
 
   @override
@@ -37,10 +35,8 @@ class OneAnswerDialog extends StatelessWidget {
               title,
               style: AppTextStyle.body15M(),
             ),
-            Text(
-              subtitle,
-              style: AppTextStyle.body12R(),
-            ),
+        SizedBox(
+          height: 16.h),
             SizedBox(
               width: 75.w,
               height: 28.h,

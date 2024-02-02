@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:leute/view/widget/custom_dialog/one_answer_dialog.dart';
 
 import '../data/models/user_model.dart';
 import '../data/repository/user_data_repository.dart';
@@ -54,18 +55,13 @@ class SignupPageViewModel with ChangeNotifier {
         showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog(
-              title: const Text('오류'),
-              content: const Text('해당 이메일은 이미 사용 중입니다.'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('확인'),
-                ),
-              ],
-            );
+            return OneAnswerDialog(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                title: '회원가입 실패',
+                subtitle: '해당 이메일은 이미 사용 중입니다.',
+                firstButton: '확인');
           },
         );
         return;
@@ -78,17 +74,13 @@ class SignupPageViewModel with ChangeNotifier {
         showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog(
-              title: const Text('오류'),
-              content: const Text('비밀번호와 비밀번호 확인이 일치하지 않습니다.'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('확인'),
-                ),
-              ],
+            return OneAnswerDialog(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              title: '오류',
+              subtitle: '비밀번호와 비밀번호 확인이 일치하지 않습니다.',
+              firstButton: '확인',
             );
           },
         );
@@ -133,6 +125,7 @@ class SignupPageViewModel with ChangeNotifier {
       String email,
       String password,
       String name,
+      String userToken,
       String employeeNumber,
       String groupName,
       String validationCode,
@@ -153,6 +146,7 @@ class SignupPageViewModel with ChangeNotifier {
       'email': email,
       'groupName': groupName,
       'validationCode': validationCode,
+      'userToken': userToken,
     });
     notifyListeners();
   }

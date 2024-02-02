@@ -7,6 +7,9 @@ import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../../styles/app_text_colors.dart';
+import '../../../styles/app_text_style.dart';
+import '../../widget/custom_dialog/no_two_answer_dialog.dart';
 import '../../widget/custom_dialog/two_answer_dialog.dart';
 
 class EditRefrige extends StatefulWidget {
@@ -191,7 +194,9 @@ class _EditRefrigeState extends State<EditRefrige> {
                               flex: 1,
                               child: Text(
                                 '냉동고 칸수',
-                                style: AppTextStyle.body20R(),
+                                style: TextStyle(
+                                  fontSize: 20,
+                                ),
                               ),
                             ),
                             Expanded(
@@ -301,39 +306,51 @@ class _EditRefrigeState extends State<EditRefrige> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ElevatedButton(
-                          onPressed: () async {
-                            //왜 async?
-                            if (_formKey.currentState!.validate()) {
-                              _formKey.currentState!.save();
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return TwoAnswerDialog(
-                                        title: '수정하시겠습니까?',
-                                        subtitle: '',
-                                        titleStyle: AppTextStyle.body12R(),
-                                        firstButton: '네',
-                                        secondButton: '아니오',
-                                        onTap: () async {
-                                          setState(() {});
+                        CustomButton(
+                            width: 100.w,
+                            height: 35.h,
+                            backgroundColor: const Color(0xFF9bc6bf),
+                            textStyle: AppTextStyle.body15R(color: Colors.white),
+                            text: '수정하기',
+                            onTap: () async {
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return NoSubtitleDialog(
+                                          title: '수정하시겠습니까?',
+                                          firstButton: '네',
+                                          onTap: () async {
+                                            setState(() {});
+                                            if (mounted) {
+                                              context.go('/main_page',
+                                                  extra: 0);
+                                            }
+                                            await addPageViewModel.editRefrige(
+                                                selectedColdstorageController
+                                                    .text,
+                                                selectedFrozenStorageController
+                                                    .text,
+                                                selectedStoragePeriodController
+                                                    .text,
+                                                selectedExtensionPeriodController
+                                                    .text,
+                                                widget.currentUser);
+                                          });
+                                    });
 
-                                          if (mounted) {
-                                            context.go('/main_page', extra: 0);
-                                          }
-                                          await addPageViewModel.editRefrige(
-                                              selectedColdstorageController
-                                                  .text,
-                                              selectedFrozenStorageController
-                                                  .text,
-                                              selectedStoragePeriodController
-                                                  .text,
-                                              selectedExtensionPeriodController
-                                                  .text,
-                                              widget.currentUser);
-                                        });
-                                  });
-
+                                //changeColdstorage 메서드 호출해서 데이터 저장
+                              }
+                            }),
+                        CustomButton(
+                          width: 100.w,
+                          height: 35.h,
+                          backgroundColor: Colors.grey.shade200,
+                          textStyle:
+                              AppTextStyle.body15R(color: AppColors.mainText),
+                          text: '삭제하기',
+                          onTap: () async {
 
                             }
                           },

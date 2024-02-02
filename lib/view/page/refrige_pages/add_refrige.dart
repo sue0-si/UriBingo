@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/user_model.dart';
+import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
+import 'package:leute/view/widget/custom_buttons/custom_button.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -273,8 +275,13 @@ class _AddRefrigeState extends State<AddRefrige> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ElevatedButton(
-                          onPressed: () async {
+                        CustomButton(
+                          width: 100.w,
+                          height: 35.h,
+                          backgroundColor: const Color(0xFF9bc6bf),
+                          textStyle: AppTextStyle.body15R(color: Colors.white),
+                          text: '추가하기',
+                          onTap: () async {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
 
@@ -311,8 +318,14 @@ class _AddRefrigeState extends State<AddRefrige> {
                             ),
                           ),
                         ),
-                        ElevatedButton(
-                          onPressed: () {
+                        CustomButton(
+                          width: 100.w,
+                          height: 35.h,
+                          backgroundColor: Colors.grey.shade200,
+                          textStyle:
+                              AppTextStyle.body15R(color: AppColors.mainText),
+                          text: '취소하기',
+                          onTap: () {
                             context.go('/main_page', extra: 0);
                           },
                           child: Text(

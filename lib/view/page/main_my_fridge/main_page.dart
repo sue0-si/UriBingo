@@ -1,7 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:leute/view/page/login_pages/my_page.dart';
 import 'package:leute/view_model/main_screen_view_model.dart';
 import 'package:leute/view_model/my_fridge_view_model.dart';
@@ -19,54 +17,11 @@ class MainPage extends StatefulWidget {
     required this.currentPageIndex,
   });
 
-
-
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
-
 class _MainPageState extends State<MainPage> {
-  var messageString = "";
-
-  void getMyDeviceToken() async {
-    final token = await FirebaseMessaging.instance.getToken();
-
-    print("내 디바이스 토큰: $token");
-  }
-
-
-
-  @override
-  void initState() {
-    getMyDeviceToken();
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      RemoteNotification? notification = message.notification;
-
-      if (notification != null) {
-        FlutterLocalNotificationsPlugin().show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          const NotificationDetails(
-            android: AndroidNotificationDetails(
-              'high_importance_channel',
-              'high_importance_notification',
-              importance: Importance.max,
-            ),
-          ),
-        );
-        setState(() {
-          messageString = message.notification!.body!;
-          print("Foreground 메시지 수신: $messageString");
-        });
-      }
-    });    super.initState();
-  }
-
-
-
   final List<Widget> _pages = <Widget>[
     ChangeNotifierProvider(
       create: (_) => MainScreenViewModel(),
@@ -76,7 +31,7 @@ class _MainPageState extends State<MainPage> {
       create: (_) => MyFridgeViewModel(),
       child: const MyFridge(),
     ),
-    const MyPage(),
+    MyPage(),
   ];
 
   @override
@@ -96,7 +51,7 @@ class _MainPageState extends State<MainPage> {
         items: const <Widget>[
           Icon(Icons.kitchen_outlined,
               color: Colors.white, semanticLabel: '냉장고', size: 30),
-          Icon(Icons.drafts_outlined,
+          Icon(UniconsSolid.user_md,
               color: Colors.white, semanticLabel: '마이냉장고', size: 30),
           Icon(UniconsLine.user,
               color: Colors.white, semanticLabel: '마이페이지', size: 30),
