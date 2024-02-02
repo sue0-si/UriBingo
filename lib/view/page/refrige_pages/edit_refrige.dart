@@ -93,15 +93,12 @@ class _EditRefrigeState extends State<EditRefrige> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Expanded(
-                            flex: 1,
-                            child: Text(
-                              '냉장고 이름',
-                              style: AppTextStyle.body20R(),
-                            ),
+                          Text(
+                            '냉장고 이름',
+                            style: AppTextStyle.body20R(),
                           ),
-                          Expanded(
-                            flex: 1,
+                          SizedBox(
+                            width: 150,
                             child: Form(
                               key: _formKey,
                               child: TextFormField(
@@ -154,15 +151,12 @@ class _EditRefrigeState extends State<EditRefrige> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Expanded(
-                            flex: 1,
-                            child: Text(
-                              '냉장고 칸수',
-                              style: AppTextStyle.body20R(),
-                            ),
+                          Text(
+                            '냉장고 칸수',
+                            style: AppTextStyle.body20R(),
                           ),
-                          Expanded(
-                            flex: 1,
+                          SizedBox(
+                            width: 180,
                             child: Container(
                               margin: const EdgeInsets.only(left: 27).w,
                               child: DropdownButton(
@@ -193,17 +187,15 @@ class _EditRefrigeState extends State<EditRefrige> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Expanded(
-                            flex: 1,
-                            child: Text(
-                              '냉동고 칸수',
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
+                          Text(
+                            '냉동고 칸수',
+                            style: TextStyle(
+                              fontSize: 20,
                             ),
                           ),
-                          Expanded(
-                            flex: 1,
+                          SizedBox(
+                            width: 180,
+
                             child: Container(
                               margin: const EdgeInsets.only(left: 27).w,
                               child: DropdownButton(
@@ -234,15 +226,12 @@ class _EditRefrigeState extends State<EditRefrige> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Expanded(
-                            flex: 1,
-                            child: Text(
-                              '보관기간',
-                              style: AppTextStyle.body20R(),
-                            ),
+                          Text(
+                            '보관기간',
+                            style: AppTextStyle.body20R(),
                           ),
-                          Expanded(
-                            flex: 1,
+                          SizedBox(
+                            width: 180,
                             child: Container(
                               margin: const EdgeInsets.only(left: 27).w,
                               child: DropdownButton(
@@ -272,14 +261,12 @@ class _EditRefrigeState extends State<EditRefrige> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Expanded(
-                            child: Text(
-                              '연장가능기간',
-                              style: AppTextStyle.body20R(),
-                            ),
+                          Text(
+                            '연장가능기간',
+                            style: AppTextStyle.body20R(),
                           ),
-                          Expanded(
-                            flex: 1,
+                          SizedBox(
+                            width: 180,
                             child: Container(
                               margin: const EdgeInsets.only(left: 27).w,
                               child: DropdownButton(
