@@ -5,6 +5,7 @@ import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/view/page/refrige_detail_page/freezer_comp_screen.dart';
 import 'package:leute/view/page/refrige_detail_page/refrige_comp_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:unicons/unicons.dart';
 
 import '../../../styles/app_text_style.dart';
 import '../../../view_model/freezer_comp_view_model.dart';
@@ -78,8 +79,7 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
               onTap: () {
                 context.go('/main_page', extra: 1);
               },
-              child: const Icon(Icons.kitchen_outlined,
-                  color: Colors.white, semanticLabel: '마이냉장고', size: 30),
+              child: Text('My',style:AppTextStyle.body16B(color: Colors.white),),
             ),
           ),
         ],
