@@ -136,7 +136,7 @@ class _DiscardFoodDetailState extends State<DiscardFoodDetail> {
                         builder: (desContext) {
                           return TwoAnswerDialog(
                               title: '삭제하시겠습니까?',
-                              subtitle: '삭제 후 복구가 불가합니다',
+                              subtitle: '삭제 후 복구가 불가합니다.',
                               firstButton: '네',
                               secondButton: '아니오',
                               // 함수호출

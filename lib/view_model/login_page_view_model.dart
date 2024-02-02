@@ -50,27 +50,6 @@ class LoginPageViewModel with ChangeNotifier {
     }
   }
 
-  // 토큰 갱신여부 검사
-  Future<void> tokenCheck(String token)async {
-    List<UserModel> userData = await userDataRepository.getFirebaseUserData();
-    currentUser = userData.firstWhere(
-            (user) => user.email == FirebaseAuth.instance.currentUser?.email);
-    if ((currentUser != null) && (currentUser?.userToken != token)) {
-      await FirebaseFirestore.instance
-          .collection('profile')
-          .doc(currentUser?.userId)
-          .update(UserModel(
-          validationCode: currentUser!.validationCode,
-          email: currentUser!.email,
-          employeeNumber: currentUser!.employeeNumber,
-          manager: currentUser!.manager,
-          name: currentUser!.name,
-          groupName: currentUser!.groupName,
-          userId: currentUser!.userId,
-          userToken: token)
-          .toJson());
-    }
-  }
 
 
 // 이메일 유효성 검사

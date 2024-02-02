@@ -1,12 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/view/page/login_pages/my_page.dart';
 import 'package:leute/view_model/main_screen_view_model.dart';
 import 'package:leute/view_model/my_fridge_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
-import 'package:ionicons/ionicons.dart';
+
 import 'main_screen.dart';
 import 'my_fridge.dart';
 
@@ -52,9 +51,9 @@ class _MainPageState extends State<MainPage> {
         items: const <Widget>[
           Icon(Icons.kitchen_outlined,
               color: Colors.white, semanticLabel: '냉장고', size: 30),
-          Icon(UniconsLine.user,//keyhole, inbox, lock-alt, restaurant,
+          Icon(UniconsLine.glass_tea,
               color: Colors.white, semanticLabel: '마이냉장고', size: 30),
-          Icon(Icons.settings_suggest_outlined,
+          Icon(UniconsLine.user,
               color: Colors.white, semanticLabel: '마이페이지', size: 30),
         ],
       ),

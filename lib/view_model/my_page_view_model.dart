@@ -8,6 +8,20 @@ class MyPageViewModel with ChangeNotifier {
   User? user = FirebaseAuth.instance.currentUser;
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
   bool manager = false;
+  bool _disposed = false;
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
+  }
 
   MyPageViewModel() {
     fetchManagerData();
@@ -35,7 +49,8 @@ class MyPageViewModel with ChangeNotifier {
   }
 
   // 회원탈퇴
-  Future<void> deleteAccount(BuildContext context) async {
+  Future<void> deleteAccount(BuildContext context, userid) async {
+    FirebaseFirestore.instance.collection('profile').doc(userid).delete();
     await user!.delete();
     if (context.mounted) {
       context.go('/login');

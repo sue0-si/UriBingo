@@ -5,6 +5,7 @@ import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
 
 import '../data/repository/foods_repository.dart';
+import '../main.dart';
 
 class MyFoodDetailViewModel with ChangeNotifier {
   List<FoodDetail> foodDetails = [];
@@ -47,7 +48,7 @@ class MyFoodDetailViewModel with ChangeNotifier {
     }
 
     isOld = remainPeriod < 2; //값 할당
-
+    NotificationController.createNewNotification();
     notifyListeners();
     return remainPeriod < 2;
   }
@@ -58,6 +59,15 @@ class MyFoodDetailViewModel with ChangeNotifier {
         .collection('foodDetails')
         .doc(myFoodItem.registerDate.toString() + myFoodItem.userId)
         .update({"isExtended": true});
+  }
+
+  // remainPeriod 가 2 미만이 될 경우 impend -> true
+  Future<void> updateImpendFood(FoodDetail myFoodItem) async {
+      await FirebaseFirestore.instance
+          .collection('foodDetails')
+          .doc(myFoodItem.registerDate.toString() + myFoodItem.userId)
+          .update({"impend": true});
+
   }
 
   //firebase, firestore 삭제

@@ -44,22 +44,8 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
                       onPressed: () async {
                         if (_formKey.currentState?.validate() ?? false) {
                           try {
-                            await viewModel
-                                .sendPasswordResetEmail(emailController.text);
-                            if (context.mounted) {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return OneAnswerDialog(
-                                        onTap: () {
-                                          context.go('/login');
-                                        },
-                                        title: '전송 완료',
-                                        subtitle:
-                                            '${emailController.text}로\n비밀번호 재설정 이메일이 전송되었습니다.',
-                                        firstButton: '확인');
-                                  });
-                            }
+                            await viewModel.sendPasswordResetEmail(
+                                emailController.text, context);
                           } catch (e) {
                             if (context.mounted) {
                               showDialog(

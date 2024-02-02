@@ -28,14 +28,12 @@ class _LoginPageState extends State<LoginPage> {
   StreamSubscription? authStateChanges;
 
   var messageString = '';
-  String token = '';
+  String? token;
 
   void getMyDeviceToken() async {
     token = (await FirebaseMessaging.instance.getToken())!;
 
     print("내 디바이스 토큰: $token");
-
-
   }
 
   @override
@@ -45,40 +43,14 @@ class _LoginPageState extends State<LoginPage> {
 
     Future.microtask(() {
       var viewmodel = context.read<LoginPageViewModel>();
-      // 토큰 갱신 여부 확인
-      viewmodel.tokenCheck(token);
+
+
       viewmodel.initPreferences().then((value) => emailController.text = value);
     });
     authStateChanges = FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
         context.go('/main_page', extra: 0);
         return;
-      }
-    });
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      RemoteNotification? notification = message.notification;
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
-
-      if (notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-        FlutterLocalNotificationsPlugin().show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
-          const NotificationDetails(
-            android: AndroidNotificationDetails(
-              'high_importance_channel',
-              'high_importance_notification',
-              importance: Importance.max,
-            ),
-          ),
-        );
-        setState(() {
-          messageString = message.notification!.body!;
-          print("Foreground 메시지 수신: $messageString");
-        });
       }
     });
   }

@@ -6,7 +6,6 @@ class UserModel {
   String validationCode;
   String groupName;
   String userId;
-  String userToken;
 
 //<editor-fold desc="Data Methods">
   UserModel({
@@ -17,7 +16,6 @@ class UserModel {
     required this.validationCode,
     required this.groupName,
     required this.userId,
-    required this.userToken,
   });
 
   @override
@@ -31,8 +29,7 @@ class UserModel {
           name == other.name &&
           validationCode == other.validationCode &&
           groupName == other.groupName &&
-          userId == other.userId &&
-          userToken == other.userToken);
+          userId == other.userId);
 
   @override
   int get hashCode =>
@@ -42,12 +39,11 @@ class UserModel {
       name.hashCode ^
       validationCode.hashCode ^
       groupName.hashCode ^
-      userId.hashCode ^
-      userToken.hashCode;
+      userId.hashCode;
 
   @override
   String toString() {
-    return 'UserModel{ email: $email, employeeNumber: $employeeNumber, manager: $manager, name: $name, validationCode: $validationCode, groupName: $groupName, userId: $userId, userToken: $userToken,}';
+    return 'UserModel{ email: $email, employeeNumber: $employeeNumber, manager: $manager, name: $name, validationCode: $validationCode, groupName: $groupName, userId: $userId,}';
   }
 
   UserModel copyWith({
@@ -58,7 +54,6 @@ class UserModel {
     String? validationCode,
     String? groupName,
     String? userId,
-    String? userToken,
   }) {
     return UserModel(
       email: email ?? this.email,
@@ -68,7 +63,6 @@ class UserModel {
       validationCode: validationCode ?? this.validationCode,
       groupName: groupName ?? this.groupName,
       userId: userId ?? this.userId,
-      userToken: userToken ?? this.userToken,
     );
   }
 
@@ -81,7 +75,6 @@ class UserModel {
       'validationCode': validationCode,
       'groupName': groupName,
       'userId': userId,
-      'userToken': userToken,
     };
   }
 
@@ -94,7 +87,6 @@ class UserModel {
       validationCode: map['validationCode'] as String,
       groupName: map['groupName'] as String,
       userId: map['userId'] as String,
-      userToken: map['userToken'] as String,
     );
   }
 

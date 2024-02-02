@@ -6,14 +6,11 @@ import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
-import 'package:leute/view/widget/custom_buttons/custom_button.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 import 'package:leute/view/widget/my_food_detail_page_widget/food_detail_image_widget.dart';
 import 'package:leute/view_model/my_food_detail_view_model.dart';
 import 'package:provider/provider.dart';
-
 import '../../widget/custom_dialog/no_two_answer_dialog.dart';
-import '../../widget/custom_dialog/one_answer_dialog.dart';
 import '../../widget/custom_widgets/super_container.dart';
 
 class MyFoodDetail extends StatefulWidget {
@@ -38,6 +35,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
       context
           .read<MyFoodDetailViewModel>()
           .checkOld(widget.myFoodItem, widget.ourRefrigItem);
+
     });
   }
 
@@ -55,6 +53,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
         ),
       ),
       body: Column(children: [
+        //음식 이미지 확대
         GestureDetector(
           onTap: () {
             Navigator.push(
@@ -66,15 +65,20 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
               ),
             );
           },
+          //음식 이미지
           child: Hero(
             tag: 'imageTag',
             child: SuperContainer(
               height: 200.h,
               width: 280.w,
-              border: 110.r,
-              borderWidth: 9.w,
-              borderColor:
-                  viewModel.isOld ? AppColors.caution : const Color(0xFF9bc6bf),
+              border: 170.r,
+              borderWidth: 15.w,
+              //남은 기간, 공용 여부에 따라 border 색상 변경
+              borderColor: widget.myFoodItem.isPublic
+                  ? const Color(0xFFFFE088)
+                  : viewModel.isOld
+                      ? AppColors.caution
+                      : const Color(0xFF9bc6bf),
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(widget.myFoodItem.foodImage),
@@ -95,78 +99,91 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                 ],
               ),
               SizedBox(height: 8.h),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('남은기간: ', style: AppTextStyle.body15R()),
-                  Text(
-                    '${viewModel.remainPeriod}일',
-                    style: AppTextStyle.body15B(
-                        color: viewModel.isOld
-                            ? AppColors.caution
-                            : AppColors.mainText),
-                  ),
-                  const Spacer(),
-                ],
-              ),
-              SizedBox(height: 50.h),
-              //남은 기간에 따라 다른 텍스트 출력
-              viewModel.isOld
-                  ? Text('곧 폐기됩니다.',
-                      style: AppTextStyle.body14B(color: AppColors.caution))
-                  : widget.myFoodItem.isExtended
-                      ? Text('더이상 연장이 불가해요',
-                          style:
-                              AppTextStyle.body14R(color: AppColors.mainText))
-                      : Text('아직은 연장이 불가해요',
-                          style:
-                              AppTextStyle.body14R(color: AppColors.mainText)),
+              //공용음식 여부 체크
+              widget.myFoodItem.isPublic
+                  ? const Text('')
+                  : Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('남은기간: ', style: AppTextStyle.body15R()),
+                        //남은 기간에 따라 텍스트 색상 변경
+                        Text(
+                          '${viewModel.remainPeriod}일',
+                          style: AppTextStyle.body15B(
+                              color: viewModel.isOld
+                                  ? AppColors.caution
+                                  : AppColors.mainText),
+                        ),
+                        const Spacer(),
+                      ],
+                    ),
+              SizedBox(height: 40.h),
+              //남은 기간, 공용 여부에 따라 다른 텍스트 출력
+              widget.myFoodItem.isPublic
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('공용 음식이에요 ', style: AppTextStyle.body16R()),
+                        Image.asset('assets/images/share-food-icon.png',
+                            width: 40.w, height: 40.h)
+                      ],
+                    )
+                  : viewModel.isOld
+                      ? Text('곧 폐기됩니다.',
+                          style: AppTextStyle.body16B(color: AppColors.caution))
+                      : widget.myFoodItem.isExtended
+                          ? Text('더이상 연장이 불가해요',
+                              style: AppTextStyle.body16R(
+                                  color: AppColors.mainText))
+                          : Text('아직은 연장이 불가해요',
+                              style: AppTextStyle.body16R(
+                                  color: AppColors.mainText)),
               SizedBox(height: 24.h),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.r)),
-                      backgroundColor: const Color(0xFF9DCFD4)),
-                  //남은 기간이 2일 미만-> 다이얼로그 생성 / 2일 이상 ->버튼 비활성화
-                  onPressed: context.watch<MyFoodDetailViewModel>().isOld
-                      ? () {
-                    showDialog(
-                        context: context,
-                        builder: (desContext) {
-                          return TwoAnswerDialog(
-                              title: '연장하시겠습니까?',
-                              subtitle: '연장은 1회만 가능합니다',
-                              firstButton: '네',
-                              secondButton: '아니오',
-                              onTap: () {
-                                //'네' 클릭 -> 함수호출
-                                viewModel.isOld = false;
-                                viewModel.extendPeriod(
-                                    widget.myFoodItem,
-                                    widget.ourRefrigItem);
-                                viewModel.updateFirestore(
-                                    widget.myFoodItem);
-                                Navigator.of(context).pop();
-                              });
-                        });
-                  }
-                  //연장버튼 비활성화
-                      : null,
-                  child: Text('연장하기',
-                      style:
-                      AppTextStyle.body14R(color: Colors.grey.shade100)),
-                ),
-              ),
+              //공용음식일 경우 연장버튼 안보임
+              widget.myFoodItem.isPublic
+                  ? const Text('')
+                  : SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.r)),
+                            backgroundColor: const Color(0xFF9DCFD4)),
+                        //남은 기간이 2일 미만일 경우만 연장버튼 활성화
+                        onPressed: context.watch<MyFoodDetailViewModel>().isOld
+                            ? () {
+                                showDialog(
+                                    context: context,
+                                    builder: (desContext) {
+                                      return TwoAnswerDialog(
+                                          title: '연장하시겠습니까?',
+                                          subtitle: '연장은 1회만 가능합니다.',
+                                          firstButton: '네',
+                                          secondButton: '아니오',
+                                          onTap: () {
+                                            //'네'클릭 -> 남은 날 2일 이상으로 변경, 연장버튼 비활성화
+                                            viewModel.isOld = false;
+                                            viewModel.extendPeriod(
+                                                widget.myFoodItem,
+                                                widget.ourRefrigItem);
+                                            viewModel.updateFirestore(
+                                                widget.myFoodItem);
+                                            Navigator.of(context).pop();
+                                          });
+                                    });
+                              }
+                            //연장버튼 비활성화
+                            : null,
+                        child: Text('연장하기',
+                            style: AppTextStyle.body14R(
+                                color: Colors.grey.shade100)),
+                      ),
+                    ),
               SizedBox(height: 6.h),
 
               SizedBox(
                 width: double.infinity,
-                child:
-
-
-                ElevatedButton(
+                child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.r)),
@@ -176,21 +193,19 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                         context: context,
                         builder: (desContext) {
                           return NoTwoAnswerDialog(
-                              title: '삭제하시겠습니까?',
-                              subtitle: '삭제 후 복구가 불가합니다',
-                              firstButton: '네',
-                              secondButton: '아니오',
-                              onTap: () {
-                                //'네' 클릭 -> 함수호출
-                                viewModel.isOld = false;
-                                viewModel.extendPeriod(
-                                    widget.myFoodItem,
-                                    widget.ourRefrigItem);
-                                viewModel.updateFirestore(
-                                    widget.myFoodItem);
-                                Navigator.of(context).pop();
-                              },
-
+                            title: '삭제하시겠습니까?',
+                            subtitle: '삭제 후 복구가 불가합니다.',
+                            firstButton: '네',
+                            secondButton: '아니오',
+                            onTap: () {
+                              //'네' 클릭 -> firebase, storage 삭제
+                              viewModel.deleteFoodAndStorage(
+                                  widget.myFoodItem, widget.ourRefrigItem);
+                              Navigator.of(context).pop();
+                              if (mounted) {
+                                context.go('/main_page', extra: 1);
+                              }
+                            },
                           );
                         });
                   },
