@@ -82,7 +82,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     );
                   }
                 },
-                child: const Text('변경하기'),
+                child: Text('변경하기', style: AppTextStyle.body12R()),
               ),
             ],
           ),
