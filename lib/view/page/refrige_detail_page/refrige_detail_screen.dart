@@ -90,7 +90,7 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
         ),
       ),
       body: PageView(
-        physics: const ClampingScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         scrollDirection: Axis.vertical,
         children: [
