@@ -1,3 +1,5 @@
+//버튼 1개 다이얼로그 : 비밀번호 찾기, 회원가입 실패, 로그인 실패, 그룹관리변경/추가
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../styles/app_text_style.dart';
@@ -23,10 +25,10 @@ class OneAnswerDialog extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.r),
           color: Colors.white,
         ),
-        height: 160.h,
-        width: 200.w,
+        width: 270.w,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
               'assets/images/dialog_cookie.gif',
@@ -35,12 +37,16 @@ class OneAnswerDialog extends StatelessWidget {
             ),
             Text(
               title,
-              style: AppTextStyle.body15M(),
+              style: AppTextStyle.body18R(),
             ),
+            SizedBox(height: 6.h),
             Text(
               subtitle,
               style: AppTextStyle.body12R(),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.visible,
             ),
+            SizedBox(height: 16.h),
             SizedBox(
               width: 75.w,
               height: 28.h,
@@ -51,6 +57,7 @@ class OneAnswerDialog extends StatelessWidget {
                   child: Text(firstButton,
                       style: AppTextStyle.body12R(color: Colors.white))),
             ),
+            SizedBox(height: 16.h),
           ],
         ),
       ),
