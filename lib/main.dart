@@ -197,7 +197,20 @@ class NotificationController {
   ///  *********************************************
   ///     NOTIFICATION CREATION METHODS
   ///  *********************************************
-  ///
+
+  static Future<void> scheduleNewNotification(int dayFromNow) async {
+    bool isAllowed = await AwesomeNotifications().isNotificationAllowed();
+    if (!isAllowed) isAllowed = await displayNotificationRationale();
+    if (!isAllowed) return;
+
+    await myNotifyScheduleInDays(
+        title: '보관음식 중 곧 폐기될 음식이 있습니다!',
+        msg: '음식을 비워주세요.',
+        daysFromNow: dayFromNow,
+        username: 'test user',
+        repeatNotif: true);
+  }
+
   static Future<void> createNewNotification() async {
     bool isAllowed = await AwesomeNotifications().isNotificationAllowed();
     if (!isAllowed) isAllowed = await displayNotificationRationale();
@@ -231,43 +244,27 @@ class NotificationController {
         ]);
   }
 
-  static Future<void> scheduleNewNotification() async {
-    bool isAllowed = await AwesomeNotifications().isNotificationAllowed();
-    if (!isAllowed) isAllowed = await displayNotificationRationale();
-    if (!isAllowed) return;
-
-    await myNotifyScheduleInHours(
-        title: 'test',
-        msg: 'test message',
-        heroThumbUrl:
-            'https://storage.googleapis.com/cms-storage-bucket/d406c736e7c4c57f5f61.png',
-        hoursFromNow: 5,
-        username: 'test user',
-        repeatNotif: false);
-  }
-
-  static Future<void> resetBadgeCounter() async {
-    await AwesomeNotifications().resetGlobalBadge();
-  }
-
-  static Future<void> cancelNotifications() async {
-    await AwesomeNotifications().cancelAll();
-  }
+// static Future<void> resetBadgeCounter() async {
+//   await AwesomeNotifications().resetGlobalBadge();
+// }
+//
+// static Future<void> cancelNotifications() async {
+//   await AwesomeNotifications().cancelAll();
+// }
 }
 
-Future<void> myNotifyScheduleInHours({
-  required int hoursFromNow,
-  required String heroThumbUrl,
+Future<void> myNotifyScheduleInDays({
+  required int daysFromNow,
   required String username,
   required String title,
   required String msg,
   bool repeatNotif = false,
 }) async {
-  var nowDate = DateTime.now().add(Duration(hours: hoursFromNow, seconds: 5));
+  var nowDate = DateTime.now().add(Duration(days: daysFromNow, seconds: 5));
   await AwesomeNotifications().createNotification(
     schedule: NotificationCalendar(
       //weekday: nowDate.day,
-      hour: nowDate.hour,
+      day: nowDate.day,
       minute: 0,
       second: nowDate.second,
       repeats: repeatNotif,
@@ -278,9 +275,12 @@ Future<void> myNotifyScheduleInHours({
     content: NotificationContent(
       id: -1,
       channelKey: 'basic_channel',
+      wakeUpScreen: true,
+      category: NotificationCategory.Reminder,
       title: '${Emojis.food_bowl_with_spoon} $title',
       body: '$username, $msg',
-      bigPicture: heroThumbUrl,
+      bigPicture: 'asset://assets/images/lemon.png',
+      autoDismissible: false,
       notificationLayout: NotificationLayout.BigPicture,
       //actionType : ActionType.DismissAction,
       color: Colors.black,

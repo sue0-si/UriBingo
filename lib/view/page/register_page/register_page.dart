@@ -7,12 +7,13 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/repository/user_data_repository.dart';
 import 'package:leute/styles/app_text_style.dart';
-import 'package:leute/view_model/register_view_model.dart';
+import 'package:leute/view/page/register_page/register_view_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/models/foods_model.dart';
 import '../../../data/models/user_model.dart';
+import '../../../main.dart';
 
 class RegisterPage extends StatefulWidget {
   final List<Object> fridgeData;
@@ -230,9 +231,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 .currentUser!.displayName ??
                                             'noName',
                                         registerDate: registerDate,
-                                        isPublic: viewModel.selected[0],
+                                        isPublic: viewModel.selected,
                                         isExtended: false,
                                       ).toJson());
+                                  NotificationController
+                                      .scheduleNewNotification(
+                                          selectedRefrige.period - 1);
 
                                   if (mounted) {
                                     viewModel.isLoading = false;
@@ -275,8 +279,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                       borderWidth: 3.0,
                                       borderRadius: BorderRadius.circular(8.0),
                                       borderColor: const Color(0xFF9bc6bf),
-                                      selectedBorderColor: const Color(0xFF9bc6bf),
-                                      isSelected: viewModel.selected,
+                                      selectedBorderColor:
+                                          const Color(0xFF9bc6bf),
+                                      isSelected: [viewModel.selected],
                                       color: Colors.black,
                                       selectedColor: Colors.deepPurple,
                                       onPressed: (int index) {
