@@ -78,6 +78,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                           child: Form(
                             key: _formKey,
                             child: TextFormField(
+                              textAlign: TextAlign.center,
                               maxLength: 7,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -91,27 +92,26 @@ class _AddRefrigeState extends State<AddRefrige> {
                               },
                               controller: addNameController,
 
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                              ),
+                              style: AppTextStyle.body15R(),
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(),
                                 contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 12.0),
                                 focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10).w,
+                                  borderRadius: BorderRadius.circular(10).r,
                                   borderSide: const BorderSide(
                                     width: 1,
                                     color: Colors.green,
                                   ),
                                 ),
                                 enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10).w,
+                                  borderRadius: BorderRadius.circular(10).r,
                                   borderSide: BorderSide(
                                     width: 1.r,
                                     color: Colors.green,
                                   ),
                                 ),
+
                                 counterText: '',
                                 labelText: '입력(최대7글자)',
                                 labelStyle: TextStyle(

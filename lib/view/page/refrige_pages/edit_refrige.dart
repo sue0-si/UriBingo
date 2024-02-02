@@ -99,6 +99,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                           child: Form(
                             key: _formKey,
                             child: TextFormField(
+                              textAlign: TextAlign.center,
                               enabled: false,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -112,25 +113,22 @@ class _EditRefrigeState extends State<EditRefrige> {
                               },
                               controller: addNameController,
                               //obscureText: true, 입력값을 안보여주고싶을때
-                              style: const TextStyle(fontSize: 15),
+                              style: AppTextStyle.body15R(
+                                color: Colors.grey
+                              ),
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(),
                                 contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 12.0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                                    EdgeInsets.symmetric(horizontal: 18.0),
+
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10).r,
                                   borderSide: const BorderSide(
                                     width: 1,
-                                    color: Colors.green,
+                                    color: Colors.grey,
                                   ),
                                 ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: const BorderSide(
-                                    width: 1,
-                                    color: Colors.green,
-                                  ),
-                                ),
+
                                 labelText: '수정불가',
                               ),
                             ),
