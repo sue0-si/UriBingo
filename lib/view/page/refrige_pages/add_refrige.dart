@@ -45,7 +45,9 @@ class _AddRefrigeState extends State<AddRefrige> {
       appBar: AppBar(
         title: Text(
           '냉장고 추가',
-          style: AppTextStyle.header24(),
+          style: AppTextStyle.header24(
+            color: Colors.white,
+          ),
         ),
         centerTitle: true,
         backgroundColor: const Color(0xFF9bc6bf),

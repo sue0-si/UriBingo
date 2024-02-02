@@ -80,7 +80,9 @@ class _EditRefrigeState extends State<EditRefrige> {
         ),
         title: Text(
           '냉장고 수정',
-          style: AppTextStyle.header24(),
+          style: AppTextStyle.header24(
+            color: Colors.white,
+          ),
         ),
       ),
       body: Padding(
@@ -123,7 +125,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(),
                                 contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 18.0),
+                                    EdgeInsets.symmetric(horizontal: 15.0),
                                 disabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10).r,
                                   borderSide: const BorderSide(
@@ -336,7 +338,28 @@ class _EditRefrigeState extends State<EditRefrige> {
                           textStyle:
                               AppTextStyle.body15R(color: AppColors.mainText),
                           text: '삭제하기',
-                          onTap: () async {},
+                          onTap: () async {
+
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return TwoAnswerDialog(
+                                      title: '삭제하시겠습니까?',
+                                      subtitle: '삭제된 냉장고는 복구파이 불가합니다.',
+                                      firstButton: '네',
+                                      secondButton: '아니오',
+                                      onTap: () async {
+                                        setState(() {});
+
+                                        if (mounted) {
+                                          context.go('/main_page', extra: 0);
+                                        }
+                                        await addPageViewModel.deleteRefrige(
+                                        );
+                                      });
+                                });
+
+                          },
                         ),
                       ],
                     ),
