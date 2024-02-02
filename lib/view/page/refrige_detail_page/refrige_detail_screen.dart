@@ -35,6 +35,7 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        //centerTitle: true,
         backgroundColor: Colors.transparent,
         leading: IconButton(
             icon: const Icon(
@@ -43,7 +44,7 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
             ),
             onPressed: () => context.go('/main_page', extra: 0)),
         title: SizedBox(
-          height: 50,
+          height: 53,
           child: AnimatedButtonBar(
             radius: 32.0,
             padding: const EdgeInsets.all(3.0),
@@ -73,15 +74,30 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: GestureDetector(
-              onTap: () {
-                context.go('/main_page', extra: 1);
-              },
-              child: const Icon(Icons.kitchen_outlined,
-                  color: Colors.white, semanticLabel: '마이냉장고', size: 30),
-            ),
-          ),
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  context.go('/main_page', extra: 1);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 2),
+                    color: Colors.redAccent,
+                  ),
+                  width: 25,
+                  height: 25,
+                  child: const Center(
+                    child: Text(
+                      'My',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                    ),
+                  ),
+                ),
+              )),
         ],
         flexibleSpace: Container(
           decoration: BoxDecoration(

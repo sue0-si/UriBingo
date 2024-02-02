@@ -345,7 +345,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                 builder: (context) {
                                   return TwoAnswerDialog(
                                       title: '삭제하시겠습니까?',
-                                      subtitle: '삭제된 냉장고는 복구파이 불가합니다.',
+                                      subtitle: '냉장고가 완전히 삭제됩니다.',
                                       firstButton: '네',
                                       secondButton: '아니오',
                                       onTap: () async {

@@ -42,6 +42,7 @@ class _AddRefrigeState extends State<AddRefrige> {
     //위젯 전체를 인식하려고 쓴것이다
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           '냉장고 추가',
