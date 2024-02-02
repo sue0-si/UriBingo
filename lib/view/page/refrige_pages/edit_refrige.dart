@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 
 import '../../../styles/app_text_colors.dart';
 import '../../../styles/app_text_style.dart';
+import '../../widget/custom_buttons/custom_button.dart';
+import '../../widget/custom_dialog/no_subtitle_dialog.dart';
 import '../../widget/custom_dialog/no_two_answer_dialog.dart';
 import '../../widget/custom_dialog/two_answer_dialog.dart';
 
@@ -310,7 +312,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                             width: 100.w,
                             height: 35.h,
                             backgroundColor: const Color(0xFF9bc6bf),
-                            textStyle: AppTextStyle.body15R(color: Colors.white),
+                            textStyle:
+                                AppTextStyle.body15R(color: Colors.white),
                             text: '수정하기',
                             onTap: () async {
                               if (_formKey.currentState!.validate()) {
@@ -350,74 +353,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                           textStyle:
                               AppTextStyle.body15R(color: AppColors.mainText),
                           text: '삭제하기',
-                          onTap: () async {
+                          onTap: () async {},
 
-                            }
-                          },
-                          child: Text(
-                            '수정하기',
-                            style:
-                            AppTextStyle.body12R(),
-
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return TwoAnswerDialog(
-                                  title: '삭제하겠습니까?',
-                                  subtitle: '삭제 후 복구가 불가합니다.',
-                                  firstButton: '네',
-                                  secondButton: '아니오',
-                                  onTap: () async {
-                                    await addPageViewModel.remainFoodsCheck(
-                                        widget.seletedRefrige.refrigeName);
-                                    if (addPageViewModel.foodItems.isNotEmpty) {
-                                      if (mounted) {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return TwoAnswerDialog(
-                                              title:
-                                                  '음식이 남아있습니다. 그래도 삭제하시겠습니까?',
-                                              subtitle: '삭제 후 복구가 불가합니다.',
-                                              firstButton: '네',
-                                              secondButton: '아니오',
-                                              onTap: () async {
-                                                await addPageViewModel
-                                                    .deleteRefrige();
-                                                if (mounted) {
-                                                  context.go('/main_page',
-                                                      extra: 0);
-                                                }
-                                              },
-                                            );
-                                          },
-                                        );
-                                      }
-                                    } else {
-                                      await addPageViewModel.deleteRefrige();
-                                      if (mounted) {
-                                        context.go('/main_page', extra: 0);
-                                      }
-                                    }
-                                  },
-                                );
-                              },
-                            );
-                          },
-                          child: Text(
-                            '삭제하기',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
                         ),
                       ],
                     ),

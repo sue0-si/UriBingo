@@ -291,10 +291,6 @@ class _AddRefrigeState extends State<AddRefrige> {
                                     return TwoAnswerDialog(
                                         title: '등록하시겠습니까?',
                                         subtitle: '등록된 냉장고 이름은 수정이 불가합니다.',
-                                        titleStyle: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: Colors.green,
-                                        ),
                                         firstButton: '네',
                                         secondButton: '아니오',
                                         onTap: () async {
@@ -310,13 +306,6 @@ class _AddRefrigeState extends State<AddRefrige> {
                               //왜 async?
                             }
                           },
-                          child: Text(
-                            '추가하기',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
                         ),
                         CustomButton(
                           width: 100.w,
@@ -328,13 +317,6 @@ class _AddRefrigeState extends State<AddRefrige> {
                           onTap: () {
                             context.go('/main_page', extra: 0);
                           },
-                          child: Text(
-                            '취소하기',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
                         ),
                       ],
                     ),
