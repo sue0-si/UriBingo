@@ -60,7 +60,7 @@ class _AddRefrigeState extends State<AddRefrige> {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //crossAxisAlignment: CrossAxisAlignment.start,
+
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,7 +90,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                                 addPageViewModel.name = value!; //여기 잘 모르겠다
                               },
                               controller: addNameController,
-                              //obscureText: true, 입력값을 안보여주고싶을때
+
                               style: TextStyle(
                                 fontSize: 15.sp,
                               ),
@@ -113,7 +113,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                                   ),
                                 ),
                                 counterText: '',
-                                labelText: 'Please enter..',
+                                labelText: '입력(최대7글자)',
                                 labelStyle: TextStyle(
                                   color: Colors.grey.withOpacity(0.6),
                                 ),
