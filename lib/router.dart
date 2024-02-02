@@ -66,7 +66,7 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
       builder: (context, state) {
         return ChangeNotifierProvider(
           create: (_) => SignupPageViewModel(),
-          child: const SignupPage(),
+          child: SignupPage(userToken: state.extra as String,),
         );
       }),
 
@@ -105,7 +105,7 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
     builder: (context, state) {
       return ChangeNotifierProvider(
         create: (_) => LoginPageViewModel(),
-        child: SplashScreen(),
+        child: const SplashScreen(),
       );
     },
   ),

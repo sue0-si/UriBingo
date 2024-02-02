@@ -125,6 +125,7 @@ class SignupPageViewModel with ChangeNotifier {
       String email,
       String password,
       String name,
+      String userToken,
       String employeeNumber,
       String groupName,
       String validationCode,
@@ -145,6 +146,7 @@ class SignupPageViewModel with ChangeNotifier {
       'email': email,
       'groupName': groupName,
       'validationCode': validationCode,
+      'userToken': userToken,
     });
     notifyListeners();
   }
