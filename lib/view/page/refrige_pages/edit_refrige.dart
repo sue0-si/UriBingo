@@ -72,9 +72,15 @@ class _EditRefrigeState extends State<EditRefrige> {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: const Color(0xFF9bc6bf),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.go('/main_page', extra: 0),
+        ),
+        title: Text(
+          '냉장고 수정',
+          style: AppTextStyle.header24(),
         ),
       ),
       body: Padding(
@@ -113,14 +119,11 @@ class _EditRefrigeState extends State<EditRefrige> {
                               },
                               controller: addNameController,
                               //obscureText: true, 입력값을 안보여주고싶을때
-                              style: AppTextStyle.body15R(
-                                color: Colors.grey
-                              ),
+                              style: AppTextStyle.body15R(color: Colors.grey),
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(),
                                 contentPadding:
                                     EdgeInsets.symmetric(horizontal: 18.0),
-
                                 disabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10).r,
                                   borderSide: const BorderSide(
@@ -128,7 +131,6 @@ class _EditRefrigeState extends State<EditRefrige> {
                                     color: Colors.grey,
                                   ),
                                 ),
-
                                 labelText: '수정불가',
                               ),
                             ),
@@ -164,8 +166,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                 isExpanded: true,
                                 onChanged: (value) {
                                   setState(() {
-                                    selectedColdstorageController.text =
-                                        value!;
+                                    selectedColdstorageController.text = value!;
                                     addPageViewModel.selectedColdstorage =
                                         value;
                                   });
