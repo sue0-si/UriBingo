@@ -42,7 +42,7 @@ class LoginPageViewModel with ChangeNotifier {
                   Navigator.pop(context);
                 },
                 title: '로그인 실패',
-                subtitle: '존재하지 않는 아이디 혹은 비밀번호가 일치하지 않습니다.',
+                subtitle: '아이디 혹은 비밀번호가 일치하지 않습니다.',
                 firstButton: '확인');
           },
         );

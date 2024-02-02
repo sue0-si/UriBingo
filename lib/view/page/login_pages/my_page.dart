@@ -62,9 +62,9 @@ class MyPage extends StatelessWidget {
                               viewModel.deleteAccount(context);
                             },
                             title: '회원 탈퇴 알림',
-                            subtitle: '정말 회원탈퇴를 하시겠습니까?',
+                            subtitle: '정말 탈퇴하시겠습니까?',
                             firstButton: '네',
-                            secondButton: '아니요');
+                            secondButton: '아니오');
                       });
                 },
                 icon: Icons.output_rounded),

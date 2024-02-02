@@ -1,3 +1,5 @@
+//당근 아이콘이 있는 버튼 2개 다이얼로그: 상품 삭제 버튼에서만 사용
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:leute/styles/app_text_style.dart';
@@ -26,10 +28,10 @@ class NoTwoAnswerDialog extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.r),
           color: Colors.white,
         ),
-        height: 200.h,
         width: 270.w,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
               'assets/images/dialog_carrot.gif',
@@ -44,14 +46,16 @@ class NoTwoAnswerDialog extends StatelessWidget {
             Text(
               subtitle,
               style: AppTextStyle.body12R(),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.visible,
             ),
             SizedBox(height: 16.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: 90.w,
-                  height: 35.h,
+                  width: 75.w,
+                  height: 28.h,
                   child: ElevatedButton(
                       onPressed: onTap,
                       style: ElevatedButton.styleFrom(
@@ -61,8 +65,8 @@ class NoTwoAnswerDialog extends StatelessWidget {
                 ),
                 SizedBox(width: 14.w),
                 SizedBox(
-                  width: 90.w,
-                  height: 35.h,
+                  width: 80.w,
+                  height: 28.h,
                   child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context, rootNavigator: true).pop(); //창 닫기
@@ -73,6 +77,7 @@ class NoTwoAnswerDialog extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: 16.h),
           ],
         ),
       ),

@@ -4,10 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
 import 'package:leute/view/widget/custom_buttons/custom_button.dart';
-import 'package:leute/view/widget/custom_dialog/no_subtitle_dialog.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
-
 import '../../../styles/app_text_colors.dart';
 import '../../../styles/app_text_style.dart';
 import '../../widget/custom_dialog/no_two_answer_dialog.dart';
@@ -328,8 +326,10 @@ class _EditRefrigeState extends State<EditRefrige> {
                                 showDialog(
                                     context: context,
                                     builder: (context) {
-                                      return NoSubtitleDialog(
+                                      return TwoAnswerDialog(
                                           title: '수정하시겠습니까?',
+                                          subtitle: '',
+                                          secondButton: '아니오',
                                           firstButton: '네',
                                           onTap: () async {
                                             setState(() {});

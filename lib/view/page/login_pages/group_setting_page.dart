@@ -244,8 +244,8 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                   Navigator.of(context, rootNavigator: true)
                                       .pop();
                                 },
-                                title: '',
-                                subtitle: '관리자가 아무도 없습니다.',
+                                title: '관리자가 아무도 없습니다.',
+                                subtitle: '',
                                 firstButton: '취소',
                               );
                             });
