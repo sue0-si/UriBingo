@@ -101,8 +101,17 @@ class MyFridge extends StatelessWidget {
                                                   width: 100,
                                                   border: 80,
                                                   borderWidth: 5,
-                                                  borderColor:
-                                                    Colors.white,
+                                                  borderColor: (viewModel
+                                                              .myFoodDetails
+                                                              .where((e) =>
+                                                                  e.refrigeName ==
+                                                                  refrigeDetail
+                                                                      .refrigeName)
+                                                              .toList()[index]
+                                                              .isPublic ==
+                                                          true)
+                                                      ? const Color(0xFFFFE088)
+                                                      : Color(0xFFbbd7da),
                                                   image: DecorationImage(
                                                     fit: BoxFit.cover,
                                                     image: NetworkImage(

@@ -51,7 +51,7 @@ class _MainPageState extends State<MainPage> {
         items: const <Widget>[
           Icon(Icons.kitchen_outlined,
               color: Colors.white, semanticLabel: '냉장고', size: 30),
-          Icon(UniconsSolid.user_md,
+          Icon(UniconsLine.glass_tea,
               color: Colors.white, semanticLabel: '마이냉장고', size: 30),
           Icon(UniconsLine.user,
               color: Colors.white, semanticLabel: '마이페이지', size: 30),
