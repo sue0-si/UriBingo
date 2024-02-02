@@ -8,6 +8,20 @@ class MyPageViewModel with ChangeNotifier {
   User? user = FirebaseAuth.instance.currentUser;
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
   bool manager = false;
+  bool _disposed = false;
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
+  }
 
   MyPageViewModel() {
     fetchManagerData();

@@ -35,6 +35,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
       context
           .read<MyFoodDetailViewModel>()
           .checkOld(widget.myFoodItem, widget.ourRefrigItem);
+
     });
   }
 

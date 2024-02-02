@@ -97,8 +97,7 @@ class GroupSettingPageViewModel with ChangeNotifier {
                   manager: targetUser.manager,
                   name: targetUser.name,
                   groupName: targetUser.groupName,
-                  userId: targetUser.userId,
-                  userToken: targetUser.userToken)
+                  userId: targetUser.userId,)
               .toJson());
     }
     isLoading = false;
@@ -135,8 +134,7 @@ class GroupSettingPageViewModel with ChangeNotifier {
                   manager: false,
                   name: addTargetMember[0].name,
                   groupName: manager.groupName,
-                  userId: addTargetMember[0].userId,
-                  userToken: addTargetMember[0].userToken)
+                  userId: addTargetMember[0].userId,)
               .toJson());
       isMember = true;
       addTargetMember.remove(user);
