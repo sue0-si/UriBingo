@@ -5,13 +5,12 @@ import 'package:image_picker/image_picker.dart';
 class RegisterViewModel extends ChangeNotifier {
   final ImagePicker picker = ImagePicker();
   XFile? photo;
-  final List<bool> _selected = [false, false];
+  bool _selected = false;
   int selectedIndex = 0;
   late Uint8List foodImage;
   bool isLoading = false;
 
-  List<bool> get selected => _selected;
-
+  bool get selected => _selected;
 
   void changeLoadingState() {
     isLoading = !isLoading;
@@ -39,10 +38,8 @@ class RegisterViewModel extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void buttonSelection(int index) {
-    for (int i = 0; i < selected.length; i++) {
-      selected[i] = i == index;
-    }
+  void buttonSelection() {
+    _selected = !_selected;
     notifyListeners();
   }
 }
