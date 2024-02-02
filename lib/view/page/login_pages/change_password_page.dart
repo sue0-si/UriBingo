@@ -74,9 +74,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                               context.go('/login');
                             }
                           },
-                          title: '',
+                          title: '정상 변경되었습니다',
                           firstButton: '확인',
-                          subtitle: '로그아웃되었습니다. 새로운 비밀번호로 로그인 해주세요.',
+                          subtitle: '새로운 비밀번호로 로그인 해주세요.',
                         );
                       },
                     );

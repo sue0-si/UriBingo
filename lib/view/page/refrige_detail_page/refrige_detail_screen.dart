@@ -42,35 +42,33 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
               color: Colors.white,
             ),
             onPressed: () => context.go('/main_page', extra: 0)),
-        title: Center(
-          child: SizedBox(
-            height: 50,
-            child: AnimatedButtonBar(
-              radius: 32.0,
-              padding: const EdgeInsets.all(3.0),
-              backgroundColor: Colors.white,
-              foregroundColor: const Color(0xFF9bc6bf),
-              elevation: 24,
-              borderColor: Colors.white,
-              borderWidth: 3,
-              innerVerticalPadding: 5,
-              children: [
-                ButtonBarEntry(
-                    onTap: () => _pageController.animateToPage(
-                        widget.selectedIndex == 1 ? widget.selectedIndex : 1,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut),
-                    child: Text('냉장실',
-                        style: AppTextStyle.body14R(color: Colors.black))),
-                ButtonBarEntry(
-                    onTap: () => _pageController.animateToPage(
-                        widget.selectedIndex == 0 ? widget.selectedIndex : 0,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeInOut),
-                    child: Text('냉동실',
-                        style: AppTextStyle.body14R(color: Colors.black))),
-              ],
-            ),
+        title: SizedBox(
+          height: 50,
+          child: AnimatedButtonBar(
+            radius: 32.0,
+            padding: const EdgeInsets.all(3.0),
+            backgroundColor: Colors.white,
+            foregroundColor: const Color(0xFF9bc6bf),
+            elevation: 24,
+            borderColor: Colors.white,
+            borderWidth: 3,
+            innerVerticalPadding: 5,
+            children: [
+              ButtonBarEntry(
+                  onTap: () => _pageController.animateToPage(
+                      widget.selectedIndex == 1 ? widget.selectedIndex : 1,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut),
+                  child: Text('냉장실',
+                      style: AppTextStyle.body14R(color: Colors.black))),
+              ButtonBarEntry(
+                  onTap: () => _pageController.animateToPage(
+                      widget.selectedIndex == 0 ? widget.selectedIndex : 0,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut),
+                  child: Text('냉동실',
+                      style: AppTextStyle.body14R(color: Colors.black))),
+            ],
           ),
         ),
         actions: [

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/user_model.dart';
+import 'package:leute/styles/app_text_colors.dart';
+import 'package:leute/styles/app_text_style.dart';
+import 'package:leute/view/widget/custom_buttons/custom_button.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -83,7 +86,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                               child: Form(
                                 key: _formKey,
                                 child: TextFormField(
-                                  maxLength: 10,
+                                  maxLength: 7,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return '냉장고 이름을 입력하세요';
@@ -101,7 +104,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                                   ),
                                   decoration: InputDecoration(
                                     border: const OutlineInputBorder(),
-                                    contentPadding: EdgeInsets.only(
+                                    contentPadding: const EdgeInsets.only(
                                       left: 15,
                                       top: 10,
                                       bottom: 10,
@@ -179,7 +182,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                             Expanded(
+                            Expanded(
                               flex: 1,
                               child: Text(
                                 '냉동고 칸수',
@@ -252,11 +255,11 @@ class _AddRefrigeState extends State<AddRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                             Expanded(
+                            Expanded(
                               child: Text(
                                 '연장가능기간',
                                 style: TextStyle(
-                                  color: Color(0xFF00557F),
+                                  color: const Color(0xFF00557F),
                                   fontSize: 20.sp,
                                 ),
                               ),
@@ -296,26 +299,25 @@ class _AddRefrigeState extends State<AddRefrige> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ElevatedButton(
-                          onPressed: () async {
+                        CustomButton(
+                          width: 100.w,
+                          height: 35.h,
+                          backgroundColor: const Color(0xFF9bc6bf),
+                          textStyle: AppTextStyle.body15R(color: Colors.white),
+                          text: '추가하기',
+                          onTap: () async {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
-
                               showDialog(
                                   context: context,
                                   builder: (context) {
                                     return TwoAnswerDialog(
                                         title: '등록하시겠습니까?',
                                         subtitle: '등록된 냉장고 이름은 수정이 불가합니다.',
-                                        titleStyle: TextStyle(
-                                          fontSize: 15.sp,
-                                          color: Colors.green,
-                                        ),
                                         firstButton: '네',
                                         secondButton: '아니오',
                                         onTap: () async {
                                           setState(() {});
-
                                           if (mounted) {
                                             context.go('/main_page', extra: 0);
                                           }
@@ -326,25 +328,17 @@ class _AddRefrigeState extends State<AddRefrige> {
                               //왜 async?
                             }
                           },
-                          child: Text(
-                            '추가하기',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
                         ),
-                        ElevatedButton(
-                          onPressed: () {
+                        CustomButton(
+                          width: 100.w,
+                          height: 35.h,
+                          backgroundColor: Colors.grey.shade200,
+                          textStyle:
+                              AppTextStyle.body15R(color: AppColors.mainText),
+                          text: '취소하기',
+                          onTap: () {
                             context.go('/main_page', extra: 0);
                           },
-                          child: Text(
-                            '취소하기',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
                         ),
                       ],
                     ),

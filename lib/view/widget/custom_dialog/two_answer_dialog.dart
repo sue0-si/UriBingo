@@ -16,7 +16,6 @@ class TwoAnswerDialog extends StatelessWidget {
     required this.subtitle,
     required this.firstButton,
     required this.secondButton,
-    TextStyle? titleStyle,
   });
 
   @override
@@ -34,8 +33,8 @@ class TwoAnswerDialog extends StatelessWidget {
           children: [
             Image.asset(
               'assets/images/dialog_cookie.gif',
-              width: 80.w,
-              height: 80.h,
+              width: 70.w,
+              height: 70.h,
             ),
             Text(
               title,
@@ -50,20 +49,28 @@ class TwoAnswerDialog extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                    onPressed: onTap,
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF8BC6CC)),
-                    child: Text(firstButton,
-                        style: AppTextStyle.body12R(color: Colors.white))),
-                SizedBox(width: 16.w),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context, rootNavigator: true).pop(); //창 닫기
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey.shade200),
-                    child: Text(secondButton, style: AppTextStyle.body12R())),
+                SizedBox(
+                  width: 90.w,
+                  height: 35.h,
+                  child: ElevatedButton(
+                      onPressed: onTap,
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF8BC6CC)),
+                      child: Text(firstButton,
+                          style: AppTextStyle.body12R(color: Colors.white))),
+                ),
+                SizedBox(width: 14.w),
+                SizedBox(
+                  width: 90.w,
+                  height: 35.h,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true).pop(); //창 닫기
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey.shade200),
+                      child: Text(secondButton, style: AppTextStyle.body12R())),
+                ),
               ],
             ),
           ],

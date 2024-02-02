@@ -25,6 +25,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   bool isManager = false;
+  String userToken = '';
 
   @override
   void initState() {
@@ -38,6 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
         (user) => user.email == FirebaseAuth.instance.currentUser!.email);
     setState(() {
       isManager = currentUser.manager;
+      userToken = currentUser.userToken;
     });
   }
 
@@ -229,6 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         userName: FirebaseAuth.instance
                                                 .currentUser!.displayName ??
                                             'noName',
+                                        userToken: userToken,
                                         registerDate: registerDate,
                                         isPublic: viewModel.selected[0],
                                         isUnknown: viewModel.selected[1],
@@ -275,8 +278,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ToggleButtons(
                                       borderWidth: 3.0,
                                       borderRadius: BorderRadius.circular(8.0),
-                                      borderColor: Color(0xFF9bc6bf),
-                                      selectedBorderColor: Color(0xFF9bc6bf),
+                                      borderColor: const Color(0xFF9bc6bf),
+                                      selectedBorderColor: const Color(0xFF9bc6bf),
                                       isSelected: viewModel.selected,
                                       color: Colors.black,
                                       selectedColor: Colors.deepPurple,
