@@ -26,6 +26,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   bool isManager = false;
+  String groupName = '';
 
   @override
   void initState() {
@@ -39,6 +40,7 @@ class _RegisterPageState extends State<RegisterPage> {
         (user) => user.email == FirebaseAuth.instance.currentUser!.email);
     setState(() {
       isManager = currentUser.manager;
+      groupName = currentUser.groupName;
     });
   }
 
@@ -230,6 +232,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         userName: FirebaseAuth.instance
                                                 .currentUser!.displayName ??
                                             'noName',
+                                        groupName: groupName,
                                         registerDate: registerDate,
                                         isPublic: viewModel.selected,
                                         isExtended: false,
@@ -237,6 +240,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                                   if (mounted) {
                                     viewModel.isLoading = false;
+
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content: Text('등록되었습니다.'),
@@ -249,6 +253,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                           ? [widget.fridgeData[0], 0]
                                           : [widget.fridgeData[0], 1],
                                     );
+                                    await NotificationController
+                                        .scheduleNewNotification(
+                                            selectedRefrige.period - 1,
+                                            FirebaseAuth.instance.currentUser!
+                                                .displayName!);
                                   }
                                 }
                               },
@@ -276,7 +285,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                       borderWidth: 3.0,
                                       borderRadius: BorderRadius.circular(8.0),
                                       borderColor: const Color(0xFF9bc6bf),
-                                      selectedBorderColor: const Color(0xFF9bc6bf),
+                                      selectedBorderColor:
+                                          const Color(0xFF9bc6bf),
                                       isSelected: [viewModel.selected],
                                       color: Colors.black,
                                       selectedColor: Colors.deepPurple,
