@@ -83,7 +83,7 @@ class _EditRefrigeState extends State<EditRefrige> {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //crossAxisAlignment: CrossAxisAlignment.stretch,
+
               children: [
                 SizedBox(
                   height: 300.h,
@@ -91,7 +91,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             '냉장고 이름',
@@ -118,11 +118,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                                 style: const TextStyle(fontSize: 15),
                                 decoration: InputDecoration(
                                   border: const OutlineInputBorder(),
-                                  contentPadding: const EdgeInsets.only(
-                                    left: 15,
-                                    top: 10,
-                                    bottom: 10,
-                                  ),
+                                  contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
+
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: const BorderSide(
@@ -142,9 +139,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            width: 25.w,
-                          ),
+
                         ],
                       ),
                       // 이 부분을 수정하여 두 번째 냉장고 이름을 표시하세요.
