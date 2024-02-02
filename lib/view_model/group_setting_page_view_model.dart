@@ -97,7 +97,8 @@ class GroupSettingPageViewModel with ChangeNotifier {
                   manager: targetUser.manager,
                   name: targetUser.name,
                   groupName: targetUser.groupName,
-                  userId: targetUser.userId)
+                  userId: targetUser.userId,
+                  userToken: targetUser.userToken)
               .toJson());
     }
     isLoading = false;
@@ -116,13 +117,14 @@ class GroupSettingPageViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  // 그룹에 멤버 추가 함수
   Future<void> addToMember(UserModel user) async {
     if (addTargetMember.isEmpty) {
       isLoading = false;
       notifyListeners();
     } else {
       UserModel manager = fetchedUserList.firstWhere(
-              (user) => user.email == FirebaseAuth.instance.currentUser?.email);
+          (user) => user.email == FirebaseAuth.instance.currentUser?.email);
       await FirebaseFirestore.instance
           .collection('profile')
           .doc(addTargetMember[0].userId)
@@ -130,10 +132,11 @@ class GroupSettingPageViewModel with ChangeNotifier {
                   validationCode: manager.validationCode,
                   email: addTargetMember[0].email,
                   employeeNumber: addTargetMember[0].employeeNumber,
-                  manager: addTargetMember[0].manager,
+                  manager: false,
                   name: addTargetMember[0].name,
                   groupName: manager.groupName,
-                  userId: addTargetMember[0].userId)
+                  userId: addTargetMember[0].userId,
+                  userToken: addTargetMember[0].userToken)
               .toJson());
       isMember = true;
       addTargetMember.remove(user);
@@ -150,7 +153,8 @@ class GroupSettingPageViewModel with ChangeNotifier {
         .map((e) => e..validationCode = '')
         .toList()
         .map((e) => e..groupName = '')
-        .toList();
+        .toList()
+        .map((e) => e..manager = false);
 
     notifyListeners();
   }

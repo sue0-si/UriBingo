@@ -27,12 +27,26 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   StreamSubscription? authStateChanges;
 
+  var messageString = '';
+  String token = '';
+
+  void getMyDeviceToken() async {
+    token = (await FirebaseMessaging.instance.getToken())!;
+
+    print("내 디바이스 토큰: $token");
+
+
+  }
 
   @override
   void initState() {
     super.initState();
+    getMyDeviceToken();
+
     Future.microtask(() {
       var viewmodel = context.read<LoginPageViewModel>();
+      // 토큰 갱신 여부 확인
+      viewmodel.tokenCheck(token);
       viewmodel.initPreferences().then((value) => emailController.text = value);
     });
     authStateChanges = FirebaseAuth.instance.authStateChanges().listen((user) {
@@ -42,6 +56,31 @@ class _LoginPageState extends State<LoginPage> {
       }
     });
 
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      RemoteNotification? notification = message.notification;
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+        FlutterLocalNotificationsPlugin().show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          const NotificationDetails(
+            android: AndroidNotificationDetails(
+              'high_importance_channel',
+              'high_importance_notification',
+              importance: Importance.max,
+            ),
+          ),
+        );
+        setState(() {
+          messageString = message.notification!.body!;
+          print("Foreground 메시지 수신: $messageString");
+        });
+      }
+    });
   }
 
   @override
@@ -113,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: const Text('비밀번호 찾기')),
                   TextButton(
                       onPressed: () {
-                        context.go('/signup');
+                        context.go('/signup', extra: token);
                       },
                       child: const Text('회원가입')),
                 ],

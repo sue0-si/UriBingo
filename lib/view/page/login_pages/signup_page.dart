@@ -11,7 +11,9 @@ import 'package:provider/provider.dart';
 import '../../widget/custom_dialog/two_answer_dialog.dart';
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+  final String userToken;
+  const SignupPage({super.key, required this.userToken});
+
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -166,6 +168,7 @@ class _SignupPageState extends State<SignupPage> {
                                         emailController.text,
                                         passwordController.text,
                                         nameController.text,
+                                        widget.userToken,
                                         employeeNumberController.text,
                                         groupNameController.text,
                                         validationCodeController.text,
@@ -197,6 +200,7 @@ class _SignupPageState extends State<SignupPage> {
                                         emailController.text,
                                         passwordController.text,
                                         nameController.text,
+                                        widget.userToken,
                                         employeeNumberController.text,
                                         groupNameController.text,
                                         validationCodeController.text,
