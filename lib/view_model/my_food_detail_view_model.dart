@@ -48,7 +48,6 @@ class MyFoodDetailViewModel with ChangeNotifier {
     }
 
     isOld = remainPeriod < 2; //값 할당
-    NotificationController.createNewNotification();
     notifyListeners();
     return remainPeriod < 2;
   }
@@ -63,11 +62,10 @@ class MyFoodDetailViewModel with ChangeNotifier {
 
   // remainPeriod 가 2 미만이 될 경우 impend -> true
   Future<void> updateImpendFood(FoodDetail myFoodItem) async {
-      await FirebaseFirestore.instance
-          .collection('foodDetails')
-          .doc(myFoodItem.registerDate.toString() + myFoodItem.userId)
-          .update({"impend": true});
-
+    await FirebaseFirestore.instance
+        .collection('foodDetails')
+        .doc(myFoodItem.registerDate.toString() + myFoodItem.userId)
+        .update({"impend": true});
   }
 
   //firebase, firestore 삭제
