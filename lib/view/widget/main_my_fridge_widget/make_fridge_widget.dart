@@ -42,7 +42,7 @@ class MakeFridge extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 30.h,
+                  height: 30,
                   width: 100.w,
                   child: Center(
                     child: Text(
