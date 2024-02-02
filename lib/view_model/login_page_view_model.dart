@@ -106,7 +106,7 @@ class LoginPageViewModel with ChangeNotifier {
   }
 
 // 비밀번호 재설정 이메일 전송
-  Future<void> sendPasswordResetEmail(String email) async {
+  Future<void> sendPasswordResetEmail(String email, BuildContext context) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 }

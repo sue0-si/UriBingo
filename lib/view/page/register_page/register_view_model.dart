@@ -37,7 +37,7 @@ class RegisterViewModel extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void buttonSelection() {
+  void buttonSelection(int index) {
     _selected = !_selected;
     notifyListeners();
   }
