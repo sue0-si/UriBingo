@@ -26,7 +26,7 @@ import 'view/page/refrige_pages/edit_refrige.dart';
 import 'view/page/splash_page/splash_page.dart';
 import 'view_model/add_page_view_model.dart';
 import 'view_model/my_food_detail_view_model.dart';
-import 'view_model/register_view_model.dart';
+import 'view/page/register_page/register_view_model.dart';
 
 final router = GoRouter(initialLocation: '/splash_page', routes: [
   GoRoute(

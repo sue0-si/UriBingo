@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/repository/user_data_repository.dart';
 import 'package:leute/styles/app_text_style.dart';
-import 'package:leute/view_model/register_view_model.dart';
+import 'package:leute/view/page/register_page/register_view_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -110,38 +110,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                         ),
                                 ),
                               ),
-
-                        // FutureBuilder(
-                        //         future: viewModel.photo?.readAsBytes(),
-                        //         builder: (context, snapshot) {
-                        //           final data = snapshot.data;
-                        //           if (data == null ||
-                        //               snapshot.connectionState ==
-                        //                   ConnectionState.waiting) {
-                        //             return const Center(
-                        //               child: CircularProgressIndicator(),
-                        //             );
-                        //           }
-                        //           return SizedBox(
-                        //             height: 200.h,
-                        //             width: 300.w,
-                        //             child: Card(
-                        //               elevation: 3,
-                        //               shape: RoundedRectangleBorder(
-                        //                 borderRadius:
-                        //                     BorderRadius.circular(15.0),
-                        //               ),
-                        //               clipBehavior: Clip.hardEdge,
-                        //               child: Image.memory(
-                        //                 data,
-                        //                 width: 200.w,
-                        //                 height: 500.h,
-                        //                 fit: BoxFit.cover,
-                        //               ),
-                        //             ),
-                        //           );
-                        //         },
-                        //       ),
                         Positioned(
                           bottom: 4,
                           right: 4,
@@ -233,8 +201,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                             'noName',
                                         userToken: userToken,
                                         registerDate: registerDate,
-                                        isPublic: viewModel.selected[0],
-                                        isUnknown: viewModel.selected[1],
+                                        isPublic: viewModel.selected,
+                                        isUnknown: !viewModel.selected,
                                         isExtended: false,
                                       ).toJson());
 
@@ -275,25 +243,42 @@ class _RegisterPageState extends State<RegisterPage> {
                                   SizedBox(
                                     height: 16.h,
                                   ),
-                                  ToggleButtons(
-                                      borderWidth: 3.0,
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderColor: const Color(0xFF9bc6bf),
-                                      selectedBorderColor: const Color(0xFF9bc6bf),
-                                      isSelected: viewModel.selected,
-                                      color: Colors.black,
-                                      selectedColor: Colors.deepPurple,
-                                      onPressed: (int index) {
-                                        viewModel.buttonSelection(index);
-                                      },
-                                      children: [
-                                        Text('공용',
-                                            style: AppTextStyle.body12R(
-                                                color: Colors.black)),
-                                        Text('미확인',
-                                            style: AppTextStyle.body12R(
-                                                color: Colors.black)),
-                                      ]),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      viewModel.buttonSelection();
+                                    },
+                                    style: viewModel.selected
+                                        ? const ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStatePropertyAll(
+                                              Color(0xFF719a8e),
+                                            ),
+                                          )
+                                        : null,
+                                    child: Text(
+                                      '공용',
+                                      style: viewModel.selected
+                                          ? AppTextStyle.body12R(
+                                              color: Colors.white)
+                                          : AppTextStyle.body12R(),
+                                    ),
+                                  ),
+                                  // ToggleButtons(
+                                  //     borderWidth: 3.0,
+                                  //     borderRadius: BorderRadius.circular(8.0),
+                                  //     borderColor: const Color(0xFF9bc6bf),
+                                  //     selectedBorderColor: const Color(0xFF9bc6bf),
+                                  //     isSelected: viewModel.selected,
+                                  //     color: Colors.black,
+                                  //     selectedColor: Colors.deepPurple,
+                                  //     onPressed: (int index) {
+                                  //         viewModel.buttonSelection();
+                                  //     },
+                                  //     children: [
+                                  //       Text('공용',
+                                  //           style: AppTextStyle.body12R(
+                                  //               color: Colors.black)),
+                                  //     ]),
                                 ],
                               )
                             : Container()

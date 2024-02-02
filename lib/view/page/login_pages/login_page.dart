@@ -28,14 +28,12 @@ class _LoginPageState extends State<LoginPage> {
   StreamSubscription? authStateChanges;
 
   var messageString = '';
-  String token = '';
+  String? token;
 
   void getMyDeviceToken() async {
     token = (await FirebaseMessaging.instance.getToken())!;
 
     print("내 디바이스 토큰: $token");
-
-
   }
 
   @override
@@ -46,7 +44,10 @@ class _LoginPageState extends State<LoginPage> {
     Future.microtask(() {
       var viewmodel = context.read<LoginPageViewModel>();
       // 토큰 갱신 여부 확인
-      viewmodel.tokenCheck(token);
+      if (token != null) {
+        viewmodel.tokenCheck(token!);
+      }
+
       viewmodel.initPreferences().then((value) => emailController.text = value);
     });
     authStateChanges = FirebaseAuth.instance.authStateChanges().listen((user) {
