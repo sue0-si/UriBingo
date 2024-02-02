@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_style.dart';
+import 'package:leute/view/widget/custom_buttons/custom_button.dart';
 import 'package:leute/view/widget/custom_dialog/one_answer_dialog.dart';
 import 'package:provider/provider.dart';
 
+import '../../../styles/app_text_colors.dart';
 import '../../../view_model/login_page_view_model.dart';
 import '../../widget/login_widget/password_textfield.dart';
 
@@ -58,32 +60,35 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   validator: viewModel.passwordValidator,
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    FirebaseAuth.instance.currentUser
-                        ?.updatePassword(_newPasswordController.text);
+              CustomButton(
+                width: 100.w,
+                height: 30.h,
+                backgroundColor: const Color(0xFF9bc6bf),
+                textStyle: AppTextStyle.body14R(color: Colors.white),
+                  text: '변경하기',
+                  onTap: () {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      FirebaseAuth.instance.currentUser
+                          ?.updatePassword(_newPasswordController.text);
 
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return OneAnswerDialog(
-                          onTap: () async {
-                            await FirebaseAuth.instance.signOut();
-                            if (mounted) {
-                              context.go('/login');
-                            }
-                          },
-                          title: '정상 변경되었습니다',
-                          firstButton: '확인',
-                          subtitle: '새로운 비밀번호로 로그인 해주세요.',
-                        );
-                      },
-                    );
-                  }
-                },
-                child: const Text('변경하기'),
-              ),
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return OneAnswerDialog(
+                            onTap: () async {
+                              await FirebaseAuth.instance.signOut();
+                              if (mounted) {
+                                context.go('/login');
+                              }
+                            },
+                            title: '정상 변경되었습니다.',
+                            firstButton: '확인',
+                            subtitle: '새로운 비밀번호로 로그인 해주세요.',
+                          );
+                        },
+                      );
+                    }
+                  },),
             ],
           ),
         ),

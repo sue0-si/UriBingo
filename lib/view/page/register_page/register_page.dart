@@ -8,11 +8,12 @@ import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/repository/user_data_repository.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/page/register_page/register_view_model.dart';
+import 'package:leute/view/widget/custom_buttons/custom_button.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
-
 import '../../../data/models/foods_model.dart';
 import '../../../data/models/user_model.dart';
+import '../../../styles/app_text_colors.dart';
 
 class RegisterPage extends StatefulWidget {
   final List<Object> fridgeData;
@@ -141,23 +142,31 @@ class _RegisterPageState extends State<RegisterPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             // 취소버튼
-                            ElevatedButton(
-                                onPressed: () {
-                                  context.go(
-                                    '/details',
-                                    extra: isFreezed
-                                        ? [widget.fridgeData[0], 0]
-                                        : [widget.fridgeData[0], 1],
-                                  );
-                                },
-                                child: Text(
-                                  '취소',
-                                  style:
-                                      AppTextStyle.body12R(color: Colors.black),
-                                )),
+                            CustomButton(
+                              width: 90.w,
+                              height: 30.h,
+                              backgroundColor: Colors.grey.shade200,
+                              text: '취소하기',
+                              textStyle: AppTextStyle.body12R(
+                                  color: AppColors.mainText),
+                              onTap: () {
+                                context.go(
+                                  '/details',
+                                  extra: isFreezed
+                                      ? [widget.fridgeData[0], 0]
+                                      : [widget.fridgeData[0], 1],
+                                );
+                              },
+                            ),
                             // 등록하기 버튼
-                            ElevatedButton(
-                              onPressed: () async {
+                            CustomButton(
+                              width: 90.w,
+                              height: 30.h,
+                              backgroundColor: const Color(0xFF9bc6bf),
+                              text: '등록하기',
+                              textStyle:
+                                  AppTextStyle.body12R(color: Colors.white),
+                              onTap: () async {
                                 // 이미지 등록 안 했을 경우 에러 처리
                                 if (viewModel.photo == null) {
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -223,10 +232,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   }
                                 }
                               },
-                              child: Text('등록하기',
-                                  style: AppTextStyle.body12R(
-                                      color: Colors.black)),
-                            ),
+                            )
                           ],
                         ),
                         SizedBox(

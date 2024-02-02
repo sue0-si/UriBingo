@@ -137,7 +137,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                         builder: (desContext) {
                           return TwoAnswerDialog(
                               title: '연장하시겠습니까?',
-                              subtitle: '연장은 1회만 가능합니다',
+                              subtitle: '연장은 1회만 가능합니다.',
                               firstButton: '네',
                               secondButton: '아니오',
                               onTap: () {
@@ -177,7 +177,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                         builder: (desContext) {
                           return NoTwoAnswerDialog(
                               title: '삭제하시겠습니까?',
-                              subtitle: '삭제 후 복구가 불가합니다',
+                              subtitle: '삭제 후 복구가 불가합니다.',
                               firstButton: '네',
                               secondButton: '아니오',
                               onTap: () {
@@ -188,9 +188,13 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                     widget.ourRefrigItem);
                                 viewModel.updateFirestore(
                                     widget.myFoodItem);
+                                viewModel.deleteFoodAndStorage(widget.myFoodItem,
+                                    widget.ourRefrigItem);
                                 Navigator.of(context).pop();
+                                if (mounted) {
+                                  context.go('/main_page', extra: 1);
+                                }
                               },
-
                           );
                         });
                   },
