@@ -8,12 +8,9 @@ import 'package:leute/view/widget/login_widget/password_textfield.dart';
 import 'package:leute/view_model/signup_page_view_model.dart';
 import 'package:provider/provider.dart';
 
-import '../../widget/custom_dialog/two_answer_dialog.dart';
-
 class SignupPage extends StatefulWidget {
   final String userToken;
   const SignupPage({super.key, required this.userToken});
-
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -150,71 +147,6 @@ class _SignupPageState extends State<SignupPage> {
                             employeeNumber: employeeNumberController.text,
                             groupName: groupNameController.text,
                             validationCode: validationCodeController.text);
-
-                        // 그룹 고유번호가 이미 존재할 경우 - 그 그룹의 사용자로 등록함
-                        if (viewModel.isValidationCodeInUse) {
-                          if (mounted) {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return TwoAnswerDialog(
-                                  title: '그룹명: ${viewModel.usingGroupName}',
-                                  subtitle: '사용자로 등록됩니다.',
-                                  firstButton: '확인',
-                                  secondButton: '취소',
-                                  onTap: () async {
-                                    // Firebase에 회원가입 요청(사용자)
-                                    await viewModel.postNewMemberData(
-                                        emailController.text,
-                                        passwordController.text,
-                                        nameController.text,
-                                        widget.userToken,
-                                        employeeNumberController.text,
-                                        groupNameController.text,
-                                        validationCodeController.text,
-                                        false);
-                                    // 가입 성공 시 메인 페이지로 이동
-                                    if (mounted) {
-                                      context.go('/main_page', extra: 0);
-                                    }
-                                  },
-                                );
-                              },
-                            );
-                          }
-                        } else {
-                          // 그룹 고유번호가 없는 경우 - 신규로 생성하고 관리자로 등록함
-                          if (mounted) {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return TwoAnswerDialog(
-                                  title: '신규 생성될 고유번호',
-                                  subtitle:
-                                      '그룹명: ${groupNameController.text}의 관리자로 등록됩니다.',
-                                  firstButton: '확인',
-                                  secondButton: '취소',
-                                  onTap: () async {
-                                    // Firebase에 회원가입 요청(관리자)
-                                    await viewModel.postNewMemberData(
-                                        emailController.text,
-                                        passwordController.text,
-                                        nameController.text,
-                                        widget.userToken,
-                                        employeeNumberController.text,
-                                        groupNameController.text,
-                                        validationCodeController.text,
-                                        true);
-                                    // 가입 성공 시 메인 페이지로 이동
-                                    if (mounted) {
-                                      context.go('/main_page', extra: 0);
-                                    }
-                                  },
-                                );
-                              },
-                            );
-                          }
-                        }
                       }
                     }),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [

@@ -51,27 +51,26 @@ class LoginPageViewModel with ChangeNotifier {
   }
 
   // 토큰 갱신여부 검사
-  Future<void> tokenCheck(String token)async {
+  Future<void> tokenCheck(String token) async {
     List<UserModel> userData = await userDataRepository.getFirebaseUserData();
     currentUser = userData.firstWhere(
-            (user) => user.email == FirebaseAuth.instance.currentUser?.email);
+        (user) => user.email == FirebaseAuth.instance.currentUser?.email);
     if ((currentUser != null) && (currentUser?.userToken != token)) {
       await FirebaseFirestore.instance
           .collection('profile')
           .doc(currentUser?.userId)
           .update(UserModel(
-          validationCode: currentUser!.validationCode,
-          email: currentUser!.email,
-          employeeNumber: currentUser!.employeeNumber,
-          manager: currentUser!.manager,
-          name: currentUser!.name,
-          groupName: currentUser!.groupName,
-          userId: currentUser!.userId,
-          userToken: token)
-          .toJson());
+                  validationCode: currentUser!.validationCode,
+                  email: currentUser!.email,
+                  employeeNumber: currentUser!.employeeNumber,
+                  manager: currentUser!.manager,
+                  name: currentUser!.name,
+                  groupName: currentUser!.groupName,
+                  userId: currentUser!.userId,
+                  userToken: token)
+              .toJson());
     }
   }
-
 
 // 이메일 유효성 검사
   String? emailValidator(String? value) {
@@ -127,7 +126,42 @@ class LoginPageViewModel with ChangeNotifier {
   }
 
 // 비밀번호 재설정 이메일 전송
-  Future<void> sendPasswordResetEmail(String email) async {
-    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  Future<void> sendPasswordResetEmail(
+      String email, BuildContext context) async {
+    QuerySnapshot<Map<String, dynamic>> query = await FirebaseFirestore.instance
+        .collection('profile')
+        .where('email', isEqualTo: email)
+        .get();
+    if (query.docs.isEmpty) {
+      if (context.mounted) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return OneAnswerDialog(
+                  onTap: () {
+                    context.pop();
+                  },
+                  title: '이메일 오류',
+                  subtitle: '존재하지않는 이메일입니다 이메일을 다시한번 더 확인해주세요.',
+                  firstButton: '확인');
+            });
+      }
+    } else if (query.docs.isNotEmpty) {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      if (context.mounted) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return OneAnswerDialog(
+                  onTap: () {
+                    context.go('/login');
+                  },
+                  title: '전송 완료',
+                  subtitle: '$email로\n비밀번호 재설정 이메일이 전송되었습니다.',
+                  firstButton: '확인');
+            });
+      }
+    }
+    notifyListeners();
   }
 }

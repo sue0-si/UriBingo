@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:leute/view/widget/custom_dialog/one_answer_dialog.dart';
+import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 
 import '../data/models/user_model.dart';
 import '../data/repository/user_data_repository.dart';
@@ -84,8 +86,60 @@ class SignupPageViewModel with ChangeNotifier {
             );
           },
         );
+        return;
       }
     }
+
+    // 그룹 고유번호가 이미 존재할 경우 - 그 그룹의 사용자로 등록함
+    if (isValidationCodeInUse) {
+      if (context.mounted) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return TwoAnswerDialog(
+              title: '그룹명: $usingGroupName',
+              subtitle: '사용자로 등록됩니다.',
+              firstButton: '확인',
+              secondButton: '취소',
+              onTap: () async {
+                // Firebase에 회원가입 요청(사용자)
+                await postNewMemberData(email, password, name, employeeNumber,
+                    groupName, validationCode, false);
+                // 가입 성공 시 메인 페이지로 이동
+                if (context.mounted) {
+                  context.go('/main_page', extra: 0);
+                }
+              },
+            );
+          },
+        );
+      }
+    } else {
+      // 그룹 고유번호가 없는 경우 - 신규로 생성하고 관리자로 등록함
+      if (context.mounted) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return TwoAnswerDialog(
+              title: '신규 생성될 고유번호',
+              subtitle: '그룹명: $groupName의 관리자로 등록됩니다.',
+              firstButton: '확인',
+              secondButton: '취소',
+              onTap: () async {
+                // Firebase에 회원가입 요청(관리자)
+                await postNewMemberData(email, password, name, employeeNumber,
+                    groupName, validationCode, true);
+                // 가입 성공 시 메인 페이지로 이동
+                if (context.mounted) {
+                  context.go('/main_page', extra: 0);
+                }
+              },
+            );
+          },
+        );
+      }
+    }
+
     notifyListeners();
   }
 
@@ -125,7 +179,6 @@ class SignupPageViewModel with ChangeNotifier {
       String email,
       String password,
       String name,
-      String userToken,
       String employeeNumber,
       String groupName,
       String validationCode,
@@ -146,7 +199,6 @@ class SignupPageViewModel with ChangeNotifier {
       'email': email,
       'groupName': groupName,
       'validationCode': validationCode,
-      'userToken': userToken,
     });
     notifyListeners();
   }

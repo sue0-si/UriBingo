@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -15,6 +16,7 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MyPageViewModel>();
+    var user = FirebaseAuth.instance;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -59,7 +61,8 @@ class MyPage extends StatelessWidget {
                       builder: (context) {
                         return TwoAnswerDialog(
                             onTap: () {
-                              viewModel.deleteAccount(context);
+                              viewModel.deleteAccount(
+                                  context, user.currentUser!.uid);
                             },
                             title: '회원 탈퇴 알림',
                             subtitle: '정말 회원탈퇴를 하시겠습니까?',
@@ -78,7 +81,18 @@ class MyPage extends StatelessWidget {
             InkwellRowTile(
                 text: '로그아웃',
                 onTap: () {
-                  viewModel.signOut(context: context);
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return TwoAnswerDialog(
+                            onTap: () {
+                              viewModel.signOut(context: context);
+                            },
+                            title: '로그아웃',
+                            subtitle: '로그아웃 하시겠습니까?',
+                            firstButton: '네',
+                            secondButton: '아니요');
+                      });
                 },
                 icon: Icons.power_settings_new),
           ],
