@@ -170,7 +170,7 @@ class _SignupPageState extends State<SignupPage> {
                                         nameController.text,
                                         widget.userToken,
                                         employeeNumberController.text,
-                                        groupNameController.text,
+                                        viewModel.usingGroupName,
                                         validationCodeController.text,
                                         false);
                                     // 가입 성공 시 메인 페이지로 이동

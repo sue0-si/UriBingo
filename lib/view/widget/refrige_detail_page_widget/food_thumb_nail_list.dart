@@ -53,6 +53,12 @@ class FoodThumbNailList extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: samePositionFoodList.length,
                 itemBuilder: (context, index) {
+                  for (FoodDetail item in samePositionFoodList) {
+                    if(item.isPublic) {
+                      samePositionFoodList.remove(item);
+                      samePositionFoodList.insert(0, item);
+                    }
+                  }
                   final foodItem = samePositionFoodList[index];
                   return FoodThumbNail(
                     foodItem: foodItem,
