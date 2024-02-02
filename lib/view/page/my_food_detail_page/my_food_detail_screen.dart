@@ -70,8 +70,8 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
             child: SuperContainer(
               height: 200.h,
               width: 280.w,
-              border: 110.r,
-              borderWidth: 9.w,
+              border: 170.r,
+              borderWidth: 15.w,
               //남은 기간, 공용 여부에 따라 border 색상 변경
               borderColor: widget.myFoodItem.isPublic
                   ? const Color(0xFFFFE088)
@@ -129,13 +129,13 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                     )
                   : viewModel.isOld
                       ? Text('곧 폐기됩니다.',
-                          style: AppTextStyle.body14B(color: AppColors.caution))
+                          style: AppTextStyle.body16B(color: AppColors.caution))
                       : widget.myFoodItem.isExtended
                           ? Text('더이상 연장이 불가해요',
-                              style: AppTextStyle.body14R(
+                              style: AppTextStyle.body16R(
                                   color: AppColors.mainText))
                           : Text('아직은 연장이 불가해요',
-                              style: AppTextStyle.body14R(
+                              style: AppTextStyle.body16R(
                                   color: AppColors.mainText)),
               SizedBox(height: 24.h),
               //공용음식일 경우 연장버튼 안보임

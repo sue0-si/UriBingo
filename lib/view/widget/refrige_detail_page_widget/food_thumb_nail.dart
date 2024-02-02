@@ -54,8 +54,8 @@ class FoodThumbNail extends StatelessWidget {
                 child: SuperContainer(
                   height: 70,
                   width: 80,
-                  border: 50,
-                  borderWidth: 5,
+                  border: 60,
+                  borderWidth: 10,
                   borderColor: foodItem.isPublic
                       ? const Color(0xFFFFE088)
                       : (remainPeriod > 1)
@@ -77,13 +77,17 @@ class FoodThumbNail extends StatelessWidget {
                   child: foodItem.isPublic
                       ? Column(children: [
                           Text('공용', style: AppTextStyle.body12R()),
-                          Text('물품', style: AppTextStyle.body12R())
+                          // Text('물품', style: AppTextStyle.body12R())
                         ])
                       : Column(children: [
                           Text(foodItem.userName,
                               style: AppTextStyle.body12R()),
-                          Text('남은날: $remainPeriod일',
-                              style: AppTextStyle.body12R())
+                          Row(
+                            children: [
+                              Text('[$remainPeriod일 남음]',
+                                  style: AppTextStyle.body12R()),
+                            ],
+                          )
                         ]),
                 ),
               ),

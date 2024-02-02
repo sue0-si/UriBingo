@@ -91,7 +91,7 @@ class MyPage extends StatelessWidget {
                             title: '로그아웃',
                             subtitle: '로그아웃 하시겠습니까?',
                             firstButton: '네',
-                            secondButton: '아니요');
+                            secondButton: '아니오');
                       });
                 },
                 icon: Icons.power_settings_new),

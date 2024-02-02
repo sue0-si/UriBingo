@@ -100,7 +100,7 @@ class MyFridge extends StatelessWidget {
                                                   height: 90,
                                                   width: 100,
                                                   border: 80,
-                                                  borderWidth: 5,
+                                                  borderWidth: 10,
                                                   borderColor: (viewModel
                                                               .myFoodDetails
                                                               .where((e) =>
