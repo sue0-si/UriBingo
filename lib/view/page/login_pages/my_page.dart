@@ -31,7 +31,7 @@ class MyPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(32.0),
         child: ListView(
           shrinkWrap: true,
           children: [

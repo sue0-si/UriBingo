@@ -55,244 +55,220 @@ class _AddRefrigeState extends State<AddRefrige> {
         //actions: [],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0).w,
+        padding: const EdgeInsets.all(32.0).w,
         child: SafeArea(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              //crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20).w,
-                  child: SizedBox(
-                    height: 300.h,
-                    child: Column(
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                '냉장고 이름',
-                                style: TextStyle(
-                                  fontSize: 20.sp,
-                                ),
+                        Text(
+                          '냉장고 이름',
+                          style: AppTextStyle.body18R(),
+                        ),
+
+                        SizedBox(
+                          width: 150,
+                          child: Form(
+                            key: _formKey,
+                            child: TextFormField(
+                              maxLength: 7,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return '냉장고 이름을 입력하세요';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                //유효성 검사 후, 폼이 제출될 때 저장되는 콜백
+                                addPageViewModel.name = value!; //여기 잘 모르겠다
+                              },
+                              controller: addNameController,
+                              //obscureText: true, 입력값을 안보여주고싶을때
+                              style: TextStyle(
+                                fontSize: 15.sp,
                               ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Form(
-                                key: _formKey,
-                                child: TextFormField(
-                                  maxLength: 7,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return '냉장고 이름을 입력하세요';
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (value) {
-                                    //유효성 검사 후, 폼이 제출될 때 저장되는 콜백
-                                    addPageViewModel.name = value!; //여기 잘 모르겠다
-                                  },
-                                  controller: addNameController,
-                                  //obscureText: true, 입력값을 안보여주고싶을때
-                                  style: TextStyle(
-                                    fontSize: 15.sp,
-                                  ),
-                                  decoration: InputDecoration(
-                                    border: const OutlineInputBorder(),
-                                    contentPadding: const EdgeInsets.only(
-                                      left: 15,
-                                      top: 10,
-                                      bottom: 10,
-                                    ).w,
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10).w,
-                                      borderSide: const BorderSide(
-                                        width: 1,
-                                        color: Colors.green,
-                                      ),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10).w,
-                                      borderSide: BorderSide(
-                                        width: 1.r,
-                                        color: Colors.green,
-                                      ),
-                                    ),
-                                    //hintText: '이름을 입력하세요',
-                                    labelText: '이름을 입력하세요',
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10).w,
+                                  borderSide: const BorderSide(
+                                    width: 1,
+                                    color: Colors.green,
                                   ),
                                 ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10).w,
+                                  borderSide: BorderSide(
+                                    width: 1.r,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                                counterText: '',
+                                labelText: 'Please enter..',
+                                labelStyle: TextStyle(
+                                  color: Colors.grey.withOpacity(0.6),
+                                ),
                               ),
                             ),
-                            SizedBox(
-                              width: 25.w,
-                            ),
-                          ],
+                          ),
                         ),
-                        // 이 부분을 수정하여 두 번째 냉장고 이름을 표시하세요.
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                '냉장고 칸수',
-                                style: TextStyle(
-                                  fontSize: 20.sp,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                margin: const EdgeInsets.only(right: 40).w,
-                                child: DropdownButton(
-                                  value: addPageViewModel.selectedColdstorage,
-                                  items: addPageViewModel
-                                      .coldStorageOfCompartmentsList //String이 아닌 List<String>을 반환되고 있다
-                                      .map((e) => DropdownMenuItem(
-                                            value: e,
-                                            child: Text(e),
-                                          ))
-                                      .toList(),
-                                  isExpanded: true,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      addPageViewModel.selectedColdstorage =
-                                          value!;
-                                    });
-                                  },
-                                  /*selectedItemBuilder: (BuildContext context) {
-                                    return addPageViewModel
-                                        .coldStorageOfCompartmentsList
-                                        .map<Widget>((String value) {
-                                      return Text('선택');
-                                    }).toList()
-                                  },*/
-                                ),
-                              ),
-                            ),
-                          ],
+                        //SizedBox(
+                        //width: 25.w,
+                        //),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    // 이 부분을 수정하여 두 번째 냉장고 이름을 표시하세요.
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '냉장고 칸수',
+                          style: AppTextStyle.body18R(),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                '냉동고 칸수',
-                                style: TextStyle(
-                                  fontSize: 20.sp,
-                                ),
-                              ),
+                        SizedBox(
+                          width: 180,
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 27).w,
+                            child: DropdownButton(
+                              borderRadius: BorderRadius.circular(20),
+                              iconEnabledColor: Colors.redAccent,
+                              elevation: 2,
+                              value: addPageViewModel.selectedColdstorage,
+                              items: addPageViewModel
+                                  .coldStorageOfCompartmentsList //String이 아닌 List<String>을 반환되고 있다
+                                  .map((e) => DropdownMenuItem(
+                                        value: e,
+                                        child: Center(
+                                          child: Text(e),
+                                        ),
+                                      ))
+                                  .toList(),
+                              isExpanded: true,
+                              onChanged: (value) {
+                                setState(() {
+                                  addPageViewModel.selectedColdstorage = value!;
+                                });
+                              },
                             ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                margin: const EdgeInsets.only(right: 40).w,
-                                child: DropdownButton(
-                                    value:
-                                        addPageViewModel.selectedFrozenStorage,
-                                    items: addPageViewModel
-                                        .frozenStorageOfCompartmentsList
-                                        .map((e) => DropdownMenuItem(
-                                              value: e,
-                                              child: Text(e),
-                                            ))
-                                        .toList(),
-                                    isExpanded: true,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        addPageViewModel.selectedFrozenStorage =
-                                            value!;
-                                      });
-                                    }),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                '보관기간',
-                                style: TextStyle(
-                                  fontSize: 20.sp,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                margin: const EdgeInsets.only(right: 40).w,
-                                child: DropdownButton(
-                                    value:
-                                        addPageViewModel.selectedStoragePeriod,
-                                    items: addPageViewModel.storagePeriodList
-                                        .map((e) => DropdownMenuItem(
-                                              value: e,
-                                              child: Text(e),
-                                            ))
-                                        .toList(),
-                                    isExpanded: true,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        addPageViewModel.selectedStoragePeriod =
-                                            value!;
-                                      });
-                                    }),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                '연장가능기간',
-                                style: TextStyle(
-                                  color: const Color(0xFF00557F),
-                                  fontSize: 20.sp,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                margin: const EdgeInsets.only(right: 40).w,
-                                child: DropdownButton(
-                                    elevation: 10,
-                                    dropdownColor: Colors.green,
-                                    value: addPageViewModel
-                                        .selectedExtensionPeriod,
-                                    items: addPageViewModel.extensionPeriodList
-                                        .map((e) => DropdownMenuItem(
-                                              value: e,
-                                              child: Text(e),
-                                            ))
-                                        .toList(),
-                                    isExpanded: true,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        addPageViewModel
-                                            .selectedExtensionPeriod = value!;
-                                      });
-                                    }),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '냉동고 칸수',
+                          style: AppTextStyle.body18R(),
+                        ),
+                        SizedBox(
+                          width: 180,
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 27).w,
+                            child: DropdownButton(
+                                borderRadius: BorderRadius.circular(20),
+                                iconEnabledColor: Colors.redAccent,
+                                elevation: 2,
+                                value: addPageViewModel.selectedFrozenStorage,
+                                items: addPageViewModel
+                                    .frozenStorageOfCompartmentsList
+                                    .map((e) => DropdownMenuItem(
+                                          value: e,
+                                          child: Center(child: Text(e)),
+                                        ))
+                                    .toList(),
+                                isExpanded: true,
+                                onChanged: (value) {
+                                  setState(() {
+                                    addPageViewModel.selectedFrozenStorage =
+                                        value!;
+                                  });
+                                }),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '보관기간',
+                          style: AppTextStyle.body18R(),
+                        ),
+                        SizedBox(
+                          width: 180,
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 27).w,
+                            child: DropdownButton(
+                                borderRadius: BorderRadius.circular(20),
+                                iconEnabledColor: Colors.redAccent,
+                                elevation: 2,
+                                value: addPageViewModel.selectedStoragePeriod,
+                                items: addPageViewModel.storagePeriodList
+                                    .map((e) => DropdownMenuItem(
+                                          value: e,
+                                          child: Center(child: Text(e)),
+                                        ))
+                                    .toList(),
+                                isExpanded: true,
+                                onChanged: (value) {
+                                  setState(() {
+                                    addPageViewModel.selectedStoragePeriod =
+                                        value!;
+                                  });
+                                }),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '연장가능기간',
+                          style: AppTextStyle.body18R(),
+                        ),
+                        SizedBox(
+                          width: 180,
+                          child: Container(
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(left: 27).w,
+                            child: DropdownButton(
+                                borderRadius: BorderRadius.circular(20),
+                                iconEnabledColor: Colors.redAccent,
+                                elevation: 2,
+                                value: addPageViewModel.selectedExtensionPeriod,
+                                items: addPageViewModel.extensionPeriodList
+                                    .map((e) => DropdownMenuItem(
+                                          value: e,
+                                          child: Center(child: Text(e)),
+                                        ))
+                                    .toList(),
+                                isExpanded: true,
+                                onChanged: (value) {
+                                  setState(() {
+                                    addPageViewModel.selectedExtensionPeriod =
+                                        value!;
+                                  });
+                                }),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 Column(
                   children: [
@@ -308,6 +284,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                           onTap: () async {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
+
                               showDialog(
                                   context: context,
                                   builder: (context) {
@@ -318,6 +295,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                                         secondButton: '아니오',
                                         onTap: () async {
                                           setState(() {});
+
                                           if (mounted) {
                                             context.go('/main_page', extra: 0);
                                           }

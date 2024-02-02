@@ -3,13 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
-import 'package:leute/view/widget/custom_buttons/custom_button.dart';
-import 'package:leute/view/widget/custom_dialog/no_subtitle_dialog.dart';
+import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../../styles/app_text_colors.dart';
 import '../../../styles/app_text_style.dart';
+import '../../widget/custom_buttons/custom_button.dart';
+import '../../widget/custom_dialog/no_subtitle_dialog.dart';
 import '../../widget/custom_dialog/no_two_answer_dialog.dart';
 import '../../widget/custom_dialog/two_answer_dialog.dart';
 
@@ -85,22 +86,20 @@ class _EditRefrigeState extends State<EditRefrige> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 20).r,
+                  padding: const EdgeInsets.only(left: 20).w,
                   child: SizedBox(
-                    height: 300,
+                    height: 300.h,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Expanded(
+                            Expanded(
                               flex: 1,
                               child: Text(
                                 '냉장고 이름',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
+                                style: AppTextStyle.body20R(),
                               ),
                             ),
                             Expanded(
@@ -143,14 +142,13 @@ class _EditRefrigeState extends State<EditRefrige> {
                                         color: Colors.green,
                                       ),
                                     ),
-                                    //hintText: '이름을 입력하세요',
                                     labelText: '이름을 입력하세요',
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 25,
+                            SizedBox(
+                              width: 25.w,
                             ),
                           ],
                         ),
@@ -158,19 +156,17 @@ class _EditRefrigeState extends State<EditRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Expanded(
+                            Expanded(
                               flex: 1,
                               child: Text(
                                 '냉장고 칸수',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
+                                style: AppTextStyle.body20R(),
                               ),
                             ),
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: const EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40).w,
                                 child: DropdownButton(
                                     value: selectedColdstorageController.text,
                                     items: addPageViewModel
@@ -196,7 +192,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Expanded(
+                            Expanded(
                               flex: 1,
                               child: Text(
                                 '냉동고 칸수',
@@ -208,7 +204,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: const EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40).w,
                                 child: DropdownButton(
                                     value: selectedFrozenStorageController.text,
                                     items: addPageViewModel
@@ -234,13 +230,11 @@ class _EditRefrigeState extends State<EditRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Expanded(
+                            Expanded(
                               flex: 1,
                               child: Text(
                                 '보관기간',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
+                                style: AppTextStyle.body20R(),
                               ),
                             ),
                             Expanded(
@@ -271,21 +265,19 @@ class _EditRefrigeState extends State<EditRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Expanded(
+                            Expanded(
                               child: Text(
                                 '연장가능기간',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
+                                style: AppTextStyle.body20R(),
                               ),
                             ),
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: const EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40).w,
                                 child: DropdownButton(
                                     elevation: 10,
-                                    dropdownColor: Colors.green,
+                                    //dropdownColor: Colors.green,
                                     value:
                                         selectedExtensionPeriodController.text,
                                     items: addPageViewModel.extensionPeriodList
@@ -320,7 +312,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                             width: 100.w,
                             height: 35.h,
                             backgroundColor: const Color(0xFF9bc6bf),
-                            textStyle: AppTextStyle.body15R(color: Colors.white),
+                            textStyle:
+                                AppTextStyle.body15R(color: Colors.white),
                             text: '수정하기',
                             onTap: () async {
                               if (_formKey.currentState!.validate()) {
@@ -360,55 +353,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                           textStyle:
                               AppTextStyle.body15R(color: AppColors.mainText),
                           text: '삭제하기',
-                          onTap: () async {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return NoTwoAnswerDialog(
-                                  title: '삭제하겠습니까?',
-                                  subtitle: '삭제 후 복구가 불가합니다.',
-                                  firstButton: '네',
-                                  secondButton: '아니오',
-                                  onTap: () async {
-                                    await addPageViewModel.remainFoodsCheck(
-                                        widget.seletedRefrige.refrigeName);
-                                    if (addPageViewModel.foodItems.isNotEmpty) {
-                                      if (mounted) {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop();
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return TwoAnswerDialog(
-                                              title:
-                                                  '음식이 남아있습니다. 그래도 삭제하시겠습니까?',
-                                              subtitle: '삭제 후 복구가 불가합니다.',
-                                              firstButton: '네',
-                                              secondButton: '아니오',
-                                              onTap: () async {
-                                                await addPageViewModel
-                                                    .deleteRefrige();
-                                                if (mounted) {
-                                                  context.go('/main_page',
-                                                      extra: 0);
-                                                }
-                                              },
-                                            );
-                                          },
-                                        );
-                                      }
-                                    } else {
-                                      await addPageViewModel.deleteRefrige();
-                                      if (mounted) {
-                                        context.go('/main_page', extra: 0);
-                                      }
-                                    }
-                                  },
-                                );
-                              },
-                            );
-                          },
+                          onTap: () async {},
+
                         ),
                       ],
                     ),

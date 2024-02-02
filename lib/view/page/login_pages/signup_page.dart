@@ -46,7 +46,7 @@ class _SignupPageState extends State<SignupPage> {
     final viewModel = context.watch<SignupPageViewModel>();
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(32.0),
         child: Form(
           key: _formKey,
           child: Center(
@@ -89,7 +89,7 @@ class _SignupPageState extends State<SignupPage> {
                         ],
                       ),
                     ),
-                    SizedBox(width: 8.w),
+                    SizedBox(width: 16.w),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,7 +120,7 @@ class _SignupPageState extends State<SignupPage> {
                         ],
                       ),
                     ),
-                    SizedBox(width: 8.w),
+                    SizedBox(width: 16.w),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,7 +136,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 8.h),
+                SizedBox(height: 16.h),
                 LoginElevatedButton(
                     childText: '가입하기',
                     onPressed: () async {
