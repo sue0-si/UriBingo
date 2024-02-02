@@ -22,23 +22,26 @@ class _RefrigeCompScreenState extends State<RefrigeCompScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<RefrigeCompViewModel>();
-    return Scaffold(
-      body: (viewModel.isLoading)
-          ? Center(
-              child: LoadingAnimationWidget.inkDrop(
-                color: const Color(0xFF9bc6bf),
-                size: 50,
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Scaffold(
+        body: (viewModel.isLoading)
+            ? Center(
+                child: LoadingAnimationWidget.inkDrop(
+                  color: const Color(0xFF9bc6bf),
+                  size: 50,
+                ),
+              )
+            : Center(
+                child: AnimationList(
+                  physics: const BouncingScrollPhysics(
+                      decelerationRate: ScrollDecelerationRate.fast),
+                  duration: 2000,
+                  reBounceDepth: 5.0,
+                  children: viewModel.fetchedList,
+                ),
               ),
-            )
-          : Center(
-              child: AnimationList(
-                physics: const BouncingScrollPhysics(
-                    decelerationRate: ScrollDecelerationRate.fast),
-                duration: 2000,
-                reBounceDepth: 5.0,
-                children: viewModel.fetchedList,
-              ),
-            ),
+      ),
     );
   }
 }

@@ -3,13 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
+import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/custom_dialog/two_answer_dialog.dart';
 
 class EditRefrige extends StatefulWidget {
-  const EditRefrige({super.key, required this.seletedRefrige, required this.currentUser});
+  const EditRefrige(
+      {super.key, required this.seletedRefrige, required this.currentUser});
 
   final RefrigeDetail seletedRefrige;
   final UserModel currentUser;
@@ -79,22 +81,20 @@ class _EditRefrigeState extends State<EditRefrige> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 20).r,
+                  padding: const EdgeInsets.only(left: 20).w,
                   child: SizedBox(
-                    height: 300,
+                    height: 300.h,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Expanded(
+                            Expanded(
                               flex: 1,
                               child: Text(
                                 '냉장고 이름',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
+                                style: AppTextStyle.body20R(),
                               ),
                             ),
                             Expanded(
@@ -137,14 +137,13 @@ class _EditRefrigeState extends State<EditRefrige> {
                                         color: Colors.green,
                                       ),
                                     ),
-                                    //hintText: '이름을 입력하세요',
                                     labelText: '이름을 입력하세요',
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 25,
+                            SizedBox(
+                              width: 25.w,
                             ),
                           ],
                         ),
@@ -152,19 +151,17 @@ class _EditRefrigeState extends State<EditRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Expanded(
+                            Expanded(
                               flex: 1,
                               child: Text(
                                 '냉장고 칸수',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
+                                style: AppTextStyle.body20R(),
                               ),
                             ),
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: const EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40).w,
                                 child: DropdownButton(
                                     value: selectedColdstorageController.text,
                                     items: addPageViewModel
@@ -190,19 +187,17 @@ class _EditRefrigeState extends State<EditRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Expanded(
+                            Expanded(
                               flex: 1,
                               child: Text(
                                 '냉동고 칸수',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
+                                style: AppTextStyle.body20R(),
                               ),
                             ),
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: const EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40).w,
                                 child: DropdownButton(
                                     value: selectedFrozenStorageController.text,
                                     items: addPageViewModel
@@ -228,13 +223,11 @@ class _EditRefrigeState extends State<EditRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Expanded(
+                            Expanded(
                               flex: 1,
                               child: Text(
                                 '보관기간',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
+                                style: AppTextStyle.body20R(),
                               ),
                             ),
                             Expanded(
@@ -265,21 +258,19 @@ class _EditRefrigeState extends State<EditRefrige> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Expanded(
+                            Expanded(
                               child: Text(
                                 '연장가능기간',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
+                                style: AppTextStyle.body20R(),
                               ),
                             ),
                             Expanded(
                               flex: 1,
                               child: Container(
-                                margin: const EdgeInsets.only(right: 40),
+                                margin: const EdgeInsets.only(right: 40).w,
                                 child: DropdownButton(
                                     elevation: 10,
-                                    dropdownColor: Colors.green,
+                                    //dropdownColor: Colors.green,
                                     value:
                                         selectedExtensionPeriodController.text,
                                     items: addPageViewModel.extensionPeriodList
@@ -321,10 +312,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                                     return TwoAnswerDialog(
                                         title: '수정하시겠습니까?',
                                         subtitle: '',
-                                        titleStyle: const TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                        titleStyle: AppTextStyle.body12R(),
                                         firstButton: '네',
                                         secondButton: '아니오',
                                         onTap: () async {
@@ -341,19 +329,19 @@ class _EditRefrigeState extends State<EditRefrige> {
                                               selectedStoragePeriodController
                                                   .text,
                                               selectedExtensionPeriodController
-                                                  .text, widget.currentUser);
+                                                  .text,
+                                              widget.currentUser);
                                         });
                                   });
 
-                              //changeColdstorage 메서드 호출해서 데이터 저장
+
                             }
                           },
-                          child: const Text(
+                          child: Text(
                             '수정하기',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style:
+                            AppTextStyle.body12R(),
+
                           ),
                         ),
                         ElevatedButton(
@@ -387,7 +375,8 @@ class _EditRefrigeState extends State<EditRefrige> {
                                                 await addPageViewModel
                                                     .deleteRefrige();
                                                 if (mounted) {
-                                                  context.go('/main_page', extra: 0);
+                                                  context.go('/main_page',
+                                                      extra: 0);
                                                 }
                                               },
                                             );
@@ -405,10 +394,10 @@ class _EditRefrigeState extends State<EditRefrige> {
                               },
                             );
                           },
-                          child: const Text(
+                          child: Text(
                             '삭제하기',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

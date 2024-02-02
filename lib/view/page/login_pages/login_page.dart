@@ -27,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   StreamSubscription? authStateChanges;
 
-
   @override
   void initState() {
     super.initState();
@@ -41,7 +40,6 @@ class _LoginPageState extends State<LoginPage> {
         return;
       }
     });
-
   }
 
   @override
@@ -56,69 +54,70 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     var viewmodel = context.watch<LoginPageViewModel>();
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Form(
-        key: _formKey,
-        child: Center(
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              Text(
-                '로그인',
-                style: AppTextStyle.header28(color: AppColors.mainText),
-              ),
-              SizedBox(height: 8.h),
-              LoginTextfield(
-                hintText: '이메일',
-                controller: emailController,
-                validator: viewmodel.emailValidator,
-              ),
-              SizedBox(height: 8.h),
-              PasswordTextfield(
-                hintText: '비밀번호',
-                controller: passwordController,
-                validator: viewmodel.passwordValidator,
-              ),
-              Row(
-                children: [
-                  Text(
-                    '아이디 저장',
-                    style: AppTextStyle.body15M(color: AppColors.mainText),
-                  ),
-                  Checkbox(
-                      value: viewmodel.checkBoxMemory,
-                      onChanged: (value) {
-                        viewmodel.checkBox(value);
-                      })
-                ],
-              ),
-              LoginElevatedButton(
-                  childText: '로그인하기',
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      viewmodel.handleLoginButton(
-                          email: emailController.text,
-                          password: passwordController.text,
-                          context: context);
-                    }
-                  }),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(onPressed: () {}, child: const Text('아이디 찾기')),
-                  TextButton(onPressed: () {}, child: const Text('비밀번호 찾기')),
-                  TextButton(
-                      onPressed: () {
-                        context.go('/signup');
-                      },
-                      child: const Text('회원가입')),
-                ],
-              )
-            ],
+      body: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Form(
+          key: _formKey,
+          child: Center(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                Text(
+                  '로그인',
+                  style: AppTextStyle.header28(color: AppColors.mainText),
+                ),
+                SizedBox(height: 8.h),
+                LoginTextfield(
+                  hintText: '이메일',
+                  controller: emailController,
+                  validator: viewmodel.emailValidator,
+                ),
+                SizedBox(height: 8.h),
+                PasswordTextfield(
+                  hintText: '비밀번호',
+                  controller: passwordController,
+                  validator: viewmodel.passwordValidator,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      '아이디 저장',
+                      style: AppTextStyle.body15M(color: AppColors.mainText),
+                    ),
+                    Checkbox(
+                        value: viewmodel.checkBoxMemory,
+                        onChanged: (value) {
+                          viewmodel.checkBox(value);
+                        })
+                  ],
+                ),
+                LoginElevatedButton(
+                    childText: '로그인하기',
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        viewmodel.handleLoginButton(
+                            email: emailController.text,
+                            password: passwordController.text,
+                            context: context);
+                      }
+                    }),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(onPressed: () {}, child: const Text('아이디 찾기')),
+                    TextButton(onPressed: () {}, child: const Text('비밀번호 찾기')),
+                    TextButton(
+                        onPressed: () {
+                          context.go('/signup');
+                        },
+                        child: const Text('회원가입')),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 }

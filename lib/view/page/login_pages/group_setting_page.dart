@@ -27,225 +27,228 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
     final viewModel = context.watch<GroupSettingPageViewModel>();
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      context.go('/main_page', extra: 2);
-                    },
-                    icon: const Icon(Icons.arrow_back)),
-                Text(
-                  '그룹 관리',
-                  style: AppTextStyle.header20(color: AppColors.mainText),
-                ),
-                const SizedBox(
-                  width: 40,
-                )
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '그룹원 찾기',
-                    style: AppTextStyle.body16B(),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: LoginTextfield(
-                            hintText: '이름 또는 이메일', controller: nameController),
-                      ),
-                      const SizedBox(width: 4),
-                      ElevatedButton(
-                        onPressed: () {
-                          viewModel.searchUser(nameController.text);
-                        },
-                        style: ButtonStyle(
-                            minimumSize:
-                                MaterialStateProperty.all(Size(30.w, 56.h)),
-                            //테두리 모양 조절
-                            shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10))),
-                            backgroundColor: MaterialStateProperty.all(
-                                AppColors.mainButton)),
-                        child: const Icon(
-                          Icons.search_outlined,
-                          size: 30,
-                          color: Colors.white,
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-            const Divider(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('그룹원 리스트 (${viewModel.fetchedUserList.length})',
-                      style: AppTextStyle.body16B()),
-                  ElevatedButton(
-                    onPressed: () {
-                      viewModel.fetchData();
-                    },
-                    style: ButtonStyle(
-                        //테두리 모양 조절
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                        backgroundColor:
-                            MaterialStateProperty.all(AppColors.mainButton)),
-                    child: Text('전체',
-                        style: AppTextStyle.body12R(color: Colors.white)),
+                  IconButton(
+                      onPressed: () {
+                        context.go('/main_page', extra: 2);
+                      },
+                      icon: const Icon(Icons.arrow_back)),
+                  Text(
+                    '그룹 관리',
+                    style: AppTextStyle.header20(color: AppColors.mainText),
+                  ),
+                  const SizedBox(
+                    width: 40,
                   )
                 ],
               ),
-            ),
-            Expanded(
-              child: (viewModel.isLoading)
-                  ? Center(
-                      child: LoadingAnimationWidget.inkDrop(
-                        color: const Color(0xFF9bc6bf),
-                        size: 50,
-                      ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '그룹원 찾기',
+                      style: AppTextStyle.body16B(),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: LoginTextfield(
+                              hintText: '이름 또는 이메일', controller: nameController),
+                        ),
+                        const SizedBox(width: 4),
+                        ElevatedButton(
+                          onPressed: () {
+                            viewModel.searchUser(nameController.text);
+                          },
+                          style: ButtonStyle(
+                              minimumSize:
+                                  MaterialStateProperty.all(Size(30.w, 56.h)),
+                              //테두리 모양 조절
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              backgroundColor: MaterialStateProperty.all(
+                                  AppColors.mainButton)),
+                          child: const Icon(
+                            Icons.search_outlined,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
                     )
-                  : ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: viewModel.fetchedUserList.length,
-                      itemBuilder: (context, index) {
-                        final fetchedUser = viewModel.fetchedUserList[index];
-                        return ListTile(
-                          title: Text(
-                            fetchedUser.name,
-                            style: AppTextStyle.body16B(),
-                          ),
-                          subtitle: Text(
-                            fetchedUser.email,
-                            style: AppTextStyle.body14R(),
-                          ),
-                          trailing: SizedBox(
-                            height: 40,
-                            width: 100,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    viewModel.managerCheckBoxTap(fetchedUser);
-                                    // print(viewModel.fetchedUserList.where((e) => e.manager ==true).toList().length);
-                                  },
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '관리자',
-                                        style: AppTextStyle.body14R(),
-                                      ),
-                                      RoundCheckBox(
-                                        checkedWidget: const Icon(
-                                          UniconsLine.check,
-                                          size: 13,
-                                        ),
-                                        checkedColor: const Color(0xFF9bc6bf),
-                                        isRound: false,
-                                        size: 14,
-                                        isChecked: (fetchedUser.manager == true)
-                                            ? true
-                                            : false,
-                                        onTap: (selected) {
-                                          viewModel
-                                              .managerCheckBoxTap(fetchedUser);
-                                          // print(viewModel.fetchedUserList.where((e) => e.manager ==true).toList().length);
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                InkWell(
-                                    onTap: () {},
-                                    child: Text('삭제',
-                                        style: AppTextStyle.body14R())),
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () async {
-                  final managerList = viewModel.groupUserList
-                      .where((user) => user.manager == true)
-                      .toList();
-                  if (managerList.isEmpty) {
-                    showDialog(
-                        context: context,
-                        builder: (desContext) {
-                          return OneAnswerDialog(
-                            onTap: () {
-                              (nameController.text.isNotEmpty)
-                                  ? viewModel.searchUser(nameController.text)
-                                  : viewModel.fetchData();
-                              Navigator.of(context, rootNavigator: true).pop();
-                            },
-                            title: '',
-                            subtitle: '관리자가 아무도 없습니다.',
-                            firstButton: '취소',
-                          );
-                        });
-                  } else {
-                    await viewModel.editManager(viewModel.fetchedUserList);
-                    if (viewModel.isLoading) {
-                      Center(
+                  ],
+                ),
+              ),
+              const Divider(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('그룹원 리스트 (${viewModel.fetchedUserList.length})',
+                        style: AppTextStyle.body16B()),
+                    ElevatedButton(
+                      onPressed: () {
+                        viewModel.fetchData();
+                      },
+                      style: ButtonStyle(
+                          //테두리 모양 조절
+                          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                          backgroundColor:
+                              MaterialStateProperty.all(AppColors.mainButton)),
+                      child: Text('전체',
+                          style: AppTextStyle.body12R(color: Colors.white)),
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                child: (viewModel.isLoading)
+                    ? Center(
                         child: LoadingAnimationWidget.inkDrop(
                           color: const Color(0xFF9bc6bf),
                           size: 50,
                         ),
-                      );
+                      )
+                    : ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: viewModel.fetchedUserList.length,
+                        itemBuilder: (context, index) {
+                          final fetchedUser = viewModel.fetchedUserList[index];
+                          return ListTile(
+                            title: Text(
+                              fetchedUser.name,
+                              style: AppTextStyle.body16B(),
+                            ),
+                            subtitle: Text(
+                              fetchedUser.email,
+                              style: AppTextStyle.body14R(),
+                            ),
+                            trailing: SizedBox(
+                              height: 40,
+                              width: 100,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      viewModel.managerCheckBoxTap(fetchedUser);
+                                      // print(viewModel.fetchedUserList.where((e) => e.manager ==true).toList().length);
+                                    },
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '관리자',
+                                          style: AppTextStyle.body14R(),
+                                        ),
+                                        RoundCheckBox(
+                                          checkedWidget: const Icon(
+                                            UniconsLine.check,
+                                            size: 13,
+                                          ),
+                                          checkedColor: const Color(0xFF9bc6bf),
+                                          isRound: false,
+                                          size: 14,
+                                          isChecked: (fetchedUser.manager == true)
+                                              ? true
+                                              : false,
+                                          onTap: (selected) {
+                                            viewModel
+                                                .managerCheckBoxTap(fetchedUser);
+                                            // print(viewModel.fetchedUserList.where((e) => e.manager ==true).toList().length);
+                                          },
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  InkWell(
+                                      onTap: () {},
+                                      child: Text('삭제',
+                                          style: AppTextStyle.body14R())),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+              ),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    final managerList = viewModel.groupUserList
+                        .where((user) => user.manager == true)
+                        .toList();
+                    if (managerList.isEmpty) {
+                      showDialog(
+                          context: context,
+                          builder: (desContext) {
+                            return OneAnswerDialog(
+                              onTap: () {
+                                (nameController.text.isNotEmpty)
+                                    ? viewModel.searchUser(nameController.text)
+                                    : viewModel.fetchData();
+                                Navigator.of(context, rootNavigator: true).pop();
+                              },
+                              title: '',
+                              subtitle: '관리자가 아무도 없습니다.',
+                              firstButton: '취소',
+                            );
+                          });
                     } else {
-                      if (mounted) {
-                        showDialog(
-                            context: context,
-                            builder: (desContext) {
-                              return OneAnswerDialog(
-                                onTap: () {
-                                  (nameController.text.isNotEmpty)
-                                      ? viewModel
-                                          .searchUser(nameController.text)
-                                      : viewModel.fetchData();
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop();
-                                },
-                                title: '변경되었습니다.',
-                                subtitle: '',
-                                firstButton: '확인',
-                              );
-                            });
+                      await viewModel.editManager(viewModel.fetchedUserList);
+                      if (viewModel.isLoading) {
+                        Center(
+                          child: LoadingAnimationWidget.inkDrop(
+                            color: const Color(0xFF9bc6bf),
+                            size: 50,
+                          ),
+                        );
+                      } else {
+                        if (mounted) {
+                          showDialog(
+                              context: context,
+                              builder: (desContext) {
+                                return OneAnswerDialog(
+                                  onTap: () {
+                                    (nameController.text.isNotEmpty)
+                                        ? viewModel
+                                            .searchUser(nameController.text)
+                                        : viewModel.fetchData();
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop();
+                                  },
+                                  title: '변경되었습니다.',
+                                  subtitle: '',
+                                  firstButton: '확인',
+                                );
+                              });
+                        }
                       }
                     }
-                  }
-                },
-                style: ButtonStyle(
-                    //테두리 모양 조절
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10))),
-                    backgroundColor:
-                        MaterialStateProperty.all(AppColors.mainButton)),
-                child: Text('변경하기', style: AppTextStyle.body16B()),
-              ),
-            )
-          ],
+                  },
+                  style: ButtonStyle(
+                      //테두리 모양 조절
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                      backgroundColor:
+                          MaterialStateProperty.all(AppColors.mainButton)),
+                  child: Text('변경하기', style: AppTextStyle.body16B()),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
