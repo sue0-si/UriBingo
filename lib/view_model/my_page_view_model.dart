@@ -35,7 +35,8 @@ class MyPageViewModel with ChangeNotifier {
   }
 
   // 회원탈퇴
-  Future<void> deleteAccount(BuildContext context) async {
+  Future<void> deleteAccount(BuildContext context, userid) async {
+    FirebaseFirestore.instance.collection('profile').doc(userid).delete();
     await user!.delete();
     if (context.mounted) {
       context.go('/login');
