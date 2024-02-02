@@ -249,24 +249,26 @@ class _RegisterPageState extends State<RegisterPage> {
                                   SizedBox(
                                     height: 16.h,
                                   ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      viewModel.buttonSelection();
-                                    },
-                                    style: viewModel.selected
-                                        ? const ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStatePropertyAll(
-                                              Color(0xFF719a8e),
-                                            ),
-                                          )
-                                        : null,
-                                    child: Text(
-                                      '공용',
+                                  SizedBox(
+                                    width: 150.w,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        viewModel.buttonSelection();
+                                      },
                                       style: viewModel.selected
-                                          ? AppTextStyle.body12R(
-                                              color: Colors.white)
-                                          : AppTextStyle.body12R(),
+                                          ? const ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStatePropertyAll(
+                                                Color(0xFF719a8e),
+                                              ),
+                                            )
+                                          : null,
+                                      child: viewModel.selected
+                                          ? Text('공용',
+                                              style: AppTextStyle.body12R(
+                                                  color: Colors.white))
+                                          : Text('공용 X',
+                                              style: AppTextStyle.body12R()),
                                     ),
                                   ),
                                   // ToggleButtons(
