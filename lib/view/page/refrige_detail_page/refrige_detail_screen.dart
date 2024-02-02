@@ -36,11 +36,11 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        //centerTitle: true,
+//centerTitle: true,
         backgroundColor: Colors.transparent,
         leading: IconButton(
             icon: const Icon(
-              Icons.arrow_back,
+              Icons.arrow_back_rounded,
               color: Colors.white,
             ),
             onPressed: () => context.go('/main_page', extra: 0)),
@@ -75,7 +75,7 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
         ),
         actions: [
           Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               child: GestureDetector(
                 onTap: () {
                   context.go('/main_page', extra: 1);
@@ -84,7 +84,7 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.white, width: 2),
-                    color: Colors.redAccent,
+                    color: Color(0xFF9bc6bf),
                   ),
                   width: 25,
                   height: 25,

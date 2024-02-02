@@ -287,9 +287,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                         Text('공용',
                                             style: AppTextStyle.body12R(
                                                 color: Colors.black)),
-                                        Text('미확인',
-                                            style: AppTextStyle.body12R(
-                                                color: Colors.black)),
+                                        // Text('미확인',
+                                        //     style: AppTextStyle.body12R(
+                                        //         color: Colors.black)),
                                       ]),
                                 ],
                               )
