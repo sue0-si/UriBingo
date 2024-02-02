@@ -144,7 +144,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                       ),
                       // 이 부분을 수정하여 두 번째 냉장고 이름을 표시하세요.
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             '냉장고 칸수',
@@ -180,7 +180,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                         ],
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             '냉동고 칸수',
@@ -219,7 +219,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                         ],
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             '보관기간',
@@ -254,7 +254,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                         ],
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             '연장가능기간',
