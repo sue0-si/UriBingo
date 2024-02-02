@@ -231,7 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 .currentUser!.displayName ??
                                             'noName',
                                         registerDate: registerDate,
-                                        isPublic: viewModel.selected[0],
+                                        isPublic: viewModel.selected,
                                         isExtended: false,
                                       ).toJson());
 
@@ -277,7 +277,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       borderRadius: BorderRadius.circular(8.0),
                                       borderColor: const Color(0xFF9bc6bf),
                                       selectedBorderColor: const Color(0xFF9bc6bf),
-                                      isSelected: viewModel.selected,
+                                      isSelected: [viewModel.selected],
                                       color: Colors.black,
                                       selectedColor: Colors.deepPurple,
                                       onPressed: (int index) {
