@@ -92,7 +92,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                       children: [
                         Text(
                           '냉장고 이름',
-                          style: AppTextStyle.body20R(),
+                          style: AppTextStyle.body18R(),
                         ),
                         SizedBox(
                           width: 150,
@@ -145,7 +145,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                       children: [
                         Text(
                           '냉장고 칸수',
-                          style: AppTextStyle.body20R(),
+                          style: AppTextStyle.body18R(),
                         ),
                         SizedBox(
                           width: 180,
@@ -182,9 +182,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                       children: [
                         Text(
                           '냉동고 칸수',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
+                          style: AppTextStyle.body18R(),
                         ),
                         SizedBox(
                           width: 180,
@@ -221,7 +219,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                       children: [
                         Text(
                           '보관기간',
-                          style: AppTextStyle.body20R(),
+                          style: AppTextStyle.body18R(),
                         ),
                         SizedBox(
                           width: 180,
@@ -257,7 +255,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                       children: [
                         Text(
                           '연장가능기간',
-                          style: AppTextStyle.body20R(),
+                          style: AppTextStyle.body18R(),
                         ),
                         SizedBox(
                           width: 180,
