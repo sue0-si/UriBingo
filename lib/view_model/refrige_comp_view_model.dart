@@ -44,14 +44,14 @@ class RefrigeCompViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      await getSameRefrigeFoods(selectedRefrige.refrigeName);
 
       // 관리자 여부 확인용 메서드
       List<UserModel> userData = await userDataRepository.getFirebaseUserData();
-      isManager = userData
+      UserModel currentUser = userData
           .firstWhere(
-              (user) => user.email == FirebaseAuth.instance.currentUser!.email)
-          .manager;
+              (user) => user.email == FirebaseAuth.instance.currentUser!.email);
+      isManager = currentUser.manager;
+      await getSameRefrigeFoods(selectedRefrige.refrigeName, currentUser.groupName);
 
       for (int i = 1; i <= selectedRefrige.refrigeCompCount; i++) {
         final samePositionFoodList =
@@ -77,9 +77,9 @@ class RefrigeCompViewModel extends ChangeNotifier {
     }
   }
 
-  Future<List<FoodDetail>> getSameRefrigeFoods(String refrigeName) async {
+  Future<List<FoodDetail>> getSameRefrigeFoods(String refrigeName, String validationCode) async {
     final allFoods = await _repository.getFirebaseFoodsData();
-    _foodItems = allFoods.where((e) => e.refrigeName == refrigeName).toList();
+    _foodItems = allFoods.where((e) => (e.refrigeName == refrigeName && e.vlaidationCode == validationCode)).toList();
     return _foodItems;
   }
 

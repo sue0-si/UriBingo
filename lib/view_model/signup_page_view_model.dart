@@ -104,7 +104,7 @@ class SignupPageViewModel with ChangeNotifier {
               onTap: () async {
                 // Firebase에 회원가입 요청(사용자)
                 await postNewMemberData(email, password, name, employeeNumber,
-                    groupName, validationCode, false);
+                    usingGroupName, validationCode, false);
                 // 가입 성공 시 메인 페이지로 이동
                 if (context.mounted) {
                   context.go('/main_page', extra: 0);
