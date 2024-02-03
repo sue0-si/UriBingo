@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 
 import '../../../data/models/foods_model.dart';
 import '../../../data/models/user_model.dart';
+import '../../../main.dart';
 import 'register_view_model.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -232,7 +233,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         userName: FirebaseAuth.instance
                                                 .currentUser!.displayName ??
                                             'noName',
-                                        groupName: groupName,
+                                        vlaidationCode: groupName,
                                         registerDate: registerDate,
                                         isPublic: viewModel.selected,
                                         isExtended: false,

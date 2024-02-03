@@ -100,6 +100,7 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
                 ),
               )),
         ],
+        centerTitle: true,
         flexibleSpace: Container(
           decoration: BoxDecoration(
               color: const Color(0xFF9bc6bf),
