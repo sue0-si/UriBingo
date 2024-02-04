@@ -140,6 +140,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                           child: Container(
                             margin: const EdgeInsets.only(left: 27).w,
                             child: DropdownButton(
+                              menuMaxHeight: 270,
                               borderRadius: BorderRadius.circular(20),
                               iconEnabledColor: Colors.redAccent,
                               elevation: 2,
@@ -177,6 +178,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                           child: Container(
                             margin: const EdgeInsets.only(left: 27).w,
                             child: DropdownButton(
+                                menuMaxHeight: 270,
                                 borderRadius: BorderRadius.circular(20),
                                 iconEnabledColor: Colors.redAccent,
                                 elevation: 2,
@@ -212,6 +214,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                           child: Container(
                             margin: const EdgeInsets.only(left: 27).w,
                             child: DropdownButton(
+                              menuMaxHeight: 270,
                                 borderRadius: BorderRadius.circular(20),
                                 iconEnabledColor: Colors.redAccent,
                                 elevation: 2,
@@ -247,6 +250,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                             alignment: Alignment.center,
                             margin: const EdgeInsets.only(left: 27).w,
                             child: DropdownButton(
+                                menuMaxHeight: 270,
                                 borderRadius: BorderRadius.circular(20),
                                 iconEnabledColor: Colors.redAccent,
                                 elevation: 2,
