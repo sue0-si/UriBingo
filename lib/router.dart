@@ -1,6 +1,4 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
 import 'package:leute/view/page/discard_foods_page/discard_food_detail_page.dart';
 import 'package:leute/view/page/discard_foods_page/discard_foods_page.dart';
@@ -12,7 +10,6 @@ import 'package:leute/view/page/login_pages/signup_page.dart';
 import 'package:leute/view/page/main_my_fridge/main_page.dart';
 import 'package:leute/view/page/my_food_detail_page/my_food_detail_screen.dart';
 import 'package:leute/view/page/refrige_detail_page/refrige_detail_screen.dart';
-
 import 'package:leute/view/page/register_page/register_page.dart';
 import 'package:leute/view_model/discard_foods_view_model.dart';
 import 'package:leute/view_model/group_setting_page_view_model.dart';
@@ -23,10 +20,10 @@ import 'package:provider/provider.dart';
 
 import 'view/page/refrige_pages/add_refrige.dart';
 import 'view/page/refrige_pages/edit_refrige.dart';
+import 'view/page/register_page/register_view_model.dart';
 import 'view/page/splash_page/splash_page.dart';
 import 'view_model/add_page_view_model.dart';
 import 'view_model/my_food_detail_view_model.dart';
-import 'view/page/register_page/register_view_model.dart';
 
 final router = GoRouter(initialLocation: '/splash_page', routes: [
   GoRoute(
@@ -66,7 +63,9 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
       builder: (context, state) {
         return ChangeNotifierProvider(
           create: (_) => SignupPageViewModel(),
-          child: SignupPage(userToken: state.extra as String,),
+          child: SignupPage(
+            userToken: state.extra as String,
+          ),
         );
       }),
 

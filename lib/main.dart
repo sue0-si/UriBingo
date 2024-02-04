@@ -92,7 +92,7 @@ class NotificationController {
     } else {
       // this process is only necessary when you need to redirect the user
       // to a new page or use a valid context, since parallel isolates do not
-      // have valid context, so you need redirect the execution to main isolate
+      // have valid context, so you need                                                                                                                   redirect the execution to main isolate
       if (receivePort == null) {
         print(
             'onActionReceivedMethod was called inside a parallel dart isolate.');
@@ -139,7 +139,7 @@ class NotificationController {
                   children: [
                     Expanded(
                       child: Image.asset(
-                        'assets/images/animated-bell.gif',
+                        'assets/images/refrigerator.gif',
                         height: MediaQuery.of(context).size.height * 0.3,
                         fit: BoxFit.fitWidth,
                       ),
@@ -199,7 +199,7 @@ class NotificationController {
   ///  *********************************************
 
   static Future<void> scheduleNewNotification(
-      int dayFromNow, String userName) async {
+      int dayFromNow, String refrigeName, String userName) async {
     bool isAllowed = await AwesomeNotifications().isNotificationAllowed();
     if (!isAllowed) isAllowed = await displayNotificationRationale();
     if (!isAllowed) return;
@@ -208,6 +208,7 @@ class NotificationController {
         title: '보관음식 중 곧 폐기될 음식이 있습니다!',
         msg: '음식을 비워주세요.',
         daysFromNow: dayFromNow,
+        refrigeName: refrigeName,
         username: userName,
         repeatNotif: true);
 
@@ -259,6 +260,7 @@ class NotificationController {
 Future<void> myNotifyScheduleInDays({
   required int daysFromNow,
   required String username,
+  required String refrigeName,
   required String title,
   required String msg,
   bool repeatNotif = false,
@@ -266,6 +268,7 @@ Future<void> myNotifyScheduleInDays({
   var nowDate = DateTime.now().add(Duration(days: daysFromNow, seconds: 5));
   await AwesomeNotifications().createNotification(
     schedule: NotificationCalendar(
+      preciseAlarm: true,
       //weekday: nowDate.day,
       day: nowDate.day,
       minute: 5,
@@ -279,9 +282,9 @@ Future<void> myNotifyScheduleInDays({
       channelKey: 'alerts',
       wakeUpScreen: true,
       category: NotificationCategory.Reminder,
-      title: '${Emojis.food_bowl_with_spoon} $title',
-      body: '$username, $msg',
-      bigPicture: 'asset://assets/images/lemon.png',
+      title: '${Emojis.food_bowl_with_spoon} $refrigeName에 $title',
+      body: '$username 님, $msg',
+      largeIcon: 'asset://assets/images/lemon.png',
       autoDismissible: false,
       notificationLayout: NotificationLayout.BigPicture,
       //actionType : ActionType.DismissAction,
@@ -293,12 +296,12 @@ Future<void> myNotifyScheduleInDays({
     actionButtons: [
       NotificationActionButton(
         key: 'NOW',
-        label: 'btnAct1',
+        label: '확인',
       ),
-      NotificationActionButton(
-        key: 'LATER',
-        label: 'btnAct2',
-      ),
+      // NotificationActionButton(
+      //   key: 'LATER',
+      //   label: 'btnAct2',
+      // ),
     ],
   );
 }
@@ -486,7 +489,7 @@ class NotificationPageState extends State<NotificationPage> {
                             placeholder: const NetworkImage(
                                 'https://cdn.syncfusion.com/content/images/common/placeholder.gif'),
                             image: widget.receivedAction.largeIconImage!,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                           ),
                         ),
                       ),
