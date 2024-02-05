@@ -8,7 +8,7 @@ import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 import 'package:leute/view/widget/my_food_detail_page_widget/food_detail_image_widget.dart';
-import 'package:leute/view_model/my_food_detail_view_model.dart';
+import 'package:leute/view/page/my_food_detail_page/my_food_detail_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/custom_widgets/super_container.dart';
