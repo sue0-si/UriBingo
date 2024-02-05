@@ -40,9 +40,8 @@ class MainScreenViewModel extends ChangeNotifier {
     try {
       //비동기로 변경
       List<UserModel> userData = await userDataRepository.getFirebaseUserData();
-      currentUser = userData
-          .firstWhere(
-              (user) => user.email == FirebaseAuth.instance.currentUser!.email);
+      currentUser = userData.firstWhere(
+          (user) => user.email == FirebaseAuth.instance.currentUser!.email);
 
       if (currentUser == null) {
         isLoading = true;
@@ -50,11 +49,15 @@ class MainScreenViewModel extends ChangeNotifier {
       }
       final allRefrigeItems =
           await RegisterdRefrigeRepository().getFirebaseRefrigesData();
-      refrigeItems = allRefrigeItems.where((e) => e.validationCode == currentUser!.validationCode).toList();
+      refrigeItems = allRefrigeItems
+          .where((e) => e.validationCode == currentUser!.validationCode)
+          .toList();
 
       for (int i = 1; i <= refrigeItems.length; i++) {
         fridges.add(MakeFridge(
-            refrigeItems: refrigeItems, currentUser: currentUser!, index: i - 1));
+            refrigeItems: refrigeItems,
+            currentUser: currentUser!,
+            index: i - 1));
       }
       notifyListeners();
     } catch (error) {

@@ -6,7 +6,6 @@ import 'package:leute/view/page/main_my_fridge/main_screen_view_model.dart';
 import 'package:leute/view/page/main_my_fridge/my_fridge_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
-
 import 'main_screen.dart';
 import 'my_fridge.dart';
 
@@ -32,7 +31,7 @@ class _MainPageState extends State<MainPage> {
       create: (_) => MyFridgeViewModel(),
       child: const MyFridge(),
     ),
-    MyPage(),
+    const MyPage(),
   ];
 
   @override
@@ -50,10 +49,13 @@ class _MainPageState extends State<MainPage> {
           });
         },
         items: <Widget>[
-          Icon(Icons.kitchen_outlined,
+          const Icon(Icons.kitchen_outlined,
               color: Colors.white, semanticLabel: '냉장고', size: 30),
-          Text('My',style:AppTextStyle.header22(color: Colors.white),),
-          Icon(UniconsLine.user,
+          Text(
+            'My',
+            style: AppTextStyle.header22(color: Colors.white),
+          ),
+          const Icon(UniconsLine.user,
               color: Colors.white, semanticLabel: '마이페이지', size: 30),
         ],
       ),

@@ -15,12 +15,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-//   List<Widget> fridges = [];
-//   List<RefrigeDetail> refrigeItems = [];
-//
-//   final UserDataRepository userDataRepository = UserDataRepository();
-//   bool isManager = false;
-
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainScreenViewModel>();
