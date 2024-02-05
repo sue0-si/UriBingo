@@ -1,4 +1,3 @@
-import 'package:checkbox_grouped/checkbox_grouped.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/styles/app_text_colors.dart';
 
