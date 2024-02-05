@@ -1,11 +1,11 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:leute/view/page/main_my_fridge/my_page.dart';
 import 'package:leute/view_model/main_screen_view_model.dart';
 import 'package:leute/view_model/my_fridge_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
 
+import '../login_pages/my_page.dart';
 import 'main_screen.dart';
 import 'my_fridge.dart';
 

@@ -14,7 +14,7 @@ import 'package:leute/view/page/register_page/register_page.dart';
 import 'package:leute/view/page/discard_foods_page/discard_foods_view_model.dart';
 import 'package:leute/view/page/group_manage_page/group_setting_page_view_model.dart';
 import 'package:leute/view_model/login_page_view_model.dart';
-import 'package:leute/view/page/main_my_fridge/my_page_view_model.dart';
+import 'package:leute/view_model/my_page_view_model.dart';
 import 'package:leute/view_model/signup_page_view_model.dart';
 import 'package:provider/provider.dart';
 
