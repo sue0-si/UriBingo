@@ -7,6 +7,7 @@ import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_buttons/custom_button.dart';
 import 'package:leute/view_model/add_page_view_model.dart';
 import 'package:provider/provider.dart';
+
 import '../../../styles/app_text_colors.dart';
 import '../../widget/custom_dialog/two_answer_dialog.dart';
 
@@ -150,6 +151,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                           child: Container(
                             margin: const EdgeInsets.only(left: 27).w,
                             child: DropdownButton(
+                                menuMaxHeight: 270,
                                 borderRadius: BorderRadius.circular(20),
                                 iconEnabledColor: Colors.redAccent,
                                 elevation: 2,
@@ -186,6 +188,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                           child: Container(
                             margin: const EdgeInsets.only(left: 27).w,
                             child: DropdownButton(
+                                menuMaxHeight: 270,
                                 borderRadius: BorderRadius.circular(20),
                                 iconEnabledColor: Colors.redAccent,
                                 elevation: 2,
@@ -223,6 +226,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                           child: Container(
                             margin: const EdgeInsets.only(left: 27).w,
                             child: DropdownButton(
+                                menuMaxHeight: 270,
                                 borderRadius: BorderRadius.circular(20),
                                 iconEnabledColor: Colors.redAccent,
                                 elevation: 2,
@@ -259,6 +263,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                           child: Container(
                             margin: const EdgeInsets.only(left: 27).w,
                             child: DropdownButton(
+                                menuMaxHeight: 270,
                                 borderRadius: BorderRadius.circular(20),
                                 iconEnabledColor: Colors.redAccent,
                                 elevation: 2,
@@ -337,7 +342,6 @@ class _EditRefrigeState extends State<EditRefrige> {
                               AppTextStyle.body15R(color: AppColors.mainText),
                           text: '삭제하기',
                           onTap: () async {
-
                             showDialog(
                                 context: context,
                                 builder: (context) {
@@ -352,11 +356,9 @@ class _EditRefrigeState extends State<EditRefrige> {
                                         if (mounted) {
                                           context.go('/main_page', extra: 0);
                                         }
-                                        await addPageViewModel.deleteRefrige(
-                                        );
+                                        await addPageViewModel.deleteRefrige();
                                       });
                                 });
-
                           },
                         ),
                       ],

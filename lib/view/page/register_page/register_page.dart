@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/repository/user_data_repository.dart';
 import 'package:leute/styles/app_text_style.dart';
-
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -257,6 +256,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     await NotificationController
                                         .scheduleNewNotification(
                                             selectedRefrige.period - 1,
+                                            selectedRefrige.refrigeName,
                                             FirebaseAuth.instance.currentUser!
                                                 .displayName!);
                                   }

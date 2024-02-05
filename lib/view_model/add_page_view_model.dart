@@ -9,23 +9,10 @@ import '../data/repository/foods_repository.dart';
 
 class AddPageViewModel extends ChangeNotifier {
   final _repository = RegisterdFoodsRepository();
-  final coldStorageOfCompartmentsList = [
-    '0칸',
-    '1칸',
-    '2칸',
-    '3칸',
-    '4칸',
-    '5칸'
-  ]; //냉장고칸수
-  final frozenStorageOfCompartmentsList = [
-    '0칸',
-    '1칸',
-    '2칸',
-    '3칸',
-    '4칸',
-  ]; //냉동고칸수
-  final storagePeriodList = ['1일', '2일', '3일', '4일', '5일']; //보관기간
-  final extensionPeriodList = ['1일', '2일', '3일', '4일', '5일']; //연장가능기간
+  final coldStorageOfCompartmentsList = List.generate(11, (index) => '$index칸'); //냉장고칸수
+  final frozenStorageOfCompartmentsList = List.generate(11, (index) => '$index칸'); //냉동고칸수
+  final storagePeriodList = List.generate(30, (index) => '${index+1}일'); //보관기간
+  final extensionPeriodList = List.generate(5, (index) => '${index+1}일'); //연장가능기간
   List<FoodDetail> _foodItems = [];
 
   List<FoodDetail> get foodItems => _foodItems;
@@ -99,10 +86,10 @@ class AddPageViewModel extends ChangeNotifier {
         .set(RefrigeDetail(
           registerDate: int.parse(registerDate),
           refrigeName: name,
-          freezerCompCount: int.parse(selectedFrozenStorage[0]),
-          period: int.parse(selectedStoragePeriod[0]),
-          refrigeCompCount: int.parse(selectedColdstorage[0]),
-          extentionPeriod: int.parse(selectedExtensionPeriod[0]),
+          freezerCompCount: int.parse(selectedFrozenStorage.replaceAll(RegExp('\\D'), "")),
+          period: int.parse(selectedStoragePeriod.replaceAll(RegExp('\\D'), "")),
+          refrigeCompCount: int.parse(selectedColdstorage.replaceAll(RegExp('\\D'), "")),
+          extentionPeriod: int.parse(selectedExtensionPeriod.replaceAll(RegExp('\\D'), "")),
           validationCode: currentUser.validationCode,
         ).toJson());
     notifyListeners();
@@ -121,10 +108,10 @@ class AddPageViewModel extends ChangeNotifier {
         .update(RefrigeDetail(
           registerDate: registerdDate,
           refrigeName: name,
-          refrigeCompCount: int.parse(selectedColdstorage[0]),
-          freezerCompCount: int.parse(selectedFrozenStorage[0]),
-          period: int.parse(selectedStoragePeriod[0]),
-          extentionPeriod: int.parse(selectedExtensionPeriod[0]),
+          refrigeCompCount: int.parse(selectedColdstorage.replaceAll(RegExp('\\D'), "")),
+          freezerCompCount: int.parse(selectedFrozenStorage.replaceAll(RegExp('\\D'), "")),
+          period: int.parse(selectedStoragePeriod.replaceAll(RegExp('\\D'), "")),
+          extentionPeriod: int.parse(selectedExtensionPeriod.replaceAll(RegExp('\\D'), "")),
           validationCode: currentUser.validationCode,
         ).toJson());
     notifyListeners();

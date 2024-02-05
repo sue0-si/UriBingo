@@ -36,7 +36,6 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
       context
           .read<MyFoodDetailViewModel>()
           .checkOld(widget.myFoodItem, widget.ourRefrigItem);
-
     });
   }
 
@@ -171,7 +170,12 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                                 widget.myFoodItem);
                                             NotificationController
                                                 .scheduleNewNotification(
-                                                widget.ourRefrigItem.extentionPeriod - 1, widget.myFoodItem.userName);
+                                                    widget.ourRefrigItem
+                                                            .extentionPeriod -
+                                                        1,
+                                                    widget.ourRefrigItem
+                                                        .refrigeName,
+                                                    widget.myFoodItem.userName);
                                             Navigator.of(context).pop();
                                           });
                                     });
