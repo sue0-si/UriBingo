@@ -42,6 +42,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MyFoodDetailViewModel>();
+    final state = viewModel.state;
     final dateFormat = DateFormat('yyyy년 MM월 dd일');
     return Scaffold(
       appBar: AppBar(
@@ -76,7 +77,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
               //남은 기간, 공용 여부에 따라 border 색상 변경
               borderColor: widget.myFoodItem.isPublic
                   ? const Color(0xFFFFE088)
-                  : viewModel.isOld
+                  : viewModel.state.isOld
                       ? AppColors.caution
                       : const Color(0xFF9bc6bf),
               image: DecorationImage(
@@ -108,9 +109,9 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                         Text('남은기간: ', style: AppTextStyle.body15R()),
                         //남은 기간에 따라 텍스트 색상 변경
                         Text(
-                          '${viewModel.remainPeriod}일',
+                          '${viewModel.state.remainPeriod}일',
                           style: AppTextStyle.body15B(
-                              color: viewModel.isOld
+                              color: viewModel.state.isOld
                                   ? AppColors.caution
                                   : AppColors.mainText),
                         ),
@@ -128,7 +129,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                             width: 40.w, height: 40.h)
                       ],
                     )
-                  : viewModel.isOld
+                  : viewModel.state.isOld
                       ? Text('곧 폐기됩니다.',
                           style: AppTextStyle.body16B(color: AppColors.caution))
                       : widget.myFoodItem.isExtended
@@ -150,7 +151,7 @@ class _MyFoodDetailState extends State<MyFoodDetail> {
                                 borderRadius: BorderRadius.circular(15.r)),
                             backgroundColor: const Color(0xFF9DCFD4)),
                         //남은 기간이 2일 미만일 경우만 연장버튼 활성화
-                        onPressed: context.watch<MyFoodDetailViewModel>().isOld
+                        onPressed: context.watch<MyFoodDetailViewModel>().state.isOld
                             ? () {
                                 showDialog(
                                     context: context,

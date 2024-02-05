@@ -41,6 +41,7 @@ class _DiscardFoodDetailState extends State<DiscardFoodDetail> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MyFoodDetailViewModel>();
+    final state = viewModel.state;
     final dateFormat = DateFormat('yyyy년 MM월 dd일');
     return Scaffold(
       appBar: AppBar(
@@ -71,7 +72,7 @@ class _DiscardFoodDetailState extends State<DiscardFoodDetail> {
               border: 120.r,
               borderWidth: 9,
               borderColor:
-                  viewModel.isOld ? AppColors.caution : const Color(0xFF9bc6bf),
+                  viewModel.state.isOld ? AppColors.caution : const Color(0xFF9bc6bf),
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(widget.myFoodItem.foodImage),
@@ -101,9 +102,9 @@ class _DiscardFoodDetailState extends State<DiscardFoodDetail> {
                 children: [
                   Text('남은기간: ', style: AppTextStyle.body14R()),
                   Text(
-                    '${viewModel.remainPeriod} 일',
+                    '${viewModel.state.remainPeriod} 일',
                     style: AppTextStyle.body14R(
-                        color: viewModel.isOld
+                        color: viewModel.state.isOld
                             ? AppColors.caution
                             : AppColors.mainText),
                   ),
@@ -112,7 +113,7 @@ class _DiscardFoodDetailState extends State<DiscardFoodDetail> {
               ),
               SizedBox(height: 90.h),
               //남은 기간에 따라 다른 텍스트 출력
-              viewModel.isOld
+              viewModel.state.isOld
                   ? Text('곧 폐기됩니다.',
                       style: AppTextStyle.body14M(color: AppColors.caution))
                   : widget.myFoodItem.isExtended
