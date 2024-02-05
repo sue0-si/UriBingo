@@ -39,12 +39,12 @@ class _EditRefrigeState extends State<EditRefrige> {
   void initState() {
     addNameController.text = widget.seletedRefrige.refrigeName;
     selectedColdstorageController.text =
-        '${widget.seletedRefrige.refrigeCompCount}칸';
+        '${widget.seletedRefrige.refrigeCompCount} 칸';
     selectedFrozenStorageController.text =
-        '${widget.seletedRefrige.freezerCompCount}칸';
-    selectedStoragePeriodController.text = '${widget.seletedRefrige.period}일';
+        '${widget.seletedRefrige.freezerCompCount} 칸';
+    selectedStoragePeriodController.text = '${widget.seletedRefrige.period} 일';
     selectedExtensionPeriodController.text =
-        '${widget.seletedRefrige.extentionPeriod}일';
+        '${widget.seletedRefrige.extentionPeriod} 일';
     super.initState();
   }
 

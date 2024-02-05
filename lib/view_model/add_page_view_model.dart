@@ -9,10 +9,10 @@ import '../data/repository/foods_repository.dart';
 
 class AddPageViewModel extends ChangeNotifier {
   final _repository = RegisterdFoodsRepository();
-  final coldStorageOfCompartmentsList = List.generate(11, (index) => '$index칸'); //냉장고칸수
-  final frozenStorageOfCompartmentsList = List.generate(11, (index) => '$index칸'); //냉동고칸수
-  final storagePeriodList = List.generate(30, (index) => '${index+1}일'); //보관기간
-  final extensionPeriodList = List.generate(5, (index) => '${index+1}일'); //연장가능기간
+  final coldStorageOfCompartmentsList = List.generate(11, (index) => '$index 칸'); //냉장고칸수
+  final frozenStorageOfCompartmentsList = List.generate(11, (index) => '$index 칸'); //냉동고칸수
+  final storagePeriodList = List.generate(30, (index) => '${index+1} 일'); //보관기간
+  final extensionPeriodList = List.generate(5, (index) => '${index+1} 일'); //연장가능기간
   List<FoodDetail> _foodItems = [];
 
   List<FoodDetail> get foodItems => _foodItems;
@@ -44,7 +44,7 @@ class AddPageViewModel extends ChangeNotifier {
     _name = value;
   }
 
-  String _selectedColdstorage = '0칸'; //선택된냉장칸수
+  String _selectedColdstorage = '0 칸'; //선택된냉장칸수
 
   String get selectedColdstorage => _selectedColdstorage;
 
@@ -52,7 +52,7 @@ class AddPageViewModel extends ChangeNotifier {
     _selectedColdstorage = value.toString();
   }
 
-  String _selectedFrozenStorage = '0칸'; //선택된냉동칸수
+  String _selectedFrozenStorage = '0 칸'; //선택된냉동칸수
 
   String get selectedFrozenStorage => _selectedFrozenStorage;
 
@@ -60,7 +60,7 @@ class AddPageViewModel extends ChangeNotifier {
     _selectedFrozenStorage = value.toString();
   }
 
-  String _selectedStoragePeriod = '1일'; //선택된보관기간
+  String _selectedStoragePeriod = '1 일'; //선택된보관기간
 
   String get selectedStoragePeriod => _selectedStoragePeriod;
 
@@ -68,7 +68,7 @@ class AddPageViewModel extends ChangeNotifier {
     _selectedStoragePeriod = value.toString();
   }
 
-  String _selectedExtensionPeriod = '1일'; //선택된연장가능기간
+  String _selectedExtensionPeriod = '1 일'; //선택된연장가능기간
 
   String get selectedExtensionPeriod => _selectedExtensionPeriod;
 

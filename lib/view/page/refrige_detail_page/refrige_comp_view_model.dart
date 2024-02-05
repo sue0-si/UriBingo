@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/data/repository/user_data_repository.dart';
 
-import '../data/models/foods_model.dart';
-import '../data/models/refrige_model.dart';
-import '../data/models/user_model.dart';
-import '../data/repository/foods_repository.dart';
-import '../view/widget/refrige_detail_page_widget/food_thumb_nail_list.dart';
+import '../../../data/models/foods_model.dart';
+import '../../../data/models/refrige_model.dart';
+import '../../../data/models/user_model.dart';
+import '../../../data/repository/foods_repository.dart';
+import '../../widget/refrige_detail_page_widget/food_thumb_nail_list.dart';
 
 class RefrigeCompViewModel extends ChangeNotifier {
   final RefrigeDetail selectedRefrige;
@@ -44,14 +44,13 @@ class RefrigeCompViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-
       // 관리자 여부 확인용 메서드
       List<UserModel> userData = await userDataRepository.getFirebaseUserData();
-      UserModel currentUser = userData
-          .firstWhere(
-              (user) => user.email == FirebaseAuth.instance.currentUser!.email);
+      UserModel currentUser = userData.firstWhere(
+          (user) => user.email == FirebaseAuth.instance.currentUser!.email);
       isManager = currentUser.manager;
-      await getSameRefrigeFoods(selectedRefrige.refrigeName, currentUser.groupName);
+      await getSameRefrigeFoods(
+          selectedRefrige.refrigeName, currentUser.groupName);
 
       for (int i = 1; i <= selectedRefrige.refrigeCompCount; i++) {
         final samePositionFoodList =
@@ -77,9 +76,13 @@ class RefrigeCompViewModel extends ChangeNotifier {
     }
   }
 
-  Future<List<FoodDetail>> getSameRefrigeFoods(String refrigeName, String validationCode) async {
+  Future<List<FoodDetail>> getSameRefrigeFoods(
+      String refrigeName, String validationCode) async {
     final allFoods = await _repository.getFirebaseFoodsData();
-    _foodItems = allFoods.where((e) => (e.refrigeName == refrigeName && e.vlaidationCode == validationCode)).toList();
+    _foodItems = allFoods
+        .where((e) => (e.refrigeName == refrigeName &&
+            e.vlaidationCode == validationCode))
+        .toList();
     return _foodItems;
   }
 

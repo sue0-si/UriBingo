@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/data/repository/user_data_repository.dart';
 
-import '../data/models/user_model.dart';
+import '../../../data/models/user_model.dart';
 
 class GroupSettingPageViewModel with ChangeNotifier {
   final UserDataRepository _repository = UserDataRepository();

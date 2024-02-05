@@ -506,7 +506,7 @@ class NotificationPageState extends State<NotificationPage> {
                   height: bigPictureSize,
                   width: MediaQuery.of(context).size.width,
                   image: widget.receivedAction.bigPictureImage!,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               )
                   : null,
