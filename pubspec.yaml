@@ -74,6 +74,9 @@ dependencies:
   awesome_notifications_core: ^0.9.1
   http: ^1.2.0
   palette_generator: ^0.3.3+3
+  freezed: ^2.4.7
+  build_runner: ^2.4.8
+  json_serializable: ^6.7.1
 
 
 dev_dependencies:

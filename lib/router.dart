@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/user_model.dart';
 import 'package:leute/view/page/discard_foods_page/discard_food_detail_page.dart';
 import 'package:leute/view/page/discard_foods_page/discard_foods_page.dart';
-import 'package:leute/view/page/login_pages/change_password_page.dart';
+import 'package:leute/view/page/change_password_page/change_password_page.dart';
 import 'package:leute/view/page/login_pages/group_setting_page.dart';
 import 'package:leute/view/page/login_pages/login_page.dart';
 import 'package:leute/view/page/login_pages/password_reset_page.dart';
