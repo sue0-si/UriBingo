@@ -10,17 +10,18 @@ import 'package:leute/view/page/signup_page/signup_page.dart';
 import 'package:leute/view/page/main_my_fridge/main_page.dart';
 import 'package:leute/view/page/my_food_detail_page/my_food_detail_screen.dart';
 import 'package:leute/view/page/refrige_detail_page/refrige_detail_screen.dart';
-import 'package:leute/view/page/register_page/register_page.dart';
-import 'package:leute/view_model/discard_foods_view_model.dart';
+
 import 'package:leute/view/page/group_setting_page/group_setting_page_view_model.dart';
 import 'package:leute/view/page/login_page/login_page_view_model.dart';
 import 'package:leute/view/page/my_page/my_page_view_model.dart';
 import 'package:leute/view/page/signup_page/signup_page_view_model.dart';
 import 'package:provider/provider.dart';
 
+import 'view/page/discard_foods_page/discard_foods_view_model.dart';
 import 'view/page/refrige_pages/add_page_view_model.dart';
 import 'view/page/refrige_pages/add_refrige.dart';
 import 'view/page/refrige_pages/edit_refrige.dart';
+import 'view/page/register_page/register_page.dart';
 import 'view/page/register_page/register_view_model.dart';
 import 'view/page/splash_page/splash_page.dart';
 

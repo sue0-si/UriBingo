@@ -18,6 +18,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainScreenViewModel>();
+    final state = viewModel.state;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -33,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
                 borderRadius: BorderRadius.circular(10)),
           ),
         ),
-        body: (viewModel.isLoading)
+        body: (state.isLoading)
             ? Center(
                 child: LoadingAnimationWidget.inkDrop(
                   color: const Color(0xFF9bc6bf),
@@ -63,8 +64,8 @@ class _MainScreenState extends State<MainScreen> {
                       itemBuilder: (context, index) {
                         if (index == viewModel.fridges.length) {
                           // Last item is the add button
-                          return (viewModel.currentUser != null &&
-                                  viewModel.currentUser!.manager)
+                          return (state.currentUser != null &&
+                              state.currentUser!.manager)
                               ? IconButton(
                                   icon: Icon(
                                     UniconsLine.plus_circle,
@@ -73,7 +74,7 @@ class _MainScreenState extends State<MainScreen> {
                                   ),
                                   onPressed: () {
                                     context.go('/addRefrige',
-                                        extra: viewModel.currentUser);
+                                        extra: state.currentUser);
                                   },
                                 )
                               : Container();
@@ -87,7 +88,7 @@ class _MainScreenState extends State<MainScreen> {
                 ],
               ),
         floatingActionButton:
-            (viewModel.currentUser != null && viewModel.currentUser!.manager)
+            (state.currentUser != null && state.currentUser!.manager)
                 ? FloatingActionButton(
                     backgroundColor: const Color(0xFF9bc6bf),
                     onPressed: () => context.go('/discardPage'),
