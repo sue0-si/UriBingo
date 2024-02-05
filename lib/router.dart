@@ -18,11 +18,12 @@ import 'package:leute/view/page/my_page/my_page_view_model.dart';
 import 'package:leute/view/page/signup_page/signup_page_view_model.dart';
 import 'package:provider/provider.dart';
 
+import 'view/page/refrige_pages/add_page_view_model.dart';
 import 'view/page/refrige_pages/add_refrige.dart';
 import 'view/page/refrige_pages/edit_refrige.dart';
 import 'view/page/register_page/register_view_model.dart';
 import 'view/page/splash_page/splash_page.dart';
-import 'view_model/add_page_view_model.dart';
+
 import 'view/page/my_food_detail_page/my_food_detail_view_model.dart';
 
 final router = GoRouter(initialLocation: '/splash_page', routes: [
@@ -178,44 +179,5 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
         child: const ChangePasswordPage(),
       );
     },
-  )
-
-  // GoRoute(
-  //     path: '/myFridge',
-  //     builder: (context, state) {
-  //       return ChangeNotifierProvider(
-  //         create: (_) => MyFridgeViewModel(),
-  //         child: const MyFridge(),
-  //       );
-  //     }),
-
-  // 냉장실 가는 라우터
-  // GoRoute(
-  //     path: '/refrigeDetail',
-  //     builder: (context, state) {
-  //       return ChangeNotifierProvider(
-  //         create: (context) =>
-  //             RefrigeCompViewModel(state.extra as RefrigeDetail),
-  //         child: RefrigeCompScreen(
-  //           selectedRefrige: state.extra as RefrigeDetail,
-  //         ),
-  //       );
-  //     }),
-// 냉동실 가는 라우터
-//   GoRoute(
-//       path: '/freezerDetail',
-//       builder: (context, state) {
-//         return ChangeNotifierProvider(
-//           create: (context) =>
-//               FreezerCompViewModel(state.extra as RefrigeDetail),
-//           child: FreezerCompScreen(
-//             selectedRefrige: state.extra as RefrigeDetail,
-//           ),
-//         );
-//       }),
-
-// GoRoute(
-//   path: '/mainScreen',
-//   builder: (context, state) => MainScreen(newRefrige: state.extra as RefrigeDetail),
-// ), main스크린으로 냉장고 생성 데이터 값을 넘기려고 해본 코드
+  ),
 ]);
