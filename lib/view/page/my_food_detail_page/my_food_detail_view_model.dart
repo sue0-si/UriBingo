@@ -3,16 +3,20 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
+import 'package:leute/view/page/my_food_detail_page/my_food_detail_state.dart';
 
 import '../../../data/repository/foods_repository.dart';
 import '../../../main.dart';
 
 class MyFoodDetailViewModel with ChangeNotifier {
-  List<FoodDetail> foodDetails = [];
+  MyFoodDetailState _state = MyFoodDetailState([], 0, false);
 
-  int remainPeriod = 0;
+  MyFoodDetailState get state => _state;
 
-  bool isOld = false;
+  set isOld(bool newValue) {
+    _state = state.copyWith(isOld: newValue);
+    notifyListeners();
+  }
 
 //남은기간 계산, remainPeriod를 연장한 기간으로 저장 (초기화 되지 않도록 처리)
   int calculateRemainPeriod(
@@ -26,7 +30,7 @@ class MyFoodDetailViewModel with ChangeNotifier {
       remainPeriod += ourRefrigeItem.extentionPeriod;
     }
 
-    this.remainPeriod = remainPeriod; //값 할당
+    _state = state.copyWith(remainPeriod : remainPeriod);
 
     notifyListeners();
     return remainPeriod;
@@ -47,7 +51,7 @@ class MyFoodDetailViewModel with ChangeNotifier {
       return false;
     }
 
-    isOld = remainPeriod < 2; //값 할당
+    _state = state.copyWith(isOld: remainPeriod < 2);
     notifyListeners();
     return remainPeriod < 2;
   }
@@ -86,8 +90,8 @@ class MyFoodDetailViewModel with ChangeNotifier {
   Future<void> getFirebaseFoodsData() async {
     final result = await RegisterdFoodsRepository().getFirebaseFoodsData();
 
-    foodDetails.clear();
-    foodDetails.addAll(result);
+    state.foodDetails.clear();
+    state.foodDetails.addAll(result);
 
     notifyListeners();
   }
