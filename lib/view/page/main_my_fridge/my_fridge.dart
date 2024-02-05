@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_widgets/super_container.dart';
-import 'package:leute/view_model/my_fridge_view_model.dart';
+import 'package:leute/view/page/main_my_fridge/my_fridge_view_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
