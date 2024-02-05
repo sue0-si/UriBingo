@@ -50,21 +50,36 @@ class _SignupPageState extends State<SignupPage> {
             child: ListView(
               shrinkWrap: true,
               children: [
-                Text('이메일', style: AppTextStyle.body16B()),
+                Row(
+                  children: [
+                    Text('이메일', style: AppTextStyle.body16B()),
+                    const Text('*', style: TextStyle(color: Colors.red))
+                  ],
+                ),
                 LoginTextfield(
                   hintText: 'email@email.com',
                   controller: emailController,
                   validator: viewModel.emailValidator,
                 ),
                 SizedBox(height: 8.h),
-                Text('비밀번호', style: AppTextStyle.body16B()),
+                Row(
+                  children: [
+                    Text('비밀번호', style: AppTextStyle.body16B()),
+                    const Text('*', style: TextStyle(color: Colors.red))
+                  ],
+                ),
                 PasswordTextfield(
                   hintText: '******',
                   controller: passwordController,
                   validator: viewModel.passwordValidator,
                 ),
                 SizedBox(height: 8.h),
-                Text('비밀번호 확인', style: AppTextStyle.body16B()),
+                Row(
+                  children: [
+                    Text('비밀번호 확인', style: AppTextStyle.body16B()),
+                    const Text('*', style: TextStyle(color: Colors.red))
+                  ],
+                ),
                 PasswordTextfield(
                   hintText: '******',
                   controller: confirmPasswordController,
@@ -77,7 +92,13 @@ class _SignupPageState extends State<SignupPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('이름', style: AppTextStyle.body16B()),
+                          Row(
+                            children: [
+                              Text('이름', style: AppTextStyle.body16B()),
+                              const Text('*',
+                                  style: TextStyle(color: Colors.red))
+                            ],
+                          ),
                           LoginTextfield(
                             hintText: '홍길동',
                             controller: nameController,
@@ -122,7 +143,13 @@ class _SignupPageState extends State<SignupPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('그룹고유번호', style: AppTextStyle.body16B()),
+                          Row(
+                            children: [
+                              Text('그룹고유번호', style: AppTextStyle.body16B()),
+                              const Text('*',
+                                  style: TextStyle(color: Colors.red))
+                            ],
+                          ),
                           LoginTextfield(
                             hintText: '123456',
                             controller: validationCodeController,
@@ -134,6 +161,8 @@ class _SignupPageState extends State<SignupPage> {
                   ],
                 ),
                 SizedBox(height: 16.h),
+                const Text('* 그룹고유번호 최초 생성시 관리자로 가입됩니다.'),
+                SizedBox(height: 4.h),
                 LoginElevatedButton(
                     childText: '가입하기',
                     onPressed: () async {
