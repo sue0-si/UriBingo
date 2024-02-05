@@ -22,6 +22,7 @@ class _FreezerCompScreenState extends State<FreezerCompScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<FreezerCompViewModel>();
+    viewModel.selectedRefrige = widget.selectedRefrige;
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Scaffold(

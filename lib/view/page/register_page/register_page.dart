@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
-import 'package:leute/data/repository/user_data_repository.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import '../../../data/models/foods_model.dart';
 import '../../../data/models/user_model.dart';
+import '../../../data/repository/user_data_repository_impl.dart';
+import '../../../domain/user_data_repository.dart';
 import '../../../main.dart';
 import 'register_view_model.dart';
 import 'package:leute/view/widget/custom_buttons/custom_button.dart';
@@ -36,7 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future getManagerStatus() async {
-    List<UserModel> userData = await UserDataRepository().getFirebaseUserData();
+    List<UserModel> userData = await UserDataRepositoryImpl().getFirebaseUserData();
     UserModel currentUser = userData.firstWhere(
         (user) => user.email == FirebaseAuth.instance.currentUser!.email);
     setState(() {

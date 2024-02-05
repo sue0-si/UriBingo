@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
-import 'package:leute/data/repository/foods_repository.dart';
-import 'package:leute/data/repository/refrige_repository.dart';
+
+import '../../../domain/foods_repository.dart';
+import '../../../domain/refrige_repository.dart';
 
 class DiscardFoodsViewModel extends ChangeNotifier {
-  final foodRepository = RegisterdFoodsRepository();
-  final refrigeRepository = RegisterdRefrigeRepository();
+  final RegisterdFoodsRepository foodRepository;
+  final RegisterdRefrigeRepository refrigeRepository;
+
+  DiscardFoodsViewModel({
+    required this.foodRepository,
+    required this.refrigeRepository,
+  }) {
+    fetchDiscardFoodsData();
+  }
+
   List<FoodDetail> discardFoodsDetails = [];
   List<RefrigeDetail> refrigeDetails = [];
   bool _disposed = false;
@@ -23,10 +32,6 @@ class DiscardFoodsViewModel extends ChangeNotifier {
     if (!_disposed) {
       super.notifyListeners();
     }
-  }
-
-  DiscardFoodsViewModel() {
-    fetchDiscardFoodsData();
   }
 
   Future<void> fetchDiscardFoodsData() async {
