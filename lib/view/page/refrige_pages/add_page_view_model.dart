@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
 
-import '../data/models/foods_model.dart';
-import '../data/repository/foods_repository_impl.dart';
+import '../../../data/models/foods_model.dart';
+import '../../../data/repository/foods_repository_impl.dart';
+
 
 class AddPageViewModel extends ChangeNotifier {
   final _repository = RegisterdFoodsRepositoryImpl();

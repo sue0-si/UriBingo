@@ -14,6 +14,7 @@ class DiscardFoods extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<DiscardFoodsViewModel>();
+    final state = viewModel.state;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -34,14 +35,14 @@ class DiscardFoods extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
       ),
-      body: viewModel.isLoading
+      body: state.isLoading
           ? Center(
               child: LoadingAnimationWidget.inkDrop(
                 color: const Color(0xFF9bc6bf),
                 size: 50,
               ),
             )
-          : viewModel.discardFoodsDetails.isEmpty
+          : state.discardFoodsDetails.isEmpty
               ? const Center(
                   child: Text('폐기예정인 음식이 없습니다.'),
                 )
@@ -50,10 +51,10 @@ class DiscardFoods extends StatelessWidget {
                   child: SingleChildScrollView(
                       child: Column(
                     children: [
-                      for (var refrigeDetail in viewModel.refrigeDetails)
+                      for (var refrigeDetail in state.refrigeDetails)
                         Column(
                           children: [
-                            if (viewModel.discardFoodsDetails
+                            if (state.discardFoodsDetails
                                 .where((e) =>
                                     e.refrigeName == refrigeDetail.refrigeName)
                                 .isNotEmpty)
@@ -68,7 +69,7 @@ class DiscardFoods extends StatelessWidget {
                                 crossAxisSpacing: 10,
                                 childAspectRatio: 1 / 1,
                               ),
-                              itemCount: viewModel.discardFoodsDetails
+                              itemCount: state.discardFoodsDetails
                                   .where((e) =>
                                       e.refrigeName ==
                                       refrigeDetail.refrigeName)
@@ -77,7 +78,7 @@ class DiscardFoods extends StatelessWidget {
                                 return GestureDetector(
                                   onTap: () {
                                     context.go('/discardFoodDetail', extra: [
-                                      viewModel.discardFoodsDetails
+                                      state.discardFoodsDetails
                                           .where((e) =>
                                               e.refrigeName ==
                                               refrigeDetail.refrigeName)
@@ -94,7 +95,7 @@ class DiscardFoods extends StatelessWidget {
                                     image: DecorationImage(
                                       fit: BoxFit.cover,
                                       image: NetworkImage(
-                                        viewModel.discardFoodsDetails
+                                        state.discardFoodsDetails
                                             .where((e) =>
                                                 e.refrigeName ==
                                                 refrigeDetail.refrigeName)

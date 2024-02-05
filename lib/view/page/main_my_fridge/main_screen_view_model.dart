@@ -6,8 +6,10 @@ import 'package:leute/data/models/user_model.dart';
 import 'package:leute/data/repository/user_data_repository_impl.dart';
 import 'package:leute/view/widget/main_my_fridge_widget/make_fridge_widget.dart';
 
-import '../data/repository/refrige_repository.dart';
-import '../domain/user_data_repository.dart';
+import '../../../data/repository/refrige_repository_impl.dart';
+import '../../../domain/user_data_repository.dart';
+
+
 
 class MainScreenViewModel extends ChangeNotifier {
   List<Widget> fridges = [];

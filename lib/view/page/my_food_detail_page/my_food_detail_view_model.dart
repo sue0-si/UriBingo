@@ -5,8 +5,8 @@ import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/view/page/my_food_detail_page/my_food_detail_state.dart';
 
-import '../../../data/repository/foods_repository.dart';
-import '../../../main.dart';
+import '../../../data/repository/foods_repository_impl.dart';
+
 
 class MyFoodDetailViewModel with ChangeNotifier {
   MyFoodDetailState _state = MyFoodDetailState([], 0, false);
@@ -88,7 +88,7 @@ class MyFoodDetailViewModel with ChangeNotifier {
 
   //firebase 데이터 get
   Future<void> getFirebaseFoodsData() async {
-    final result = await RegisterdFoodsRepository().getFirebaseFoodsData();
+    final result = await RegisterdFoodsRepositoryImpl().getFirebaseFoodsData();
 
     state.foodDetails.clear();
     state.foodDetails.addAll(result);

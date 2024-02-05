@@ -1,7 +1,6 @@
 import 'package:get_it/get_it.dart';
-
-import '../data/repository/foods_repository.dart';
-import '../data/repository/refrige_repository.dart';
+import '../data/repository/foods_repository_impl.dart';
+import '../data/repository/refrige_repository_impl.dart';
 import '../data/repository/user_data_repository_impl.dart';
 import '../domain/foods_repository.dart';
 import '../domain/refrige_repository.dart';

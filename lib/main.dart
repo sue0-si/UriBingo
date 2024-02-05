@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
+import 'package:leute/di/di_setup.dart';
 import 'package:leute/router.dart';
 import 'package:palette_generator/palette_generator.dart';
 
@@ -19,6 +20,7 @@ void main() async {
   // Always initialize Awesome Notifications
   await NotificationController.initializeLocalNotifications();
   await NotificationController.initializeIsolateReceivePort();
+  diSetup();
   runApp(const MyApp());
 }
 
