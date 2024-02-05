@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_widgets/super_container.dart';
-import 'package:leute/view_model/my_fridge_view_model.dart';
+import 'package:leute/view/page/main_my_fridge/my_fridge_view_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -63,7 +63,7 @@ class MyFridge extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10).r,
-                                            color: Color(0xFFbbd7da)),
+                                            color: const Color(0xFFbbd7da)),
                                         child: Padding(
                                           padding: const EdgeInsets.all(16.0).w,
                                           child: GridView.builder(
@@ -111,7 +111,7 @@ class MyFridge extends StatelessWidget {
                                                               .isPublic ==
                                                           true)
                                                       ? const Color(0xFFFFE088)
-                                                      : Color(0xFFbbd7da),
+                                                      : const Color(0xFFbbd7da),
                                                   image: DecorationImage(
                                                     fit: BoxFit.cover,
                                                     image: NetworkImage(
@@ -146,7 +146,8 @@ class MyFridge extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(5).r,
                                               border: Border.all(
-                                                  color: Color(0xFF9bc6bf),
+                                                  color:
+                                                      const Color(0xFF9bc6bf),
                                                   width: 3),
                                             ),
                                             child: Padding(
