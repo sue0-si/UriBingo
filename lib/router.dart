@@ -18,6 +18,7 @@ import 'package:leute/view_model/my_page_view_model.dart';
 import 'package:leute/view_model/signup_page_view_model.dart';
 import 'package:provider/provider.dart';
 
+import 'di/di_setup.dart';
 import 'view/page/refrige_pages/add_refrige.dart';
 import 'view/page/refrige_pages/edit_refrige.dart';
 import 'view/page/register_page/register_view_model.dart';
@@ -84,7 +85,7 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
       path: '/groupSetting',
       builder: (context, state) {
         return ChangeNotifierProvider(
-          create: (_) => GroupSettingPageViewModel(),
+          create: (_) => getIt<GroupSettingPageViewModel>(),
           child: const GroupSettingPage(),
         );
       }),
@@ -151,7 +152,7 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
       path: '/discardPage',
       builder: (context, state) {
         return ChangeNotifierProvider(
-          create: (_) => DiscardFoodsViewModel(),
+          create: (_) => getIt<DiscardFoodsViewModel>(),
           child: const DiscardFoods(),
         );
       }),

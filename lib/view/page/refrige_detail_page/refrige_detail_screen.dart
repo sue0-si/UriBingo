@@ -7,6 +7,7 @@ import 'package:leute/view/page/refrige_detail_page/refrige_comp_screen.dart';
 import 'package:leute/view/page/refrige_detail_page/refrige_comp_view_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../../di/di_setup.dart';
 import '../../../styles/app_text_style.dart';
 import 'freezer_comp_view_model.dart';
 
@@ -112,13 +113,13 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
         scrollDirection: Axis.vertical,
         children: [
           ChangeNotifierProvider(
-            create: (context) => FreezerCompViewModel(widget.selectedRefrige),
+            create: (context) => getIt<FreezerCompViewModel>(),
             child: FreezerCompScreen(
               selectedRefrige: widget.selectedRefrige,
             ),
           ),
           ChangeNotifierProvider(
-            create: (context) => RefrigeCompViewModel(widget.selectedRefrige),
+            create: (context) => getIt<RefrigeCompViewModel>(),
             child: RefrigeCompScreen(
               selectedRefrige: widget.selectedRefrige,
             ),

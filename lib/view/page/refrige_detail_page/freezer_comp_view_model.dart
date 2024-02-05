@@ -1,18 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/data/models/refrige_model.dart';
-import 'package:leute/data/repository/user_data_repository.dart';
 
 import '../../../data/models/foods_model.dart';
 import '../../../data/models/user_model.dart';
-import '../../../data/repository/foods_repository.dart';
+import '../../../domain/foods_repository.dart';
+import '../../../domain/user_data_repository.dart';
 import '../../widget/refrige_detail_page_widget/food_thumb_nail_list.dart';
 
 class FreezerCompViewModel extends ChangeNotifier {
-  final RefrigeDetail selectedRefrige;
-  final _repository = RegisterdFoodsRepository();
-  final UserDataRepository userDataRepository = UserDataRepository();
+  final RegisterdFoodsRepository foodsRepository;
+  final UserDataRepository userDataRepository;
 
+  FreezerCompViewModel({
+    required this.foodsRepository,
+    required this.userDataRepository,
+  }) {
+    fetchData();
+  }
+
+  RefrigeDetail? selectedRefrige;
   List<FoodDetail> _foodItems = [];
 
   List<FoodDetail> get foodItems => _foodItems;
@@ -35,10 +42,6 @@ class FreezerCompViewModel extends ChangeNotifier {
     }
   }
 
-  FreezerCompViewModel(this.selectedRefrige) {
-    fetchData();
-  }
-
   Future<void> fetchData() async {
     isLoading = true;
     notifyListeners();
@@ -49,17 +52,17 @@ class FreezerCompViewModel extends ChangeNotifier {
           (user) => user.email == FirebaseAuth.instance.currentUser!.email);
       isManager = currentUser.manager;
       await getSameRefrigeFoods(
-          selectedRefrige.refrigeName, currentUser.groupName);
+          selectedRefrige!.refrigeName, currentUser.groupName);
 
       // 관리자 여부 확인용 메서드
-      for (int i = 1; i <= selectedRefrige.freezerCompCount; i++) {
+      for (int i = 1; i <= selectedRefrige!.freezerCompCount; i++) {
         final samePositionFoodList =
-            _repository.filterFoods(foodItems, true, i);
+            foodsRepository.filterFoods(foodItems, true, i);
         fetchedList.add(FoodThumbNailList(
           samePositionFoodList: samePositionFoodList[2]
-              .where((e) => fetchValidFoods(selectedRefrige, e) >= 0)
+              .where((e) => fetchValidFoods(selectedRefrige!, e) >= 0)
               .toList(),
-          selectedRefrige: selectedRefrige,
+          selectedRefrige: selectedRefrige!,
           selectedPosition: i,
           isFreezed: true,
           isManager: isManager,
@@ -78,7 +81,7 @@ class FreezerCompViewModel extends ChangeNotifier {
 
   Future<List<FoodDetail>> getSameRefrigeFoods(
       String refrigeName, String validationCode) async {
-    final allFoods = await _repository.getFirebaseFoodsData();
+    final allFoods = await foodsRepository.getFirebaseFoodsData();
     _foodItems = allFoods
         .where((e) => (e.vlaidationCode == validationCode &&
             e.refrigeName == refrigeName))

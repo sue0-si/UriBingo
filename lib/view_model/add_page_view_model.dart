@@ -5,10 +5,10 @@ import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
 
 import '../data/models/foods_model.dart';
-import '../data/repository/foods_repository.dart';
+import '../data/repository/foods_repository_impl.dart';
 
 class AddPageViewModel extends ChangeNotifier {
-  final _repository = RegisterdFoodsRepository();
+  final _repository = RegisterdFoodsRepositoryImpl();
   final coldStorageOfCompartmentsList = List.generate(11, (index) => '$index 칸'); //냉장고칸수
   final frozenStorageOfCompartmentsList = List.generate(11, (index) => '$index 칸'); //냉동고칸수
   final storagePeriodList = List.generate(30, (index) => '${index+1} 일'); //보관기간

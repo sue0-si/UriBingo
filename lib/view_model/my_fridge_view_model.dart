@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
-import 'package:leute/data/repository/foods_repository.dart';
-import 'package:leute/data/repository/refrige_repository.dart';
+import 'package:leute/data/repository/foods_repository_impl.dart';
+import 'package:leute/data/repository/refrige_repository_impl.dart';
 
 class MyFridgeViewModel extends ChangeNotifier {
-  final foodRepository = RegisterdFoodsRepository();
-  final refrigeRepository = RegisterdRefrigeRepository();
+  final foodRepository = RegisterdFoodsRepositoryImpl();
+  final refrigeRepository = RegisterdRefrigeRepositoryImpl();
   List<FoodDetail> myFoodDetails = [];
   List<RefrigeDetail> refrigeDetails = [];
   bool _disposed = false;
