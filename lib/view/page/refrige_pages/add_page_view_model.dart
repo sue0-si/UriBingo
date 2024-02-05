@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
 
-import '../data/models/foods_model.dart';
-import '../data/repository/foods_repository.dart';
+import '../../../data/models/foods_model.dart';
+import '../../../data/repository/foods_repository.dart';
 
 class AddPageViewModel extends ChangeNotifier {
   final _repository = RegisterdFoodsRepository();
-  final coldStorageOfCompartmentsList = List.generate(11, (index) => '$index 칸'); //냉장고칸수
-  final frozenStorageOfCompartmentsList = List.generate(11, (index) => '$index 칸'); //냉동고칸수
-  final storagePeriodList = List.generate(30, (index) => '${index+1} 일'); //보관기간
-  final extensionPeriodList = List.generate(5, (index) => '${index+1} 일'); //연장가능기간
+  final coldStorageOfCompartmentsList = List.generate(11, (index) => '$index 칸');
+  final frozenStorageOfCompartmentsList = List.generate(11, (index) => '$index 칸');
+  final storagePeriodList = List.generate(30, (index) => '${index+1} 일');
+  final extensionPeriodList = List.generate(5, (index) => '${index+1} 일');
   List<FoodDetail> _foodItems = [];
 
   List<FoodDetail> get foodItems => _foodItems;
@@ -35,7 +35,7 @@ class AddPageViewModel extends ChangeNotifier {
   int registerdDate = 0;
   String initialName = '';
 
-  //String name = ''; //validate 값 저장되는 변수
+
   String _name = '';
 
   String get name => _name;
@@ -44,7 +44,7 @@ class AddPageViewModel extends ChangeNotifier {
     _name = value;
   }
 
-  String _selectedColdstorage = '0 칸'; //선택된냉장칸수
+  String _selectedColdstorage = '0 칸';
 
   String get selectedColdstorage => _selectedColdstorage;
 
@@ -60,7 +60,7 @@ class AddPageViewModel extends ChangeNotifier {
     _selectedFrozenStorage = value.toString();
   }
 
-  String _selectedStoragePeriod = '1 일'; //선택된보관기간
+  String _selectedStoragePeriod = '1 일';
 
   String get selectedStoragePeriod => _selectedStoragePeriod;
 
@@ -68,7 +68,7 @@ class AddPageViewModel extends ChangeNotifier {
     _selectedStoragePeriod = value.toString();
   }
 
-  String _selectedExtensionPeriod = '1 일'; //선택된연장가능기간
+  String _selectedExtensionPeriod = '1 일';
 
   String get selectedExtensionPeriod => _selectedExtensionPeriod;
 
@@ -76,7 +76,7 @@ class AddPageViewModel extends ChangeNotifier {
     _selectedExtensionPeriod = value.toString();
   }
 
-//getter 설정
+
 
   Future<void> addRefrige(UserModel currentUser) async {
     final registerDate = DateTime.now().millisecondsSinceEpoch.toString();

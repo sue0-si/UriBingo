@@ -5,7 +5,7 @@ import 'package:leute/data/models/user_model.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_buttons/custom_button.dart';
-import 'package:leute/view_model/add_page_view_model.dart';
+import 'package:leute/view/page/refrige_pages/add_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/custom_dialog/two_answer_dialog.dart';
@@ -15,8 +15,6 @@ class AddRefrige extends StatefulWidget {
 
   final UserModel currentUser;
 
-  //외부에서 값을 받아올 수 있다
-
   @override
   State<AddRefrige> createState() => _AddRefrigeState();
 }
@@ -24,22 +22,18 @@ class AddRefrige extends StatefulWidget {
 class _AddRefrigeState extends State<AddRefrige> {
   final _addNameController = TextEditingController();
 
-  TextEditingController get addNameController =>
-      _addNameController; //addNameController 외부접근
-  final GlobalKey<FormState> _formKey =
-      GlobalKey<FormState>(); //textFormfield 사용하려면 설정해야함
+  TextEditingController get addNameController => _addNameController;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    addNameController.dispose(); //호출(단발성) - 함수를 포장해서 보내주자
+    addNameController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final addPageViewModel = context.watch<AddPageViewModel>();
-    //뷰모델 람다식 상태변경을 인식하려고 notifyListeners(); - 함수를 포장해서 보내주자
-    //위젯 전체를 인식하려고 쓴것이다
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -60,7 +54,6 @@ class _AddRefrigeState extends State<AddRefrige> {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,7 +65,6 @@ class _AddRefrigeState extends State<AddRefrige> {
                           '냉장고 이름',
                           style: AppTextStyle.body18R(),
                         ),
-
                         SizedBox(
                           width: 150,
                           child: Form(
@@ -87,11 +79,9 @@ class _AddRefrigeState extends State<AddRefrige> {
                                 return null;
                               },
                               onSaved: (value) {
-                                //유효성 검사 후, 폼이 제출될 때 저장되는 콜백
-                                addPageViewModel.name = value!; //여기 잘 모르겠다
+                                addPageViewModel.name = value!;
                               },
                               controller: addNameController,
-
                               style: AppTextStyle.body15R(),
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(),
@@ -111,7 +101,6 @@ class _AddRefrigeState extends State<AddRefrige> {
                                     color: Colors.green,
                                   ),
                                 ),
-
                                 counterText: '',
                                 labelText: '입력(최대7글자)',
                                 labelStyle: TextStyle(
@@ -121,13 +110,9 @@ class _AddRefrigeState extends State<AddRefrige> {
                             ),
                           ),
                         ),
-                        //SizedBox(
-                        //width: 25.w,
-                        //),
                       ],
                     ),
-                    SizedBox(height: 20),
-                    // 이 부분을 수정하여 두 번째 냉장고 이름을 표시하세요.
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -145,27 +130,32 @@ class _AddRefrigeState extends State<AddRefrige> {
                               iconEnabledColor: Colors.redAccent,
                               elevation: 2,
                               value: addPageViewModel.selectedColdstorage,
-                              items: addPageViewModel
-                                  .coldStorageOfCompartmentsList //String이 아닌 List<String>을 반환되고 있다
-                                  .map((e) => DropdownMenuItem(
-                                        value: e,
-                                        child: Center(
-                                          child: Text(e),
+                              items:
+                                  addPageViewModel.coldStorageOfCompartmentsList
+                                      .map(
+                                        (e) => DropdownMenuItem(
+                                          value: e,
+                                          child: Center(
+                                            child: Text(e),
+                                          ),
                                         ),
-                                      ))
-                                  .toList(),
+                                      )
+                                      .toList(),
                               isExpanded: true,
                               onChanged: (value) {
-                                setState(() {
-                                  addPageViewModel.selectedColdstorage = value!;
-                                });
+                                setState(
+                                  () {
+                                    addPageViewModel.selectedColdstorage =
+                                        value!;
+                                  },
+                                );
                               },
                             ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -178,30 +168,37 @@ class _AddRefrigeState extends State<AddRefrige> {
                           child: Container(
                             margin: const EdgeInsets.only(left: 27).w,
                             child: DropdownButton(
-                                menuMaxHeight: 270,
-                                borderRadius: BorderRadius.circular(20),
-                                iconEnabledColor: Colors.redAccent,
-                                elevation: 2,
-                                value: addPageViewModel.selectedFrozenStorage,
-                                items: addPageViewModel
-                                    .frozenStorageOfCompartmentsList
-                                    .map((e) => DropdownMenuItem(
-                                          value: e,
-                                          child: Center(child: Text(e)),
-                                        ))
-                                    .toList(),
-                                isExpanded: true,
-                                onChanged: (value) {
-                                  setState(() {
+                              menuMaxHeight: 270,
+                              borderRadius: BorderRadius.circular(20),
+                              iconEnabledColor: Colors.redAccent,
+                              elevation: 2,
+                              value: addPageViewModel.selectedFrozenStorage,
+                              items: addPageViewModel
+                                  .frozenStorageOfCompartmentsList
+                                  .map(
+                                    (e) => DropdownMenuItem(
+                                      value: e,
+                                      child: Center(
+                                        child: Text(e),
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                              isExpanded: true,
+                              onChanged: (value) {
+                                setState(
+                                  () {
                                     addPageViewModel.selectedFrozenStorage =
                                         value!;
-                                  });
-                                }),
+                                  },
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -215,28 +212,31 @@ class _AddRefrigeState extends State<AddRefrige> {
                             margin: const EdgeInsets.only(left: 27).w,
                             child: DropdownButton(
                               menuMaxHeight: 270,
-                                borderRadius: BorderRadius.circular(20),
-                                iconEnabledColor: Colors.redAccent,
-                                elevation: 2,
-                                value: addPageViewModel.selectedStoragePeriod,
-                                items: addPageViewModel.storagePeriodList
-                                    .map((e) => DropdownMenuItem(
-                                          value: e,
-                                          child: Center(child: Text(e)),
-                                        ))
-                                    .toList(),
-                                isExpanded: true,
-                                onChanged: (value) {
-                                  setState(() {
+                              borderRadius: BorderRadius.circular(20),
+                              iconEnabledColor: Colors.redAccent,
+                              elevation: 2,
+                              value: addPageViewModel.selectedStoragePeriod,
+                              items: addPageViewModel.storagePeriodList
+                                  .map((e) => DropdownMenuItem(
+                                        value: e,
+                                        child: Center(child: Text(e)),
+                                      ))
+                                  .toList(),
+                              isExpanded: true,
+                              onChanged: (value) {
+                                setState(
+                                  () {
                                     addPageViewModel.selectedStoragePeriod =
                                         value!;
-                                  });
-                                }),
+                                  },
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -250,24 +250,31 @@ class _AddRefrigeState extends State<AddRefrige> {
                             alignment: Alignment.center,
                             margin: const EdgeInsets.only(left: 27).w,
                             child: DropdownButton(
-                                menuMaxHeight: 270,
-                                borderRadius: BorderRadius.circular(20),
-                                iconEnabledColor: Colors.redAccent,
-                                elevation: 2,
-                                value: addPageViewModel.selectedExtensionPeriod,
-                                items: addPageViewModel.extensionPeriodList
-                                    .map((e) => DropdownMenuItem(
-                                          value: e,
-                                          child: Center(child: Text(e)),
-                                        ))
-                                    .toList(),
-                                isExpanded: true,
-                                onChanged: (value) {
-                                  setState(() {
+                              menuMaxHeight: 270,
+                              borderRadius: BorderRadius.circular(20),
+                              iconEnabledColor: Colors.redAccent,
+                              elevation: 2,
+                              value: addPageViewModel.selectedExtensionPeriod,
+                              items: addPageViewModel.extensionPeriodList
+                                  .map(
+                                    (e) => DropdownMenuItem(
+                                      value: e,
+                                      child: Center(
+                                        child: Text(e),
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                              isExpanded: true,
+                              onChanged: (value) {
+                                setState(
+                                  () {
                                     addPageViewModel.selectedExtensionPeriod =
                                         value!;
-                                  });
-                                }),
+                                  },
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ],
@@ -290,24 +297,25 @@ class _AddRefrigeState extends State<AddRefrige> {
                               _formKey.currentState!.save();
 
                               showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return TwoAnswerDialog(
-                                        title: '등록하시겠습니까?',
-                                        subtitle: '등록된 냉장고 이름은 수정이 불가합니다.',
-                                        firstButton: '네',
-                                        secondButton: '아니오',
-                                        onTap: () async {
-                                          setState(() {});
+                                context: context,
+                                builder: (context) {
+                                  return TwoAnswerDialog(
+                                    title: '등록하시겠습니까?',
+                                    subtitle: '등록된 냉장고 이름은 수정이 불가합니다.',
+                                    firstButton: '네',
+                                    secondButton: '아니오',
+                                    onTap: () async {
+                                      setState(() {});
 
-                                          if (mounted) {
-                                            context.go('/main_page', extra: 0);
-                                          }
-                                          await addPageViewModel
-                                              .addRefrige(widget.currentUser);
-                                        });
-                                  });
-                              //왜 async?
+                                      if (mounted) {
+                                        context.go('/main_page', extra: 0);
+                                      }
+                                      await addPageViewModel
+                                          .addRefrige(widget.currentUser);
+                                    },
+                                  );
+                                },
+                              );
                             }
                           },
                         ),
