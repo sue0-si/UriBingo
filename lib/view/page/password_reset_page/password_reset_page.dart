@@ -5,7 +5,7 @@ import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_dialog/one_answer_dialog.dart';
 import 'package:leute/view/widget/login_widget/login_elevated_button.dart';
 import 'package:leute/view/widget/login_widget/login_textfield.dart';
-import 'package:leute/view/page/login_pages/login_page_view_model.dart';
+import 'package:leute/view/page/login_page/login_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 class PasswordResetPage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
     var viewModel = context.watch<LoginPageViewModel>();
     return Scaffold(
         body: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(32.0),
             child: Form(
                 key: _formKey,
                 child: Center(

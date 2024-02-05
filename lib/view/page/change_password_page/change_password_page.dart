@@ -6,7 +6,7 @@ import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_buttons/custom_button.dart';
 import 'package:leute/view/widget/custom_dialog/one_answer_dialog.dart';
 import 'package:provider/provider.dart';
-import 'login_page_view_model.dart';
+import '../login_page/login_page_view_model.dart';
 import '../../widget/login_widget/password_textfield.dart';
 
 class ChangePasswordPage extends StatefulWidget {

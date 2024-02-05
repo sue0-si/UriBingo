@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_colors.dart';
@@ -11,7 +10,7 @@ import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/login_widget/login_elevated_button.dart';
 import 'package:leute/view/widget/login_widget/login_textfield.dart';
 import 'package:leute/view/widget/login_widget/password_textfield.dart';
-import 'package:leute/view/page/login_pages/login_page_view_model.dart';
+import 'package:leute/view/page/login_page/login_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -67,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
     var viewmodel = context.watch<LoginPageViewModel>();
     return Scaffold(
         body: Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(32.0),
       child: Form(
         key: _formKey,
         child: Center(

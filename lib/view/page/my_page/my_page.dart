@@ -1,13 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 import 'package:leute/view/widget/login_widget/Inkwell_row_tile.dart';
 import 'package:leute/view/widget/login_widget/advertising_area.dart';
-import 'package:leute/view/page/login_pages/my_page_view_model.dart';
+import 'package:leute/view/page/my_page/my_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 class MyPage extends StatelessWidget {
