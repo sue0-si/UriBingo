@@ -7,7 +7,7 @@ import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 import 'package:leute/view/widget/login_widget/Inkwell_row_tile.dart';
 import 'package:leute/view/widget/login_widget/advertising_area.dart';
-import 'package:leute/view_model/my_page_view_model.dart';
+import 'package:leute/view/page/login_pages/my_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 class MyPage extends StatelessWidget {

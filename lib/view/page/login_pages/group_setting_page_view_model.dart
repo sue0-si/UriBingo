@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/data/repository/user_data_repository.dart';
 
-import '../data/models/user_model.dart';
+import '../../../data/models/user_model.dart';
 
 class GroupSettingPageViewModel with ChangeNotifier {
   final UserDataRepository _repository = UserDataRepository();
@@ -91,14 +91,14 @@ class GroupSettingPageViewModel with ChangeNotifier {
           .collection('profile')
           .doc(targetUser.userId)
           .update(UserModel(
-                  validationCode: targetUser.validationCode,
-                  email: targetUser.email,
-                  employeeNumber: targetUser.employeeNumber,
-                  manager: targetUser.manager,
-                  name: targetUser.name,
-                  groupName: targetUser.groupName,
-                  userId: targetUser.userId,)
-              .toJson());
+            validationCode: targetUser.validationCode,
+            email: targetUser.email,
+            employeeNumber: targetUser.employeeNumber,
+            manager: targetUser.manager,
+            name: targetUser.name,
+            groupName: targetUser.groupName,
+            userId: targetUser.userId,
+          ).toJson());
     }
     isLoading = false;
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -128,14 +128,14 @@ class GroupSettingPageViewModel with ChangeNotifier {
           .collection('profile')
           .doc(addTargetMember[0].userId)
           .update(UserModel(
-                  validationCode: manager.validationCode,
-                  email: addTargetMember[0].email,
-                  employeeNumber: addTargetMember[0].employeeNumber,
-                  manager: false,
-                  name: addTargetMember[0].name,
-                  groupName: manager.groupName,
-                  userId: addTargetMember[0].userId,)
-              .toJson());
+            validationCode: manager.validationCode,
+            email: addTargetMember[0].email,
+            employeeNumber: addTargetMember[0].employeeNumber,
+            manager: false,
+            name: addTargetMember[0].name,
+            groupName: manager.groupName,
+            userId: addTargetMember[0].userId,
+          ).toJson());
       isMember = true;
       addTargetMember.remove(user);
       WidgetsBinding.instance.addPostFrameCallback((_) {

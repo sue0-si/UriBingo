@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:leute/view/widget/custom_dialog/one_answer_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../data/models/user_model.dart';
-import '../data/repository/user_data_repository.dart';
+import '../../../data/models/user_model.dart';
+import '../../../data/repository/user_data_repository.dart';
 
 class LoginPageViewModel with ChangeNotifier {
   final UserDataRepository userDataRepository = UserDataRepository();
@@ -49,8 +49,6 @@ class LoginPageViewModel with ChangeNotifier {
       }
     }
   }
-
-
 
 // 이메일 유효성 검사
   String? emailValidator(String? value) {
@@ -106,7 +104,42 @@ class LoginPageViewModel with ChangeNotifier {
   }
 
 // 비밀번호 재설정 이메일 전송
-  Future<void> sendPasswordResetEmail(String email, BuildContext context) async {
-    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  Future<void> sendPasswordResetEmail(
+      String email, BuildContext context) async {
+    QuerySnapshot<Map<String, dynamic>> query = await FirebaseFirestore.instance
+        .collection('profile')
+        .where('email', isEqualTo: email)
+        .get();
+    if (query.docs.isEmpty) {
+      if (context.mounted) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return OneAnswerDialog(
+                  onTap: () {
+                    context.pop();
+                  },
+                  title: '이메일 오류',
+                  subtitle: '존재하지않는 이메일입니다 이메일을 다시한번 더 확인해주세요.',
+                  firstButton: '확인');
+            });
+      }
+    } else if (query.docs.isNotEmpty) {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      if (context.mounted) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return OneAnswerDialog(
+                  onTap: () {
+                    context.go('/login');
+                  },
+                  title: '전송 완료',
+                  subtitle: '$email로\n비밀번호 재설정 이메일이 전송되었습니다.',
+                  firstButton: '확인');
+            });
+      }
+    }
+    notifyListeners();
   }
 }

@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 import 'package:unicons/unicons.dart';
 
-import '../../../view_model/group_setting_page_view_model.dart';
+import 'group_setting_page_view_model.dart';
 import '../../widget/custom_dialog/one_answer_dialog.dart';
 
 class GroupSettingPage extends StatefulWidget {

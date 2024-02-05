@@ -11,7 +11,7 @@ import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/login_widget/login_elevated_button.dart';
 import 'package:leute/view/widget/login_widget/login_textfield.dart';
 import 'package:leute/view/widget/login_widget/password_textfield.dart';
-import 'package:leute/view_model/login_page_view_model.dart';
+import 'package:leute/view/page/login_pages/login_page_view_model.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -43,7 +43,6 @@ class _LoginPageState extends State<LoginPage> {
 
     Future.microtask(() {
       var viewmodel = context.read<LoginPageViewModel>();
-
 
       viewmodel.initPreferences().then((value) => emailController.text = value);
     });
