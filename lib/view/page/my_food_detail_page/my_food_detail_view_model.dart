@@ -8,6 +8,7 @@ import 'package:leute/view/page/my_food_detail_page/my_food_detail_state.dart';
 import '../../../data/repository/foods_repository_impl.dart';
 
 
+
 class MyFoodDetailViewModel with ChangeNotifier {
   MyFoodDetailState _state = MyFoodDetailState([], 0, false);
 

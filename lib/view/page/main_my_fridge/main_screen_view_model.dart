@@ -11,6 +11,8 @@ import '../../../domain/user_data_repository.dart';
 
 
 
+
+
 class MainScreenViewModel extends ChangeNotifier {
   List<Widget> fridges = [];
   List<RefrigeDetail> refrigeItems = [];

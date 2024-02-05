@@ -8,6 +8,8 @@ import '../../../data/models/foods_model.dart';
 import '../../../data/repository/foods_repository_impl.dart';
 
 
+
+
 class AddPageViewModel extends ChangeNotifier {
   final _repository = RegisterdFoodsRepositoryImpl();
   final coldStorageOfCompartmentsList = List.generate(11, (index) => '$index 칸'); //냉장고칸수
