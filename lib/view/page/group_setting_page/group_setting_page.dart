@@ -34,6 +34,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<GroupSettingPageViewModel>();
+    final state = viewModel.state;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -105,7 +106,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('그룹원 리스트 (${viewModel.fetchedUserList.length})',
+                    Text('그룹원 리스트 (${state.fetchedUserList.length})',
                         style: AppTextStyle.body16B()),
                     ElevatedButton(
                       onPressed: () {
@@ -124,7 +125,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                 ),
               ),
               Expanded(
-                child: (viewModel.isLoading)
+                child: (state.isLoading)
                     ? Center(
                         child: LoadingAnimationWidget.inkDrop(
                           color: const Color(0xFF9bc6bf),
@@ -134,9 +135,9 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                     : ListView.builder(
                         physics: const BouncingScrollPhysics(
                             decelerationRate: ScrollDecelerationRate.fast),
-                        itemCount: viewModel.fetchedUserList.length,
+                        itemCount: state.fetchedUserList.length,
                         itemBuilder: (context, index) {
-                          final fetchedUser = viewModel.fetchedUserList[index];
+                          final fetchedUser = state.fetchedUserList[index];
                           return ListTile(
                             title: Text(
                               fetchedUser.name,
@@ -229,7 +230,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        final managerList = viewModel.groupUserList
+                        final managerList = state.fetchedUserList
                             .where((user) => user.manager == true)
                             .toList();
                         if (managerList.isEmpty) {
@@ -253,8 +254,8 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                               });
                         } else {
                           await viewModel
-                              .editGroupUser(viewModel.fetchedUserList);
-                          if (viewModel.isLoading) {
+                              .editGroupUser(state.fetchedUserList);
+                          if (state.isLoading) {
                             Center(
                               child: LoadingAnimationWidget.inkDrop(
                                 color: const Color(0xFF9bc6bf),
@@ -316,7 +317,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                     await viewModel.searchNoGroupUser(
                                         addMemberController.text);
 
-                                    if (viewModel.addTargetMember.isNotEmpty) {
+                                    if (state.addTargetMember.isNotEmpty) {
                                       if (mounted) {
                                         showDialog(
                                           context: context,
@@ -324,13 +325,13 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                             return TwoAnswerDialog(
                                               title: '추가할 정보를 확인하세요.',
                                               subtitle:
-                                                  '이름: ${viewModel.addTargetMember[0].name}\n이메일: ${viewModel.addTargetMember[0].email}',
+                                                  '이름: ${state.addTargetMember[0].name}\n이메일: ${state.addTargetMember[0].email}',
                                               firstButton: '확인',
                                               secondButton: '취소',
                                               onTap: () async {
                                                 await viewModel.addToMember(
-                                                    viewModel.addTargetMember[0]);
-                                                viewModel.isLoading
+                                                    state.addTargetMember[0]);
+                                                state.isLoading
                                                     ? Center(
                                                         child:
                                                             LoadingAnimationWidget
