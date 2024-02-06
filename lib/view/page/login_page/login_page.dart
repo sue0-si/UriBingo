@@ -31,7 +31,6 @@ class _LoginPageState extends State<LoginPage> {
 
   void getMyDeviceToken() async {
     token = (await FirebaseMessaging.instance.getToken())!;
-
     print("내 디바이스 토큰: $token");
   }
 
@@ -39,10 +38,8 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     getMyDeviceToken();
-
     Future.microtask(() {
       var viewmodel = context.read<LoginPageViewModel>();
-
       viewmodel.initPreferences().then((value) => emailController.text = value);
     });
     authStateChanges = FirebaseAuth.instance.authStateChanges().listen((user) {
