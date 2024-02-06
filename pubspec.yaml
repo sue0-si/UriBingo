@@ -74,6 +74,7 @@ dependencies:
   awesome_notifications_core: ^0.9.1
   http: ^1.2.0
   palette_generator: ^0.3.3+3
+  get_it: ^7.6.7
 
 
 dev_dependencies:
