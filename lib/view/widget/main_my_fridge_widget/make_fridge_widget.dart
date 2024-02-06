@@ -69,12 +69,6 @@ class MakeFridge extends StatelessWidget {
                         extra: [refrigeItems[index], currentUser]);
                   },
                 )
-
-              // ElevatedButton(
-              //         onPressed: () {
-              //           context.go('/editRefrige', extra: refrigeItems[index]);
-              //         },
-              //         child: Text('수정'))
               : Container()
         ],
       ),
