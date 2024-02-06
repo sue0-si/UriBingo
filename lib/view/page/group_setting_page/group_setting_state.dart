@@ -11,8 +11,10 @@ class GroupSettingState with _$GroupSettingState {
   const factory GroupSettingState({
 
     @Default([]) List<UserModel> fetchedUserList,
+    @Default([]) List<UserModel> unavailableList,
     @Default([]) List<UserModel> addTargetMember,
     @Default(false) bool isMember,
+
     @Default(false) bool isLoading,
   }) = _GroupSettingState;
 

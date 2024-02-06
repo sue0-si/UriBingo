@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:leute/data/models/user_model.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
@@ -10,8 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 import 'package:unicons/unicons.dart';
 
-import 'group_setting_page_view_model.dart';
 import '../../widget/custom_dialog/one_answer_dialog.dart';
+import 'group_setting_page_view_model.dart';
 
 class GroupSettingPage extends StatefulWidget {
   const GroupSettingPage({super.key});
@@ -106,7 +107,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('그룹원 리스트 (${state.fetchedUserList.length})',
+                    Text('${state.fetchedUserList.first.groupName} 리스트 (${state.fetchedUserList.length})',
                         style: AppTextStyle.body16B()),
                     ElevatedButton(
                       onPressed: () {
@@ -114,8 +115,9 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                       },
                       style: ButtonStyle(
                           //테두리 모양 조절
-                          shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
                           backgroundColor:
                               MaterialStateProperty.all(AppColors.mainButton)),
                       child: Text('전체',
@@ -140,7 +142,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                           final fetchedUser = state.fetchedUserList[index];
                           return ListTile(
                             title: Text(
-                              fetchedUser.name,
+                              '${fetchedUser.name} (${fetchedUser.employeeNumber})',
                               style: AppTextStyle.body16B(),
                             ),
                             subtitle: Text(
@@ -151,12 +153,12 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                               height: 40,
                               width: 100,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   GestureDetector(
                                     onTap: () {
                                       viewModel.managerCheckBoxTap(fetchedUser);
-                                      // print(viewModel.fetchedUserList.where((e) => e.manager ==true).toList().length);
                                     },
                                     child: Column(
                                       mainAxisAlignment:
@@ -174,12 +176,13 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                           checkedColor: const Color(0xFF9bc6bf),
                                           isRound: false,
                                           size: 14,
-                                          isChecked: (fetchedUser.manager == true)
-                                              ? true
-                                              : false,
+                                          isChecked:
+                                              (fetchedUser.manager == true)
+                                                  ? true
+                                                  : false,
                                           onTap: (selected) {
-                                            viewModel
-                                                .managerCheckBoxTap(fetchedUser);
+                                            viewModel.managerCheckBoxTap(
+                                                fetchedUser);
                                             // print(viewModel.fetchedUserList.where((e) => e.manager ==true).toList().length);
                                           },
                                         )
@@ -253,8 +256,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                 );
                               });
                         } else {
-                          await viewModel
-                              .editGroupUser(state.fetchedUserList);
+                          await viewModel.editGroupUser(state.fetchedUserList);
                           if (state.isLoading) {
                             Center(
                               child: LoadingAnimationWidget.inkDrop(
@@ -274,7 +276,8 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                                 searchMemberController.text)
                                             : viewModel.fetchData();
                                         searchMemberController.text = '';
-                                        Navigator.of(context, rootNavigator: true)
+                                        Navigator.of(context,
+                                                rootNavigator: true)
                                             .pop();
                                       },
                                       title: '변경되었습니다.',
@@ -288,8 +291,9 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                       },
                       style: ButtonStyle(
                           //테두리 모양 조절
-                          shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
                           backgroundColor:
                               MaterialStateProperty.all(AppColors.mainButton)),
                       child: Text('변경하기', style: AppTextStyle.body16B()),
@@ -380,8 +384,9 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                           RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10))),
-                                      backgroundColor: MaterialStateProperty.all(
-                                          AppColors.mainButton)),
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              AppColors.mainButton)),
                                   child: Text(
                                     '추가',
                                     style: AppTextStyle.body14R(),

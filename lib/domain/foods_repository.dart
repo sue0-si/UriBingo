@@ -6,7 +6,7 @@ abstract interface class RegisterdFoodsRepository {
   List<dynamic> filterFoods(
       List<FoodDetail> foodsToFilter, bool targetFreezed, int targetPositionId);
 
-  List<FoodDetail> getMyFoodDetail(List<FoodDetail> allFoods, String userName);
+  List<FoodDetail> getMyFoodDetail(List<FoodDetail> allFoods, String userName, String validationCode);
 
   List<FoodDetail> getFoodDetail(
       List<FoodDetail> allFoods, String targetRefrigeName);

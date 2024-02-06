@@ -4,8 +4,12 @@ import 'package:leute/data/models/foods_model.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/repository/foods_repository_impl.dart';
 import 'package:leute/data/repository/refrige_repository_impl.dart';
+import 'package:leute/data/repository/user_data_repository_impl.dart';
+
+import '../../../data/models/user_model.dart';
 
 class MyFridgeViewModel extends ChangeNotifier {
+  final userDataRepository = UserDataRepositoryImpl();
   final foodRepository = RegisterdFoodsRepositoryImpl();
   final refrigeRepository = RegisterdRefrigeRepositoryImpl();
   List<FoodDetail> myFoodDetails = [];
@@ -36,8 +40,11 @@ class MyFridgeViewModel extends ChangeNotifier {
 
     final allFoods = await foodRepository.getFirebaseFoodsData();
     refrigeDetails = await refrigeRepository.getFirebaseRefrigesData();
+    List<UserModel> userData = await userDataRepository.getFirebaseUserData();
+    UserModel currentUser = userData.firstWhere(
+            (user) => user.email == FirebaseAuth.instance.currentUser!.email);
     myFoodDetails = foodRepository.getMyFoodDetail(
-        allFoods, FirebaseAuth.instance.currentUser!.displayName!);
+        allFoods, currentUser.name, currentUser.validationCode);
     // refrigeDetails;
     isLoading = false;
     notifyListeners();
