@@ -15,7 +15,7 @@ class SplashScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Center(
         child: AnimatedOpacity(
-          duration: Duration(seconds: 4),
+          duration: const Duration(seconds: 4),
           opacity: 1,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
