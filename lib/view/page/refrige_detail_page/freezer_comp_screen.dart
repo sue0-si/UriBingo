@@ -23,10 +23,11 @@ class _FreezerCompScreenState extends State<FreezerCompScreen> {
   Widget build(BuildContext context) {
     final viewModel = context.watch<FreezerCompViewModel>();
     viewModel.selectedRefrige = widget.selectedRefrige;
+    final state = viewModel.state;
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Scaffold(
-        body: (viewModel.isLoading)
+        body: (state.isLoading)
             ? Center(
                 child: LoadingAnimationWidget.inkDrop(
                   color: const Color(0xFF9bc6bf),
