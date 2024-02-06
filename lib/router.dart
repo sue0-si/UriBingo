@@ -143,7 +143,7 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
       path: '/addMyFood',
       builder: (context, state) {
         return ChangeNotifierProvider(
-          create: (_) => RegisterViewModel(),
+          create: (_) => getIt<RegisterViewModel>(),
           child: RegisterPage(fridgeData: state.extra as List<Object>),
         );
       }),
