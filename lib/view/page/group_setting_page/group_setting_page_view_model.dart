@@ -45,10 +45,10 @@ class GroupSettingPageViewModel with ChangeNotifier {
       UserModel currentUser = allUserData.firstWhere(
           (user) => user.email == FirebaseAuth.instance.currentUser?.email);
       _state = state.copyWith(
-        fetchedUserList: allUserData
-            .where((e) => e.validationCode == currentUser.validationCode)
-            .toList(),
-      );
+          unavailableList: allUserData
+              .where((e) => e.validationCode == currentUser.validationCode)
+              .toList());
+      _state = state.copyWith(fetchedUserList: _state.unavailableList);
       notifyListeners();
     } catch (error) {
       // 에러 처리
@@ -147,22 +147,59 @@ class GroupSettingPageViewModel with ChangeNotifier {
 
   // 사용자 그룹탈퇴 체크박스
   void withdrawUserCheckBoxTap(UserModel targetUser) {
-    _state = state.copyWith(
-        fetchedUserList: _state.fetchedUserList
-          ..where((user) => user == targetUser)
-          ..map((e) => e..validationCode = '')
-          ..map((e) => e..groupName = '')
-          ..map((e) => e..manager = false));
+    // If the radio button is used for selection, check if it is being unchecked
+    if (targetUser.validationCode != '') {
+      _state = state.copyWith(
+        fetchedUserList: _state.fetchedUserList.map((user) {
+          if (user == targetUser) {
+            return UserModel(
+              name: user.name,
+              validationCode: '',
+              groupName: '',
+              manager: false,
+              email: user.email,
+              employeeNumber: user.employeeNumber,
+              userId: user.userId,
+            );
+          }
+          return user;
+        }).toList(),
+      );
+    } else {
+      _state = state.copyWith(
+        fetchedUserList: _state.fetchedUserList.map((user) {
+          if (user == targetUser) {
+            UserModel unavailableUser = _state.unavailableList
+                .where((user) => user.email == targetUser.email)
+                .first;
+            return UserModel(
+              name: user.name,
+              validationCode: unavailableUser.validationCode,
+              groupName: unavailableUser.groupName,
+              manager: unavailableUser.manager,
+              email: user.email,
+              employeeNumber: user.employeeNumber,
+              userId: user.userId,
+            );
+          }
+
+          return user;
+        }).toList(),
+      );
+    }
     notifyListeners();
   }
 
   // 관리자 - 사용자 변경 체크박스
   void managerCheckBoxTap(UserModel targetUser) {
     _state = state.copyWith(
-        fetchedUserList: _state.fetchedUserList
-          ..where((user) => user == targetUser)
-          ..map((e) => e..manager = !e.manager)
-          );
+      fetchedUserList: _state.fetchedUserList
+        ..map((user) {
+          if (user == targetUser) {
+            user.manager = !user.manager;
+          }
+        }).toList(),
+    );
     notifyListeners();
   }
 

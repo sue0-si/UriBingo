@@ -33,30 +33,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  animated_flip_counter:
-    dependency: "direct main"
-    description:
-      name: animated_flip_counter
-      sha256: "2c25ace054ac3932a3f203875a90ddae760ba7016cb9233573067a12ae51e3c6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.6"
-  animated_icon_button:
-    dependency: "direct main"
-    description:
-      name: animated_icon_button
-      sha256: a483ca86d56fe358f4913ba79be8f0bd8fca3282de06f1ae3df108aece5b2a04
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.2"
-  animated_notch_bottom_bar:
-    dependency: "direct main"
-    description:
-      name: animated_notch_bottom_bar
-      sha256: a07b40061d46fa84df38c613797c59e535f043188cae753c8c3482bad9805af7
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   animated_splash_screen:
     dependency: "direct main"
     description:
@@ -89,14 +65,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
-  auto_size_text:
-    dependency: transitive
-    description:
-      name: auto_size_text
-      sha256: "3f5261cd3fb5f2a9ab4e2fc3fba84fd9fcaac8821f20a1d4e71f557521b22599"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0"
   awesome_notifications:
     dependency: "direct main"
     description:
@@ -193,14 +161,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
-  checkbox_grouped:
-    dependency: "direct main"
-    description:
-      name: checkbox_grouped
-      sha256: d7cb37e40c10b91cc3aa0d31611b8e4c5afe811185eab4774210022f0340731b
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   checked_yaml:
     dependency: transitive
     description:
@@ -337,14 +297,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.15"
-  dotted_border:
-    dependency: "direct main"
-    description:
-      name: dotted_border
-      sha256: "108837e11848ca776c53b30bc870086f84b62ed6e01c503ed976e8f8c7df9c04"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   email_validator:
     dependency: transitive
     description:
@@ -566,14 +518,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_inset_box_shadow:
-    dependency: transitive
-    description:
-      name: flutter_inset_box_shadow
-      sha256: "0b1930ed5f4ad84b11b41dda907fbc5d4c12929a4c51455c626e5937b47ffb93"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.8"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -628,7 +572,7 @@ packages:
     source: hosted
     version: "5.9.0"
   flutter_svg:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_svg
       sha256: d39e7f95621fc84376bc0f7d504f05c3a41488c562f4a8ad410569127507402c
@@ -661,14 +605,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.1"
-  frino_icons:
-    dependency: "direct main"
-    description:
-      name: frino_icons
-      sha256: "2b0d03baa53f2e9193c1ce807fd0a4e52a788d0957fb474f0cc17fcf17c4c8db"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -917,14 +853,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  neumorphic_button:
-    dependency: "direct main"
-    description:
-      name: neumorphic_button
-      sha256: "6ebc849871592e4081fb80cddad35551142e1ca0a50703136d5b2f4422ffe12f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.1+2"
   package_config:
     dependency: transitive
     description:
@@ -957,14 +885,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.3"
-  path_drawing:
-    dependency: transitive
-    description:
-      name: path_drawing
-      sha256: bbb1934c0cbb03091af082a6389ca2080345291ef07a5fa6d6e078ba8682f977
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   path_parsing:
     dependency: transitive
     description:
@@ -1029,14 +949,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
-  pretty_animated_buttons:
-    dependency: "direct main"
-    description:
-      name: pretty_animated_buttons
-      sha256: e78b7d4128710dde2c1c6ef0ab223ea616f15ec4a2396203a59e6cf8cc355662
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.1"
   provider:
     dependency: "direct main"
     description:
@@ -1061,14 +973,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
-  random_text_reveal:
-    dependency: "direct main"
-    description:
-      name: random_text_reveal
-      sha256: "6bbc9f875afff31cad56190e0b44d93b671469865103b2912e52e24d9143f0ef"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.7"
   roundcheckbox:
     dependency: "direct main"
     description:

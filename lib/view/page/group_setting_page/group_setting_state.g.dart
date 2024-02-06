@@ -13,6 +13,10 @@ _$GroupSettingStateImpl _$$GroupSettingStateImplFromJson(
               ?.map((e) => UserModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      unavailableList: (json['unavailableList'] as List<dynamic>?)
+              ?.map((e) => UserModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       addTargetMember: (json['addTargetMember'] as List<dynamic>?)
               ?.map((e) => UserModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -25,6 +29,7 @@ Map<String, dynamic> _$$GroupSettingStateImplToJson(
         _$GroupSettingStateImpl instance) =>
     <String, dynamic>{
       'fetchedUserList': instance.fetchedUserList,
+      'unavailableList': instance.unavailableList,
       'addTargetMember': instance.addTargetMember,
       'isMember': instance.isMember,
       'isLoading': instance.isLoading,

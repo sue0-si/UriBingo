@@ -287,6 +287,7 @@ Future<void> myNotifyScheduleInDays({
       title: '${Emojis.food_bowl_with_spoon} $refrigeName에 $title',
       body: '$username 님, $msg',
       largeIcon: 'asset://assets/images/lemon.png',
+      roundedLargeIcon: true,
       autoDismissible: false,
       notificationLayout: NotificationLayout.BigPicture,
       //actionType : ActionType.DismissAction,

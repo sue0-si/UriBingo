@@ -21,6 +21,7 @@ GroupSettingState _$GroupSettingStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$GroupSettingState {
   List<UserModel> get fetchedUserList => throw _privateConstructorUsedError;
+  List<UserModel> get unavailableList => throw _privateConstructorUsedError;
   List<UserModel> get addTargetMember => throw _privateConstructorUsedError;
   bool get isMember => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
@@ -39,6 +40,7 @@ abstract class $GroupSettingStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<UserModel> fetchedUserList,
+      List<UserModel> unavailableList,
       List<UserModel> addTargetMember,
       bool isMember,
       bool isLoading});
@@ -58,6 +60,7 @@ class _$GroupSettingStateCopyWithImpl<$Res, $Val extends GroupSettingState>
   @override
   $Res call({
     Object? fetchedUserList = null,
+    Object? unavailableList = null,
     Object? addTargetMember = null,
     Object? isMember = null,
     Object? isLoading = null,
@@ -66,6 +69,10 @@ class _$GroupSettingStateCopyWithImpl<$Res, $Val extends GroupSettingState>
       fetchedUserList: null == fetchedUserList
           ? _value.fetchedUserList
           : fetchedUserList // ignore: cast_nullable_to_non_nullable
+              as List<UserModel>,
+      unavailableList: null == unavailableList
+          ? _value.unavailableList
+          : unavailableList // ignore: cast_nullable_to_non_nullable
               as List<UserModel>,
       addTargetMember: null == addTargetMember
           ? _value.addTargetMember
@@ -93,6 +100,7 @@ abstract class _$$GroupSettingStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {List<UserModel> fetchedUserList,
+      List<UserModel> unavailableList,
       List<UserModel> addTargetMember,
       bool isMember,
       bool isLoading});
@@ -110,6 +118,7 @@ class __$$GroupSettingStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? fetchedUserList = null,
+    Object? unavailableList = null,
     Object? addTargetMember = null,
     Object? isMember = null,
     Object? isLoading = null,
@@ -118,6 +127,10 @@ class __$$GroupSettingStateImplCopyWithImpl<$Res>
       fetchedUserList: null == fetchedUserList
           ? _value._fetchedUserList
           : fetchedUserList // ignore: cast_nullable_to_non_nullable
+              as List<UserModel>,
+      unavailableList: null == unavailableList
+          ? _value._unavailableList
+          : unavailableList // ignore: cast_nullable_to_non_nullable
               as List<UserModel>,
       addTargetMember: null == addTargetMember
           ? _value._addTargetMember
@@ -142,10 +155,12 @@ class _$GroupSettingStateImpl
     implements _GroupSettingState {
   const _$GroupSettingStateImpl(
       {final List<UserModel> fetchedUserList = const [],
+      final List<UserModel> unavailableList = const [],
       final List<UserModel> addTargetMember = const [],
       this.isMember = false,
       this.isLoading = false})
       : _fetchedUserList = fetchedUserList,
+        _unavailableList = unavailableList,
         _addTargetMember = addTargetMember;
 
   factory _$GroupSettingStateImpl.fromJson(Map<String, dynamic> json) =>
@@ -158,6 +173,15 @@ class _$GroupSettingStateImpl
     if (_fetchedUserList is EqualUnmodifiableListView) return _fetchedUserList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_fetchedUserList);
+  }
+
+  final List<UserModel> _unavailableList;
+  @override
+  @JsonKey()
+  List<UserModel> get unavailableList {
+    if (_unavailableList is EqualUnmodifiableListView) return _unavailableList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_unavailableList);
   }
 
   final List<UserModel> _addTargetMember;
@@ -178,7 +202,7 @@ class _$GroupSettingStateImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'GroupSettingState(fetchedUserList: $fetchedUserList, addTargetMember: $addTargetMember, isMember: $isMember, isLoading: $isLoading)';
+    return 'GroupSettingState(fetchedUserList: $fetchedUserList, unavailableList: $unavailableList, addTargetMember: $addTargetMember, isMember: $isMember, isLoading: $isLoading)';
   }
 
   @override
@@ -187,6 +211,7 @@ class _$GroupSettingStateImpl
     properties
       ..add(DiagnosticsProperty('type', 'GroupSettingState'))
       ..add(DiagnosticsProperty('fetchedUserList', fetchedUserList))
+      ..add(DiagnosticsProperty('unavailableList', unavailableList))
       ..add(DiagnosticsProperty('addTargetMember', addTargetMember))
       ..add(DiagnosticsProperty('isMember', isMember))
       ..add(DiagnosticsProperty('isLoading', isLoading));
@@ -200,6 +225,8 @@ class _$GroupSettingStateImpl
             const DeepCollectionEquality()
                 .equals(other._fetchedUserList, _fetchedUserList) &&
             const DeepCollectionEquality()
+                .equals(other._unavailableList, _unavailableList) &&
+            const DeepCollectionEquality()
                 .equals(other._addTargetMember, _addTargetMember) &&
             (identical(other.isMember, isMember) ||
                 other.isMember == isMember) &&
@@ -212,6 +239,7 @@ class _$GroupSettingStateImpl
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_fetchedUserList),
+      const DeepCollectionEquality().hash(_unavailableList),
       const DeepCollectionEquality().hash(_addTargetMember),
       isMember,
       isLoading);
@@ -234,6 +262,7 @@ class _$GroupSettingStateImpl
 abstract class _GroupSettingState implements GroupSettingState {
   const factory _GroupSettingState(
       {final List<UserModel> fetchedUserList,
+      final List<UserModel> unavailableList,
       final List<UserModel> addTargetMember,
       final bool isMember,
       final bool isLoading}) = _$GroupSettingStateImpl;
@@ -243,6 +272,8 @@ abstract class _GroupSettingState implements GroupSettingState {
 
   @override
   List<UserModel> get fetchedUserList;
+  @override
+  List<UserModel> get unavailableList;
   @override
   List<UserModel> get addTargetMember;
   @override

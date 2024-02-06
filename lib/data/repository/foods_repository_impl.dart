@@ -37,9 +37,9 @@ class RegisterdFoodsRepositoryImpl implements RegisterdFoodsRepository {
   }
 
   @override
-  List<FoodDetail> getMyFoodDetail(List<FoodDetail> allFoods, String userName) {
+  List<FoodDetail> getMyFoodDetail(List<FoodDetail> allFoods, String userName, String validationCode) {
     // final repository = RegisterdFoodsRepository();
-    return allFoods.where((e) => e.userName == userName).toList();
+    return allFoods.where((e) => e.userName == userName && e.vlaidationCode == validationCode).toList();
   }
 
   @override
