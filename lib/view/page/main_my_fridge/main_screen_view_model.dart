@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:leute/data/models/user_model.dart';
-import 'package:leute/data/repository/user_data_repository_impl.dart';
 import 'package:leute/view/page/main_my_fridge/main_screen_state.dart';
 import 'package:leute/view/widget/main_my_fridge_widget/make_fridge_widget.dart';
 
@@ -10,11 +9,17 @@ import '../../../data/repository/refrige_repository_impl.dart';
 import '../../../domain/user_data_repository.dart';
 
 class MainScreenViewModel extends ChangeNotifier {
+  final UserDataRepository userDataRepository;
+
+  MainScreenViewModel({
+    required this.userDataRepository,
+  }) {
+    fetchFridgeData();
+  }
+
   List<Widget> fridges = [];
 
-  final UserDataRepository userDataRepository = UserDataRepositoryImpl();
-
-  MainScreenState _state = MainScreenState();
+  MainScreenState _state = const MainScreenState();
 
   MainScreenState get state => _state;
 
@@ -29,10 +34,6 @@ class MainScreenViewModel extends ChangeNotifier {
     if (!state.disposed) {
       super.notifyListeners();
     }
-  }
-
-  MainScreenViewModel() {
-    fetchFridgeData();
   }
 
   Future<void> fetchFridgeData() async {

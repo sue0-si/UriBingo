@@ -1,14 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:leute/data/repository/foods_repository_impl.dart';
-import 'package:leute/data/repository/refrige_repository_impl.dart';
+import 'package:leute/domain/foods_repository.dart';
+import 'package:leute/domain/refrige_repository.dart';
 import 'package:leute/view/page/main_my_fridge/my_fridge_state.dart';
 
 class MyFridgeViewModel extends ChangeNotifier {
-  final foodRepository = RegisterdFoodsRepositoryImpl();
-  final refrigeRepository = RegisterdRefrigeRepositoryImpl();
+  final RegisterdFoodsRepository foodRepository;
+  final RegisterdRefrigeRepository refrigeRepository;
 
-  MyFridgeState _state = MyFridgeState();
+  MyFridgeViewModel({
+    required this.foodRepository,
+    required this.refrigeRepository,
+  }) {
+    fetchMyFridgeData();
+  }
+
+  MyFridgeState _state = const MyFridgeState();
 
   MyFridgeState get state => _state;
 
@@ -23,10 +30,6 @@ class MyFridgeViewModel extends ChangeNotifier {
     if (!state.disposed) {
       super.notifyListeners();
     }
-  }
-
-  MyFridgeViewModel() {
-    fetchMyFridgeData();
   }
 
   Future<void> fetchMyFridgeData() async {

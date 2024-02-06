@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:leute/di/di_setup.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/page/my_page/my_page.dart';
 import 'package:leute/view/page/main_my_fridge/main_screen_view_model.dart';
@@ -24,11 +25,11 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   final List<Widget> _pages = <Widget>[
     ChangeNotifierProvider(
-      create: (_) => MainScreenViewModel(),
+      create: (_) => getIt<MainScreenViewModel>(),
       child: const MainScreen(),
     ),
     ChangeNotifierProvider(
-      create: (_) => MyFridgeViewModel(),
+      create: (_) => getIt<MyFridgeViewModel>(),
       child: const MyFridge(),
     ),
     const MyPage(),
