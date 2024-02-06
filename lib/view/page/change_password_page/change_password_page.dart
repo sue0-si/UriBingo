@@ -17,12 +17,16 @@ class ChangePasswordPage extends StatefulWidget {
 }
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
+  final _currentPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey2 = GlobalKey<FormState>();
+  final currentUser = FirebaseAuth.instance.currentUser!;
 
   @override
   void dispose() {
     _newPasswordController.dispose();
+    _currentPasswordController.dispose();
     super.dispose();
   }
 
@@ -42,13 +46,21 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: SizedBox(
-          height: 200.h,
+          height: 250.h,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 '비밀번호 변경',
                 style: AppTextStyle.header22(),
+              ),
+              Form(
+                key: _formKey2,
+                child: PasswordTextfield(
+                  hintText: '현재 비밀번호',
+                  controller: _currentPasswordController,
+                  validator: viewModel.passwordValidator,
+                ),
               ),
               Form(
                 key: _formKey,
@@ -59,35 +71,72 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 ),
               ),
               CustomButton(
-                width: 100.w,
-                height: 30.h,
-                backgroundColor: const Color(0xFF9bc6bf),
-                textStyle: AppTextStyle.body14R(color: Colors.white),
-                text: '변경하기',
-                onTap: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    FirebaseAuth.instance.currentUser
-                        ?.updatePassword(_newPasswordController.text);
+                  width: 100.w,
+                  height: 30.h,
+                  backgroundColor: const Color(0xFF9bc6bf),
+                  textStyle: AppTextStyle.body14R(color: Colors.white),
+                  text: '변경하기',
+                  onTap: () async {
+                    if (_formKey.currentState?.validate() ?? false) {
+                      final cred = await EmailAuthProvider.credential(
+                          email: currentUser.email!,
+                          password: _currentPasswordController.text);
 
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return OneAnswerDialog(
-                          onTap: () async {
-                            await FirebaseAuth.instance.signOut();
-                            if (mounted) {
-                              context.go('/login');
-                            }
-                          },
-                          title: '정상 변경되었습니다.',
-                          firstButton: '확인',
-                          subtitle: '새로운 비밀번호로 로그인 해주세요.',
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
+                      currentUser
+                          .reauthenticateWithCredential(cred)
+                          .then((value) async {
+                        await currentUser
+                            .updatePassword(_newPasswordController.text);
+                        if (mounted) {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return OneAnswerDialog(
+                                  onTap: () async {
+                                    await FirebaseAuth.instance.signOut();
+                                    context.go('/login');
+                                  },
+                                  title: '정상 변경되었습니다.',
+                                  firstButton: '확인',
+                                  subtitle: '새로운 비밀번호로 로그인 해주세요.',
+                                );
+                              });
+                        }
+                      }).catchError((error) {
+                        if (error is FirebaseAuthException) {
+                          if (error.code == 'requires-recent-login') {
+                            OneAnswerDialog(
+                              onTap: () async {
+                                await FirebaseAuth.instance.signOut();
+                                context.go('/login');
+                              },
+                              title: '로그인 세션이 만료되었습니다.',
+                              firstButton: '확인',
+                              subtitle: '다시 로그인 해주세요.',
+                            );
+                          } else if (error.code == 'invalid-credential'){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('입력하신 현재 비밀번호가 틀렸습니다.'),
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('인증 오류가 발생했습니다. 잠시후 다시 시도해주세요.'),
+                              ),
+                            );
+                          }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('오류가 발생했습니다. 잠시후 다시 시도해주세요.'),
+                            ),
+                          );
+                        }
+                      });
+                    }
+                  }),
             ],
           ),
         ),

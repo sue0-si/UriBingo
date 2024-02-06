@@ -9,9 +9,6 @@ import 'package:leute/styles/app_text_style.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import '../../../data/models/foods_model.dart';
-import '../../../data/models/user_model.dart';
-import '../../../data/repository/user_data_repository_impl.dart';
-import '../../../domain/user_data_repository.dart';
 import '../../../main.dart';
 import 'register_view_model.dart';
 import 'package:leute/view/widget/custom_buttons/custom_button.dart';
@@ -27,24 +24,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  bool isManager = false;
-  String groupName = '';
 
-  @override
-  void initState() {
-    getManagerStatus();
-    super.initState();
-  }
-
-  Future getManagerStatus() async {
-    List<UserModel> userData = await UserDataRepositoryImpl().getFirebaseUserData();
-    UserModel currentUser = userData.firstWhere(
-        (user) => user.email == FirebaseAuth.instance.currentUser!.email);
-    setState(() {
-      isManager = currentUser.manager;
-      groupName = currentUser.groupName;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +192,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           userName: FirebaseAuth.instance
                                                   .currentUser!.displayName ??
                                               'noName',
-                                          vlaidationCode: groupName,
+                                          vlaidationCode: viewModel.groupName,
                                           registerDate: registerDate,
                                           isPublic: state.selected,
                                           isExtended: false,
@@ -251,7 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             height: 64.h,
                           ),
                           // 관리자만 보이는 버튼
-                          isManager
+                          viewModel.isManager
                               ? Column(
                                   children: [
                                     Text(
