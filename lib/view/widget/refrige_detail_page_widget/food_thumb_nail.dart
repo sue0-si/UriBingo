@@ -1,3 +1,5 @@
+// 냉장고 상세 음식 아이콘
+
 import 'package:flutter/material.dart';
 import 'package:leute/view/widget/custom_widgets/super_container.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';

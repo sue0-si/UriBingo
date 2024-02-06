@@ -1,3 +1,5 @@
+//냉장고 상세 추가되는 음식 리스트
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';

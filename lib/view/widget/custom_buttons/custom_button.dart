@@ -1,3 +1,5 @@
+// 공통버튼 (회원가입/로그인 제외)
+
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {

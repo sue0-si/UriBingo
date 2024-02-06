@@ -1,3 +1,5 @@
+//음식 사진 확대
+
 import 'package:flutter/material.dart';
 
 class FoodDetailImageWidget extends StatelessWidget {

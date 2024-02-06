@@ -1,3 +1,5 @@
+//음식 사진에 공통으로 들어가는 컨테이너
+
 import 'package:cupertino_rounded_corners/cupertino_rounded_corners.dart';
 import 'package:flutter/cupertino.dart';
 
