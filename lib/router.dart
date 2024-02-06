@@ -9,7 +9,7 @@ import 'package:leute/view/page/login_page/login_page.dart';
 import 'package:leute/view/page/password_reset_page/password_reset_page.dart';
 import 'package:leute/view/page/signup_page/signup_page.dart';
 import 'package:leute/view/page/main_my_fridge/main_page.dart';
-import 'package:leute/view/page/my_food_detail_page/my_food_detail_screen.dart';
+import 'package:leute/view/page/my_food_detail_page/my_food_detail_page.dart';
 import 'package:leute/view/page/refrige_detail_page/refrige_detail_screen.dart';
 import 'package:leute/view/page/register_page/register_page.dart';
 import 'package:leute/view/page/group_setting_page/group_setting_page_view_model.dart';
