@@ -34,7 +34,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            context.pop();
+            context.go('/main_page', extra: 2);
           },
           icon: const Icon(Icons.arrow_back),
         ),
