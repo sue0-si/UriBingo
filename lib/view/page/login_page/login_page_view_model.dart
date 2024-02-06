@@ -16,9 +16,6 @@ class LoginPageViewModel with ChangeNotifier {
   String idMemory = '';
   SharedPreferences? prefs;
 
-  LoginPageViewModel() {
-    initPreferences();
-  }
   // 로그인
   Future<void> handleLoginButton(
       {required String email,

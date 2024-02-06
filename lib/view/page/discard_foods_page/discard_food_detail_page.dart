@@ -68,9 +68,9 @@ class _DiscardFoodDetailState extends State<DiscardFoodDetail> {
             tag: 'imageTag',
             child: SuperContainer(
               height: 200.h,
-              width: 300.w,
-              border: 120.r,
-              borderWidth: 9,
+              width: 280.w,
+              border: 170.r,
+              borderWidth: 15.w,
               borderColor:
                   viewModel.state.isOld ? AppColors.caution : const Color(0xFF9bc6bf),
               image: DecorationImage(
@@ -82,54 +82,43 @@ class _DiscardFoodDetailState extends State<DiscardFoodDetail> {
         ),
         SizedBox(height: 32.h),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.w),
+          padding: EdgeInsets.symmetric(horizontal: 45.w),
           child: Column(
             children: [
               Row(
                 children: [
-                  Text('주  인: ${widget.myFoodItem.userName}',
-                      style: AppTextStyle.body14R()),
-                ],
-              ),
-              Row(
-                children: [
                   Text(
                       '등록일: ${dateFormat.format(DateTime.fromMillisecondsSinceEpoch(widget.myFoodItem.registerDate))}',
-                      style: AppTextStyle.body14R()),
+                      style: AppTextStyle.body15R()),
                 ],
               ),
+              SizedBox(height: 5.h),
               Row(
                 children: [
-                  Text('남은기간: ', style: AppTextStyle.body14R()),
+                  Text('음식주인: ${widget.myFoodItem.userName}',
+                      style: AppTextStyle.body15R()),
+                ],
+              ),
+              SizedBox(height: 5.h),
+              Row(
+                children: [
+                  Text('남은기간: ', style: AppTextStyle.body15R()),
                   Text(
                     '${viewModel.state.remainPeriod} 일',
-                    style: AppTextStyle.body14R(
+                    style: AppTextStyle.body15R(
                         color: viewModel.state.isOld
                             ? AppColors.caution
                             : AppColors.mainText),
                   ),
-                  const Spacer(),
                 ],
               ),
-              SizedBox(height: 90.h),
-              //남은 기간에 따라 다른 텍스트 출력
-              viewModel.state.isOld
-                  ? Text('곧 폐기됩니다.',
-                      style: AppTextStyle.body14M(color: AppColors.caution))
-                  : widget.myFoodItem.isExtended
-                      ? Text('더이상 연장이 불가해요',
-                          style:
-                              AppTextStyle.body14M(color: AppColors.mainText))
-                      : Text('아직은 연장이 불가해요',
-                          style:
-                              AppTextStyle.body14M(color: AppColors.mainText)),
-              SizedBox(height: 110.h),
+              SizedBox(height: 100.h),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
+                          borderRadius: BorderRadius.circular(15.r)),
                       backgroundColor: const Color(0xFFcb7d74)),
                   onPressed: () {
                     showDialog(
