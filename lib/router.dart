@@ -41,7 +41,7 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
       path: '/myfooddetail',
       builder: (context, state) {
         return ChangeNotifierProvider(
-          create: (_) => MyFoodDetailViewModel(),
+          create: (_) => getIt<MyFoodDetailViewModel>(),
           child: MyFoodDetail(
             myFoodItem: (state.extra as List)[0],
             ourRefrigItem: (state.extra as List)[1],
