@@ -14,6 +14,7 @@ class MyFridge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MyFridgeViewModel>();
+    final state = viewModel.state;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -29,14 +30,14 @@ class MyFridge extends StatelessWidget {
               borderRadius: BorderRadius.circular(10).r),
         ),
       ),
-      body: viewModel.isLoading
+      body: state.isLoading
           ? Center(
               child: LoadingAnimationWidget.inkDrop(
                 color: const Color(0xFF9bc6bf),
                 size: 50,
               ),
             )
-          : viewModel.myFoodDetails.isEmpty
+          : state.myFoodDetails.isEmpty
               ? const Center(
                   child: Text('보관중인 음식이 없습니다.'),
                 )
@@ -45,12 +46,12 @@ class MyFridge extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        for (var refrigeDetail in viewModel.refrigeDetails)
+                        for (var refrigeDetail in state.refrigeDetails)
                           Column(
                             children: [
                               Stack(
                                 children: [
-                                  if (viewModel.myFoodDetails
+                                  if (state.myFoodDetails
                                       .where((e) =>
                                           e.refrigeName ==
                                           refrigeDetail.refrigeName)
@@ -77,7 +78,7 @@ class MyFridge extends StatelessWidget {
                                               crossAxisSpacing: 10,
                                               childAspectRatio: 1 / 1,
                                             ),
-                                            itemCount: viewModel.myFoodDetails
+                                            itemCount: state.myFoodDetails
                                                 .where((e) =>
                                                     e.refrigeName ==
                                                     refrigeDetail.refrigeName)
@@ -87,7 +88,7 @@ class MyFridge extends StatelessWidget {
                                                 onTap: () {
                                                   context.go('/myfooddetail',
                                                       extra: [
-                                                        viewModel.myFoodDetails
+                                                        state.myFoodDetails
                                                             .where((e) =>
                                                                 e.refrigeName ==
                                                                 refrigeDetail
@@ -101,7 +102,7 @@ class MyFridge extends StatelessWidget {
                                                   width: 100,
                                                   border: 80,
                                                   borderWidth: 10,
-                                                  borderColor: (viewModel
+                                                  borderColor: (state
                                                               .myFoodDetails
                                                               .where((e) =>
                                                                   e.refrigeName ==
@@ -115,7 +116,7 @@ class MyFridge extends StatelessWidget {
                                                   image: DecorationImage(
                                                     fit: BoxFit.cover,
                                                     image: NetworkImage(
-                                                      viewModel.myFoodDetails
+                                                      state.myFoodDetails
                                                           .where((e) =>
                                                               e.refrigeName ==
                                                               refrigeDetail
@@ -131,7 +132,7 @@ class MyFridge extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                  if (viewModel.myFoodDetails
+                                  if (state.myFoodDetails
                                       .where((e) =>
                                           e.refrigeName ==
                                           refrigeDetail.refrigeName)
@@ -165,7 +166,7 @@ class MyFridge extends StatelessWidget {
                                     ),
                                 ],
                               ),
-                              if (viewModel.myFoodDetails
+                              if (state.myFoodDetails
                                   .where((e) =>
                                       e.refrigeName ==
                                       refrigeDetail.refrigeName)

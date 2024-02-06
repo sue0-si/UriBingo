@@ -1,27 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:leute/data/models/foods_model.dart';
-import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/repository/foods_repository.dart';
 import 'package:leute/data/repository/refrige_repository.dart';
+import 'package:leute/view/page/main_my_fridge/my_fridge_state.dart';
 
 class MyFridgeViewModel extends ChangeNotifier {
   final foodRepository = RegisterdFoodsRepository();
   final refrigeRepository = RegisterdRefrigeRepository();
-  List<FoodDetail> myFoodDetails = [];
-  List<RefrigeDetail> refrigeDetails = [];
-  bool _disposed = false;
-  bool isLoading = false;
+
+  MyFridgeState _state = const MyFridgeState();
+
+  MyFridgeState get state => _state;
 
   @override
   void dispose() {
-    _disposed = true;
+    _state = state.copyWith(disposed: true);
     super.dispose();
   }
 
   @override
   notifyListeners() {
-    if (!_disposed) {
+    if (!state.disposed) {
       super.notifyListeners();
     }
   }
@@ -31,15 +30,16 @@ class MyFridgeViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchMyFridgeData() async {
-    isLoading = true;
+    _state = state.copyWith(isLoading: true);
     notifyListeners();
 
     final allFoods = await foodRepository.getFirebaseFoodsData();
-    refrigeDetails = await refrigeRepository.getFirebaseRefrigesData();
-    myFoodDetails = foodRepository.getMyFoodDetail(
-        allFoods, FirebaseAuth.instance.currentUser!.displayName!);
-    // refrigeDetails;
-    isLoading = false;
+    _state = state.copyWith(
+        refrigeDetails: await refrigeRepository.getFirebaseRefrigesData());
+    _state = state.copyWith(
+        myFoodDetails: foodRepository.getMyFoodDetail(
+            allFoods, FirebaseAuth.instance.currentUser!.displayName!));
+    _state = state.copyWith(isLoading: false);
     notifyListeners();
   }
 }

@@ -43,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
               )
             : Stack(
                 children: [
-                  viewModel.refrigeItems.isEmpty
+                  state.refrigeItems.isEmpty
                       ? const Center(
                           child: Text('등록된 냉장고가 없습니다.'),
                         )
