@@ -35,8 +35,6 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
           create: (_) => MyPageViewModel(),
           child: MainPage(currentPageIndex: state.extra as int))),
 
-  // GoRoute(path: '/allmyfoods', builder: (context, state) => const MyFridge()),
-
   // 나의음식 상세 페이지
   GoRoute(
       path: '/myfooddetail',

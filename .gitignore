@@ -94,6 +94,7 @@ lib/generated_plugin_registrant.dart
 bin/
 gen/
 out/
+*.g.dart
 
 # Gradle files
 .gradle
