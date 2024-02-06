@@ -22,7 +22,6 @@ MyFridgeState _$MyFridgeStateFromJson(Map<String, dynamic> json) {
 mixin _$MyFridgeState {
   List<FoodDetail> get myFoodDetails => throw _privateConstructorUsedError;
   List<RefrigeDetail> get refrigeDetails => throw _privateConstructorUsedError;
-  bool get disposed => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +39,6 @@ abstract class $MyFridgeStateCopyWith<$Res> {
   $Res call(
       {List<FoodDetail> myFoodDetails,
       List<RefrigeDetail> refrigeDetails,
-      bool disposed,
       bool isLoading});
 }
 
@@ -59,7 +57,6 @@ class _$MyFridgeStateCopyWithImpl<$Res, $Val extends MyFridgeState>
   $Res call({
     Object? myFoodDetails = null,
     Object? refrigeDetails = null,
-    Object? disposed = null,
     Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
@@ -71,10 +68,6 @@ class _$MyFridgeStateCopyWithImpl<$Res, $Val extends MyFridgeState>
           ? _value.refrigeDetails
           : refrigeDetails // ignore: cast_nullable_to_non_nullable
               as List<RefrigeDetail>,
-      disposed: null == disposed
-          ? _value.disposed
-          : disposed // ignore: cast_nullable_to_non_nullable
-              as bool,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -94,7 +87,6 @@ abstract class _$$MyFridgeStateImplCopyWith<$Res>
   $Res call(
       {List<FoodDetail> myFoodDetails,
       List<RefrigeDetail> refrigeDetails,
-      bool disposed,
       bool isLoading});
 }
 
@@ -111,7 +103,6 @@ class __$$MyFridgeStateImplCopyWithImpl<$Res>
   $Res call({
     Object? myFoodDetails = null,
     Object? refrigeDetails = null,
-    Object? disposed = null,
     Object? isLoading = null,
   }) {
     return _then(_$MyFridgeStateImpl(
@@ -123,10 +114,6 @@ class __$$MyFridgeStateImplCopyWithImpl<$Res>
           ? _value._refrigeDetails
           : refrigeDetails // ignore: cast_nullable_to_non_nullable
               as List<RefrigeDetail>,
-      disposed: null == disposed
-          ? _value.disposed
-          : disposed // ignore: cast_nullable_to_non_nullable
-              as bool,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -143,7 +130,6 @@ class _$MyFridgeStateImpl
   const _$MyFridgeStateImpl(
       {final List<FoodDetail> myFoodDetails = const [],
       final List<RefrigeDetail> refrigeDetails = const [],
-      this.disposed = false,
       this.isLoading = false})
       : _myFoodDetails = myFoodDetails,
         _refrigeDetails = refrigeDetails;
@@ -171,14 +157,11 @@ class _$MyFridgeStateImpl
 
   @override
   @JsonKey()
-  final bool disposed;
-  @override
-  @JsonKey()
   final bool isLoading;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'MyFridgeState(myFoodDetails: $myFoodDetails, refrigeDetails: $refrigeDetails, disposed: $disposed, isLoading: $isLoading)';
+    return 'MyFridgeState(myFoodDetails: $myFoodDetails, refrigeDetails: $refrigeDetails, isLoading: $isLoading)';
   }
 
   @override
@@ -188,7 +171,6 @@ class _$MyFridgeStateImpl
       ..add(DiagnosticsProperty('type', 'MyFridgeState'))
       ..add(DiagnosticsProperty('myFoodDetails', myFoodDetails))
       ..add(DiagnosticsProperty('refrigeDetails', refrigeDetails))
-      ..add(DiagnosticsProperty('disposed', disposed))
       ..add(DiagnosticsProperty('isLoading', isLoading));
   }
 
@@ -201,8 +183,6 @@ class _$MyFridgeStateImpl
                 .equals(other._myFoodDetails, _myFoodDetails) &&
             const DeepCollectionEquality()
                 .equals(other._refrigeDetails, _refrigeDetails) &&
-            (identical(other.disposed, disposed) ||
-                other.disposed == disposed) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading));
   }
@@ -213,7 +193,6 @@ class _$MyFridgeStateImpl
       runtimeType,
       const DeepCollectionEquality().hash(_myFoodDetails),
       const DeepCollectionEquality().hash(_refrigeDetails),
-      disposed,
       isLoading);
 
   @JsonKey(ignore: true)
@@ -234,7 +213,6 @@ abstract class _MyFridgeState implements MyFridgeState {
   const factory _MyFridgeState(
       {final List<FoodDetail> myFoodDetails,
       final List<RefrigeDetail> refrigeDetails,
-      final bool disposed,
       final bool isLoading}) = _$MyFridgeStateImpl;
 
   factory _MyFridgeState.fromJson(Map<String, dynamic> json) =
@@ -244,8 +222,6 @@ abstract class _MyFridgeState implements MyFridgeState {
   List<FoodDetail> get myFoodDetails;
   @override
   List<RefrigeDetail> get refrigeDetails;
-  @override
-  bool get disposed;
   @override
   bool get isLoading;
   @override

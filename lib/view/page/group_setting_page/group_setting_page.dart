@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:leute/data/models/user_model.dart';
 import 'package:leute/styles/app_text_colors.dart';
 import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
@@ -107,7 +106,8 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('${state.fetchedUserList.first.groupName} 리스트 (${state.fetchedUserList.length})',
+                    Text(
+                        '${(state.fetchedUserList.isNotEmpty) ? state.fetchedUserList.first.groupName : ''} 리스트 (${state.fetchedUserList.length})',
                         style: AppTextStyle.body16B()),
                     ElevatedButton(
                       onPressed: () {

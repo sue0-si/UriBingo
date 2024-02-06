@@ -12,7 +12,6 @@ class MyFridgeState with _$MyFridgeState {
   const factory MyFridgeState({
     @Default([]) List<FoodDetail> myFoodDetails,
     @Default([]) List<RefrigeDetail> refrigeDetails,
-    @Default(false) bool disposed,
     @Default(false) bool isLoading,
   }) = _MyFridgeState;
 

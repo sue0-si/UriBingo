@@ -23,15 +23,17 @@ class MainScreenViewModel extends ChangeNotifier {
 
   MainScreenState get state => _state;
 
+  bool _disposed = false;
+
   @override
   void dispose() {
-    _state = state.copyWith(disposed: true);
+    _disposed = true;
     super.dispose();
   }
 
   @override
   notifyListeners() {
-    if (!state.disposed) {
+    if (!_disposed) {
       super.notifyListeners();
     }
   }

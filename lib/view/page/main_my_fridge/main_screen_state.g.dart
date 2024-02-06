@@ -17,7 +17,6 @@ _$MainScreenStateImpl _$$MainScreenStateImplFromJson(
           ? null
           : UserModel.fromJson(json['currentUser'] as Map<String, dynamic>),
       isLoading: json['isLoading'] as bool? ?? false,
-      disposed: json['disposed'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$MainScreenStateImplToJson(
@@ -26,5 +25,4 @@ Map<String, dynamic> _$$MainScreenStateImplToJson(
       'refrigeItems': instance.refrigeItems,
       'currentUser': instance.currentUser,
       'isLoading': instance.isLoading,
-      'disposed': instance.disposed,
     };

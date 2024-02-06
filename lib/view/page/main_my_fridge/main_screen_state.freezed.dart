@@ -23,7 +23,6 @@ mixin _$MainScreenState {
   List<RefrigeDetail> get refrigeItems => throw _privateConstructorUsedError;
   UserModel? get currentUser => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
-  bool get disposed => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,8 +39,7 @@ abstract class $MainScreenStateCopyWith<$Res> {
   $Res call(
       {List<RefrigeDetail> refrigeItems,
       UserModel? currentUser,
-      bool isLoading,
-      bool disposed});
+      bool isLoading});
 }
 
 /// @nodoc
@@ -60,7 +58,6 @@ class _$MainScreenStateCopyWithImpl<$Res, $Val extends MainScreenState>
     Object? refrigeItems = null,
     Object? currentUser = freezed,
     Object? isLoading = null,
-    Object? disposed = null,
   }) {
     return _then(_value.copyWith(
       refrigeItems: null == refrigeItems
@@ -74,10 +71,6 @@ class _$MainScreenStateCopyWithImpl<$Res, $Val extends MainScreenState>
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      disposed: null == disposed
-          ? _value.disposed
-          : disposed // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -94,8 +87,7 @@ abstract class _$$MainScreenStateImplCopyWith<$Res>
   $Res call(
       {List<RefrigeDetail> refrigeItems,
       UserModel? currentUser,
-      bool isLoading,
-      bool disposed});
+      bool isLoading});
 }
 
 /// @nodoc
@@ -112,7 +104,6 @@ class __$$MainScreenStateImplCopyWithImpl<$Res>
     Object? refrigeItems = null,
     Object? currentUser = freezed,
     Object? isLoading = null,
-    Object? disposed = null,
   }) {
     return _then(_$MainScreenStateImpl(
       refrigeItems: null == refrigeItems
@@ -127,10 +118,6 @@ class __$$MainScreenStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      disposed: null == disposed
-          ? _value.disposed
-          : disposed // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -141,8 +128,7 @@ class _$MainScreenStateImpl implements _MainScreenState {
   const _$MainScreenStateImpl(
       {final List<RefrigeDetail> refrigeItems = const [],
       this.currentUser,
-      this.isLoading = false,
-      this.disposed = false})
+      this.isLoading = false})
       : _refrigeItems = refrigeItems;
 
   factory _$MainScreenStateImpl.fromJson(Map<String, dynamic> json) =>
@@ -162,13 +148,10 @@ class _$MainScreenStateImpl implements _MainScreenState {
   @override
   @JsonKey()
   final bool isLoading;
-  @override
-  @JsonKey()
-  final bool disposed;
 
   @override
   String toString() {
-    return 'MainScreenState(refrigeItems: $refrigeItems, currentUser: $currentUser, isLoading: $isLoading, disposed: $disposed)';
+    return 'MainScreenState(refrigeItems: $refrigeItems, currentUser: $currentUser, isLoading: $isLoading)';
   }
 
   @override
@@ -181,9 +164,7 @@ class _$MainScreenStateImpl implements _MainScreenState {
             (identical(other.currentUser, currentUser) ||
                 other.currentUser == currentUser) &&
             (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
-            (identical(other.disposed, disposed) ||
-                other.disposed == disposed));
+                other.isLoading == isLoading));
   }
 
   @JsonKey(ignore: true)
@@ -192,8 +173,7 @@ class _$MainScreenStateImpl implements _MainScreenState {
       runtimeType,
       const DeepCollectionEquality().hash(_refrigeItems),
       currentUser,
-      isLoading,
-      disposed);
+      isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -214,8 +194,7 @@ abstract class _MainScreenState implements MainScreenState {
   const factory _MainScreenState(
       {final List<RefrigeDetail> refrigeItems,
       final UserModel? currentUser,
-      final bool isLoading,
-      final bool disposed}) = _$MainScreenStateImpl;
+      final bool isLoading}) = _$MainScreenStateImpl;
 
   factory _MainScreenState.fromJson(Map<String, dynamic> json) =
       _$MainScreenStateImpl.fromJson;
@@ -226,8 +205,6 @@ abstract class _MainScreenState implements MainScreenState {
   UserModel? get currentUser;
   @override
   bool get isLoading;
-  @override
-  bool get disposed;
   @override
   @JsonKey(ignore: true)
   _$$MainScreenStateImplCopyWith<_$MainScreenStateImpl> get copyWith =>

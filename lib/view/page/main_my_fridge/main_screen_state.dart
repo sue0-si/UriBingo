@@ -12,7 +12,6 @@ class MainScreenState with _$MainScreenState {
     @Default([]) List<RefrigeDetail> refrigeItems,
     UserModel? currentUser,
     @Default(false) bool isLoading,
-    @Default(false) bool disposed,
   }) = _MainScreenState;
 
   factory MainScreenState.fromJson(Map<String, Object?> json) =>

@@ -16,7 +16,6 @@ _$MyFridgeStateImpl _$$MyFridgeStateImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => RefrigeDetail.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      disposed: json['disposed'] as bool? ?? false,
       isLoading: json['isLoading'] as bool? ?? false,
     );
 
@@ -24,6 +23,5 @@ Map<String, dynamic> _$$MyFridgeStateImplToJson(_$MyFridgeStateImpl instance) =>
     <String, dynamic>{
       'myFoodDetails': instance.myFoodDetails,
       'refrigeDetails': instance.refrigeDetails,
-      'disposed': instance.disposed,
       'isLoading': instance.isLoading,
     };

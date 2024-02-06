@@ -1,7 +1,8 @@
 import 'package:get_it/get_it.dart';
-import 'package:leute/view/page/my_food_detail_page/my_food_detail_view_model.dart';
 import 'package:leute/view/page/main_my_fridge/main_screen_view_model.dart';
 import 'package:leute/view/page/main_my_fridge/my_fridge_view_model.dart';
+import 'package:leute/view/page/my_food_detail_page/my_food_detail_view_model.dart';
+
 import '../data/repository/foods_repository_impl.dart';
 import '../data/repository/refrige_repository_impl.dart';
 import '../data/repository/user_data_repository_impl.dart';
@@ -42,6 +43,7 @@ void diSetup() {
       MainScreenViewModel(userDataRepository: getIt<UserDataRepository>()));
 
   getIt.registerFactory<MyFridgeViewModel>(() => MyFridgeViewModel(
+      userDataRepository: getIt<UserDataRepository>(),
       foodRepository: getIt<RegisterdFoodsRepository>(),
       refrigeRepository: getIt<RegisterdRefrigeRepository>()));
 }
