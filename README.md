@@ -2,7 +2,7 @@
 
 공용 냉장고 관리 솔루션을 제공하는 앱
 
-![제목 없는 디자인](https://github.com/sanghyun3377/project_super.team/assets/89803783/601548f8-38b9-4d4d-9d39-a771f2c1e62f)
+![제목 추가](https://github.com/sanghyun3377/project_super.team/assets/89803783/120e6f74-eb01-4b54-b00d-f9a7f2a2f060)
 
 
 ## Contributors
