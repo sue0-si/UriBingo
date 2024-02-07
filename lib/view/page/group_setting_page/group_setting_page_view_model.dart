@@ -55,9 +55,7 @@ class GroupSettingPageViewModel with ChangeNotifier {
       print('Error fetching data: $error');
     } finally {
       _state = state.copyWith(isLoading: false);
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        notifyListeners();
-      });
+      notifyListeners();
     }
   }
 
@@ -72,10 +70,7 @@ class GroupSettingPageViewModel with ChangeNotifier {
                 (user.name.contains(query) || user.email.contains(query)))
             .toList(),
         isLoading: false);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      notifyListeners();
-    });
+    notifyListeners();
   }
 
   // 그룹원 상태 변경 함수
@@ -100,25 +95,20 @@ class GroupSettingPageViewModel with ChangeNotifier {
           ).toJson());
     }
     _state = state.copyWith(isLoading: false);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      notifyListeners();
-    });
+    notifyListeners();
   }
 
   // 미그룹원 검색 함수
-  Future<void> searchNoGroupUser(String userEmail) async {
-    _state = state.copyWith(isLoading: true);
-    notifyListeners();
+  Future<List<UserModel>> searchNoGroupUser(String userEmail) async {
     List<UserModel> userData = await userDataRepository.getFirebaseUserData();
     List<UserModel> noGroupUsers =
         userData.where((e) => e.validationCode == '').toList();
-    _state = state.copyWith(
-        isLoading: false,
-        addTargetMember:
-            noGroupUsers.where((user) => user.email == userEmail).toList());
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      notifyListeners();
-    });
+    notifyListeners();
+    List<UserModel> data =
+        noGroupUsers.where((user) => user.email == userEmail).toList();
+    _state = state.copyWith(addTargetMember: data);
+    notifyListeners();
+    return data;
   }
 
   // 그룹에 멤버 추가 함수

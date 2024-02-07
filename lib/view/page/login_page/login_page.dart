@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -29,15 +28,11 @@ class _LoginPageState extends State<LoginPage> {
   var messageString = '';
   String? token;
 
-  void getMyDeviceToken() async {
-    token = (await FirebaseMessaging.instance.getToken())!;
-    print("내 디바이스 토큰: $token");
-  }
+
 
   @override
   void initState() {
     super.initState();
-    getMyDeviceToken();
     Future.microtask(() {
       var viewmodel = context.read<LoginPageViewModel>();
       viewmodel.initPreferences().then((value) => emailController.text = value);

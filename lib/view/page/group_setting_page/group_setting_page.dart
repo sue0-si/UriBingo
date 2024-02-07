@@ -312,78 +312,72 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                             children: [
                               Expanded(
                                 child: LoginTextfield(
-                                    hintText: '이메일',
-                                    controller: addMemberController),
+                                  hintText: '이메일',
+                                  controller: addMemberController,
+                                  // onChanged: (value) async {
+                                  //   await viewModel.searchNoGroupUser(value);
+                                  // },
+                                ),
                               ),
                               const SizedBox(width: 4),
                               ElevatedButton(
-                                  onPressed: () async {
-                                    await viewModel.searchNoGroupUser(
-                                        addMemberController.text);
-                                    if (state.isLoading) {
-                                      Center(
-                                        child: LoadingAnimationWidget.inkDrop(
-                                          color: const Color(0xFF9bc6bf),
-                                          size: 50,
-                                        ),
-                                      );
-                                    } else {
-                                      if (state.addTargetMember.isNotEmpty) {
-                                        if (mounted) {
-                                          showDialog(
-                                            context: context,
-                                            builder: (desContext) {
-                                              return TwoAnswerDialog(
-                                                title: '추가할 정보를 확인하세요.',
-                                                subtitle:
-                                                '이름: ${state.addTargetMember[0].name}\n이메일: ${state.addTargetMember[0].email}',
-                                                firstButton: '확인',
-                                                secondButton: '취소',
-                                                onTap: () async {
-                                                  await viewModel.addToMember(
-                                                      state.addTargetMember[0]);
-                                                  state.isLoading
-                                                      ? Center(
-                                                    child:
-                                                    LoadingAnimationWidget
-                                                        .inkDrop(
-                                                      color: const Color(
-                                                          0xFF9bc6bf),
-                                                      size: 50,
-                                                    ),
-                                                  )
-                                                      : viewModel.fetchData();
-                                                  addMemberController.text = '';
-                                                  if (mounted) {
-                                                    Navigator.of(context,
-                                                        rootNavigator: true)
-                                                        .pop();
-                                                  }
-                                                },
-                                              );
-                                            },
-                                          );
-                                        }
-
+                                  onPressed: () async {    // 데이터 무결성 문제
+                                    final addMember =
+                                        await viewModel.searchNoGroupUser(
+                                            addMemberController.text);
+                                    if (addMember.isNotEmpty) {
+                                      if (mounted) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return TwoAnswerDialog(
+                                              title: '추가할 정보를 확인하세요.',
+                                              subtitle:
+                                                  '이름: ${addMember[0].name}\n이메일: ${addMember[0].email}',
+                                              firstButton: '확인',
+                                              secondButton: '취소',
+                                              onTap: () async {
+                                                await viewModel.addToMember(
+                                                    addMember[0]);
+                                                state.isLoading
+                                                    ? Center(
+                                                        child:
+                                                            LoadingAnimationWidget
+                                                                .inkDrop(
+                                                          color: const Color(
+                                                              0xFF9bc6bf),
+                                                          size: 50,
+                                                        ),
+                                                      )
+                                                    : viewModel.fetchData();
+                                                addMemberController.text = '';
+                                                if (mounted) {
+                                                  Navigator.of(context,
+                                                          rootNavigator: true)
+                                                      .pop();
+                                                }
+                                              },
+                                            );
+                                          },
+                                        );
                                       }
-                                      // else {
-                                      //   if (mounted) {
-                                      //     showDialog(
-                                      //         context: context,
-                                      //         builder: (desContext) {
-                                      //           return OneAnswerDialog(
-                                      //             onTap: () {
-                                      //               Navigator.of(context,
-                                      //                   rootNavigator: true)
-                                      //                   .pop();
-                                      //             },
-                                      //             title: '찾을 수 없습니다.',
-                                      //             subtitle: '이메일을 다시 확인하세요.',
-                                      //             firstButton: '확인',
-                                      //           );
-                                      //         });
-                                      //   }
-                                      // }
+                                    } else {
+                                      if (mounted) {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return OneAnswerDialog(
+                                                onTap: () {
+                                                  Navigator.of(context,
+                                                          rootNavigator: true)
+                                                      .pop();
+                                                },
+                                                title: '찾을 수 없습니다.',
+                                                subtitle: '이메일을 다시 확인하세요.',
+                                                firstButton: '확인',
+                                              );
+                                            });
+                                      }
                                     }
                                   },
                                   style: ButtonStyle(
