@@ -9,5 +9,5 @@ abstract interface class RegisterdFoodsRepository {
   List<FoodDetail> getMyFoodDetail(List<FoodDetail> allFoods, String userName, String groupName);
 
   List<FoodDetail> getFoodDetail(
-      List<FoodDetail> allFoods, String targetRefrigeName);
+      List<FoodDetail> allFoods, String targetRefrigeName, String groupName);
 }

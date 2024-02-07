@@ -49,7 +49,7 @@ class RegisterdFoodsRepositoryImpl implements RegisterdFoodsRepository {
 
   @override
   List<FoodDetail> getFoodDetail(
-      List<FoodDetail> allFoods, String targetRefrigeName) {
-    return allFoods.where((e) => e.refrigeName == targetRefrigeName).toList();
+      List<FoodDetail> allFoods, String targetRefrigeName, String targetGroupName) {
+    return allFoods.where((e) => e.refrigeName == targetRefrigeName && e.groupName == targetGroupName).toList();
   }
 }
