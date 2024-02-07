@@ -139,6 +139,7 @@ class GroupSettingPageViewModel with ChangeNotifier {
       _state = state.copyWith(
           isMember: true,
           addTargetMember: _state.addTargetMember..remove(user));
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         notifyListeners();
       });

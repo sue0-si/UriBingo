@@ -357,7 +357,8 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                           },
                                         );
                                       }
-                                    } else {
+                                    }
+                                    else {
                                       if (mounted) {
                                         showDialog(
                                             context: context,
