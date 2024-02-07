@@ -115,7 +115,7 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
     path: '/addRefrige',
     builder: (context, state) {
       return ChangeNotifierProvider(
-        create: (_) => AddPageViewModel(),
+        create: (_) => getIt<AddPageViewModel>(),
         child: AddRefrige(
           currentUser: state.extra as UserModel,
         ),
@@ -128,7 +128,7 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
     path: '/editRefrige',
     builder: (context, state) {
       return ChangeNotifierProvider(
-        create: (_) => AddPageViewModel(),
+        create: (_) => getIt<AddPageViewModel>(),
         child: EditRefrige(
           seletedRefrige: (state.extra as List)[0],
           currentUser: (state.extra as List)[1],
