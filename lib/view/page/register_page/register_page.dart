@@ -34,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
     final selectedRefrige = widget.fridgeData[0] as RefrigeDetail;
     final selectedPosition = widget.fridgeData[1] as int;
     final isFreezed = widget.fridgeData[3] as bool;
+    final isManager = widget.fridgeData[4] as bool;
 
     return Scaffold(
       body: SafeArea(
@@ -192,8 +193,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           userName: FirebaseAuth.instance
                                                   .currentUser!.displayName ??
                                               'noName',
-                                          groupName: groupName,
-                                          vlaidationCode: viewModel.groupName,
+                                          groupName: selectedRefrige.groupName,
                                           registerDate: registerDate,
                                           isPublic: state.selected,
                                           isExtended: false,
@@ -232,7 +232,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             height: 64.h,
                           ),
                           // 관리자만 보이는 버튼
-                          viewModel.isManager
+                          isManager
                               ? Column(
                                   children: [
                                     Text(
