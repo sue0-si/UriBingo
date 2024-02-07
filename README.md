@@ -1,17 +1,17 @@
-# leute_eunjin
+# 우리빙고 (UriBingo)
 
-A new Flutter project.
+공용 냉장고 관리 솔루션을 제공하는 앱
 
-## Getting Started
+<br>
 
-This project is a starting point for a Flutter application.
+## Contributors
 
-A few resources to get you started if this is your first Flutter project:
+|이성대|한상인|정은진|김다희|하상현|이수현
+|------|---|---|--|--|--|
+|냉장고 상세 페이지 & 그룹관리|냉장고 등록 & 수정|음식 상세 페이지 & 커스텀 위젯| 메인페이지 & 로고 디자인 | 인증 구현 & 마이페이지 | 음식 등록 & 비밀번호 변경|
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<br>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# project_leute
+## Tech
+<a href="" target="_blank"><img src="https://img.shields.io/badge/Flutter-02569B?style=flat&logo=Flutter&logoColor=white"/></a> 
+<a href="" target="_blank"><img src="https://img.shields.io/badge/Dart-0175C2?style=flat&logo=Dart&logoColor=white"/></a>
