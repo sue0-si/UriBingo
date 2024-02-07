@@ -47,7 +47,7 @@ class DiscardFoodsViewModel extends ChangeNotifier {
       final sameRefrigeFoods =
           foodRepository.getFoodDetail(allFoods, refrigeDetail.refrigeName, refrigeDetail.groupName);
       _state = state.copyWith(discardFoodsDetails: _state.discardFoodsDetails + sameRefrigeFoods
-          .where((e) => fetchValidFoods(refrigeDetail, e) < 0)
+          .where((e) => fetchValidFoods(refrigeDetail, e) < 1)
           .toList(),
       isLoading: false);
 

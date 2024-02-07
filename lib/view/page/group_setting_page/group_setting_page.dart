@@ -331,41 +331,40 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                       if (state.addTargetMember.isNotEmpty) {
                                         if (mounted) {
                                           showDialog(
-                                            context: context,
-                                            builder: (desContext) {
-                                              return TwoAnswerDialog(
-                                                title: '추가할 정보를 확인하세요.',
-                                                subtitle:
-                                                '이름: ${state.addTargetMember[0].name}\n이메일: ${state.addTargetMember[0].email}',
-                                                firstButton: '확인',
-                                                secondButton: '취소',
-                                                onTap: () async {
-                                                  await viewModel.addToMember(
-                                                      state.addTargetMember[0]);
-                                                  state.isLoading
-                                                      ? Center(
-                                                    child:
-                                                    LoadingAnimationWidget
-                                                        .inkDrop(
-                                                      color: const Color(
-                                                          0xFF9bc6bf),
-                                                      size: 50,
-                                                    ),
-                                                  )
-                                                      : viewModel.fetchData();
-                                                  addMemberController.text = '';
-                                                  if (mounted) {
-                                                    Navigator.of(context,
-                                                        rootNavigator: true)
-                                                        .pop();
-                                                  }
-                                                },
-                                              );
-                                            },
-                                          );
-                                        }
-
+                                          context: context,
+                                          builder: (desContext) {
+                                            return TwoAnswerDialog(
+                                              title: '추가할 정보를 확인하세요.',
+                                              subtitle:
+                                                  '이름: ${state.addTargetMember[0].name}\n이메일: ${state.addTargetMember[0].email}',
+                                              firstButton: '확인',
+                                              secondButton: '취소',
+                                              onTap: () async {
+                                                await viewModel.addToMember(
+                                                    state.addTargetMember[0]);
+                                                state.isLoading
+                                                    ? Center(
+                                                        child:
+                                                            LoadingAnimationWidget
+                                                                .inkDrop(
+                                                          color: const Color(
+                                                              0xFF9bc6bf),
+                                                          size: 50,
+                                                        ),
+                                                      )
+                                                    : viewModel.fetchData();
+                                                addMemberController.text = '';
+                                                if (mounted) {
+                                                  Navigator.of(context,
+                                                          rootNavigator: true)
+                                                      .pop();
+                                                }
+                                              },
+                                            );
+                                          },
+                                        );
                                       }
+                                    }
                                       // else {
                                       //   if (mounted) {
                                       //     showDialog(
