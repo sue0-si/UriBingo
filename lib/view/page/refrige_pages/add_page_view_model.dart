@@ -7,15 +7,16 @@ import 'package:leute/data/models/user_model.dart';
 import '../../../data/models/foods_model.dart';
 import '../../../data/repository/foods_repository_impl.dart';
 
-
-
-
 class AddPageViewModel extends ChangeNotifier {
   final _repository = RegisterdFoodsRepositoryImpl();
-  final coldStorageOfCompartmentsList = List.generate(11, (index) => '$index 칸'); //냉장고칸수
-  final frozenStorageOfCompartmentsList = List.generate(11, (index) => '$index 칸'); //냉동고칸수
-  final storagePeriodList = List.generate(30, (index) => '${index+1} 일'); //보관기간
-  final extensionPeriodList = List.generate(5, (index) => '${index+1} 일'); //연장가능기간
+  final coldStorageOfCompartmentsList =
+      List.generate(11, (index) => '$index 칸'); //냉장고칸수
+  final frozenStorageOfCompartmentsList =
+      List.generate(11, (index) => '$index 칸'); //냉동고칸수
+  final storagePeriodList =
+      List.generate(30, (index) => '${index + 1} 일'); //보관기간
+  final extensionPeriodList =
+      List.generate(5, (index) => '${index + 1} 일'); //연장가능기간
   List<FoodDetail> _foodItems = [];
 
   List<FoodDetail> get foodItems => _foodItems;
@@ -87,14 +88,19 @@ class AddPageViewModel extends ChangeNotifier {
         .collection('refrigeDetails')
         .doc(registerDate + name)
         .set(RefrigeDetail(
-          registerDate: int.parse(registerDate),
-          refrigeName: name,
-          freezerCompCount: int.parse(selectedFrozenStorage.replaceAll(RegExp('\\D'), "")),
-          period: int.parse(selectedStoragePeriod.replaceAll(RegExp('\\D'), "")),
-          refrigeCompCount: int.parse(selectedColdstorage.replaceAll(RegExp('\\D'), "")),
-          extentionPeriod: int.parse(selectedExtensionPeriod.replaceAll(RegExp('\\D'), "")),
-          validationCode: currentUser.validationCode,
-        ).toJson());
+                registerDate: int.parse(registerDate),
+                refrigeName: name,
+                freezerCompCount: int.parse(
+                    selectedFrozenStorage.replaceAll(RegExp('\\D'), "")),
+                period: int.parse(
+                    selectedStoragePeriod.replaceAll(RegExp('\\D'), "")),
+                refrigeCompCount: int.parse(
+                    selectedColdstorage.replaceAll(RegExp('\\D'), "")),
+                extentionPeriod: int.parse(
+                    selectedExtensionPeriod.replaceAll(RegExp('\\D'), "")),
+                validationCode: currentUser.validationCode,
+                groupName: currentUser.groupName)
+            .toJson());
     notifyListeners();
   }
 
@@ -109,14 +115,19 @@ class AddPageViewModel extends ChangeNotifier {
         .collection('refrigeDetails')
         .doc(registerdDate.toString() + initialName)
         .update(RefrigeDetail(
-          registerDate: registerdDate,
-          refrigeName: name,
-          refrigeCompCount: int.parse(selectedColdstorage.replaceAll(RegExp('\\D'), "")),
-          freezerCompCount: int.parse(selectedFrozenStorage.replaceAll(RegExp('\\D'), "")),
-          period: int.parse(selectedStoragePeriod.replaceAll(RegExp('\\D'), "")),
-          extentionPeriod: int.parse(selectedExtensionPeriod.replaceAll(RegExp('\\D'), "")),
-          validationCode: currentUser.validationCode,
-        ).toJson());
+                registerDate: registerdDate,
+                refrigeName: name,
+                refrigeCompCount: int.parse(
+                    selectedColdstorage.replaceAll(RegExp('\\D'), "")),
+                freezerCompCount: int.parse(
+                    selectedFrozenStorage.replaceAll(RegExp('\\D'), "")),
+                period: int.parse(
+                    selectedStoragePeriod.replaceAll(RegExp('\\D'), "")),
+                extentionPeriod: int.parse(
+                    selectedExtensionPeriod.replaceAll(RegExp('\\D'), "")),
+                validationCode: currentUser.validationCode,
+                groupName: currentUser.groupName)
+            .toJson());
     notifyListeners();
   }
 

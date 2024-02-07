@@ -6,6 +6,7 @@ class RefrigeDetail {
   int extentionPeriod;
   int registerDate;
   String validationCode;
+  String groupName;
 
 //<editor-fold desc="Data Methods">
   RefrigeDetail({
@@ -16,6 +17,7 @@ class RefrigeDetail {
     required this.extentionPeriod,
     required this.registerDate,
     required this.validationCode,
+    required this.groupName,
   });
 
   @override
@@ -29,7 +31,8 @@ class RefrigeDetail {
           period == other.period &&
           extentionPeriod == other.extentionPeriod &&
           registerDate == other.registerDate &&
-          validationCode == other.validationCode);
+          validationCode == other.validationCode &&
+          groupName == other.groupName);
 
   @override
   int get hashCode =>
@@ -39,11 +42,12 @@ class RefrigeDetail {
       period.hashCode ^
       extentionPeriod.hashCode ^
       registerDate.hashCode ^
-      validationCode.hashCode;
+      validationCode.hashCode ^
+      groupName.hashCode;
 
   @override
   String toString() {
-    return 'RefrigeDetail{ refrigeName: $refrigeName, refrigeCompCount: $refrigeCompCount, freezerCompCount: $freezerCompCount, period: $period, extentionPeriod: $extentionPeriod, registerDate: $registerDate, validationCode: $validationCode,}';
+    return 'RefrigeDetail{ refrigeName: $refrigeName, refrigeCompCount: $refrigeCompCount, freezerCompCount: $freezerCompCount, period: $period, extentionPeriod: $extentionPeriod, registerDate: $registerDate, validationCode: $validationCode, groupName: $groupName,}';
   }
 
   RefrigeDetail copyWith({
@@ -54,6 +58,7 @@ class RefrigeDetail {
     int? extentionPeriod,
     int? registerDate,
     String? validationCode,
+    String? groupName,
   }) {
     return RefrigeDetail(
       refrigeName: refrigeName ?? this.refrigeName,
@@ -63,6 +68,7 @@ class RefrigeDetail {
       extentionPeriod: extentionPeriod ?? this.extentionPeriod,
       registerDate: registerDate ?? this.registerDate,
       validationCode: validationCode ?? this.validationCode,
+      groupName: groupName ?? this.groupName,
     );
   }
 
@@ -75,6 +81,7 @@ class RefrigeDetail {
       'extentionPeriod': extentionPeriod,
       'registerDate': registerDate,
       'validationCode': validationCode,
+      'groupName': groupName,
     };
   }
 
@@ -87,6 +94,7 @@ class RefrigeDetail {
       extentionPeriod: map['extentionPeriod'] as int,
       registerDate: map['registerDate'] as int,
       validationCode: map['validationCode'] as String,
+      groupName: map['groupName'] as String,
     );
   }
 
