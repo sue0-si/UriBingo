@@ -320,59 +320,67 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                   onPressed: () async {
                                     await viewModel.searchNoGroupUser(
                                         addMemberController.text);
-
-                                    if (state.addTargetMember.isNotEmpty) {
-                                      if (mounted) {
-                                        showDialog(
-                                          context: context,
-                                          builder: (desContext) {
-                                            return TwoAnswerDialog(
-                                              title: '추가할 정보를 확인하세요.',
-                                              subtitle:
-                                                  '이름: ${state.addTargetMember[0].name}\n이메일: ${state.addTargetMember[0].email}',
-                                              firstButton: '확인',
-                                              secondButton: '취소',
-                                              onTap: () async {
-                                                await viewModel.addToMember(
-                                                    state.addTargetMember[0]);
-                                                state.isLoading
-                                                    ? Center(
-                                                        child:
-                                                            LoadingAnimationWidget
-                                                                .inkDrop(
-                                                          color: const Color(
-                                                              0xFF9bc6bf),
-                                                          size: 50,
-                                                        ),
-                                                      )
-                                                    : viewModel.fetchData();
-                                                addMemberController.text = '';
-                                                if (mounted) {
-                                                  Navigator.of(context,
-                                                          rootNavigator: true)
-                                                      .pop();
-                                                }
-                                              },
-                                            );
-                                          },
-                                        );
-                                      }
+                                    if (state.isLoading) {
+                                      Center(
+                                        child: LoadingAnimationWidget.inkDrop(
+                                          color: const Color(0xFF9bc6bf),
+                                          size: 50,
+                                        ),
+                                      );
                                     } else {
-                                      if (mounted) {
-                                        showDialog(
+                                      if (state.addTargetMember.isEmpty) {
+                                        if (mounted) {
+                                          showDialog(
+                                              context: context,
+                                              builder: (desContext) {
+                                                return OneAnswerDialog(
+                                                  onTap: () {
+                                                    Navigator.of(context,
+                                                            rootNavigator: true)
+                                                        .pop();
+                                                  },
+                                                  title: '찾을 수 없습니다.',
+                                                  subtitle: '이메일을 다시 확인하세요.',
+                                                  firstButton: '확인',
+                                                );
+                                              });
+                                        }
+                                      } else {
+                                        if (mounted) {
+                                          showDialog(
                                             context: context,
                                             builder: (desContext) {
-                                              return OneAnswerDialog(
-                                                onTap: () {
-                                                  Navigator.of(context,
-                                                          rootNavigator: true)
-                                                      .pop();
-                                                },
-                                                title: '찾을 수 없습니다.',
-                                                subtitle: '이메일을 다시 확인하세요.',
+                                              return TwoAnswerDialog(
+                                                title: '추가할 정보를 확인하세요.',
+                                                subtitle:
+                                                    '이름: ${state.addTargetMember[0].name}\n이메일: ${state.addTargetMember[0].email}',
                                                 firstButton: '확인',
+                                                secondButton: '취소',
+                                                onTap: () async {
+                                                  await viewModel.addToMember(
+                                                      state.addTargetMember[0]);
+                                                  state.isLoading
+                                                      ? Center(
+                                                          child:
+                                                              LoadingAnimationWidget
+                                                                  .inkDrop(
+                                                            color: const Color(
+                                                                0xFF9bc6bf),
+                                                            size: 50,
+                                                          ),
+                                                        )
+                                                      : viewModel.fetchData();
+                                                  addMemberController.text = '';
+                                                  if (mounted) {
+                                                    Navigator.of(context,
+                                                            rootNavigator: true)
+                                                        .pop();
+                                                  }
+                                                },
                                               );
-                                            });
+                                            },
+                                          );
+                                        }
                                       }
                                     }
                                   },

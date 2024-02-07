@@ -107,13 +107,18 @@ class GroupSettingPageViewModel with ChangeNotifier {
 
   // 미그룹원 검색 함수
   Future<void> searchNoGroupUser(String userEmail) async {
+    _state = state.copyWith(isLoading: true);
+    notifyListeners();
     List<UserModel> userData = await userDataRepository.getFirebaseUserData();
     List<UserModel> noGroupUsers =
         userData.where((e) => e.validationCode == '').toList();
     _state = state.copyWith(
-        addTargetMember: _state.addTargetMember +
+        isLoading: false,
+        addTargetMember:
             noGroupUsers.where((user) => user.email == userEmail).toList());
-    notifyListeners();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
   }
 
   // 그룹에 멤버 추가 함수
@@ -136,9 +141,7 @@ class GroupSettingPageViewModel with ChangeNotifier {
             groupName: manager.groupName,
             userId: _state.addTargetMember[0].userId,
           ).toJson());
-      _state = state.copyWith(
-          isMember: true,
-          addTargetMember: _state.addTargetMember..remove(user));
+      _state = state.copyWith(isMember: true, addTargetMember: []);
       WidgetsBinding.instance.addPostFrameCallback((_) {
         notifyListeners();
       });
