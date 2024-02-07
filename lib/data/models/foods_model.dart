@@ -5,7 +5,7 @@ class FoodDetail {
   int positionId;
   String userId;
   String userName;
-  String vlaidationCode;
+  String groupName;
   int registerDate;
   bool isPublic;
   bool isExtended;
@@ -18,7 +18,7 @@ class FoodDetail {
     required this.positionId,
     required this.userId,
     required this.userName,
-    required this.vlaidationCode,
+    required this.groupName,
     required this.registerDate,
     required this.isPublic,
     required this.isExtended,
@@ -35,7 +35,7 @@ class FoodDetail {
           positionId == other.positionId &&
           userId == other.userId &&
           userName == other.userName &&
-          vlaidationCode == other.vlaidationCode &&
+          groupName == other.groupName &&
           registerDate == other.registerDate &&
           isPublic == other.isPublic &&
           isExtended == other.isExtended);
@@ -48,14 +48,14 @@ class FoodDetail {
       positionId.hashCode ^
       userId.hashCode ^
       userName.hashCode ^
-      vlaidationCode.hashCode ^
+      groupName.hashCode ^
       registerDate.hashCode ^
       isPublic.hashCode ^
       isExtended.hashCode;
 
   @override
   String toString() {
-    return 'FoodDetail{ refrigeName: $refrigeName, freezed: $freezed, foodImage: $foodImage, positionId: $positionId, userId: $userId, userName: $userName, groupName: $vlaidationCode, registerDate: $registerDate, isPublic: $isPublic, isExtended: $isExtended,}';
+    return 'FoodDetail{ refrigeName: $refrigeName, freezed: $freezed, foodImage: $foodImage, positionId: $positionId, userId: $userId, userName: $userName, groupName: $groupName, registerDate: $registerDate, isPublic: $isPublic, isExtended: $isExtended,}';
   }
 
   FoodDetail copyWith({
@@ -77,7 +77,7 @@ class FoodDetail {
       positionId: positionId ?? this.positionId,
       userId: userId ?? this.userId,
       userName: userName ?? this.userName,
-      vlaidationCode: groupName ?? this.vlaidationCode,
+      groupName: groupName ?? this.groupName,
       registerDate: registerDate ?? this.registerDate,
       isPublic: isPublic ?? this.isPublic,
       isExtended: isExtended ?? this.isExtended,
@@ -92,7 +92,7 @@ class FoodDetail {
       'positionId': positionId,
       'userId': userId,
       'userName': userName,
-      'groupName': vlaidationCode,
+      'groupName': groupName,
       'registerDate': registerDate,
       'isPublic': isPublic,
       'isExtended': isExtended,
@@ -107,7 +107,7 @@ class FoodDetail {
       positionId: map['positionId'] as int,
       userId: map['userId'] as String,
       userName: map['userName'] as String,
-      vlaidationCode: map['groupName'] as String,
+      groupName: map['groupName'] as String,
       registerDate: map['registerDate'] as int,
       isPublic: map['isPublic'] as bool,
       isExtended: map['isExtended'] as bool,
