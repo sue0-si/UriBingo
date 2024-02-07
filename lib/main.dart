@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
+import 'package:leute/di/di_setup.dart';
 import 'package:leute/router.dart';
 import 'package:palette_generator/palette_generator.dart';
 
@@ -19,6 +20,7 @@ void main() async {
   // Always initialize Awesome Notifications
   await NotificationController.initializeLocalNotifications();
   await NotificationController.initializeIsolateReceivePort();
+  diSetup();
   runApp(const MyApp());
 }
 
@@ -348,6 +350,9 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+
+
+
 ///  *********************************************
 ///     NOTIFICATION PAGE
 ///  *********************************************
@@ -378,7 +383,7 @@ class NotificationPageState extends State<NotificationPage> {
 
   Future<bool> isImagePredominantlyWhite(ImageProvider imageProvider) async {
     final paletteGenerator =
-        await PaletteGenerator.fromImageProvider(imageProvider);
+    await PaletteGenerator.fromImageProvider(imageProvider);
     final dominantColor =
         paletteGenerator.dominantColor?.color ?? Colors.transparent;
     return dominantColor.computeLuminance() > 0.5;
@@ -392,8 +397,8 @@ class NotificationPageState extends State<NotificationPage> {
     if (hasBigPicture) {
       isImagePredominantlyWhite(widget.receivedAction.bigPictureImage!)
           .then((isPredominantlyWhite) => setState(() {
-                bigPictureIsPredominantlyWhite = isPredominantlyWhite;
-              }));
+        bigPictureIsPredominantlyWhite = isPredominantlyWhite;
+      }));
     }
   }
 
@@ -449,14 +454,14 @@ class NotificationPageState extends State<NotificationPage> {
               ),
             ),
             systemOverlayStyle:
-                isTotallyCollapsed || bigPictureIsPredominantlyWhite
-                    ? SystemUiOverlayStyle.dark
-                    : SystemUiOverlayStyle.light,
+            isTotallyCollapsed || bigPictureIsPredominantlyWhite
+                ? SystemUiOverlayStyle.dark
+                : SystemUiOverlayStyle.light,
             expandedHeight: hasBigPicture
                 ? bigPictureSize + (hasLargeIcon ? 40 : 0)
                 : (hasLargeIcon)
-                    ? largeIconSize + 10
-                    : MediaQuery.of(context).padding.top + 28,
+                ? largeIconSize + 10
+                : MediaQuery.of(context).padding.top + 28,
             backgroundColor: Colors.transparent,
             stretch: true,
             flexibleSpace: FlexibleSpaceBar(
@@ -467,45 +472,45 @@ class NotificationPageState extends State<NotificationPage> {
               title: (!hasLargeIcon)
                   ? null
                   : Stack(children: [
-                      Positioned(
-                        bottom: 0,
-                        left: 16,
-                        right: 16,
-                        child: Row(
-                          mainAxisAlignment: hasBigPicture
-                              ? MainAxisAlignment.start
-                              : MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: largeIconSize,
-                              width: largeIconSize,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(
-                                    Radius.circular(largeIconSize)),
-                                child: FadeInImage(
-                                  placeholder: const NetworkImage(
-                                      'https://cdn.syncfusion.com/content/images/common/placeholder.gif'),
-                                  image: widget.receivedAction.largeIconImage!,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                          ],
+                Positioned(
+                  bottom: 0,
+                  left: 16,
+                  right: 16,
+                  child: Row(
+                    mainAxisAlignment: hasBigPicture
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: largeIconSize,
+                        width: largeIconSize,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(largeIconSize)),
+                          child: FadeInImage(
+                            placeholder: const NetworkImage(
+                                'https://cdn.syncfusion.com/content/images/common/placeholder.gif'),
+                            image: widget.receivedAction.largeIconImage!,
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
-                    ]),
+                    ],
+                  ),
+                ),
+              ]),
               background: hasBigPicture
                   ? Padding(
-                      padding: EdgeInsets.only(bottom: hasLargeIcon ? 60 : 20),
-                      child: FadeInImage(
-                        placeholder: const NetworkImage(
-                            'https://cdn.syncfusion.com/content/images/common/placeholder.gif'),
-                        height: bigPictureSize,
-                        width: MediaQuery.of(context).size.width,
-                        image: widget.receivedAction.bigPictureImage!,
-                        fit: BoxFit.cover,
-                      ),
-                    )
+                padding: EdgeInsets.only(bottom: hasLargeIcon ? 60 : 20),
+                child: FadeInImage(
+                  placeholder: const NetworkImage(
+                      'https://cdn.syncfusion.com/content/images/common/placeholder.gif'),
+                  height: bigPictureSize,
+                  width: MediaQuery.of(context).size.width,
+                  image: widget.receivedAction.bigPictureImage!,
+                  fit: BoxFit.fill,
+                ),
+              )
                   : null,
             ),
           ),
@@ -514,7 +519,7 @@ class NotificationPageState extends State<NotificationPage> {
               [
                 Padding(
                   padding:
-                      const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
+                  const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,

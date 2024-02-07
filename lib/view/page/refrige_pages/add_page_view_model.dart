@@ -5,36 +5,29 @@ import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/data/models/user_model.dart';
 
 import '../../../data/models/foods_model.dart';
-import '../../../data/repository/foods_repository.dart';
+import '../../../domain/foods_repository.dart';
 
 class AddPageViewModel extends ChangeNotifier {
-  final _repository = RegisterdFoodsRepository();
-  final coldStorageOfCompartmentsList = List.generate(11, (index) => '$index 칸');
-  final frozenStorageOfCompartmentsList = List.generate(11, (index) => '$index 칸');
-  final storagePeriodList = List.generate(30, (index) => '${index+1} 일');
-  final extensionPeriodList = List.generate(5, (index) => '${index+1} 일');
+  final RegisterdFoodsRepository _repository;
+
+  AddPageViewModel({
+    required RegisterdFoodsRepository repository,
+  }) : _repository = repository;
+
+  //final _repository = RegisterdFoodsRepositoryImpl();
+
+  final coldStorageOfCompartmentsList =
+      List.generate(11, (index) => '$index 칸'); //냉장고칸수
+  final frozenStorageOfCompartmentsList =
+      List.generate(11, (index) => '$index 칸'); //냉동고칸수
+  final storagePeriodList =
+      List.generate(30, (index) => '${index + 1} 일'); //보관기간
+  final extensionPeriodList =
+      List.generate(5, (index) => '${index + 1} 일'); //연장가능기간
+
   List<FoodDetail> _foodItems = [];
 
   List<FoodDetail> get foodItems => _foodItems;
-
-  bool _disposed = false;
-
-  @override
-  void dispose() {
-    _disposed = true;
-    super.dispose();
-  }
-
-  @override
-  notifyListeners() {
-    if (!_disposed) {
-      super.notifyListeners();
-    }
-  }
-
-  int registerdDate = 0;
-  String initialName = '';
-
 
   String _name = '';
 
@@ -44,7 +37,7 @@ class AddPageViewModel extends ChangeNotifier {
     _name = value;
   }
 
-  String _selectedColdstorage = '0 칸';
+  String _selectedColdstorage = '0 칸'; //선택된냉장칸수
 
   String get selectedColdstorage => _selectedColdstorage;
 
@@ -60,7 +53,7 @@ class AddPageViewModel extends ChangeNotifier {
     _selectedFrozenStorage = value.toString();
   }
 
-  String _selectedStoragePeriod = '1 일';
+  String _selectedStoragePeriod = '1 일'; //선택된보관기간
 
   String get selectedStoragePeriod => _selectedStoragePeriod;
 
@@ -68,7 +61,7 @@ class AddPageViewModel extends ChangeNotifier {
     _selectedStoragePeriod = value.toString();
   }
 
-  String _selectedExtensionPeriod = '1 일';
+  String _selectedExtensionPeriod = '1 일'; //선택된연장가능기간
 
   String get selectedExtensionPeriod => _selectedExtensionPeriod;
 
@@ -76,7 +69,27 @@ class AddPageViewModel extends ChangeNotifier {
     _selectedExtensionPeriod = value.toString();
   }
 
+  bool _disposed = false;
 
+  int registerdDate = 0;
+
+  String initialName = '';
+
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
+  }
+
+//getter 설정
 
   Future<void> addRefrige(UserModel currentUser) async {
     final registerDate = DateTime.now().millisecondsSinceEpoch.toString();
@@ -86,10 +99,14 @@ class AddPageViewModel extends ChangeNotifier {
         .set(RefrigeDetail(
           registerDate: int.parse(registerDate),
           refrigeName: name,
-          freezerCompCount: int.parse(selectedFrozenStorage.replaceAll(RegExp('\\D'), "")),
-          period: int.parse(selectedStoragePeriod.replaceAll(RegExp('\\D'), "")),
-          refrigeCompCount: int.parse(selectedColdstorage.replaceAll(RegExp('\\D'), "")),
-          extentionPeriod: int.parse(selectedExtensionPeriod.replaceAll(RegExp('\\D'), "")),
+          freezerCompCount:
+              int.parse(selectedFrozenStorage.replaceAll(RegExp('\\D'), "")),
+          period:
+              int.parse(selectedStoragePeriod.replaceAll(RegExp('\\D'), "")),
+          refrigeCompCount:
+              int.parse(selectedColdstorage.replaceAll(RegExp('\\D'), "")),
+          extentionPeriod:
+              int.parse(selectedExtensionPeriod.replaceAll(RegExp('\\D'), "")),
           validationCode: currentUser.validationCode,
         ).toJson());
     notifyListeners();
@@ -108,10 +125,14 @@ class AddPageViewModel extends ChangeNotifier {
         .update(RefrigeDetail(
           registerDate: registerdDate,
           refrigeName: name,
-          refrigeCompCount: int.parse(selectedColdstorage.replaceAll(RegExp('\\D'), "")),
-          freezerCompCount: int.parse(selectedFrozenStorage.replaceAll(RegExp('\\D'), "")),
-          period: int.parse(selectedStoragePeriod.replaceAll(RegExp('\\D'), "")),
-          extentionPeriod: int.parse(selectedExtensionPeriod.replaceAll(RegExp('\\D'), "")),
+          refrigeCompCount:
+              int.parse(selectedColdstorage.replaceAll(RegExp('\\D'), "")),
+          freezerCompCount:
+              int.parse(selectedFrozenStorage.replaceAll(RegExp('\\D'), "")),
+          period:
+              int.parse(selectedStoragePeriod.replaceAll(RegExp('\\D'), "")),
+          extentionPeriod:
+              int.parse(selectedExtensionPeriod.replaceAll(RegExp('\\D'), "")),
           validationCode: currentUser.validationCode,
         ).toJson());
     notifyListeners();
@@ -120,7 +141,8 @@ class AddPageViewModel extends ChangeNotifier {
   // 냉장고 삭제 전 남은 음식 확인
   Future<void> remainFoodsCheck(String refrigeName) async {
     final allFoods = await _repository.getFirebaseFoodsData();
-    _foodItems = allFoods.where((e) => e.refrigeName == refrigeName).toList();
+    final foodItems =
+        allFoods.where((e) => e.refrigeName == refrigeName).toList();
     notifyListeners();
   }
 
@@ -132,15 +154,15 @@ class AddPageViewModel extends ChangeNotifier {
           .doc(registerdDate.toString() + initialName)
           .delete(),
     ]);
-    if (_foodItems.isNotEmpty) {
-      for (int i = 0; i < _foodItems.length; i++) {
+    if (foodItems.isNotEmpty) {
+      for (int i = 0; i < foodItems.length; i++) {
         await Future.wait([
           FirebaseFirestore.instance
               .collection('foodDetails')
-              .doc(_foodItems[i].registerDate.toString() + _foodItems[i].userId)
+              .doc(foodItems[i].registerDate.toString() + foodItems[i].userId)
               .delete(),
           FirebaseStorage.instance
-              .ref("images/${_foodItems[i].registerDate}.jpg")
+              .ref("images/${foodItems[i].registerDate}.jpg")
               .delete()
         ]);
       }

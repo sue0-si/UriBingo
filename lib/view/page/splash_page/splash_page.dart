@@ -8,8 +8,9 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 6))
-        .then((value) => GoRouter.of(context).go('/login'));
+    Future.delayed(const Duration(seconds: 6)).then((value) {
+      GoRouter.of(context).go('/login');
+    });
 
     return Scaffold(
       backgroundColor: Colors.white,

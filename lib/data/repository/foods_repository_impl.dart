@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:leute/domain/foods_repository.dart';
 
 import '../models/foods_model.dart';
 
-class RegisterdFoodsRepository {
+class RegisterdFoodsRepositoryImpl implements RegisterdFoodsRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  @override
   Future<List<FoodDetail>> getFirebaseFoodsData() async {
     // Firebase Firestore에서 데이터 읽어오기
     QuerySnapshot querySnapshot = await _firestore
@@ -20,6 +22,7 @@ class RegisterdFoodsRepository {
     return data;
   }
 
+  @override
   List<dynamic> filterFoods(List<FoodDetail> foodsToFilter, bool targetFreezed,
       int targetPositionId) {
     return [
@@ -33,11 +36,13 @@ class RegisterdFoodsRepository {
     ];
   }
 
+  @override
   List<FoodDetail> getMyFoodDetail(List<FoodDetail> allFoods, String userName) {
     // final repository = RegisterdFoodsRepository();
     return allFoods.where((e) => e.userName == userName).toList();
   }
 
+  @override
   List<FoodDetail> getFoodDetail(
       List<FoodDetail> allFoods, String targetRefrigeName) {
     return allFoods.where((e) => e.refrigeName == targetRefrigeName).toList();

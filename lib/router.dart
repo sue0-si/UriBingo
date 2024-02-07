@@ -3,6 +3,7 @@ import 'package:leute/data/models/user_model.dart';
 import 'package:leute/view/page/discard_foods_page/discard_food_detail_page.dart';
 import 'package:leute/view/page/discard_foods_page/discard_foods_page.dart';
 import 'package:leute/view/page/change_password_page/change_password_page.dart';
+import 'package:leute/view/page/discard_foods_page/discard_foods_view_model.dart';
 import 'package:leute/view/page/group_setting_page/group_setting_page.dart';
 import 'package:leute/view/page/login_page/login_page.dart';
 import 'package:leute/view/page/password_reset_page/password_reset_page.dart';
@@ -11,13 +12,13 @@ import 'package:leute/view/page/main_my_fridge/main_page.dart';
 import 'package:leute/view/page/my_food_detail_page/my_food_detail_screen.dart';
 import 'package:leute/view/page/refrige_detail_page/refrige_detail_screen.dart';
 import 'package:leute/view/page/register_page/register_page.dart';
-import 'package:leute/view_model/discard_foods_view_model.dart';
 import 'package:leute/view/page/group_setting_page/group_setting_page_view_model.dart';
 import 'package:leute/view/page/login_page/login_page_view_model.dart';
 import 'package:leute/view/page/my_page/my_page_view_model.dart';
 import 'package:leute/view/page/signup_page/signup_page_view_model.dart';
 import 'package:provider/provider.dart';
 
+import 'di/di_setup.dart';
 import 'view/page/refrige_pages/add_page_view_model.dart';
 import 'view/page/refrige_pages/add_refrige.dart';
 import 'view/page/refrige_pages/edit_refrige.dart';
@@ -85,7 +86,7 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
       path: '/groupSetting',
       builder: (context, state) {
         return ChangeNotifierProvider(
-          create: (_) => GroupSettingPageViewModel(),
+          create: (_) => getIt<GroupSettingPageViewModel>(),
           child: const GroupSettingPage(),
         );
       }),
@@ -115,7 +116,7 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
     path: '/addRefrige',
     builder: (context, state) {
       return ChangeNotifierProvider(
-        create: (_) => AddPageViewModel(),
+        create: (_) => getIt<AddPageViewModel>(),
         child: AddRefrige(
           currentUser: state.extra as UserModel,
         ),
@@ -128,7 +129,7 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
     path: '/editRefrige',
     builder: (context, state) {
       return ChangeNotifierProvider(
-        create: (_) => AddPageViewModel(),
+        create: (_) => getIt<AddPageViewModel>(),
         child: EditRefrige(
           seletedRefrige: (state.extra as List)[0],
           currentUser: (state.extra as List)[1],
@@ -152,7 +153,7 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
       path: '/discardPage',
       builder: (context, state) {
         return ChangeNotifierProvider(
-          create: (_) => DiscardFoodsViewModel(),
+          create: (_) => getIt<DiscardFoodsViewModel>(),
           child: const DiscardFoods(),
         );
       }),

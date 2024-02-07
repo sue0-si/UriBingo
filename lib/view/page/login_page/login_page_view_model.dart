@@ -6,10 +6,11 @@ import 'package:leute/view/widget/custom_dialog/one_answer_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/models/user_model.dart';
-import '../../../data/repository/user_data_repository.dart';
+import '../../../data/repository/user_data_repository_impl.dart';
+import '../../../domain/user_data_repository.dart';
 
 class LoginPageViewModel with ChangeNotifier {
-  final UserDataRepository userDataRepository = UserDataRepository();
+  final UserDataRepository userDataRepository = UserDataRepositoryImpl();
   UserModel? currentUser;
   bool checkBoxMemory = false;
   String idMemory = '';

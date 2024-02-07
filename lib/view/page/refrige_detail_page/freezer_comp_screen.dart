@@ -1,6 +1,6 @@
 import 'package:animation_list/animation_list.dart';
 import 'package:flutter/material.dart';
-import 'package:leute/view_model/freezer_comp_view_model.dart';
+import 'package:leute/view/page/refrige_detail_page/freezer_comp_view_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +22,7 @@ class _FreezerCompScreenState extends State<FreezerCompScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<FreezerCompViewModel>();
+    viewModel.selectedRefrige = widget.selectedRefrige;
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Scaffold(

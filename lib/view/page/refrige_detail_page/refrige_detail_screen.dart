@@ -1,15 +1,15 @@
 import 'package:animated_button_bar/animated_button_bar.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/data/models/refrige_model.dart';
 import 'package:leute/view/page/refrige_detail_page/freezer_comp_screen.dart';
 import 'package:leute/view/page/refrige_detail_page/refrige_comp_screen.dart';
+import 'package:leute/view/page/refrige_detail_page/refrige_comp_view_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../../di/di_setup.dart';
 import '../../../styles/app_text_style.dart';
-import '../../../view_model/freezer_comp_view_model.dart';
-import '../../../view_model/refrige_comp_view_model.dart';
+import 'freezer_comp_view_model.dart';
 
 class RefrigeDetailScreen extends StatefulWidget {
   final RefrigeDetail selectedRefrige;
@@ -84,7 +84,7 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.white, width: 2),
-                    color: Color(0xFF9bc6bf),
+                    color: const Color(0xFF9bc6bf),
                   ),
                   width: 25,
                   height: 25,
@@ -113,13 +113,13 @@ class _RefrigeDetailScreenState extends State<RefrigeDetailScreen> {
         scrollDirection: Axis.vertical,
         children: [
           ChangeNotifierProvider(
-            create: (context) => FreezerCompViewModel(widget.selectedRefrige),
+            create: (context) => getIt<FreezerCompViewModel>(),
             child: FreezerCompScreen(
               selectedRefrige: widget.selectedRefrige,
             ),
           ),
           ChangeNotifierProvider(
-            create: (context) => RefrigeCompViewModel(widget.selectedRefrige),
+            create: (context) => getIt<RefrigeCompViewModel>(),
             child: RefrigeCompScreen(
               selectedRefrige: widget.selectedRefrige,
             ),

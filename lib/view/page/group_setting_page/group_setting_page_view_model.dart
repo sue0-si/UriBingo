@@ -1,12 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:leute/data/repository/user_data_repository.dart';
 
 import '../../../data/models/user_model.dart';
+import '../../../domain/user_data_repository.dart';
 
 class GroupSettingPageViewModel with ChangeNotifier {
-  final UserDataRepository _repository = UserDataRepository();
+  final UserDataRepository userDataRepository;
+
+  GroupSettingPageViewModel({
+    required this.userDataRepository,
+  }) {
+    fetchData();
+  }
 
   bool isLoading = false;
 
@@ -33,17 +39,13 @@ class GroupSettingPageViewModel with ChangeNotifier {
     }
   }
 
-  GroupSettingPageViewModel() {
-    fetchData();
-  }
-
   //
   Future<void> fetchData() async {
     isLoading = true;
     notifyListeners();
     try {
       // 관리자 여부 확인용 메서드
-      List<UserModel> allUserData = await _repository.getFirebaseUserData();
+      List<UserModel> allUserData = await userDataRepository.getFirebaseUserData();
       UserModel currentUser = allUserData.firstWhere(
           (user) => user.email == FirebaseAuth.instance.currentUser?.email);
       fetchedUserList = allUserData
@@ -108,7 +110,7 @@ class GroupSettingPageViewModel with ChangeNotifier {
 
   // 미그룹원 검색 함수
   Future<void> searchNoGroupUser(String userEmail) async {
-    List<UserModel> userData = await _repository.getFirebaseUserData();
+    List<UserModel> userData = await userDataRepository.getFirebaseUserData();
     List<UserModel> noGroupUsers =
         userData.where((e) => e.validationCode == '').toList();
     addTargetMember +=

@@ -34,6 +34,7 @@ class _AddRefrigeState extends State<AddRefrige> {
   @override
   Widget build(BuildContext context) {
     final addPageViewModel = context.watch<AddPageViewModel>();
+    //final state = addPageViewModel.state;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -143,12 +144,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                                       .toList(),
                               isExpanded: true,
                               onChanged: (value) {
-                                setState(
-                                  () {
-                                    addPageViewModel.selectedColdstorage =
-                                        value!;
-                                  },
-                                );
+                                addPageViewModel.selectedColdstorage = value!;
                               },
                             ),
                           ),
@@ -186,12 +182,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                                   .toList(),
                               isExpanded: true,
                               onChanged: (value) {
-                                setState(
-                                  () {
-                                    addPageViewModel.selectedFrozenStorage =
-                                        value!;
-                                  },
-                                );
+                                addPageViewModel.selectedFrozenStorage = value!;
                               },
                             ),
                           ),
@@ -224,12 +215,7 @@ class _AddRefrigeState extends State<AddRefrige> {
                                   .toList(),
                               isExpanded: true,
                               onChanged: (value) {
-                                setState(
-                                  () {
-                                    addPageViewModel.selectedStoragePeriod =
-                                        value!;
-                                  },
-                                );
+                                addPageViewModel.selectedStoragePeriod = value!;
                               },
                             ),
                           ),
@@ -267,12 +253,8 @@ class _AddRefrigeState extends State<AddRefrige> {
                                   .toList(),
                               isExpanded: true,
                               onChanged: (value) {
-                                setState(
-                                  () {
-                                    addPageViewModel.selectedExtensionPeriod =
-                                        value!;
-                                  },
-                                );
+                                addPageViewModel.selectedExtensionPeriod =
+                                    value!;
                               },
                             ),
                           ),
@@ -305,8 +287,6 @@ class _AddRefrigeState extends State<AddRefrige> {
                                     firstButton: '네',
                                     secondButton: '아니오',
                                     onTap: () async {
-                                      setState(() {});
-
                                       if (mounted) {
                                         context.go('/main_page', extra: 0);
                                       }

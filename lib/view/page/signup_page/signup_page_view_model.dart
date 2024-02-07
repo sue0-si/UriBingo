@@ -6,13 +6,15 @@ import 'package:leute/view/widget/custom_dialog/one_answer_dialog.dart';
 import 'package:leute/view/widget/custom_dialog/two_answer_dialog.dart';
 
 import '../../../data/models/user_model.dart';
-import '../../../data/repository/user_data_repository.dart';
+import '../../../data/repository/user_data_repository_impl.dart';
+import '../../../domain/user_data_repository.dart';
+
 
 class SignupPageViewModel with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  final UserDataRepository userDataRepository = UserDataRepository();
+  final UserDataRepository userDataRepository = UserDataRepositoryImpl();
   UserModel? currentUser;
   bool isLoading = false;
   bool _disposed = false;

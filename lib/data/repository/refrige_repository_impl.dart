@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../domain/refrige_repository.dart';
 import '../models/refrige_model.dart';
 
-class RegisterdRefrigeRepository {
+class RegisterdRefrigeRepositoryImpl implements RegisterdRefrigeRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  @override
   Future<List<RefrigeDetail>> getFirebaseRefrigesData() async {
     // Firebase Firestore에서 데이터 읽어오기
     QuerySnapshot querySnapshot = await _firestore

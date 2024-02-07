@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:leute/styles/app_text_style.dart';
-import 'package:leute/view_model/main_screen_view_model.dart';
+import 'package:leute/view/page/main_my_fridge/main_screen_view_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
@@ -15,12 +15,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-//   List<Widget> fridges = [];
-//   List<RefrigeDetail> refrigeItems = [];
-//
-//   final UserDataRepository userDataRepository = UserDataRepository();
-//   bool isManager = false;
-
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MainScreenViewModel>();
