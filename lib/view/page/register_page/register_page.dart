@@ -212,7 +212,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           userName: FirebaseAuth.instance
                                                   .currentUser!.displayName ??
                                               'noName',
-                                          vlaidationCode: groupName,
+                                          groupName: groupName,
                                           registerDate: registerDate,
                                           isPublic: state.selected,
                                           isExtended: false,

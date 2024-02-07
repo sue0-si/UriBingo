@@ -50,7 +50,7 @@ class MyFridgeViewModel extends ChangeNotifier {
     _state = state.copyWith(
       refrigeDetails: await refrigeRepository.getFirebaseRefrigesData(),
       myFoodDetails: foodRepository.getMyFoodDetail(
-          allFoods, currentUser.name, currentUser.validationCode),
+          allFoods, currentUser.name, currentUser.groupName, ),
       isLoading: false,
     );
     notifyListeners();

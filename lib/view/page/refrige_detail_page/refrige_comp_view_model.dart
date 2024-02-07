@@ -44,11 +44,11 @@ class RefrigeCompViewModel extends ChangeNotifier {
 
   // 같은 냉장고에 있는 음식정보 불러오기
   Future<List<FoodDetail>> getSameRefrigeFoods(
-      String refrigeName, String validationCode) async {
+      String refrigeName, String groupName) async {
     final allFoods = await foodsRepository.getFirebaseFoodsData();
     _state = state.copyWith(
         foodItems: allFoods
-            .where((e) => (e.vlaidationCode == validationCode &&
+            .where((e) => (e.groupName == groupName &&
             e.refrigeName == refrigeName))
             .toList());
     return _state.foodItems;

@@ -23,7 +23,6 @@ class EditRefrige extends StatefulWidget {
 }
 
 class _EditRefrigeState extends State<EditRefrige> {
-  final addPageViewModel = AddPageViewModel();
 
   final addNameController = TextEditingController();
   final selectedColdstorageController = TextEditingController();
