@@ -15,7 +15,7 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MyPageViewModel>();
-    var user = FirebaseAuth.instance;
+    var user = viewModel.user;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -49,7 +49,7 @@ class MyPage extends StatelessWidget {
               InkwellRowTile(
                   text: '그룹 관리',
                   onTap: () {
-                    viewModel.goToGroupSettingPage(context);
+                    context.go('/groupSetting', extra: viewModel.yourGroupName);
                   },
                   icon: Icons.group_rounded),
             InkwellRowTile(
@@ -61,7 +61,7 @@ class MyPage extends StatelessWidget {
                         return TwoAnswerDialog(
                             onTap: () {
                               viewModel.deleteAccount(
-                                  context, user.currentUser!.uid);
+                                  context, user!.uid);
                             },
                             title: '회원 탈퇴 알림',
                             subtitle: '정말 탈퇴하시겠습니까?',

@@ -86,7 +86,7 @@ final router = GoRouter(initialLocation: '/splash_page', routes: [
       builder: (context, state) {
         return ChangeNotifierProvider(
           create: (_) => getIt<GroupSettingPageViewModel>(),
-          child: const GroupSettingPage(),
+          child: GroupSettingPage(thisGroupName: state.extra as String,),
         );
       }),
 
