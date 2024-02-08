@@ -41,7 +41,6 @@ class _DiscardFoodDetailState extends State<DiscardFoodDetail> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<MyFoodDetailViewModel>();
-    final state = viewModel.state;
     final dateFormat = DateFormat('yyyy년 MM월 dd일');
     return Scaffold(
       appBar: AppBar(

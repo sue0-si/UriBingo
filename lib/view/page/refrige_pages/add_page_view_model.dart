@@ -40,13 +40,7 @@ class AddPageViewModel extends ChangeNotifier {
   String initialName = '';
 
   //String name = ''; //validate 값 저장되는 변수
-  String _name = '';
-
-  String get name => _name;
-
-  set name(String value) {
-    _name = value;
-  }
+  String name = '';
 
   String _selectedColdstorage = '0 칸'; //선택된냉장칸수
 

@@ -164,7 +164,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                               onChanged: (value) {
                                 setState(() {
                                   selectedColdstorageController.text = value!;
-                                  addPageViewModel.selectedColdstorage = value!;
+                                  addPageViewModel.selectedColdstorage = value;
                                 });
                               },
                             ),
@@ -201,7 +201,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                               onChanged: (value) {
                                 setState(() {
                                   selectedFrozenStorageController.text = value!;
-                                  addPageViewModel.selectedFrozenStorage = value!;
+                                  addPageViewModel.selectedFrozenStorage = value;
                                 });
                               },
                             ),
@@ -241,7 +241,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                               onChanged: (value) {
                                 setState(() {
                                   selectedStoragePeriodController.text = value!;
-                                  addPageViewModel.selectedStoragePeriod = value!;
+                                  addPageViewModel.selectedStoragePeriod = value;
                                 });
                               },
                             ),
@@ -281,7 +281,7 @@ class _EditRefrigeState extends State<EditRefrige> {
                               onChanged: (value) {
                                 setState(() {
                                   selectedExtensionPeriodController.text = value!;
-                                  addPageViewModel.selectedExtensionPeriod = value!;
+                                  addPageViewModel.selectedExtensionPeriod = value;
                                 });
                               },
                             ),

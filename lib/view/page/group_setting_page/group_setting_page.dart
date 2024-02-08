@@ -14,12 +14,12 @@ import '../../widget/custom_dialog/one_answer_dialog.dart';
 import 'group_setting_page_view_model.dart';
 
 class GroupSettingPage extends StatefulWidget {
-  String thisGroupName;
+  final String thisGroupName;
 
   @override
   State<GroupSettingPage> createState() => _GroupSettingPageState();
 
-  GroupSettingPage({super.key,
+  const GroupSettingPage({super.key,
     required this.thisGroupName,
   });
 }

@@ -6,6 +6,7 @@ import 'package:leute/styles/app_text_style.dart';
 import 'package:leute/view/widget/custom_buttons/custom_button.dart';
 import 'package:leute/view/widget/custom_dialog/one_answer_dialog.dart';
 import 'package:provider/provider.dart';
+
 import '../../widget/login_widget/password_textfield.dart';
 import '../login_page/login_page_view_model.dart';
 
@@ -78,7 +79,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   text: '변경하기',
                   onTap: () async {
                     if (_formKey.currentState?.validate() ?? false) {
-                      final cred = await EmailAuthProvider.credential(
+                      final cred = EmailAuthProvider.credential(
                           email: currentUser.email!,
                           password: _currentPasswordController.text);
 
@@ -94,7 +95,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                 return OneAnswerDialog(
                                   onTap: () async {
                                     await FirebaseAuth.instance.signOut();
-                                    context.go('/login');
+                                    if (mounted) {
+                                      context.go('/login');
+                                    }
                                   },
                                   title: '정상 변경되었습니다.',
                                   firstButton: '확인',
@@ -108,13 +111,15 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                             OneAnswerDialog(
                               onTap: () async {
                                 await FirebaseAuth.instance.signOut();
-                                context.go('/login');
+                                if (mounted) {
+                                  context.go('/login');
+                                }
                               },
                               title: '로그인 세션이 만료되었습니다.',
                               firstButton: '확인',
                               subtitle: '다시 로그인 해주세요.',
                             );
-                          } else if (error.code == 'invalid-credential'){
+                          } else if (error.code == 'invalid-credential') {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('입력하신 현재 비밀번호가 틀렸습니다.'),

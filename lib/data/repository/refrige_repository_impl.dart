@@ -16,9 +16,9 @@ class RegisterdRefrigeRepositoryImpl implements RegisterdRefrigeRepository {
 
     // 데이터 파싱
     List<RefrigeDetail> data = [];
-    querySnapshot.docs.forEach((DocumentSnapshot document) {
+    for (var document in querySnapshot.docs) {
       data.add(RefrigeDetail.fromJson(document.data() as Map<String, dynamic>));
-    });
+    }
     return data;
   }
 }

@@ -12,9 +12,9 @@ class UserDataRepositoryImpl implements UserDataRepository {
 
     // 데이터 파싱
     List<UserModel> data = [];
-    querySnapshot.docs.forEach((DocumentSnapshot document) {
+    for (var document in querySnapshot.docs) {
       data.add(UserModel.fromJson(document.data() as Map<String, dynamic>));
-    });
+    }
     return data;
   }
 }

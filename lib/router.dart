@@ -6,7 +6,6 @@ import 'package:leute/view/page/change_password_page/change_password_page.dart';
 import 'package:leute/view/page/discard_foods_page/discard_foods_view_model.dart';
 import 'package:leute/view/page/group_setting_page/group_setting_page.dart';
 import 'package:leute/view/page/login_page/login_page.dart';
-import 'package:leute/view/page/my_page/my_page.dart';
 import 'package:leute/view/page/password_reset_page/password_reset_page.dart';
 import 'package:leute/view/page/signup_page/signup_page.dart';
 import 'package:leute/view/page/main_my_fridge/main_page.dart';

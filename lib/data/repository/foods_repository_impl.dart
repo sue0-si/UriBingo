@@ -16,9 +16,9 @@ class RegisterdFoodsRepositoryImpl implements RegisterdFoodsRepository {
 
     // 데이터 파싱
     List<FoodDetail> data = [];
-    querySnapshot.docs.forEach((DocumentSnapshot document) {
+    for (var document in querySnapshot.docs) {
       data.add(FoodDetail.fromJson(document.data() as Map<String, dynamic>));
-    });
+    }
     return data;
   }
 

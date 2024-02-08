@@ -70,7 +70,7 @@ class MainScreenViewModel extends ChangeNotifier {
       notifyListeners();
     } catch (error) {
       // 에러 처리
-      print('Error fetching data: $error');
+      debugPrint('Error fetching data: $error');
     } finally {
       _state = state.copyWith(isLoading: false);
       WidgetsBinding.instance.addPostFrameCallback((_) {

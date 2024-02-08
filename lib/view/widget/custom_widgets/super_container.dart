@@ -4,15 +4,15 @@ import 'package:cupertino_rounded_corners/cupertino_rounded_corners.dart';
 import 'package:flutter/cupertino.dart';
 
 class SuperContainer extends StatelessWidget {
-  double height;
-  double width;
-  double border;
-  double borderWidth;
-  Color borderColor;
-  Color? color;
-  DecorationImage? image;
+  final double height;
+  final double width;
+  final double border;
+  final double borderWidth;
+  final Color borderColor;
+  final Color? color;
+  final DecorationImage? image;
 
-  SuperContainer({
+  const SuperContainer({
     super.key,
     required this.height,
     required this.width,

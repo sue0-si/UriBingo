@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class SuperLoadingBar extends StatelessWidget {
-  List<Color> colors;
+  final List<Color> colors;
   double? strokeWidth;
 
   SuperLoadingBar({
