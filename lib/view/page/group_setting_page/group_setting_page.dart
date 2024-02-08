@@ -14,10 +14,14 @@ import '../../widget/custom_dialog/one_answer_dialog.dart';
 import 'group_setting_page_view_model.dart';
 
 class GroupSettingPage extends StatefulWidget {
-  const GroupSettingPage({super.key});
+  String thisGroupName;
 
   @override
   State<GroupSettingPage> createState() => _GroupSettingPageState();
+
+  GroupSettingPage({super.key,
+    required this.thisGroupName,
+  });
 }
 
 class _GroupSettingPageState extends State<GroupSettingPage> {
@@ -107,7 +111,7 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        '${(state.fetchedUserList.isNotEmpty) ? state.fetchedUserList.first.groupName : ''} 리스트 (${state.fetchedUserList.length})',
+                        '${widget.thisGroupName} 리스트 (${state.fetchedUserList.length})',
                         style: AppTextStyle.body16B()),
                     ElevatedButton(
                       onPressed: () {
@@ -183,7 +187,6 @@ class _GroupSettingPageState extends State<GroupSettingPage> {
                                           onTap: (selected) {
                                             viewModel.managerCheckBoxTap(
                                                 fetchedUser);
-                                            // print(viewModel.fetchedUserList.where((e) => e.manager ==true).toList().length);
                                           },
                                         )
                                       ],

@@ -8,6 +8,7 @@ class MyPageViewModel with ChangeNotifier {
   User? user = FirebaseAuth.instance.currentUser;
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
   bool manager = false;
+  String yourGroupName = '';
   bool _disposed = false;
 
   @override
@@ -32,6 +33,7 @@ class MyPageViewModel with ChangeNotifier {
     DocumentSnapshot<Map<String, dynamic>> doc =
         await fireStore.collection('profile').doc(user?.uid).get();
     manager = doc['manager'];
+    yourGroupName = doc['groupName'];
     notifyListeners();
   }
 
@@ -41,11 +43,6 @@ class MyPageViewModel with ChangeNotifier {
     if (context.mounted) {
       context.go('/login');
     }
-  }
-
-  // 그룹 관리페이지로 이동
-  goToGroupSettingPage(BuildContext context) {
-    context.push('/groupSetting');
   }
 
   // 회원탈퇴
