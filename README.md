@@ -2,7 +2,7 @@
 
 An app that provides a shared refrigerator management solution
 
-![제목 추가](https://github.com/sanghyun3377/project_super.team/assets/89803783/120e6f74-eb01-4b54-b00d-f9a7f2a2f060)
+![app_demo](https://github.com/user-attachments/assets/a0579b56-ecfc-451d-95bb-2e89d022a2c8)
 
 
 ## Contributors
