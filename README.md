@@ -4,6 +4,8 @@ An app that provides a shared refrigerator management solution
 
 ![app_demo](https://github.com/user-attachments/assets/a0579b56-ecfc-451d-95bb-2e89d022a2c8)
 
+## Figma (High-Fidelity Prototype)
+[link](https://www.figma.com/file/nUCmIucid5ugEkT5f1yD9D/leute?type=design&node-id=0%3A1&mode=design&t=xhLAXwWdMZHsTSiD-1)
 
 ## Contributors
 
